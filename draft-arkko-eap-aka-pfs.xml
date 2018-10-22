@@ -74,9 +74,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Perfect Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from merely passively eavesdropping
-  the EAP-AKA' exchanges and deriving associated session keys, forcing
-  attackers to use active attacks instead.</t>
+  pre-shared secret in a SIM card from being able to decrypt all past
+  communications. In addition, if the attacker stays merely a passive
+  eavesdropper, the extension prevents attacks against future
+  sessions. This forces attackers to use active attacks instead.</t>
 
 </abstract>
 
@@ -120,11 +121,16 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   authentication method <xref target="RFC5448"/> (to be superseded by
   <xref target="I-D.ietf-emu-rfc5448bis"/>). The extension, when
   negotiated, provides Perfect Forward Secrecy for the session key
-  generated as a part of the authentication run in EAP-AKA'. This
+  generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from merely passively eavesdropping
-  the EAP-AKA' exchanges and deriving associated session keys, forcing
-  attackers to use active attacks instead.</t>
+  pre-shared secret in a SIM card from being able to decrypt all past
+  communications. In addition, if the attacker stays merely a passive
+  eavesdropper, the extension prevents attacks against future
+  sessions. This forces attackers to use active attacks instead.  As
+  with other protocols, an active attacker with access to the
+  long-term key material will of course be able to attack all future
+  communications, but risks detection, particularly if done at
+  scale.</t>
 
   <t>Attacks against AKA authentication via compromising the long-term
   secrets in the SIM cards have been an active discussion topic in
@@ -740,7 +746,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
       <t>The server sends the EAP-Request/AKA'-Challenge on full authentication
       as specified by <xref target="RFC4187"/> and <xref target="I-D.ietf-emu-rfc5448bis"/>.
       The attributes AT_RAND, AT_AUTN, and AT_MAC MUST be included and
-      checked on reception as specified in
+      checked on reception as specified
       in <xref target="RFC4187"/>. They are also necessary
       for backwards compatibility.</t>
       
@@ -878,7 +884,33 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     link layer usage of EAP does not involve running Diffie-Hellman,
     so using EAP to authenticate access to a network is one situation
     where the extension defined in this document can be helpful.</t>
-    
+
+    <t>This extension generates keying material using the ECDHE
+    exchange in order to gain the PFS property. This means that once
+    an EAP-AKA' authentication run ends, the session that it was used
+    to protect is closed, and the corresponding keys are forgotten,
+    even someone who has recorded all of the data from the
+    authentication run and session and gets access to all of the AKA
+    long-term keys cannot reconstruct the keys used to protect the
+    session or any previous session, without doing a brute force
+    search of the session key space.</t>
+
+    <t>Even if a compromise of the long-term keys has occurred, PFS is
+    still provided for all future sessions, as long as the attacker
+    does not become an active attacker. Of course, as with other
+    protocols, if the attacker has learned the keys and does become an
+    active attacker, there is no protection that that can be provided
+    for future sessions. Among other things, such an active attacker
+    can impersonate any legitimate endpoint in EAP-AKA', become a
+    MITM in EAP-AKA' or the extension defined in this
+    document, retrieve all keys, or turn off PFS. Still, past sessions
+    where PFS was in use remain protected.</t>
+	
+    <t>Achieving PFS requires that when a connection is closed, each
+    endpoint MUST forget not only the ephemeral keys used by the
+    connection but also any information that could be used to
+    recompute those keys.</t>
+
     <t>The following security properties of
     EAP-AKA' are impacted through this extension:
    
@@ -911,13 +943,19 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
         through presenting the AT_KDF_PFS and AT_PUB_ECDHE attributes in
         the EAP-Request/AKA'-Challenge message. These attributes are
         protected by AT_MAC, so attempts to change or omit them by an
-        adversary will be detected. (Except of course, if the
-        adversary holds the long-term shared secret and is willing to
-        engage in an active attack, but that is a case that cannot be
-        solved by a technical change in this protocol.)  However, as
-        discussed in the introduction, even an attacker with access to
-        the long-term keys is required to be MITM on each AKA run,
-        which makes mass surveillance slightly more laborous.
+        adversary will be detected.<vspace blankLines="1"/>
+
+	Except of course, if the adversary holds the long-term shared
+	secret and is willing to engage in an active attack. Such an
+	attack can, for instance, forge the negotiation process so
+	that no PFS will be provided. However, as noted above, an
+	attacker with these capabilities will in any case be able to
+	impersonate any party in the protocol and perform MITM
+	attacks. That is not a situation that can be improved by a
+	technical solution. However, as discussed in the introduction,
+	even an attacker with access to the long-term keys is required
+	to be a MITM on each AKA run, which makes mass surveillance more
+	laborous.
 	<vspace blankLines="1"/>
 	
 	The security properties of the extension also depend on a
@@ -927,20 +965,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 	the extension specified in this protocol, but the other side
 	does not wish to use the extension. Allowing this has the
 	benefit of allowing backwards compatibility to equipment that
-	did not yet support the extension. But it also has the
-	downside that a bidding down attack is possible by a party who
-	has the long-term keys, after that party has acquired the
-	keys. This means that PFS can be provided before the
-	compromise, as long as the extension is negotiated and
-	supported by both parties. When the extension is not supported
-	or negotiated by the parties, no PFS can obviously provided.
-	<vspace blankLines="1"/>
-	
-	These properties do not change after the malicious party has acquired
-	the keys, as long as that party is a passive attacker. If the
-	malicious party is an active attacker, it can run the protocol
-	as a man-in-the-middle, change the protocol run in any way it
-	desires, and acquire any information it wants.
+	did not yet support the extension. When the extension is not
+	supported or negotiated by the parties, no PFS can obviously
+	provided.
 	<vspace blankLines="1"/>
 	
 	If turning off the extension specified in this protocol is not
@@ -948,13 +975,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 	support this protocol is no longer possible. This may be
 	appropriate when, for instance, support for the extension is
 	sufficiently widespread, or required in a particular version
-	of a mobile network. With this policy, the security properties
-	of the extension are that PFS is always provided on every run of
-	the protocol. If an attacker compromises the long-term keys,
-	PFS is still always provided as long as the attacker does
-	not become an active attacker. Again, if the attacker has
-	learned the keys and becomes an active attacker, there is
-	no protection against this.</t>
+	of a mobile network.</t>
 	
       </list></t>
       
