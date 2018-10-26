@@ -5,8 +5,8 @@
 Network Working Group                                           J. Arkko
 Internet-Draft                                                K. Norrman
 Intended status: Informational                               V. Torvinen
-Expires: March 5, 2019                                          Ericsson
-                                                          September 2018
+Expires: April 26, 2019                                         Ericsson
+                                                        October 23, 2018
 
 
    Perfect-Forward Secrecy for the Extensible Authentication Protocol
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 1]
+Arkko, et al.            Expires April 26, 2019                 [Page 1]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
-   This Internet-Draft will expire on March 5, 2019.
+   This Internet-Draft will expire on April 26, 2019.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 2]
+Arkko, et al.            Expires April 26, 2019                 [Page 2]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  23
@@ -165,9 +165,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 3]
+Arkko, et al.            Expires April 26, 2019                 [Page 3]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    able to attack all future communications, but risks detection,
@@ -221,9 +221,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 4]
+Arkko, et al.            Expires April 26, 2019                 [Page 4]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    o  As noted above, no new credentials are needed; there is no change
@@ -277,9 +277,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 5]
+Arkko, et al.            Expires April 26, 2019                 [Page 5]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
       AUTN is valid and the sequence number used to generate AUTN is
@@ -333,9 +333,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 6]
+Arkko, et al.            Expires April 26, 2019                 [Page 6]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
     Peer                                                    Server
@@ -389,9 +389,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 7]
+Arkko, et al.            Expires April 26, 2019                 [Page 7]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
 3.3.  Attacks Against Long-Term Shared Secrets in Smart Cards
@@ -445,9 +445,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 8]
+Arkko, et al.            Expires April 26, 2019                 [Page 8]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    Figure 2 below describes the overall process.  Since our goal has
@@ -501,9 +501,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                 [Page 9]
+Arkko, et al.            Expires April 26, 2019                 [Page 9]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
        |               | EAP-Req/AKA'-Challenge   |             |
@@ -557,9 +557,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 10]
+Arkko, et al.            Expires April 26, 2019                [Page 10]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
        |         +-------------------------------------------------+
@@ -613,9 +613,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 11]
+Arkko, et al.            Expires April 26, 2019                [Page 11]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    the legacy KDF value for those EAP peers that cannot or do not want
@@ -669,9 +669,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 12]
+Arkko, et al.            Expires April 26, 2019                [Page 12]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    o  If the peer does not support this function or is unwilling to use
@@ -725,9 +725,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 13]
+Arkko, et al.            Expires April 26, 2019                [Page 13]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
 6.3.  New Key Derivation Function
@@ -781,9 +781,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 14]
+Arkko, et al.            Expires April 26, 2019                [Page 14]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    The rest of computation proceeds as defined in Section 3.3 of
@@ -837,9 +837,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 15]
+Arkko, et al.            Expires April 26, 2019                [Page 15]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
 6.5.2.  EAP-Response/AKA'-Identity
@@ -893,9 +893,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 16]
+Arkko, et al.            Expires April 26, 2019                [Page 16]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    The AT_MAC attribute MUST be included and checked as specified in
@@ -949,9 +949,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 17]
+Arkko, et al.            Expires April 26, 2019                [Page 17]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
 6.5.9.  EAP-Response/AKA'-Client-Error
@@ -1005,9 +1005,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 18]
+Arkko, et al.            Expires April 26, 2019                [Page 18]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    the keys used to protect the session or any previous session, without
@@ -1061,9 +1061,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 19]
+Arkko, et al.            Expires April 26, 2019                [Page 19]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
          Except of course, if the adversary holds the long-term shared
@@ -1117,9 +1117,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 20]
+Arkko, et al.            Expires April 26, 2019                [Page 20]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
       Obviously, this extension is still vulnerable to attackers that
@@ -1173,9 +1173,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 21]
+Arkko, et al.            Expires April 26, 2019                [Page 21]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
       the parties need to show possession of the long-term secret in
@@ -1229,9 +1229,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 22]
+Arkko, et al.            Expires April 26, 2019                [Page 22]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    [RFC4187]  Arkko, J. and H. Haverinen, "Extensible Authentication
@@ -1285,9 +1285,9 @@ Internet-Draft                EAP-AKA' PFS                September 2018
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 23]
+Arkko, et al.            Expires April 26, 2019                [Page 23]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
@@ -1341,9 +1341,9 @@ Appendix A.  Change Log
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 24]
+Arkko, et al.            Expires April 26, 2019                [Page 24]
 
-Internet-Draft                EAP-AKA' PFS                September 2018
+Internet-Draft                EAP-AKA' PFS                  October 2018
 
 
 Appendix B.  Acknowledgments
@@ -1397,4 +1397,4 @@ Authors' Addresses
 
 
 
-Arkko, et al.             Expires March 5, 2019                [Page 25]
+Arkko, et al.            Expires April 26, 2019                [Page 25]
