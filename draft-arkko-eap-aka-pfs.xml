@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr="trust200902" docName="draft-arkko-eap-aka-pfs-03" category="info">
+<rfc ipr="trust200902" docName="draft-arkko-eap-aka-pfs-04" category="info">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -50,7 +50,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
-<date month="October" year="2018" />
+<date month="January" year="2019" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -111,7 +111,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   
   <t>The authors want to provide a public specification of an
   extension that helps defend against one aspect of pervasive
-  surveillance. This important, given the large number of users such
+  surveillance. This is important, given the large number of users such
   practices may affect. It is also a stated goal of the IETF to ensure
   that we understand the surveillance concerns related to IETF
   protocols and take appropriate countermeasures <xref
@@ -327,7 +327,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     have provided PFS, compromising the pre-shared key would not be
     sufficient to perform passive attacks; the attacker is, in
     addition, forced to be a Man-In-The-Middle (MITM) during the AKA
-    run.</t>
+    run and subsequent communication between the parties.</t>
 
 
   </section>
@@ -442,9 +442,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 | The peer now has everything to respond. If it wants |      |
 | to participate in the PFS extension, it will then   |      |
 | generate its key pair, calculate a shared key based |      |
-| on its key pair the server's public key. Finally,   |      | 
-| it proceeds to derive all EAP-AKA' key values and   |      |
-| and constructs a full response.                     |      |
+| on its key pair and the server's public key.        |      | 
+| Finally, it proceeds to derive all EAP-AKA' key     |      |
+| values and and constructs a full response.          |      |
 +-----------------------------------------------------+      |
     |               |                          |             |
     |               | EAP-Resp/AKA'-Challenge  |             |
@@ -644,7 +644,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          <t>When the Key Derivation Function field in the AT_KDF_PFS
          attribute is set to 1 and the Key Derivation Function field
          in the AT_KDF attribute is also set to 1, the Master Key (MK) is
-         derived and as follows below.
+         derived as follows below.
 
          <figure>
            <artwork>
@@ -954,8 +954,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 	attacks. That is not a situation that can be improved by a
 	technical solution. However, as discussed in the introduction,
 	even an attacker with access to the long-term keys is required
-	to be a MITM on each AKA run, which makes mass surveillance more
-	laborous.
+	to be a MITM on each AKA run and subsequent communication,
+	which makes mass surveillance more laborous.
 	<vspace blankLines="1"/>
 	
 	The security properties of the extension also depend on a
@@ -1002,7 +1002,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
       attack and who at the time of the attack have access to the
       long-term shared secret.<vspace blankLines="1"/>
 
-      This extension does not change the properties of related to
+      This extension does not change the properties related to
       re-authentication. No new Diffie-Hellman run is performed during
       the re-authentication allowed by EAP-AKA'. However, if this
       extension was in use when the original EAP-AKA' authentication
@@ -1052,7 +1052,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     PFS related parameters (see <xref
     target="procakachallresp"/>). The same is true of
     EAP-Response/AKA'-Challenge (see <xref
-    target="procakachallresp"/>. This ensures that the parties need to
+    target="procakachallresp"/>). This ensures that the parties need to
     show possession of the long-term secret in some way, and only then
     will the PFS calculations become active. This limits the
     Denial-of-Service to specific, identified subscribers. While
@@ -1153,10 +1153,12 @@ Value     Description                         Reference
 </references>
 
 <section title="Change Log">
+
+    <t>The -04 version of this draft made only editorial changes.</t>
   
     <t>The -03 version of this draft changed the naming of various
     protocol components, values, and notation to match with the use of
-    ECDH in ephemeral mode. The AT_KDF_PFS engotiation process was
+    ECDH in ephemeral mode. The AT_KDF_PFS negotiation process was
     clarified in that exactly one key is ever sent in
     AT_KDF_ECDHE. The option of checking for zero key values IN ECDHE
     was added. The format of the actual key in AT_PUB_ECDHE was
