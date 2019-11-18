@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-01" category="info">
+<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-02"
+     category="info" updates="RFC5448">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -69,12 +70,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   attackers for these systems is still a concern.</t>
 
   <t>This specification is an optional extension to the EAP-AKA'
-  authentication method which was defined in RFC 5448 (to be
-  superseded by draft-ietf-emu-rfc5448bis). The extension, when
+  authentication method which was defined in 
+  <xref target="I-D.ietf-emu-rfc5448bis"/>. The extension, when
   negotiated, provides Perfect Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from being able to decrypt all past
+  pre-shared secret in a SIM card from being able to decrypt any past
   communications. In addition, if the attacker stays merely a passive
   eavesdropper, the extension prevents attacks against future
   sessions. This forces attackers to use active attacks instead.</t>
@@ -118,15 +119,19 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   target="RFC7258"/>. This document does that for EAP-AKA'.</t>
 
   <t>This specification is an optional extension to the EAP-AKA'
-  authentication method <xref target="RFC5448"/> (to be superseded by
-  <xref target="I-D.ietf-emu-rfc5448bis"/>). The extension, when
+  authentication method <xref target="I-D.ietf-emu-rfc5448bis"/>.
+  While optional, the use of this extension is RECOMMENDED.</t>
+
+  <t>The extension, when
   negotiated, provides Perfect Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from being able to decrypt all past
+  pre-shared secret in a SIM card from being able to decrypt any past
   communications. In addition, if the attacker stays merely a passive
   eavesdropper, the extension prevents attacks against future
-  sessions. This forces attackers to use active attacks instead.  As
+  sessions. This forces attackers to use active attacks instead. This
+  is beneficial, because active attacks demand much more resources to
+  launch, and can generally be detected much easier. As
   with other protocols, an active attacker with access to the
   long-term key material will of course be able to attack all future
   communications, but risks detection, particularly if done at
@@ -196,7 +201,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     
     <t>While EAP-AKA' is just one EAP method, for practical purposes
     perfect forward secrecy being available for both EAP-TLS <xref
-    target="RFC5216"/> <xref target="I-D.mattsson-eap-tls13"/> and
+    target="RFC5216"/> <xref target="I-D.ietf-emu-eap-tls13"/> and
     EAP-AKA' ensures that for many practical systems perfect forward
     secrecy can be enabled for either all or significant fraction of
     users.</t>
@@ -211,9 +216,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <t>AKA is based on challenge-response mechanisms and symmetric
     cryptography.  AKA typically runs in a UMTS Subscriber Identity
     Module (USIM) or a CDMA2000 (Removable) User Identity Module
-    ((R)UIM). In contrast with its earlier GSM counterparts, 3rd
-    generation AKA provides long key lengths and mutual
-    authentication.</t>
+    ((R)UIM). In contrast with its earlier GSM counterparts, AKA
+    provides long key lengths and mutual authentication.</t>
 
     <t>AKA works in the following manner:
     <list style="symbols">
@@ -243,7 +247,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   </section>
   <section title="EAP-AKA' Protocol">
 
-    <t>When AKA (and AKA') are embedded into EAP, the authentication on
+    <t>When AKA are embedded into EAP, the authentication on
     the network side is moved to the home environment; the serving
     network performs the role of a pass-through authenticator.
     Figure 1 describes the basic flow in the EAP-AKA'
@@ -308,7 +312,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
 
-    <t>Current 3GPP systems use (U)SIM pre-shared key based protocols
+    <t>Current 3GPP systems use SIM pre-shared key based protocols
     and Authentication and Key Agreement (AKA) to authenticate
     subscribers. The general security properties and potential
     vulnerabilities of AKA and EAP-AKA' are discussed in <xref
@@ -322,7 +326,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     need to look into solutions that can operate at least to an extent
     under these types of attacks. It is noted in <xref
     target="Heist2015"/> that some security can be retained even in
-    the face of the attacks by providing Perfect Forward Security
+    the face of the attacks by providing Perfect Forward Secrecy
     (PFS) <xref target="DOW1992"/> for the session key. If AKA would
     have provided PFS, compromising the pre-shared key would not be
     sufficient to perform passive attacks; the attacker is, in
@@ -349,9 +353,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>Introducing PFS for EAP-AKA' can be achieved by using an Elliptic
   Curve Diffie-Hellman (ECDH) exchange <xref target="RFC7748"/>.  In
   EAP-AKA' PFS this exchange is run in an ephemeral manner, i.e.,
-  using temporary keys as specified in <xref target="RFC8031"/> Section
-  2. This method is referred to as ECDHE, where the last 'E' stands
-  for Ephemeral.</t>
+  using only temporary keys as specified in <xref target="RFC7748"/>.
+  This method is referred to as ECDHE, where the last 'E' stands
+  for Ephemeral. This method is also sometimes referred to as ECDH-EE.</t>
   
   <t>The enhancements in the EAP-AKA' PFS protocol are compatible
   with the signaling flow and other basic structures of both AKA and
@@ -503,7 +507,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            attribute, set as other attributes in EAP-AKA <xref target="RFC4187"/>.</t>
            
            <t hangText="Value"><vspace blankLines="1"/>This value is
-           the sender's ECDHE public value. For Curve25519,
+           the sender's ECDHE public value. For X25519/Curve25519,
            the length of this value is 32 bytes, encoded in binary as specified
            <xref target="RFC7748"/> Section 6.1.
            <vspace blankLines="1"/>
@@ -621,7 +625,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
        
        <section anchor="kdf2" title="New Key Derivation Function">
          <t>A new Key Derivation Function type is defined for "EAP-AKA'
-         with ECDHE and Curve25519", represented by value 1. It
+         with ECDHE and X25519", represented by value 1. It
          represents a particular choice of key derivation function and
          at the same time selects an ECDHE group to be used.<vspace
          blankLines="1"/>
@@ -712,8 +716,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          computation is necessary. The choice of a group is made at
          the same time as deciding to use of particular key derivation
          function in AT_KDF_PFS. For "EAP-AKA' with ECDHE and
-         Curve25519" the group is the Curve25519 group specified in
-         <xref target="RFC8031"/>.</t>
+         X25519" the group is the Curve25519 group specified in
+         <xref target="RFC7748"/>.</t>
      </section>
   
   <section title="Message Processing">
@@ -983,10 +987,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
       
       This extension provides key material that is based on
       the Diffie-Hellman keys, yet bound to the authentication
-      through the (U)SIM card. This means that subsequent payload communications between
+      through the SIM card. This means that subsequent payload communications between
       the parties are protected with keys that are not solely based on
       information in the clear (such as the RAND) and information
-      derivable from the long-term shared secrets on the (U)SIM
+      derivable from the long-term shared secrets on the SIM
       card. As a result, if anyone successfully recovers
       shared secret information, they are unable to decrypt
       communications protected by the keys generated through this
@@ -1080,7 +1084,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Also, a new registry should be created to represent
   Diffie-Hellman Key Derivation Function types. The "EAP-AKA' with ECDHE
-  and Curve25519"
+  and X25519"
   type (1, see <xref target="kdf2"/>) needs to be assigned, along with one reserved value. The initial contents of this
   namespace are therefore as below; new values can be created through the
   Specification Required policy <xref target="RFC8126"/>.</t>
@@ -1090,7 +1094,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 Value     Description                         Reference
 --------  ---------------------------------   ---------------
 0         Reserved                            [TBD BY IANA: THIS RFC]
-1         EAP-AKA' with ECDHE and Curve25519  [TBD BY IANA: THIS RFC]
+1         EAP-AKA' with ECDHE and X25519  [TBD BY IANA: THIS RFC]
 2-65535   Unassigned
   </artwork>
   </figure>
@@ -1117,7 +1121,7 @@ Value     Description                         Reference
   <?rfc include="reference.RFC.5448.xml"?>
   <?rfc include="reference.RFC.7258.xml"?>
   <?rfc include="reference.RFC.7296.xml"?>
-  <?rfc include="reference.I-D.mattsson-eap-tls13.xml"?>
+  <?rfc include="reference.I-D.ietf-emu-eap-tls13.xml"?>
   <reference anchor="TrustCom2015">
     <front>
       <title>A USIM compatible 5G AKA protocol with perfect forward secrecy</title>
@@ -1154,8 +1158,17 @@ Value     Description                         Reference
 
 <section title="Change Log">
 
-  <t>The -00 and -01 versions of the WG draft made no major or minor
-  changes.</t>
+  <t>The -02 version of the WG draft took into account additional
+  reviews, and changed the document to update RFC 5448 (or rather, its
+  successor, <xref target="I-D.ietf-emu-rfc5448bis"/>), changed the
+  wording of the recommendation with regards to the use of this
+  extension, clarified the references to the definition of X25519 and
+  Curve25519, clarified the distinction to ECDH methods that use
+  partially static keys, and simplified the use of AKA and SIM card
+  terminology. Some editorial changes were also made.</t>
+  
+  <t>The -00 and -01 versions of the WG draft made no major 
+  changes, only updates to some references.</t>
   
   <t>The -05 version is merely a refresh while the draft was waiting
   for WG adoption.</t>
@@ -1187,7 +1200,7 @@ Value     Description                         Reference
     V. Lehtovirta, and P. Eronen.</t>
     
     <t>The authors would also like to thank Tero Kivinen, John
-    Mattson, Mohit Sethi, Vesa Lehtovirta, Joseph Salowey, Kathleen
+    Mattsson, Mohit Sethi, Vesa Lehtovirta, Joseph Salowey, Kathleen
     Moriarty, Zhang Fu, Bengt Sahlin, Ben Campbell, Prajwol Kumar
     Nakarmi, Goran Rune, Tim Evans, Helena Vahidi Mazinani, Anand R. Prasad, and many other
     people at the GSMA and 3GPP groups for interesting discussions in
