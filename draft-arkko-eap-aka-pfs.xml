@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr="trust200902" docName="draft-arkko-eap-aka-pfs-04" category="info">
+<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-01" category="info">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -50,7 +50,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
-<date month="January" year="2019" />
+<date month="November" year="2019" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -1154,7 +1154,13 @@ Value     Description                         Reference
 
 <section title="Change Log">
 
-    <t>The -04 version of this draft made only editorial changes.</t>
+  <t>The -00 and -01 versions of the WG draft made no major or minor
+  changes.</t>
+  
+  <t>The -05 version is merely a refresh while the draft was waiting
+  for WG adoption.</t>
+  
+  <t>The -04 version of this draft made only editorial changes.</t>
   
     <t>The -03 version of this draft changed the naming of various
     protocol components, values, and notation to match with the use of
