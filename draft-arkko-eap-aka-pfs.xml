@@ -353,9 +353,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>Introducing PFS for EAP-AKA' can be achieved by using an Elliptic
   Curve Diffie-Hellman (ECDH) exchange <xref target="RFC7748"/>.  In
   EAP-AKA' PFS this exchange is run in an ephemeral manner, i.e.,
-  using only temporary keys as specified in <xref target="RFC7748"/>.
+  both sides generate temporary keys as specified in <xref target="RFC7748"/>.
   This method is referred to as ECDHE, where the last 'E' stands
-  for Ephemeral. This method is also sometimes referred to as ECDH-EE.</t>
+  for Ephemeral. </t>
   
   <t>The enhancements in the EAP-AKA' PFS protocol are compatible
   with the signaling flow and other basic structures of both AKA and
@@ -663,8 +663,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          </figure></t>
 
 	 <t>Where SHARED_SECRET is the shared secret computed via
-	 ECDHE, as specified in Section 2 of <xref
-	 target="RFC8031"/> and Section 6.1 of <xref target="RFC7748"/>.
+	 ECDHE, as specified in Section 6.1 of <xref target="RFC7748"/>.
 	 <vspace blankLines="1"/>
 	 
 	 Both the peer and the server MAY check for zero-value shared
@@ -1109,7 +1108,6 @@ Value     Description                         Reference
       <?rfc include="reference.RFC.3748.xml"?>
       <?rfc include="reference.RFC.4187.xml"?>
       <?rfc include="reference.RFC.7748.xml"?>
-      <?rfc include="reference.RFC.8031.xml"?>
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
       <?rfc include="reference.I-D.ietf-emu-rfc5448bis.xml"?>
