@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-02"
+<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-03"
      category="info" updates="RFC5448">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
@@ -51,7 +51,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
-<date month="November" year="2019" />
+<date month="May" year="2020" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -507,9 +507,16 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            attribute, set as other attributes in EAP-AKA <xref target="RFC4187"/>.</t>
            
            <t hangText="Value"><vspace blankLines="1"/>This value is
-           the sender's ECDHE public value. For X25519/Curve25519,
+           the sender's ECDHE public value. It is calculated as follows:
+
+           <list style="symbols">
+           <t>For X25519/Curve25519,
            the length of this value is 32 bytes, encoded in binary as specified
-           <xref target="RFC7748"/> Section 6.1.
+           <xref target="RFC7748"/> Section 6.1.</t>
+           <t>For P-256, the length of this value is 32 bytes, encoded
+           in binary as specified in <xref target="SEC2v2"/>.</t>
+           </list>
+
            <vspace blankLines="1"/>
 
            To retain the security of the keys, the sender SHALL generate
@@ -623,12 +630,13 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          
        </section>
        
-       <section anchor="kdf2" title="New Key Derivation Function">
-         <t>A new Key Derivation Function type is defined for "EAP-AKA'
-         with ECDHE and X25519", represented by value 1. It
-         represents a particular choice of key derivation function and
-         at the same time selects an ECDHE group to be used.<vspace
-         blankLines="1"/>
+       <section anchor="kdf2" title="New Key Derivation Functions">
+         <t>Two new Key Derivation Function types are defined for
+         "EAP-AKA' with ECDHE and X25519", represented by value 1, and
+         "EAP-AKA' with ECDHE and P-256", represented by
+         value 2. These represent a particular choice of key
+         derivation function and at the same time selects an ECDHE
+         group to be used.<vspace blankLines="1"/>
 
          The Key Derivation Function type value is only used
          in the AT_KDF_PFS attribute, and should not be confused with
@@ -714,9 +722,17 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          <t>The selection of suitable groups for the elliptic curve
          computation is necessary. The choice of a group is made at
          the same time as deciding to use of particular key derivation
-         function in AT_KDF_PFS. For "EAP-AKA' with ECDHE and
+         function in AT_KDF_PFS.</t>
+
+         <t>For "EAP-AKA' with ECDHE and
          X25519" the group is the Curve25519 group specified in
-         <xref target="RFC7748"/>.</t>
+         <xref target="RFC7748"/>. The support for this group is REQUIRED.</t>
+         
+         <t>For "EAP-AKA' with ECDHE and P-256" the group is the NIST
+         P-256 group (SEC group secp256r1), specified in <xref
+         target="SEC2v2"/>. The support for this group is
+         OPTIONAL.</t>
+         
      </section>
   
   <section title="Message Processing">
@@ -1082,19 +1098,21 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   Types.</t>
 
   <t>Also, a new registry should be created to represent
-  Diffie-Hellman Key Derivation Function types. The "EAP-AKA' with ECDHE
-  and X25519"
-  type (1, see <xref target="kdf2"/>) needs to be assigned, along with one reserved value. The initial contents of this
-  namespace are therefore as below; new values can be created through the
-  Specification Required policy <xref target="RFC8126"/>.</t>
+  Diffie-Hellman Key Derivation Function types. The "EAP-AKA' with
+  ECDHE and X25519" and "EAP-AKA' with ECDHE and P-256"
+  types (1 and 2, see <xref target="kdf2"/>) need to be assigned,
+  along with one reserved value. The initial contents of this
+  namespace are therefore as below; new values can be created through
+  the Specification Required policy <xref target="RFC8126"/>.</t>
 
   <figure>
   <artwork>
-Value     Description                         Reference
---------  ---------------------------------   ---------------
-0         Reserved                            [TBD BY IANA: THIS RFC]
-1         EAP-AKA' with ECDHE and X25519  [TBD BY IANA: THIS RFC]
-2-65535   Unassigned
+Value      Description                         Reference
+------   ------------------------------------  ---------------
+0        Reserved                              [TBD BY IANA: THIS RFC]
+1        EAP-AKA' with ECDHE and X25519        [TBD BY IANA: THIS RFC]
+2        EAP-AKA' with ECDHE and P-256         [TBD BY IANA: THIS RFC]
+3-65535  Unassigned                            [TBD BY IANA: THIS RFC]
   </artwork>
   </figure>
   
@@ -1111,6 +1129,13 @@ Value     Description                         Reference
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
       <?rfc include="reference.I-D.ietf-emu-rfc5448bis.xml"?>
+      <reference anchor="SEC2v2">
+        <front>
+        <title>SEC 2: Recommended Elliptic Curve Domain Parameters</title>
+        <author surname="Standards for Elliptic Cryptography Group"></author>
+        <date month="August" year='2010, version 2.0'/>
+        </front>
+      </reference>
 </references>
 
 <references title="Informative References">
@@ -1156,6 +1181,13 @@ Value     Description                         Reference
 
 <section title="Change Log">
 
+  <t>The -03 version of the WG draft is first of all a refresh; there
+  are no issues that we think need addressing, beyond the one for
+  which there is a suggestion in -03: The specification now suggests
+  an alternate group/curve as an optional one besides X25519. The
+  specific choice of particular groups and algorithms is still up to the
+  working group.</t>
+  
   <t>The -02 version of the WG draft took into account additional
   reviews, and changed the document to update RFC 5448 (or rather, its
   successor, <xref target="I-D.ietf-emu-rfc5448bis"/>), changed the
