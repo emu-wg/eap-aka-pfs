@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-03"
+<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-05"
      category="info" updates="RFC5448">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
@@ -51,7 +51,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
-<date month="May" year="2020" />
+<date month="October" year="2020" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -513,8 +513,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            <t>For X25519/Curve25519,
            the length of this value is 32 bytes, encoded in binary as specified
            <xref target="RFC7748"/> Section 6.1.</t>
-           <t>For P-256, the length of this value is 32 bytes, encoded
-           in binary as specified in <xref target="SEC2v2"/>.</t>
+           <t>For P-256, the length of this value is 33 bytes, encoded
+           in binary as specified in <xref target="FIPS186-4"/>, using
+           the compressed form from Section 2.7.1 of
+           <xref target="SEC2"/>.</t>
            </list>
 
            <vspace blankLines="1"/>
@@ -730,7 +732,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          
          <t>For "EAP-AKA' with ECDHE and P-256" the group is the NIST
          P-256 group (SEC group secp256r1), specified in <xref
-         target="SEC2v2"/>. The support for this group is
+         target="FIPS186-4"/>. The support for this group is
          OPTIONAL.</t>
          
      </section>
@@ -1129,11 +1131,18 @@ Value      Description                         Reference
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
       <?rfc include="reference.I-D.ietf-emu-rfc5448bis.xml"?>
-      <reference anchor="SEC2v2">
+      <reference anchor="FIPS186-4">
+        <front>
+        <title>Digital Signature Standard (DSS)</title>
+        <author surname="NIST"></author>
+        <date month="July" year='2013'/>
+        </front>
+      </reference>
+      <reference anchor="SEC2">
         <front>
         <title>SEC 2: Recommended Elliptic Curve Domain Parameters</title>
-        <author surname="Standards for Elliptic Cryptography Group"></author>
-        <date month="August" year='2010, version 2.0'/>
+        <author surname="Certicom Research"></author>
+        <date month="September" year='2000'/>
         </front>
       </reference>
 </references>
@@ -1181,6 +1190,14 @@ Value      Description                         Reference
 
 <section title="Change Log">
 
+  <t>The -05 version of the WG draft takes into account feedback from
+  the working group list, about the number of bytes needed to encode
+  P-256  values.</t>
+  
+  <t>The -04 version of the WG draft takes into account feedback from
+  the May 2020 WG interim meeting, correcting the reference to the
+  NIST P-256 specification.</t>
+  
   <t>The -03 version of the WG draft is first of all a refresh; there
   are no issues that we think need addressing, beyond the one for
   which there is a suggestion in -03: The specification now suggests
@@ -1230,11 +1247,12 @@ Value      Description                         Reference
     V. Lehtovirta, and P. Eronen.</t>
     
     <t>The authors would also like to thank Tero Kivinen, John
-    Mattsson, Mohit Sethi, Vesa Lehtovirta, Joseph Salowey, Kathleen
-    Moriarty, Zhang Fu, Bengt Sahlin, Ben Campbell, Prajwol Kumar
-    Nakarmi, Goran Rune, Tim Evans, Helena Vahidi Mazinani, Anand R. Prasad, and many other
-    people at the GSMA and 3GPP groups for interesting discussions in
-    this problem space.</t>
+    Mattsson, Mohit Sethi, Vesa Lehtovirta, Russ Housley, Sean Turner,
+    Eliot Lear, Joseph Salowey, Kathleen Moriarty, Zhang Fu, Bengt
+    Sahlin, Ben Campbell, Prajwol Kumar Nakarmi, Goran Rune, Tim
+    Evans, Helena Vahidi Mazinani, Anand R. Prasad, Rene Struik, and
+    many other people at the IETF, GSMA and 3GPP groups for
+    interesting discussions in this problem space.</t>
     
   </section>
   
