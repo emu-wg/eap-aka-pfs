@@ -1146,7 +1146,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    <t>Best practice privacy today is to mandate client identity protection as
       is done in EAP-TLS 1.3, EAP-TTLS 1.3, etc. A client supporting EAP-AKA' FS
       MUST NOT send its username (or any other permanent identifiers) in cleartext
-      in the Identity Response (or any message used instead of the Identity Response)</t>
+      in the Identity Response (or any message used instead of the Identity Response).</t>
   </section>
   
   </section>
