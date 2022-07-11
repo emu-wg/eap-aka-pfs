@@ -74,12 +74,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising smart cards, such as attacking SIM card
+  involved compromising the smart card supply chain, such as attacking SIM card
   manufacturers and operators in an effort to compromise shared
   secrets stored on these cards. Since the publication of those
   reports, manufacturing and provisioning processes have gained much
   scrutiny and have improved. However, the danger of resourceful
-  attackers for these systems is still a concern.</t>
+  attackers for these systems is still a concern. Always assuming breach
+  such as key compromise and minimizing the impact of breach are essential
+  zero-trust principles.</t>
 
   <t>This specification is an optional extension to the EAP-AKA'
   authentication method which was defined in 
@@ -90,7 +92,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   pre-shared secret in a SIM card from being able to decrypt any past
   communications. In addition, if the attacker stays merely a passive
   eavesdropper, the extension prevents attacks against future
-  sessions. This forces attackers to use active attacks instead. </t>
+  sessions. This forces attackers to use active attacks instead.</t>
 
 </abstract>
 
@@ -101,7 +103,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising smart cards, such as attacking SIM card
+  involved compromising the smart card supply chain, such as attacking SIM card
   manufacturers and operators in an effort to compromise shared
   secrets stored on these cards. Such attacks are conceivable, for
   instance, during the manufacturing process of cards, or during the
@@ -348,7 +350,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     addition, forced to be a Man-In-The-Middle (MITM) during the AKA
     run and subsequent communication between the parties.</t>
 
-
   </section>
 
 </section>
@@ -370,7 +371,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   EAP-AKA' FS this exchange is run in an ephemeral manner, i.e.,
   both sides generate temporary keys as specified in <xref target="RFC7748"/>.
   This method is referred to as ECDHE, where the last 'E' stands
-  for Ephemeral. </t>
+  for Ephemeral. The two intially registered elliptic curves and their
+  wire format is chosen to alging with the elliptic curves and formats
+  specified for Subscription Concealed Identi er (SUCI) encryption in
+  Appendix C.3.4 of 3GPP TS 33.501</t>
   
   <t>The enhancements in the EAP-AKA' FS protocol are compatible
   with the signaling flow and other basic structures of both AKA and
@@ -904,16 +908,42 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <t>The possibility of attacks against key storage offered in SIM or
     other smart cards has been a known threat. But as the discussion in
     <xref target="attacks"/> shows, the likelihood of practically
-    feasible attacks has increased. Many of these attacks can be best
+    feasible attacks such as breaches in the smart card supply chain has
+    increased. Many of these attacks can be best
     dealt with improved processes, e.g., limiting the access to the key
     material within the factory or personnel, etc. But not all attacks can
     be entirely ruled out for well-resourced adversaries, irrespective
-    of what the technical algorithms and protection measures are.</t>
+    of what the technical algorithms and protection measures are. Always
+    assuming breach such as key compromise and minimizing the impact of
+    breach are essential zero-trust principles.</t>
+	  
+    <t>If a mechanism without forward secrecy such as (5G-AKA, EAP-AKA’)
+   is used the effects of key compromise are devastating.
+   The serious consequences of breach somewhere in the
+   supply chain or after delivery that are possible when
+   5G-AKA or EAP-AKA' is used but not when something with
+   forward secrecy like EAP-AKA-FS is used are: 1. A passive attacker
+   can eavesdrop (decrypt) all future 5G communication (control and user
+   plane both directions), 2. A passive attacker can decrypt 5G communication
+   that they previously recorded in the past (control and user plane
+   both directions), and 3. An active attacker can impersonate UE and
+   Network and inject messages in an ongoing 5G connection between the
+   real UE and the real network (control and user plane both directions).</t>
 
+   <t>Best practice security today is to mandate forward secrecy
+      (as is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, etc). It is RECOMMENDED
+      to long term completely phase out AKA without FS.</t>
+	  
     <t>This extension can provide assistance in situations where there
     is a danger of attacks against the key material on SIM cards by
-    adversaries that can not or who are unwilling to mount active
-    attacks against large number of sessions. This extension is most
+    adversaries that cannot or who are unwilling to mount active
+    attacks against large number of sessions. The extension also
+    provides protection against active attacks as they are forced to
+    be a Man-In-The-Middle (MITM) during the AKA run and subsequent
+    communication between the parties. Without forward secrecy an
+    an active attacker that has compromised the long-term key can
+    inject messages in an connection betwen the real Peer and the
+    real server without being a man-in-the-middle. This extension is most
     useful when used in a context where EAP keys are used without
     further mixing that can provide Forward Secrecy.  For
     instance, when used with IKEv2 <xref target="RFC7296"/>, the
@@ -948,6 +978,17 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     endpoint MUST forget not only the ephemeral keys used by the
     connection but also any information that could be used to
     recompute those keys.</t>
+	  
+    <t>Using EAP-AKA' FS once provides forward secrecy. Forward secrecy limits the
+       effect of key leakage in one direction (compromise of a key at time T2 does
+       not compromise some key at time T1 where T1 < T2). Protection in the other
+       direction (compromise at time T1 does not compromise keys at time T2) can
+       be achieved by rerunning ECDHE frequentle. If a long-term authentication key
+       has been compromised, rerunning EAP-AKA' FS gives protection against passive
+       attackers. Using the terms in {{RFC7624}}, forward secrecy without rerunning
+       ECDHE does not stop an attacker from doing static key exfiltration. Frequently
+       rerunning EC(DHE) forces an attacker to do dynamic key exfiltration
+       (or content exfiltration).</t>
 
     <t>The following security properties of
     EAP-AKA' are impacted through this extension:
@@ -1101,6 +1142,13 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     subscribers.</t>
     
   </list></t>
+
+  <section title="Privacy">
+   <t>Best practice privacy today is to mandate client identity protection as
+      is done in EAP-TLS 1.3, EAP-TTLS 1.3, etc. A client supporting EAP-AKA' FS
+      MUST NOT send its username (or any other permanent identifiers) in cleartext
+      in the Identity Response (or any message used instead of the Identity Response)</t>
+  </section>
   
   </section>
 
