@@ -373,7 +373,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   This method is referred to as ECDHE, where the last 'E' stands
   for Ephemeral. The two intially registered elliptic curves and their
   wire format is chosen to align with the elliptic curves and formats
-  specified for Subscription Concealed Identi er (SUCI) encryption in
+  specified for Subscription Concealed Identifier (SUCI) encryption in
   Appendix C.3.4 of 3GPP TS 33.501</t>
   
   <t>The enhancements in the EAP-AKA' FS protocol are compatible
