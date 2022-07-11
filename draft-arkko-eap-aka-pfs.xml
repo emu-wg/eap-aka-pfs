@@ -1265,7 +1265,7 @@ Value      Description                         Reference
     it is important to migrate existing systems to use forward
     secrecy, and makes a recommendation for this migration.</t>
 
-    <t>The draft does no longer refers to issues within the smart cards but
+    <t>The draft does no longer refer to issues within the smart cards but
     rather the smart card supply chain.</t>
 
     <t>The rationale for chosen algorithms is explained.</t>
