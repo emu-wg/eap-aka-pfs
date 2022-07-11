@@ -983,7 +983,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
        effect of key leakage in one direction (compromise of a key at time T2 does
        not compromise some key at time T1 where T1 < T2). Protection in the other
        direction (compromise at time T1 does not compromise keys at time T2) can
-       be achieved by rerunning ECDHE frequentle. If a long-term authentication key
+       be achieved by rerunning ECDHE frequently. If a long-term authentication key
        has been compromised, rerunning EAP-AKA' FS gives protection against passive
        attackers. Using the terms in {{RFC7624}}, forward secrecy without rerunning
        ECDHE does not stop an attacker from doing static key exfiltration. Frequently
