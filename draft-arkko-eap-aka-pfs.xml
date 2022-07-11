@@ -51,6 +51,18 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
+<author initials="J" surname="Mattsson" fullname="John Mattsson">
+<organization>Ericsson</organization>
+<address>
+<postal>
+<street/>
+<city>Kista</city> <code>164 40</code>
+<country>Sweden</country>
+</postal>
+<email>john.mattsson@ericsson.com</email>
+</address>
+</author>
+
 <date month="July" year="2022" />
 
 <keyword>EAP</keyword>
