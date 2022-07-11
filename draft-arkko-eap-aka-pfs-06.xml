@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-07"
+<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-06"
      category="info" updates="RFC5448">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
@@ -51,7 +51,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
-<date month="July" year="2022" />
+<date month="March" year="2022" />
 
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
@@ -519,9 +519,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            <t>For P-256, the length of this value is 33 bytes, encoded
            in binary as specified in <xref target="FIPS186-4"/>, using
            the compressed form from Section 2.7.1 of
-           <xref target="SEC2"/>. Alternatively, the length of 65 MAY
-	   be used as specified for using the non-compressed form. EAP
-	   AKA peers MUST support both forms.</t>
+           <xref target="SEC2"/>.</t>
            </list>
 
            <vspace blankLines="1"/>
@@ -1196,16 +1194,6 @@ Value      Description                         Reference
 
 <section title="Change Log">
 
-  <t>The -07 version of the WG draft has no other changes beyond the
-  version, date, a new length variant of the P-256 and this note. The
-  authors have checked the language relating to the public value
-  encoding, and believe it is exactly according to the references
-  (<xref target="RFC7748"/> Section 6.1 and <xref target="SEC2"/>
-  Section 2.7.1).  However, to support easier computation in some
-  cases for P-256 (at the expense of some additional bytes
-  communicated), the text in <xref target="at_pub_dh"/> has been
-  modified.</t>
-  
   <t>The -06 version of the WG draft is a refresh and a
   reference update. However, the
   following should be noted:
