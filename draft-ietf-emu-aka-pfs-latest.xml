@@ -1223,6 +1223,7 @@ Value       Description                        Reference
   <?rfc include="reference.RFC.7258.xml"?>
   <?rfc include="reference.RFC.7296.xml"?>
   <?rfc include="reference.RFC.9190.xml"?>
+
   <reference anchor="TrustCom2015">
     <front>
       <title>A USIM compatible 5G AKA protocol with perfect forward secrecy</title>
@@ -1230,19 +1231,19 @@ Value       Description                        Reference
       <author initials="K." surname="Norrman"></author>
       <author initials="M." surname="Näslund"></author>
       <author initials="B." surname="Sahlin"></author>
-      <date month='August' year='2015 in Proceedings of the TrustCom 2015, IEEE'/>
     </front>
-    <format type='HTML'
-        	target='http://ieeexplore.ieee.org/document/7345414/'/>
+    <seriesInfo name="Proceedings of IEEE International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom)" value="2015" />
+    <format target='https://doi.org/10.1109/Trustcom.2015.506'/>
   </reference>
 
     <reference anchor="Heist2015">
     <front>
-      <title>The great SIM heist</title>
+      <title>The Great SIM Heist</title>
       <author initials="J." surname="Scahill"></author>
       <author initials="J." surname="Begley"></author>
-      <date month="February" year="2015, in https://firstlook.org/theintercept/2015/02/19/great-sim-heist/ "/>
+      <date month="February" year="2015"/>
     </front>
+    <format target='https://theintercept.com/2015/02/19/great-sim-heist/'/>
   </reference>
 
     <reference anchor="DOW1992">
@@ -1251,8 +1252,10 @@ Value       Description                        Reference
       <author initials="W." surname="Diffie"></author>
       <author initials="P." surname="Van Oorschot"></author>
       <author initials="M." surname="Wiener"></author>
-      <date month="June" year="1992, in Designs, Codes and Cryptography 2 (2): pp. 107-125"/>
+      <date month="June" year="1992"/>
     </front>
+    <seriesInfo name="Designs, Codes and Cryptography 2" value="pp. 107-125" />
+    <format target='https://doi.org/10.1007/BF00124891'/>
   </reference>
 
   <reference anchor="TS.33.501">
