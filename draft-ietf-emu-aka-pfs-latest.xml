@@ -452,7 +452,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 | and AT_MAC. If not, it will ignore AT_PUB_ECDHE and |      |
 | AT_KDF_FS and base all calculations on basic        |      |
 | EAP-AKA' attributes, continuing just as in EAP-AKA' |      |
-| per RFC 9048rules. In any case, the peer needs to   |      |
+| per RFC 9048 rules. In any case, the peer needs to  |      |
 | query the auth parameters from the USIM card.       |      |
 +-----------------------------------------------------+      |
     |               |                          |             |
