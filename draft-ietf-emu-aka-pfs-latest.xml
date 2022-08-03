@@ -371,7 +371,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   EAP-AKA' FS this exchange is run in an ephemeral manner, i.e.,
   both sides generate temporary keys as specified in <xref target="RFC7748"/>.
   This method is referred to as ECDHE, where the last 'E' stands
-  for Ephemeral. The two intially registered elliptic curves and their
+  for Ephemeral. The two initially registered elliptic curves and their
   wire format is chosen to align with the elliptic curves and formats
   specified for Subscription Concealed Identifier (SUCI) encryption in
   Appendix C.3.4 of 3GPP TS 33.501</t>
@@ -394,7 +394,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   and the 3GPP authentication server (HSS). The details of those
   interactions
   are outside the scope of this document, however, and the reader
-  is referred to the 3GPP specifications .</t>
+  is referred to the 3GPP specifications.</t>
 
 <figure>
 <artwork>
@@ -445,7 +445,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     |               | AT_PUB_ECDHE, AT_MAC     |             |
     |               |&lt;-------------------------|             |
 +-----------------------------------------------------+      |
-| The peer checks if it wants to do the FS extension.|      |
+| The peer checks if it wants to do the FS extension. |      |
 | If yes, it will eventually respond with AT_PUB_ECDHE|      |
 | and AT_MAC. If not, it will ignore AT_PUB_ECDHE and |      |
 | AT_KDF_FS and base all calculations on basic        |      |
@@ -467,7 +467,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 | generate its key pair, calculate a shared key based |      |
 | on its key pair and the server's public key.        |      | 
 | Finally, it proceeds to derive all EAP-AKA' key     |      |
-| values and and constructs a full response.          |      |
+| values and constructs a full response.              |      |
 +-----------------------------------------------------+      |
     |               |                          |             |
     |               | EAP-Resp/AKA'-Challenge  |             |
@@ -855,7 +855,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <section anchor="reauth" title="EAP-Request/AKA'-Reauthentication">
       <t>No changes, but note that the re-authentication process
       uses the keys generated in the original EAP-AKA' authentication,
-      which, if the extension specified in this documents is in use,
+      which, if the extension specified in this document is in use,
       employs key material from the Diffie-Hellman procedure.</t>
     </section>
     
@@ -927,7 +927,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     directions).</t>
 
    <t>Best practice security today is to mandate forward secrecy (as
-   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, etc). It is RECOMMENDED
+   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, etc.). It is RECOMMENDED
    to long term completely phase out AKA without forward secrecy.</t>
 	  
     <t>This extension can provide assistance in situations where there
@@ -937,8 +937,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     provides protection against active attacks as they are forced to
     be a Man-In-The-Middle (MITM) during the AKA run and subsequent
     communication between the parties. Without forward secrecy an
-    an active attacker that has compromised the long-term key can
-    inject messages in an connection betwen the real Peer and the
+    active attacker that has compromised the long-term key can
+    inject messages in an connection between the real Peer and the
     real server without being a man-in-the-middle. This extension is most
     useful when used in a context where EAP keys are used without
     further mixing that can provide Forward Secrecy.  For
