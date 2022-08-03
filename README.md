@@ -8,5 +8,5 @@ https://datatracker.ietf.org/doc/draft-ietf-emu-aka-pfs/
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/emu-wg/draft-ietf-emu-eap-tls13/blob/master/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/emu-wg/eap-aka-pfs/blob/master/CONTRIBUTING.md).
 
