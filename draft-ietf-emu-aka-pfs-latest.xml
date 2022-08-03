@@ -456,7 +456,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 +-----------------------------------------------------+      |
     |               |                          |             |
     |  RAND, AUTN   |                          |             |
-    |&lt;---------------|                         |             |
+    |&lt;--------------|                         |             |
     |               |                          |             |
     |  CK, IK, RES  |                          |             |
     |--------------&gt;|                          |             |
@@ -1170,12 +1170,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <figure>
   <artwork>
-Value      Description                         Reference
-------   ------------------------------------  ---------------
-0        Reserved                              [TBD BY IANA: THIS RFC]
-1        EAP-AKA' with ECDHE and X25519        [TBD BY IANA: THIS RFC]
-2        EAP-AKA' with ECDHE and P-256         [TBD BY IANA: THIS RFC]
-3-65535  Unassigned                            [TBD BY IANA: THIS RFC]
+Value       Description                        Reference
+--------    -------------------------------    -----------------------
+0           Reserved                           [TBD BY IANA: THIS RFC]
+1           EAP-AKA' with ECDHE and X25519     [TBD BY IANA: THIS RFC]
+2           EAP-AKA' with ECDHE and P-256      [TBD BY IANA: THIS RFC]
+3-65535     Unassigned                         [TBD BY IANA: THIS RFC]
   </artwork>
   </figure>
   
