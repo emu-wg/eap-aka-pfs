@@ -2,7 +2,7 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-latest"
-     category="info" updates="5448, 9048">
+     category="info" updates="9048">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -452,9 +452,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 | and AT_MAC. If not, it will ignore AT_PUB_ECDHE and |      |
 | AT_KDF_FS and base all calculations on basic        |      |
 | EAP-AKA' attributes, continuing just as in EAP-AKA' |      |
-| per RFC 5448 (draft-ietf-emu-rfc5448bis) rules.     |      |
-| In any case, the peer needs to query the auth       |      |
-| parameters from the USIM card.                      |      |
+| per RFC 9048rules. In any case, the peer needs to   |      |
+| query the auth parameters from the USIM card.       |      |
 +-----------------------------------------------------+      |
     |               |                          |             |
     |  RAND, AUTN   |                          |             |
