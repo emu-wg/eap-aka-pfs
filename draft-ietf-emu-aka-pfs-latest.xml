@@ -1195,16 +1195,24 @@ Value       Description                        Reference
       <reference anchor="FIPS186-4">
         <front>
         <title>Digital Signature Standard (DSS)</title>
-        <author surname="NIST"></author>
+        <author>
+          <organization>NIST</organization>
+        </author>
         <date month="July" year='2013'/>
         </front>
+        <seriesInfo name="FIPS" value="186-4" />
+        <format target='https://doi.org/10.6028/NIST.FIPS.186-4'/>
       </reference>
       <reference anchor="SEC2">
         <front>
         <title>SEC 2: Recommended Elliptic Curve Domain Parameters</title>
-        <author surname="Certicom Research"></author>
-        <date month="September" year='2000'/>
+        <author>
+          <organization>Certicom Research</organization>
+        </author>
+        <date month="January" year='2010'/>
         </front>
+        <seriesInfo name="Standards for Efficient Cryptography 2 (SEC 2)" value="Version 2.0" />
+        <format target='https://www.secg.org/sec2-v2.pdf'/>
       </reference>
 </references>
 
