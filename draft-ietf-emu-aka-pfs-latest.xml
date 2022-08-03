@@ -324,8 +324,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     |         +-------------------------------------------------+
     |                                          EAP-Success  |
     |&lt;------------------------------------------------------|
-
-           Figure 1: EAP-AKA' Authentication Process
 </artwork>
 </figure>
   </section>
@@ -495,8 +493,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     |               |                          |             |
     |               | EAP-Success              |             |
     |               |&lt;-------------------------|             |
-
-           Figure 2: EAP-AKA' FS Authentication Process
          </artwork>
        </figure>
      </section>
