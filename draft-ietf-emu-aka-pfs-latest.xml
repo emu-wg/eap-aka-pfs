@@ -2,7 +2,7 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-latest"
-     category="info" updates="RFC5448">
+     category="info" updates="5448">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
