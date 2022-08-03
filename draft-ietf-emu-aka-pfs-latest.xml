@@ -51,7 +51,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
-<author initials="J" surname="Mattsson" fullname="John Mattsson">
+<author initials="J" surname="Preuß Mattsson" fullname="John Preuß Mattsson">
 <organization>Ericsson</organization>
 <address>
 <postal>
@@ -1341,18 +1341,31 @@ Value       Description                        Reference
     <t>The authors would like to note that the technical solution in
     this document came out of the TrustCom paper <xref
     target="TrustCom2015"/>, whose authors were J. Arkko, K. Norrman,
-    M. Naslund, and B. Sahlin. This document uses also a lot of
-    material from <xref target="RFC4187"/> by J. Arkko and
-    H. Haverinen as well as <xref target="RFC5448"/> by J. Arkko,
+    <contact fullname="M. Näslund"/>, and B. Sahlin. This document
+    uses also a lot of material from <xref target="RFC4187"/> by
+    J. Arkko and H. Haverinen as well as <xref target="RFC5448"/> by J. Arkko,
     V. Lehtovirta, and P. Eronen.</t>
     
-    <t>The authors would also like to thank Tero Kivinen, John
-    Mattsson, Mohit Sethi, Vesa Lehtovirta, Russ Housley, Sean Turner,
-    Eliot Lear, Joseph Salowey, Kathleen Moriarty, Zhang Fu, Bengt
-    Sahlin, Ben Campbell, Prajwol Kumar Nakarmi, Goran Rune, Tim
-    Evans, Helena Vahidi Mazinani, Anand R. Prasad, Rene Struik, and
-    many other people at the IETF, GSMA and 3GPP groups for
-    interesting discussions in this problem space.</t>
+    <t>The authors would also like to thank
+    <contact fullname="Ben Campbell"/>,
+    <contact fullname="Tim Evans"/>,
+    <contact fullname="Zhang Fu"/>,
+    <contact fullname="Russ Housley"/>,
+    <contact fullname="Tero Kivinen"/>,
+    <contact fullname="Eliot Lear"/>,
+    <contact fullname="Vesa Lehtovirta"/>,
+    <contact fullname="Kathleen Moriarty"/>,
+    <contact fullname="Prajwol Kumar Nakarmi"/>,
+    <contact fullname="Anand R. Prasad"/>,
+    <contact fullname="Göran Rune"/>,
+    <contact fullname="Bengt Sahlin"/>,    
+    <contact fullname="Joseph Salowey"/>,
+    <contact fullname="Mohit Sethi"/>,
+    <contact fullname="Rene Struik"/>,
+    <contact fullname="Sean Turner"/>,
+    <contact fullname="Helena Vahidi Mazinani"/>,    
+    and many other people at the IETF, GSMA and 3GPP groups
+    for interesting discussions in this problem space.</t>
     
   </section>
   
