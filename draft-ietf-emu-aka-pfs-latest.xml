@@ -374,7 +374,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   for Ephemeral. The two initially registered elliptic curves and their
   wire format is chosen to align with the elliptic curves and formats
   specified for Subscription Concealed Identifier (SUCI) encryption in
-  Appendix C.3.4 of 3GPP TS 33.501</t>
+  Appendix C.3.4 of 3GPP TS 33.501 <xref target="TS.33.501"/>.</t>
   
   <t>The enhancements in the EAP-AKA' FS protocol are compatible
   with the signaling flow and other basic structures of both AKA and
@@ -1248,6 +1248,17 @@ Value       Description                        Reference
     </front>
   </reference>
 
+  <reference anchor="TS.33.501">
+    <front>
+      <title>Security architecture and procedures for 5G System</title>
+      <author>
+        <organization>3GPP</organization>
+      </author>
+      <date month="June" year="2022" />
+    </front>
+    <seriesInfo name="3GPP TS" value="33.501 17.6.0" />
+  </reference>
+	
 </references>
 
 <section title="Change Log">
