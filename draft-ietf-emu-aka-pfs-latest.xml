@@ -459,7 +459,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 +-----------------------------------------------------+      |
     |               |                          |             |
     |  RAND, AUTN   |                          |             |
-    |&lt;--------------|                         |             |
+    |&lt;--------------|                          |             |
     |               |                          |             |
     |  CK, IK, RES  |                          |             |
     |--------------&gt;|                          |             |
