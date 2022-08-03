@@ -159,7 +159,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   for the next release of 3GPP (5G Phase 2), and this document provides
   a basis for providing this feature in a particular fashion.</t>
   
-  <t>It should also be noted that 5G network architecture includes the
+  <t>It should also be noted that 5G network architecture <xref target="TS.33.501"/>
+  includes the
   use of the EAP framework for authentication. While any methods can
   be run, the default authentication method within that context will
   be EAP-AKA'. As a result, improvements in EAP-AKA' security have a
