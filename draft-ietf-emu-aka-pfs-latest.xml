@@ -1336,7 +1336,7 @@ Value       Description                        Reference
 
   </section>
   
-  <section title="Acknowledgments">
+  <section numbered="no" title="Acknowledgments">
 
     <t>The authors would like to note that the technical solution in
     this document came out of the TrustCom paper <xref
