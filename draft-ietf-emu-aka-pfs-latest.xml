@@ -407,6 +407,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     |               |&lt;-------------------------|             |
     |               |                          |             |
     |               |    EAP-Resp/Identity     |             |
+    |               |    (Privacy-Friendly)    |             |
     |               |-------------------------&gt;|             |
     |               |                          |             |
     |         +-------------------------------------------------+
