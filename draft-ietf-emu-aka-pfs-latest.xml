@@ -270,13 +270,13 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <t>When AKA are embedded into EAP, the authentication on
     the network side is moved to the home environment; the serving
     network performs the role of a pass-through authenticator.
-    Figure 1 describes the basic flow in the EAP-AKA'
+    <xref target="figaka"/> describes the basic flow in the EAP-AKA'
     authentication process. The definition of the full protocol
     behaviour, along with the definition of attributes AT_RAND,
     AT_AUTN, AT_MAC, and AT_RES can be found in <xref
     target="RFC9048"/> and <xref target="RFC4187"/>.</t>
 
-<figure>
+<figure title="EAP-AKA' Authentication Process" anchor="figaka">
 <artwork>
  Peer                                                    Server
     |                      EAP-Request/Identity             |
@@ -391,7 +391,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   not present in key material provided by EAP-AKA' in its original
   form.</t>
   
-  <t>Figure 2 below describes the overall process. Since our goal
+  <t><xref target="figakafs"/> below describes the overall process. Since our goal
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
   and the 3GPP authentication server (HSS). The details of those
@@ -399,7 +399,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   are outside the scope of this document, however, and the reader
   is referred to the 3GPP specifications.</t>
 
-<figure>
+<figure title="EAP-AKA' FS Authentication Process" anchor="figakafs">
 <artwork>
   USIM             Peer                     Server          HSS
     |               |                          |             |
