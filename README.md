@@ -1,2 +1,2 @@
 # eap-aka-pfs
-Perfect-Forward Secrecy for EAP-AKA' PFS
+Forward Secrecy for the Extensible Authentication Protocol Method for Authentication and Key Agreement (EAP-AKA' FS)
