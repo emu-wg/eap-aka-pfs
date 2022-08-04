@@ -81,7 +81,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   such as key compromise and minimizing the impact of breach are essential
   zero-trust principles.</t>
 
-  <t>This specification updates RFC 9048 , the EAP-AKA'
+  <t>This specification updates RFC 9048, the EAP-AKA'
   authentication method, with an an optional extension. The extension, when
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
