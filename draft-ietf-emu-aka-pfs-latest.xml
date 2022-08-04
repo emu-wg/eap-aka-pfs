@@ -131,8 +131,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   target="RFC7258"/>. This document does that for EAP-AKA'.</t>
 
   <t>This specification updates <xref target="RFC9048"/>, the EAP-AKA'
-  authentication method with an an optional extension. While optional,
-  the use of this extension is strongly RECOMMENDED. This document updates RFC 9048.</t>
+  authentication method, with an an optional extension. While optional,
+  the use of this extension is strongly RECOMMENDED.</t>
 
   <t>The extension, when
   negotiated, provides Forward Secrecy for the session key
