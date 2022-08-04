@@ -298,7 +298,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     |         | used in creating the AT_MAC attribute.          |
     |         +-------------------------------------------------+
     |                        EAP-Request/AKA'-Challenge     |
-    |       (AT_RAND, AT_AUTN, AT_KDF, AT_KDF_INPUT, AT_MAC)|
+    |      (AT_RAND, AT_AUTN, AT_KDF, AT_KDF_INPUT, AT_MAC) |
     |&lt;------------------------------------------------------|
 +-----------------------------------------------------+     |
 | The peer determines what the network name should be,|     |
