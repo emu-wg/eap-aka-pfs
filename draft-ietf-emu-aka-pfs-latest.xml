@@ -234,7 +234,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     AKA typically runs in a UMTS Subscriber Identity Module (USIM). USIM is
     technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
-    this document we use the informal term "SIM card" to refer to any Subscriber
+    this document we use the term "SIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
 
     <t>AKA works in the following manner:
