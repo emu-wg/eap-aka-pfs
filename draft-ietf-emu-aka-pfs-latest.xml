@@ -676,16 +676,16 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          attribute is set to 1 and the Key Derivation Function field
          in the AT_KDF attribute is also set to 1, the Master Key (MK) is
          derived as follows below.
-
+		 
          <figure>
-           <artwork>
-       MK       = PRF'(IK'|CK',"EAP-AKA'"|Identity) 
-       MK_ECDHE = PRF'(IK'|CK'|SHARED_SECRET,"EAP-AKA' FS"|Identity)
-       K_encr   = MK[0..127]
-       K_aut    = MK[128..383]
-       K_re     = MK_ECDHE[0..255]
-       MSK      = MK_ECDHE[256..767]
-       EMSK     = MK_ECDHE[768..1279]
+           <artwork align="center">
+MK       = PRF'(IK'|CK',"EAP-AKA'"|Identity) 
+MK_ECDHE = PRF'(IK'|CK'|SHARED_SECRET,"EAP-AKA' FS"|Identity)
+K_encr   = MK[0..127]
+K_aut    = MK[128..383]
+K_re     = MK_ECDHE[0..255]
+MSK      = MK_ECDHE[256..767]
+EMSK     = MK_ECDHE[768..1279]
            </artwork>
          </figure></t>
 
