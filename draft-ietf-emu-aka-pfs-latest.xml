@@ -1172,7 +1172,7 @@ EMSK     = MK_ECDHE[768..1279]
    it could recover the SHARED_SECRET from the ECDHE public keys in a
    matter of hours.</t>
 
-   <t>TSymmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
+   <t>Symmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
    and the algorithms use to generate AT_AUTN and AT_RES are
    practically secure against even large robust quantum
    computers. EAP-AKA' FS is currently only specified for use
