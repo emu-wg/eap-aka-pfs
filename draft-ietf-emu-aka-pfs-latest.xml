@@ -1254,6 +1254,28 @@ Value      Description                       Reference
         <seriesInfo name="Standards for Efficient Cryptography 2 (SEC 2)" value="Version 2.0" />
         <format target='https://www.secg.org/sec2-v2.pdf'/>
       </reference>
+<reference anchor="SP-800-56A" target="https://doi.org/10.6028/NIST.SP.800-56Ar3">
+  <front>
+    <title>Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography</title>
+    <author initials="E." surname="Barker">
+      <organization></organization>
+    </author>
+    <author initials="L." surname="Chen">
+      <organization></organization>
+    </author>
+    <author initials="A." surname="Roginsky">
+      <organization></organization>
+    </author>
+    <author initials="A." surname="Vassilev">
+      <organization></organization>
+    </author>
+    <author initials="R." surname="Davis">
+      <organization></organization>
+    </author>
+    <date year="2018" month="April"/>
+  </front>
+  <seriesInfo name="NIST" value="Special Publication 800-56A Revision 3"/>
+</reference>
 </references>
 
 <references title="Informative References">
