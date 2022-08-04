@@ -279,11 +279,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 <figure title="EAP-AKA' Authentication Process" anchor="figaka">
 <artwork>
  Peer                                                    Server
-    |                      EAP-Request/Identity             |
+    |                                                       |
+    |                                 EAP-Request/Identity  |
     |&lt;------------------------------------------------------|
     |                                                       |
-    | EAP-Response/Identity                                 |
-    | (Includes user's Network Access Identifier, NAI)      |
+    |  EAP-Response/Identity                                |
+    |  (Includes user's Network Access Identifier, NAI)     |
     |------------------------------------------------------&gt;|
     |         +-------------------------------------------------+
     |         | Server determines the network name and ensures  |
@@ -297,8 +298,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     |         | key derivation function. The session keys are   |
     |         | used in creating the AT_MAC attribute.          |
     |         +-------------------------------------------------+
-    |                        EAP-Request/AKA'-Challenge     |
-    |      (AT_RAND, AT_AUTN, AT_KDF, AT_KDF_INPUT, AT_MAC) |
+    |                           EAP-Request/AKA'-Challenge  |
+    |     (AT_RAND, AT_AUTN, AT_KDF, AT_KDF_INPUT, AT_MAC)  |
     |&lt;------------------------------------------------------|
 +-----------------------------------------------------+     |
 | The peer determines what the network name should be,|     |
@@ -314,8 +315,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 | session keys from CK'/IK'. The AT_RES and AT_MAC    |     |
 | attributes are constructed.                         |     |
 +-----------------------------------------------------+     |
-    | EAP-Response/AKA'-Challenge                           |
-    | (AT_RES, AT_MAC)                                      |
+    |  EAP-Response/AKA'-Challenge                          |
+    |  (AT_RES, AT_MAC)                                     |
     |------------------------------------------------------&gt;|
     |         +-------------------------------------------------+
     |         | Server checks the RES and MAC values received   |
