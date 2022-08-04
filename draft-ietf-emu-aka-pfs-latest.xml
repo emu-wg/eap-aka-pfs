@@ -1141,7 +1141,11 @@ EMSK     = MK_ECDHE[768..1279]
       MUST NOT send its username (or any other permanent identifiers) in cleartext
       in the Identity Response (or any message used instead of the Identity Response).</t>
   </section>
-  
+
+   <section title="Unprotected Data and Privacy">
+   <t>TBD.</t>
+  </section>
+
   </section>
 
 <section title="IANA Considerations">
