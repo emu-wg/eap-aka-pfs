@@ -1153,7 +1153,30 @@ EMSK     = MK_ECDHE[768..1279]
   </section>
 
    <section title="Post-Quantum Considerations">
-   <t>TBD.</t>
+   <t>As of the publication of this specification, it is unclear when or
+   even if a quantum computer of sufficient size and power to exploit
+   elliptic curve cryptography will exist.  Deployments that need to
+   consider risks decades into the future should transition to Post-
+   Quantum Cryptography (PQC) in the not-too-distant future.  Many other
+   systems should take a slower wait-and-see approach where PQC is
+   phased in when the quantum threat is more imminent.  Current PQC
+   algorithms have limitations compared to Elliptic Curve Cryptography
+   (ECC) and the data sizes would be problematic in many constrained IoT
+   systems. If a Cryptographically Relevant Quantum Computer (CRQC) is built
+   it could recover the SHARED_SECRET from the ECDHE public keys in a
+   matter of hours.</t>
+
+   <t>TSymmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
+   and the algorithms use to generate AT_AUTN and AT_RES are
+   practically secure against even large robust quantum
+   computers. EAP-AKA' FS is currently only specified for use
+   with ECDHE key exchange algorithms, but use of any Key
+   Encapsulation Method (KEM), including Post-Quantum Cryptography
+   (PQC) KEMs, can be specified in the future. While the key exchange is
+   specified with terms of the Diffie-Hellman protocol, the key exchange
+   adheres to a KEM interface. AT_PUB_ECDHE would then contain
+   either the ephemeral public key of the server or the SHARED_SECRET
+   encapsulated with the server's public key.</t>
   </section>
 
   </section>
