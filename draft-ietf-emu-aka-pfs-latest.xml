@@ -724,7 +724,8 @@ EMSK     = MK_ECDHE[768..1279]
          "EAP-AKA' FS" is an eleven-characters-long ASCII string, also
          used as is.</t>
          
-         <t>Identity is the peer identity as specified in Section 7 of <xref target="RFC4187"/>.</t>
+         <t>Identity is the peer identity as specified in Section 7 of <xref target="RFC4187"/>.
+	 A privacy-friendly identifier SHALL be used.</t>
          
        </section>
        <section anchor="groups" title="ECDHE Groups">
