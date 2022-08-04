@@ -275,15 +275,15 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     target="RFC9048"/> and <xref target="RFC4187"/>.</t>
 
 <figure title="EAP-AKA' Authentication Process" anchor="figaka">
-<artwork>
+<artwork><![CDATA[
  Peer                                                    Server
     |                                                       |
     |                                 EAP-Request/Identity  |
-    |&lt;------------------------------------------------------|
+    |<------------------------------------------------------|
     |                                                       |
     |  EAP-Response/Identity                                |
     |  (Includes user's Network Access Identifier, NAI)     |
-    |------------------------------------------------------&gt;|
+    |------------------------------------------------------>|
     |         +-------------------------------------------------+
     |         | Server determines the network name and ensures  |
     |         | that the given access network is authorized to  |
@@ -298,7 +298,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     |         +-------------------------------------------------+
     |                           EAP-Request/AKA'-Challenge  |
     |     (AT_RAND, AT_AUTN, AT_KDF, AT_KDF_INPUT, AT_MAC)  |
-    |&lt;------------------------------------------------------|
+    |<------------------------------------------------------|
 +-----------------------------------------------------+     |
 | The peer determines what the network name should be,|     |
 | based on, e.g.,  what access technology it is using.|     |
@@ -315,15 +315,15 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 +-----------------------------------------------------+     |
     |  EAP-Response/AKA'-Challenge                          |
     |  (AT_RES, AT_MAC)                                     |
-    |------------------------------------------------------&gt;|
+    |------------------------------------------------------>|
     |         +-------------------------------------------------+
     |         | Server checks the RES and MAC values received   |
     |         | in AT_RES and AT_MAC, respectively. Success     |
     |         | requires both to be found correct.              |
     |         +-------------------------------------------------+
     |                                          EAP-Success  |
-    |&lt;------------------------------------------------------|
-</artwork>
+    |<------------------------------------------------------|
+]]></artwork>
 </figure>
   </section>
 
