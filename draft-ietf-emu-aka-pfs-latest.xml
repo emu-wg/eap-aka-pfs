@@ -982,6 +982,8 @@ EMSK     = MK_ECDHE[768..1279]
        rerunning EC(DHE) forces an attacker to do dynamic key exfiltration
        (or content exfiltration).</t>
 
+    <section title="Security Properties">
+
     <t>The following security properties of
     EAP-AKA' are impacted through this extension:
    
@@ -1084,6 +1086,9 @@ EMSK     = MK_ECDHE[768..1279]
 
   </list></t>
 
+  </section>
+  <section title="Denial-of-Service">
+
   <t>In addition, it is worthwhile to discuss Denial-of-Service
   attacks and their impact on this protocol. The calculations involved
   in public key cryptography require computing power, which could be
@@ -1135,6 +1140,7 @@ EMSK     = MK_ECDHE[768..1279]
     
   </list></t>
 
+  </section>
   <section title="Identity Privacy">
    <t>Best practice privacy today is to mandate client identity protection as
       is done in EAP-TLS 1.3, EAP-TTLS 1.3, etc. A client supporting EAP-AKA' FS
