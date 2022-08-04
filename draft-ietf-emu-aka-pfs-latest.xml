@@ -91,6 +91,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   eavesdropper, the extension prevents attacks against future
   sessions. This forces attackers to use active attacks instead.</t>
 
+  <t>This document updates RFC 9048.</t>
 </abstract>
 
 </front>
@@ -129,9 +130,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   protocols and take appropriate countermeasures <xref
   target="RFC7258"/>. This document does that for EAP-AKA'.</t>
 
-  <t>This specification is an optional extension to the EAP-AKA'
-  authentication method <xref target="RFC9048"/>.
-  While optional, the use of this extension is strongly RECOMMENDED.</t>
+  <t>This specification updates <xref target="RFC9048"/>, the EAP-AKA'
+  authentication method with an an optional extension. While optional,
+  the use of this extension is strongly RECOMMENDED. This document updates RFC 9048.</t>
+</t>
 
   <t>The extension, when
   negotiated, provides Forward Secrecy for the session key
