@@ -682,15 +682,19 @@ EMSK     = MK_ECDHE[768..1279]
            </artwork>
          </figure></t>
 
-	 <t>Where SHARED_SECRET is the shared secret computed via
-	 ECDHE, as specified in Section 6.1 of <xref target="RFC7748"/>.</t>
-	 
-	 <t>Both the peer and the server MAY check for zero-value shared
-	 secret as specified in Section 6.1 of <xref
-	 target="RFC7748"/>. If such checking is performed and the SHARED_SECRET has a zero value, both
-	 parties MUST behave as if the current EAP-AKA' authentication
-	 process starts again from the beginning.</t>
+	<t>Requirements for how to securely generate, validate, and process the
+	ephemeral public keys depend on the elliptic curve.</t>
 
+	<t>For P-256 the SHARED_SECRET is the shared secret computed as specified in
+	Section 5.7.1.2 <xref target="SP-800-56A"/>. Public key validation
+	requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
+	At least partial public-key validation MUST be done.</t>
+
+	<t>For X25519 the SHARED_SECRET is the shared secret computed as specified in
+	Section 6.1 of <xref target="RFC7748"/>. Both the peer and the server
+	MAY check for zero-value shared secret as specified in Section 6.1 of
+	<xref target="RFC7748"/>.</t>
+		
 	 <list style="empty">
 
 	   <t>Note: The way that shared secret is tested for zero can,
@@ -700,8 +704,12 @@ EMSK     = MK_ECDHE[768..1279]
 	   perform this check in a way that it does not become a
 	   problem.</t>
 
-	 </list>
+	 </list>	    
 
+	<t>If validation of the public key or the shared secret fails, both
+        parties MUST behave as if the  current EAP-AKA' authentication
+	process starts again from the beginning.</t>
+	       
 	 <t>The rest of computation proceeds as defined in Section 3.3 of <xref
 	 target="RFC9048"/>.</t>
 
