@@ -368,7 +368,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
 <section title="Protocol Overview">
   
-  <t>FS for EAP-AKA' is achieved by using an Elliptic
+  <t>Forward Secrecy for EAP-AKA' is achieved by using an Elliptic
   Curve Diffie-Hellman (ECDH) exchange <xref target="RFC7748"/>. To provide
   FS, the exchange must be run in an ephemeral manner, i.e.,
   both sides generate temporary keys as specified in <xref target="RFC7748"/>.
