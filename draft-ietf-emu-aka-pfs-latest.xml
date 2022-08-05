@@ -168,7 +168,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
 <section title="Protocol Design and Deployment Objectives">
   
-  <t>This extension specified here re-uses large portions of the
+  <t>The extension specified here re-uses large portions of the
   current structure of 3GPP interfaces and functions, with the
   rationale that this will make the construction more easily adopted.
   In particular, the construction maintains the interface between the
@@ -518,7 +518,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            attribute, set as other attributes in EAP-AKA <xref target="RFC4187"/>.</t>
            
            <t hangText="Value"><vspace blankLines="1"/>This value is
-           the sender's ECDHE public value. The value depend on AT_KDF_FS and
+           the sender's ECDHE public key. The value depend on AT_KDF_FS and
            is calculated as follows:
 
            <list style="symbols">
