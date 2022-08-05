@@ -556,7 +556,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| AT_KDF_FS     | Length        | Key Derivation Function       |
+| AT_KDF_FS     | Length        | FS Key Derivation Function    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
            </artwork>
          </figure>
@@ -571,8 +571,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            <t hangText="Length"><vspace blankLines="1"/>The length of the
            attribute, MUST be set to 1.</t>
            
-           <t hangText="Key Derivation Function"><vspace blankLines="1"/>An
-           enumerated value representing the key derivation function that the
+           <t hangText="FS Key Derivation Function"><vspace blankLines="1"/>An
+           enumerated value representing the forward secrecy key derivation function that the
            server (or peer) wishes to use. See <xref target="kdf2"/> for the functions
            specified in this document. Note: This field has a
            different name space than the similar field in the AT_KDF
@@ -591,7 +591,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          <t>Upon receiving a set of these attributes:
 	 <list style="symbols">
 	   
-	   <t>If the peer supports and is willing to use the key derivation function
+	   <t>If the peer supports and is willing to use the FS Key Derivation Function
 	   indicated by the first AT_KDF_FS attribute, and is willing and able to use the
 	   extension defined in this specification, the function is taken into use without
 	   any further negotiation.</t>
@@ -627,8 +627,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          selected alternative to the beginning of the list of AT_KDF_FS
          attributes, and retains the entire list following it. Note that this
          means that the selected alternative appears twice in the set of AT_KDF
-         values. Responding to the peer's request to change the key derivation
-         function is the only legal situation where such duplication may
+         values. Responding to the peer's request to change the FS Key Derivation Function
+         is the only legal situation where such duplication may
          occur.</t>
          
          <t>When the peer receives the new EAP-Request/AKA'-Challenge message,
@@ -642,15 +642,15 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          
        </section>
        
-       <section anchor="kdf2" title="New Key Derivation Functions">
-         <t>Two new Key Derivation Function types are defined for
+       <section anchor="kdf2" title="Forward Secrecy Key Derivation Functions">
+         <t>Two new FS Key Derivation Function types are defined for
          "EAP-AKA' with ECDHE and X25519", represented by value 1, and
          "EAP-AKA' with ECDHE and P-256", represented by
          value 2. These represent a particular choice of key
          derivation function and at the same time selects an ECDHE
          group to be used.</t>
 
-         <t>The Key Derivation Function type value is only used
+         <t>The FS Key Derivation Function type value is only used
          in the AT_KDF_FS attribute, and should not be confused with
          the different range of key derivation functions that can be
          represented in the AT_KDF attribute as defined in <xref target="RFC9048"/>.</t>
@@ -665,7 +665,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          as AT_MAC continue to be usable even when this extension is
          in use.</t>
 
-         <t>When the Key Derivation Function field in the AT_KDF_FS
+         <t>When the FS Key Derivation Function field in the AT_KDF_FS
          attribute is set to 1 and the Key Derivation Function field
          in the AT_KDF attribute is also set to 1, the Master Key (MK) is
          derived as follows below.
@@ -1210,7 +1210,7 @@ EMSK     = MK_ECDHE[768..1279]
   Types.</t>
 
   <t>Also, a new registry should be created to represent
-  Diffie-Hellman Key Derivation Function types. The "EAP-AKA' with
+  FS Key Derivation Function types. The "EAP-AKA' with
   ECDHE and X25519" and "EAP-AKA' with ECDHE and P-256"
   types (1 and 2, see <xref target="kdf2"/>) need to be assigned,
   along with one reserved value. The initial contents of this
