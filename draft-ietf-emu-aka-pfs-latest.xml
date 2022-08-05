@@ -569,7 +569,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            IANA.</t>
            
            <t hangText="Length"><vspace blankLines="1"/>The length of the
-           attribute, MUST be set to 2.</t>
+           attribute, MUST be set to 1.</t>
            
            <t hangText="Key Derivation Function"><vspace blankLines="1"/>An
            enumerated value representing the key derivation function that the
