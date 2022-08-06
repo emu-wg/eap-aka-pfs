@@ -371,7 +371,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>Forward Secrecy for EAP-AKA' is achieved by using an Elliptic
   Curve Diffie-Hellman (ECDH) exchange <xref target="RFC7748"/>. To provide
   FS, the exchange must be run in an ephemeral manner, i.e.,
-  both sides generate temporary keys as specified in <xref target="RFC7748"/>.
+  both sides generate temporary keys as specified in e.g., <xref target="RFC7748"/>.
   This method is referred to as ECDHE, where the last 'E' stands
   for Ephemeral. The two initially registered elliptic curves and their
   wire format is chosen to align with the elliptic curves and formats
