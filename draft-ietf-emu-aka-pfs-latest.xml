@@ -526,8 +526,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            the length of this value is 32 bytes, encoded in binary as specified
            <xref target="RFC7748"/> Section 6.1.</t>
            <t>For P-256, the length of this value is 33 bytes, encoded
-           in binary as specified in <xref target="FIPS186-4"/>, using
-           the compressed form from Section 2.7.1 of
+           using the compressed form from Section 2.7.1 of
            <xref target="SEC2"/>.</t>
            </list>
 
