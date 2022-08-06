@@ -764,7 +764,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    ephemeral public keys depend on the elliptic curve.
 
    For P-256 the SHARED_SECRET is the shared secret computed as
-   specified in Section 5.7.1.2 [SP-800-56A].  Public key validation
+   specified in Section 5.7.1.2 of [SP-800-56A].  Public key validation
    requirements are defined in Section 5 of [SP-800-56A].  At least
    partial public-key validation MUST be done.
 
