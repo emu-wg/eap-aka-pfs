@@ -6,8 +6,8 @@ Network Working Group                                           J. Arkko
 Internet-Draft                                                K. Norrman
 Updates: 9048 (if approved)                                  V. Torvinen
 Intended status: Informational                         J. Preuß Mattsson
-Expires: 6 February 2023                                        Ericsson
-                                                           5 August 2022
+Expires: 7 February 2023                                        Ericsson
+                                                           6 August 2022
 
 
  Forward Secrecy for the Extensible Authentication Protocol Method for
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 1]
+Arkko, et al.            Expires 7 February 2023                [Page 1]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -63,7 +63,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 February 2023.
+   This Internet-Draft will expire on 7 February 2023.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 2]
+Arkko, et al.            Expires 7 February 2023                [Page 2]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -124,9 +124,9 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  24
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  25
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  26
    Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  27
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  28
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  29
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
 
 1.  Introduction
@@ -165,7 +165,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 3]
+Arkko, et al.            Expires 7 February 2023                [Page 3]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -221,7 +221,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 4]
+Arkko, et al.            Expires 7 February 2023                [Page 4]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -277,7 +277,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 5]
+Arkko, et al.            Expires 7 February 2023                [Page 5]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -333,7 +333,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 6]
+Arkko, et al.            Expires 7 February 2023                [Page 6]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -389,7 +389,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 7]
+Arkko, et al.            Expires 7 February 2023                [Page 7]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -420,9 +420,9 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    Forward Secrecy for EAP-AKA' is achieved by using an Elliptic Curve
    Diffie-Hellman (ECDH) exchange [RFC7748].  To provide FS, the
    exchange must be run in an ephemeral manner, i.e., both sides
-   generate temporary keys as specified in [RFC7748].  This method is
-   referred to as ECDHE, where the last 'E' stands for Ephemeral.  The
-   two initially registered elliptic curves and their wire format is
+   generate temporary keys as specified in e.g., [RFC7748].  This method
+   is referred to as ECDHE, where the last 'E' stands for Ephemeral.
+   The two initially registered elliptic curves and their wire format is
    chosen to align with the elliptic curves and formats specified for
    Subscription Concealed Identifier (SUCI) encryption in Appendix C.3.4
    of 3GPP TS 33.501 [TS.33.501].
@@ -445,7 +445,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 8]
+Arkko, et al.            Expires 7 February 2023                [Page 8]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -501,7 +501,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023                [Page 9]
+Arkko, et al.            Expires 7 February 2023                [Page 9]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -557,7 +557,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 10]
+Arkko, et al.            Expires 7 February 2023               [Page 10]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -590,30 +590,30 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
       AT_KDF_FS and is calculated as follows:
 
       *  For X25519/Curve25519, the length of this value is 32 bytes,
-         encoded in binary as specified [RFC7748] Section 6.1.
+         encoded as specified in [RFC7748] Section 5.
 
-      *  For P-256, the length of this value is 33 bytes, encoded in
-         binary as specified in [FIPS186-4], using the compressed form
-         from Section 2.7.1 of [SEC2].
+      *  For P-256, the length of this value is 33 bytes, encoded using
+         the compressed form from Section 2.3.3 of [SEC1].
 
       To retain the security of the keys, the sender SHALL generate a
       fresh value for each run of the protocol.
 
 6.2.  AT_KDF_FS
 
-   The AT_KDF_FS indicates the used or desired key generation function,
-   if the Forward Secrecy extension is taken into use.  It will also at
-   the same time indicate the used or desired ECDHE group.  A new
-   attribute is needed to carry this information, as AT_KDF carries the
-   legacy KDF value for those EAP peers that cannot or do not want to
-   use this extension.
+   The AT_KDF_FS indicates the used or desired forward secrecy key
+   generation function, if the Forward Secrecy extension is taken into
+   use.  It will also at the same time indicate the used or desired
+   ECDHE group.  A new attribute is needed to carry this information, as
+   AT_KDF carries the legacy KDF value which is still used together with
+   the forward secrecy KDF value.  The legacy KDF value is also used by
+   those EAP peers that cannot or do not want to use this extension.
 
    The format of the AT_KDF_FS attribute is shown below.
 
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 11]
+Arkko, et al.            Expires 7 February 2023               [Page 11]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -669,7 +669,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 12]
+Arkko, et al.            Expires 7 February 2023               [Page 12]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -715,20 +715,29 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    particular choice of key derivation function and at the same time
    selects an ECDHE group to be used.
 
-   The FS Key Derivation Function type value is only used in the
-   AT_KDF_FS attribute, and should not be confused with the different
-   range of key derivation functions that can be represented in the
-   AT_KDF attribute as defined in [RFC9048].
 
 
 
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 13]
+
+
+
+
+Arkko, et al.            Expires 7 February 2023               [Page 13]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
+
+   The FS Key Derivation Function type value is only used in the
+   AT_KDF_FS attribute.  When the forward secrecy extension is used, the
+   AT_KDF_FS attribute determines how to derive the keys MK_ECDHE, K_re,
+   MSK, and EMSK.  The AT_KDF_FS attribute should not be confused with
+   the different range of key derivation functions that can be
+   represented in the AT_KDF attribute as defined in [RFC9048].  When
+   the forward secrecy extension is used, the AT_KDF attribute only
+   specifies how to derive the keys MK, K_encr, and K_aut.
 
    Key derivation in this extension produces exactly the same keys for
    internal use within one authentication run as [RFC9048] EAP-AKA'
@@ -739,8 +748,8 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    usable even when this extension is in use.
 
    When the FS Key Derivation Function field in the AT_KDF_FS attribute
-   is set to 1 and the Key Derivation Function field in the AT_KDF
-   attribute is also set to 1, the Master Key (MK) is derived as follows
+   is set to 1 or 2 and the Key Derivation Function field in the AT_KDF
+   attribute is set to 1, the Master Key (MK) is derived as follows
    below.
 
        MK       = PRF'(IK'|CK',"EAP-AKA'"|Identity)
@@ -770,21 +779,19 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
       description of how to perform this check in a way that it does not
       become a problem.
 
+
+
+Arkko, et al.            Expires 7 February 2023               [Page 14]
+
+Internet-Draft                 EAP-AKA' FS                   August 2022
+
+
    If validation of the public key or the shared secret fails, both
    parties MUST behave as if the current EAP-AKA' authentication process
    starts again from the beginning.
 
    The rest of computation proceeds as defined in Section 3.3 of
    [RFC9048].
-
-
-
-
-
-Arkko, et al.            Expires 6 February 2023               [Page 14]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
 
    For readability, an explanation of the notation used above is copied
    here: [n..m] denotes the substring from bit n to m.  PRF' is a new
@@ -816,8 +823,8 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    REQUIRED.
 
    For "EAP-AKA' with ECDHE and P-256" the group is the NIST P-256 group
-   (SEC group secp256r1), specified in [FIPS186-4].  The support for
-   this group is OPTIONAL.
+   (SEC group secp256r1), specified in Appendix D.1.2.3 of [FIPS186-4]
+   or Section 2.4.2 of [SEC2].  The support for this group is OPTIONAL.
 
 6.5.  Message Processing
 
@@ -827,20 +834,16 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    message, which attributes are required in a message, and other
    message-specific details, where those details are different for this
    extension than the base EAP-AKA' or EAP-AKA protocol.  Unless
-   otherwise specified here, the rules from [RFC9048] or [RFC4187]
-   apply.
 
 
 
-
-
-
-
-
-Arkko, et al.            Expires 6 February 2023               [Page 15]
+Arkko, et al.            Expires 7 February 2023               [Page 15]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
+
+   otherwise specified here, the rules from [RFC9048] or [RFC4187]
+   apply.
 
 6.5.1.  EAP-Request/AKA'-Identity
 
@@ -890,10 +893,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-
-
-
-Arkko, et al.            Expires 6 February 2023               [Page 16]
+Arkko, et al.            Expires 7 February 2023               [Page 16]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -949,7 +949,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 17]
+Arkko, et al.            Expires 7 February 2023               [Page 17]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -1005,7 +1005,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 18]
+Arkko, et al.            Expires 7 February 2023               [Page 18]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -1061,7 +1061,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 19]
+Arkko, et al.            Expires 7 February 2023               [Page 19]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 20]
+Arkko, et al.            Expires 7 February 2023               [Page 20]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -1173,7 +1173,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 21]
+Arkko, et al.            Expires 7 February 2023               [Page 21]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -1229,7 +1229,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 22]
+Arkko, et al.            Expires 7 February 2023               [Page 22]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -1285,7 +1285,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 23]
+Arkko, et al.            Expires 7 February 2023               [Page 23]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -1341,7 +1341,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 6 February 2023               [Page 24]
+Arkko, et al.            Expires 7 February 2023               [Page 24]
 
 Internet-Draft                 EAP-AKA' FS                   August 2022
 
@@ -1381,10 +1381,26 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
               NIST, "Digital Signature Standard (DSS)", FIPS 186-4, July
               2013, <https://doi.org/10.6028/NIST.FIPS.186-4>.
 
+   [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
+              Standards for Efficient Cryptography 1 (SEC 1) Version
+              2.0, May 2009, <https://www.secg.org/sec1-v2.pdf>.
+
    [SEC2]     Certicom Research, "SEC 2: Recommended Elliptic Curve
               Domain Parameters", Standards for Efficient Cryptography 2
               (SEC 2) Version 2.0, January 2010,
               <https://www.secg.org/sec2-v2.pdf>.
+
+
+
+
+
+
+
+
+Arkko, et al.            Expires 7 February 2023               [Page 25]
+
+Internet-Draft                 EAP-AKA' FS                   August 2022
+
 
    [SP-800-56A]
               Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
@@ -1394,13 +1410,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
               <https://doi.org/10.6028/NIST.SP.800-56Ar3>.
 
 9.2.  Informative References
-
-
-
-Arkko, et al.            Expires 6 February 2023               [Page 25]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
 
    [RFC4186]  Haverinen, H., Ed. and J. Salowey, Ed., "Extensible
               Authentication Protocol Method for Global System for
@@ -1440,6 +1449,15 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
               Communications (TrustCom) 2015,
               <https://doi.org/10.1109/Trustcom.2015.506>.
 
+
+
+
+
+Arkko, et al.            Expires 7 February 2023               [Page 26]
+
+Internet-Draft                 EAP-AKA' FS                   August 2022
+
+
    [Heist2015]
               Scahill, J. and J. Begley, "The Great SIM Heist", February
               2015,
@@ -1449,14 +1467,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
               "Authentication and Authenticated Key Exchanges", Designs,
               Codes and Cryptography 2 pp. 107-125, June 1992,
               <https://doi.org/10.1007/BF00124891>.
-
-
-
-
-Arkko, et al.            Expires 6 February 2023               [Page 26]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
 
    [TS.33.501]
               3GPP, "Security architecture and procedures for 5G
@@ -1494,6 +1504,16 @@ Appendix A.  Change Log
       public values; the current text requires confirmation from the
       working group that it is sufficient.
 
+
+
+
+
+
+Arkko, et al.            Expires 7 February 2023               [Page 27]
+
+Internet-Draft                 EAP-AKA' FS                   August 2022
+
+
    The -05 version of the WG draft takes into account feedback from the
    working group list, about the number of bytes needed to encode P-256
    values.
@@ -1501,18 +1521,6 @@ Appendix A.  Change Log
    The -04 version of the WG draft takes into account feedback from the
    May 2020 WG interim meeting, correcting the reference to the NIST
    P-256 specification.
-
-
-
-
-
-
-
-
-Arkko, et al.            Expires 6 February 2023               [Page 27]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
 
    The -03 version of the WG draft is first of all a refresh; there are
    no issues that we think need addressing, beyond the one for which
@@ -1550,6 +1558,18 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    August review from Mohit Sethi, and comments made during IETF-102
    discussion.
 
+
+
+
+
+
+
+
+Arkko, et al.            Expires 7 February 2023               [Page 28]
+
+Internet-Draft                 EAP-AKA' FS                   August 2022
+
+
 Acknowledgments
 
    The authors would like to note that the technical solution in this
@@ -1562,14 +1582,6 @@ Acknowledgments
    The authors would also like to thank Ben Campbell, Tim Evans, Zhang
    Fu, Russ Housley, Tero Kivinen, Eliot Lear, Vesa Lehtovirta, Kathleen
    Moriarty, Prajwol Kumar Nakarmi, Anand R. Prasad, Göran Rune, Bengt
-
-
-
-Arkko, et al.            Expires 6 February 2023               [Page 28]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    Sahlin, Joseph Salowey, Mohit Sethi, Rene Struik, Sean Turner, Helena
    Vahidi Mazinani, and many other people at the IETF, GSMA and 3GPP
    groups for interesting discussions in this problem space.
@@ -1609,16 +1621,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Arkko, et al.            Expires 6 February 2023               [Page 29]
+Arkko, et al.            Expires 7 February 2023               [Page 29]
