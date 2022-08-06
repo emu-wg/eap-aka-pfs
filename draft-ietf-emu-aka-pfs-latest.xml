@@ -542,13 +542,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
        
        <section anchor="at_kdf_dh" title="AT_KDF_FS">
          
-         <t>The AT_KDF_FS indicates the used or desired key
+         <t>The AT_KDF_FS indicates the used or desired forward secrecy key
          generation function, if the Forward Secrecy extension
          is taken into use. It will also at the same time indicate the
          used or desired ECDHE group. A new attribute is needed to
          carry this information, as AT_KDF carries the legacy KDF
-         value for those EAP peers that cannot or do not want to use
-         this extension.</t>
+         value which is still used together with the forward secrecy KDF
+         value. The legacy KDF value is also used by those EAP peers
+         that cannot or do not want to use this extension.</t>
          
          <t>The format of the AT_KDF_FS attribute is shown below.</t>
          
