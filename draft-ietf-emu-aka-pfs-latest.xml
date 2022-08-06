@@ -1270,6 +1270,17 @@ Value      Description                       Reference
         <seriesInfo name="Standards for Efficient Cryptography 1 (SEC 1)" value="Version 2.0" />
         <format target='https://www.secg.org/sec1-v2.pdf'/>
       </reference>
+      <reference anchor="SEC2">
+        <front>
+        <title>SEC 2: Recommended Elliptic Curve Domain Parameters</title>
+        <author>
+          <organization>Certicom Research</organization>
+        </author>
+        <date month="January" year='2010'/>
+        </front>
+        <seriesInfo name="Standards for Efficient Cryptography 2 (SEC 2)" value="Version 2.0" />
+        <format target='https://www.secg.org/sec2-v2.pdf'/>
+      </reference>
 <reference anchor="SP-800-56A" target="https://doi.org/10.6028/NIST.SP.800-56Ar3">
   <front>
     <title>Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography</title>
