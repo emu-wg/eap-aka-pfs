@@ -523,8 +523,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
            <list style="symbols">
            <t>For X25519/Curve25519,
-           the length of this value is 32 bytes, encoded in binary as specified
-           <xref target="RFC7748"/> Section 6.1.</t>
+           the length of this value is 32 bytes, encoded as specified in
+           <xref target="RFC7748"/> Section 5.</t>
            <t>For P-256, the length of this value is 33 bytes, encoded
            using the compressed form from Section 2.3.3 of
            <xref target="SEC1"/>.</t>
