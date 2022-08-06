@@ -526,8 +526,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            the length of this value is 32 bytes, encoded in binary as specified
            <xref target="RFC7748"/> Section 6.1.</t>
            <t>For P-256, the length of this value is 33 bytes, encoded
-           using the compressed form from Section 2.7.1 of
-           <xref target="SEC2"/>.</t>
+           using the compressed form from Section 2.3.3 of
+           <xref target="SEC1"/>.</t>
            </list>
 
            <vspace blankLines="1"/>
@@ -1259,16 +1259,16 @@ Value      Description                       Reference
         <seriesInfo name="FIPS" value="186-4" />
         <format target='https://doi.org/10.6028/NIST.FIPS.186-4'/>
       </reference>
-      <reference anchor="SEC2">
+      <reference anchor="SEC1">
         <front>
-        <title>SEC 2: Recommended Elliptic Curve Domain Parameters</title>
+        <title>SEC 1: Elliptic Curve Cryptography</title>
         <author>
           <organization>Certicom Research</organization>
         </author>
-        <date month="January" year='2010'/>
+        <date month="May" year='2009'/>
         </front>
-        <seriesInfo name="Standards for Efficient Cryptography 2 (SEC 2)" value="Version 2.0" />
-        <format target='https://www.secg.org/sec2-v2.pdf'/>
+        <seriesInfo name="Standards for Efficient Cryptography 1 (SEC 1)" value="Version 2.0" />
+        <format target='https://www.secg.org/sec1-v2.pdf'/>
       </reference>
 <reference anchor="SP-800-56A" target="https://doi.org/10.6028/NIST.SP.800-56Ar3">
   <front>
