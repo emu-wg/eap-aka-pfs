@@ -939,7 +939,7 @@ EMSK     = MK_ECDHE[768..1279]
     </t>
 
    <t>Best practice security today is to mandate forward secrecy (as
-   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, etc.). It is RECOMMENDED
+   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.). It is RECOMMENDED
    to long term completely phase out AKA without forward secrecy.</t>
 	  
     <t>This extension can provide assistance in situations where there
