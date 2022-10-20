@@ -1363,7 +1363,16 @@ Value      Description                       Reference
 <section title="Change Log">
 
   <t>RFC Editor: Please remove this appendix.</t>
-	
+
+  <t>The -08 version of the WG draft has the following changes:
+  <list style="symbols">
+
+    <t>Support for the NIST  P-256 group has been made mandatory, in
+    order to align the requirements with 3GPP SUCI encryption
+    requirements.</t>
+
+  </list></t>
+  
   <t>The -07 version of the WG draft has the following changes:
   <list style="symbols">
 
