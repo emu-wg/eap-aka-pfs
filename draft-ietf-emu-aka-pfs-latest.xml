@@ -1184,14 +1184,29 @@ EMSK     = MK_ECDHE[768..1279]
    even if a quantum computer of sufficient size and power to exploit
    elliptic curve cryptography will exist.  Deployments that need to
    consider risks decades into the future should transition to Post-
-   Quantum Cryptography (PQC) in the not-too-distant future.  Many other
-   systems should take a slower wait-and-see approach where PQC is
-   phased in when the quantum threat is more imminent.  Current PQC
+   Quantum Cryptography (PQC) in the not-too-distant future.  Other
+   systems may employ PQC when the quantum threat is more imminent. Current PQC
    algorithms have limitations compared to Elliptic Curve Cryptography
-   (ECC) and the data sizes would be problematic in many constrained IoT
+   (ECC) and the data sizes could be problematic for some constrained
    systems. If a Cryptographically Relevant Quantum Computer (CRQC) is built
-   it could recover the SHARED_SECRET from the ECDHE public keys in a
-   matter of hours.</t>
+   it could recover the SHARED_SECRET from the ECDHE public keys.
+   <vspace blankLines="1"/>
+   This would not affect the ability of EAP-AKA' (with or without this extension)
+   to authenticate properly, however. As symmetric key cryptography is safe even
+   if CRQCs are built, an adversary still will not be able to disrupt authentication
+   as it requires computing a correct AT_MAC value. This computation requires the K_aut key
+   which is based on MK and, ultimately, CK' and IK', but not SHARED_SECRET.
+   <vspace blankLines="1"/>
+   Other output keys do include SHARED_SECRET via MK_ECDHE, but still include also
+   CK' and IK' which are entirely based on symmetricy cryptography. As a result,
+   an adversary with a quantum computer still cannot compute the other output keys either.
+   <vspace blankLines="1"/>
+   However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
+   could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that the
+   the introduction of a powerful enough quantum computer would enable subverting this protocol extension,
+   making it necessary to update the current ECC algorithms in this specification to PQC algorithms. This
+   specification does not add such algorithms, but a future specification may do that.
+   </t>
 
    <t>Symmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
    and the algorithms use to generate AT_AUTN and AT_RES are
@@ -1380,6 +1395,9 @@ Value      Description                       Reference
     <xref target="groups"/>, in
     order to align the requirements with 3GPP SUCI encryption
     requirements.</t>
+	  
+    <t>The explanation about the impacts of potential future quantum
+    computing attacks has been updated to be more specific about impacts to this extension.</t>
 
     <t>Addition of a discussion about metadata/unproctected data in
     <xref target="unp"/>.</t>
