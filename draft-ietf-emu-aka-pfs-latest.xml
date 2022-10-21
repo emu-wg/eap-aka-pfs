@@ -2,7 +2,7 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-latest"
-     category="info" updates="9048">
+     category="info" updates="5448,9048">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -84,7 +84,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   zero-trust principles.</t>
 
   <t>This specification updates RFC 9048, the EAP-AKA'
-  authentication method, with an optional extension. The extension, when
+  authentication method, with an optional extension. 
+  Similarly, this specification also updates the earlier version 
+  of the EAP-AKA' specification in RFC 5448. The extension, when
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
