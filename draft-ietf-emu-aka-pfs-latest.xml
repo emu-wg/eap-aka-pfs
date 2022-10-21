@@ -1187,8 +1187,8 @@ EMSK     = MK_ECDHE[768..1279]
    it could recover the SHARED_SECRET from the ECDHE public keys.
    <vspace blankLines="1"/>
    This would not affect the ability of EAP-AKA' (with or without this extension)
-   to authenticate properly, however. If symmetric key cryptography is safe from
-   quantum computing, an adversary still will not be able to disrupt authentication
+   to authenticate properly, however. As symmetric key cryptography is safe even
+   if CRQCs are built, an adversary still will not be able to disrupt authentication
    as it requires computing a correct AT_MAC value. This computation requires the K_aut key
    which is based on MK and, ultimately, CK' and IK', but not SHARED_SECRET.
    <vspace blankLines="1"/>
@@ -1200,7 +1200,7 @@ EMSK     = MK_ECDHE[768..1279]
    could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that the
    the introduction of a powerful enough quantum computer would enable subverting this protocol extension,
    making it necessary to update the current ECC algorithms in this specification to PQC algorithms. This
-   specification does not add such algorithms, but a future specification may do that of course.	   
+   specification does not add such algorithms, but a future specification may do that.
    </t>
 
    <t>Symmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
