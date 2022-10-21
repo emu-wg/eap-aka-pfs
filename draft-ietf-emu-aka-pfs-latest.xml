@@ -1167,7 +1167,7 @@ EMSK     = MK_ECDHE[768..1279]
       in the Identity Response (or any message used instead of the Identity Response).</t>
   </section>
 
-  <section title="Unprotected Data and Privacy">
+  <section anchor="unp" title="Unprotected Data and Privacy">
    <t>Unprotected data and metadata can reveal sensitive information and need to be selected with care.
    In particular, this applies to
    AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT. AT_KDF, AT_KDF_FS, and

@@ -6,8 +6,8 @@ Network Working Group                                           J. Arkko
 Internet-Draft                                                K. Norrman
 Updates: 9048 (if approved)                                  V. Torvinen
 Intended status: Informational                        J. Preuss Mattsson
-Expires: April 23, 2023                                         Ericsson
-                                                        October 20, 2022
+Expires: April 24, 2023                                         Ericsson
+                                                        October 21, 2022
 
 
  Forward Secrecy for the Extensible Authentication Protocol Method for
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 1]
+Arkko, et al.            Expires April 24, 2023                 [Page 1]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -61,7 +61,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 23, 2023.
+   This Internet-Draft will expire on April 24, 2023.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 2]
+Arkko, et al.            Expires April 24, 2023                 [Page 2]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -118,14 +118,14 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
      7.2.  Denial-of-Service . . . . . . . . . . . . . . . . . . . .  22
      7.3.  Identity Privacy  . . . . . . . . . . . . . . . . . . . .  23
      7.4.  Unprotected Data and Privacy  . . . . . . . . . . . . . .  23
-     7.5.  Post-Quantum Considerations . . . . . . . . . . . . . . .  23
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
+     7.5.  Post-Quantum Considerations . . . . . . . . . . . . . . .  24
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  25
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  25
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  26
-   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  27
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  29
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  27
+   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  28
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  30
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 3]
+Arkko, et al.            Expires April 24, 2023                 [Page 3]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -221,7 +221,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 4]
+Arkko, et al.            Expires April 24, 2023                 [Page 4]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -277,7 +277,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 5]
+Arkko, et al.            Expires April 24, 2023                 [Page 5]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -333,7 +333,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 6]
+Arkko, et al.            Expires April 24, 2023                 [Page 6]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -389,7 +389,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 7]
+Arkko, et al.            Expires April 24, 2023                 [Page 7]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -445,7 +445,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 8]
+Arkko, et al.            Expires April 24, 2023                 [Page 8]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -501,7 +501,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                 [Page 9]
+Arkko, et al.            Expires April 24, 2023                 [Page 9]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -557,7 +557,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 10]
+Arkko, et al.            Expires April 24, 2023                [Page 10]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -613,7 +613,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 11]
+Arkko, et al.            Expires April 24, 2023                [Page 11]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -669,7 +669,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 12]
+Arkko, et al.            Expires April 24, 2023                [Page 12]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -725,7 +725,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 13]
+Arkko, et al.            Expires April 24, 2023                [Page 13]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -781,7 +781,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 14]
+Arkko, et al.            Expires April 24, 2023                [Page 14]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -837,7 +837,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 15]
+Arkko, et al.            Expires April 24, 2023                [Page 15]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -893,7 +893,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 16]
+Arkko, et al.            Expires April 24, 2023                [Page 16]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -949,7 +949,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 17]
+Arkko, et al.            Expires April 24, 2023                [Page 17]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1005,7 +1005,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 18]
+Arkko, et al.            Expires April 24, 2023                [Page 18]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1061,7 +1061,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 19]
+Arkko, et al.            Expires April 24, 2023                [Page 19]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 20]
+Arkko, et al.            Expires April 24, 2023                [Page 20]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1173,7 +1173,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 21]
+Arkko, et al.            Expires April 24, 2023                [Page 21]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1229,7 +1229,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 22]
+Arkko, et al.            Expires April 24, 2023                [Page 22]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1266,14 +1266,29 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 7.4.  Unprotected Data and Privacy
 
-   The Initiator and the Responder must make sure that unprotected data
-   and metadata do not reveal any sensitive information.  In particular,
-   this applies to AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT.
-   AT_KDF, AT_KDF_FS, and AT_PUB_ECDHE reveals the used cryptographic
+   Unprotected data and metadata can reveal sensitive information and
+   need to be selected with care.  In particular, this applies to
+   AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT.  AT_KDF,
+   AT_KDF_FS, and AT_PUB_ECDHE reveals the used cryptographic
    algorithms, if these depend on the peer identity they leak
-   information about the peer.  AT_KDF_INPUT reveals the network name.
-   An attacker observing network traffic may use such information for
-   traffic flow analysis or to track an endpoint.
+   information about the peer.  AT_KDF_INPUT reveals the network name,
+   although that is done on purpose to bind the authentication to a
+   particular context.
+
+   An attacker observing network traffic may use the above types of
+   information for traffic flow analysis or to track an endpoint.
+
+
+
+
+
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 23]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
 7.5.  Post-Quantum Considerations
 
@@ -1281,22 +1296,34 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    even if a quantum computer of sufficient size and power to exploit
    elliptic curve cryptography will exist.  Deployments that need to
    consider risks decades into the future should transition to Post-
-   Quantum Cryptography (PQC) in the not-too-distant future.  Many other
+   Quantum Cryptography (PQC) in the not-too-distant future.  Other
+   systems may employ PQC when the quantum threat is more imminent.
+   Current PQC algorithms have limitations compared to Elliptic Curve
+   Cryptography (ECC) and the data sizes could be problematic for some
+   constrained systems.  If a Cryptographically Relevant Quantum
+   Computer (CRQC) is built it could recover the SHARED_SECRET from the
+   ECDHE public keys.
 
+   This would not affect the ability of EAP-AKA' (with or without this
+   extension) to authenticate properly, however.  As symmetric key
+   cryptography is safe even if CRQCs are built, an adversary still will
+   not be able to disrupt authentication as it requires computing a
+   correct AT_MAC value.  This computation requires the K_aut key which
+   is based on MK and, ultimately, CK' and IK', but not SHARED_SECRET.
 
+   Other output keys do include SHARED_SECRET via MK_ECDHE, but still
+   include also CK' and IK' which are entirely based on symmetricy
+   cryptography.  As a result, an adversary with a quantum computer
+   still cannot compute the other output keys either.
 
-Arkko, et al.            Expires April 23, 2023                [Page 23]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
-   systems should take a slower wait-and-see approach where PQC is
-   phased in when the quantum threat is more imminent.  Current PQC
-   algorithms have limitations compared to Elliptic Curve Cryptography
-   (ECC) and the data sizes would be problematic in many constrained IoT
-   systems.  If a Cryptographically Relevant Quantum Computer (CRQC) is
-   built it could recover the SHARED_SECRET from the ECDHE public keys
-   in a matter of hours.
+   However, if the adversary has also obtained knowledge of the secrets
+   associated with the SIM card, they could then compute CK', IK', and
+   SHARED_SECRET, and any derived output keys.  This means that the the
+   introduction of a powerful enough quantum computer would enable
+   subverting this protocol extension, making it necessary to update the
+   current ECC algorithms in this specification to PQC algorithms.  This
+   specification does not add such algorithms, but a future
+   specification may do that.
 
    Symmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256 and the
    algorithms use to generate AT_AUTN and AT_RES are practically secure
@@ -1308,6 +1335,16 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    the key exchange adheres to a KEM interface.  AT_PUB_ECDHE would then
    contain either the ephemeral public key of the server or the
    SHARED_SECRET encapsulated with the server's public key.
+
+
+
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 24]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
 8.  IANA Considerations
 
@@ -1335,17 +1372,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 9.  References
 
-
-
-
-
-
-
-Arkko, et al.            Expires April 23, 2023                [Page 24]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
 9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -1362,6 +1388,19 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
               Protocol Method for 3rd Generation Authentication and Key
               Agreement (EAP-AKA)", RFC 4187, DOI 10.17487/RFC4187,
               January 2006, <https://www.rfc-editor.org/info/rfc4187>.
+
+
+
+
+
+
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 25]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
    [RFC7624]  Barnes, R., Schneier, B., Jennings, C., Hardie, T.,
               Trammell, B., Huitema, C., and D. Borkmann,
@@ -1393,15 +1432,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
               NIST, "Digital Signature Standard (DSS)", FIPS 186-4, July
               2013.
 
-
-
-
-
-Arkko, et al.            Expires April 23, 2023                [Page 25]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
    [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
               Standards for Efficient Cryptography 1 (SEC 1) Version
               2.0, May 2009.
@@ -1416,6 +1446,17 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
               Schemes Using Discrete Logarithm Cryptography",
               NIST Special Publication 800-56A Revision 3, April 2018,
               <https://doi.org/10.6028/NIST.SP.800-56Ar3>.
+
+
+
+
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 26]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
 9.2.  Informative References
 
@@ -1449,15 +1490,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
               1.3", RFC 9190, DOI 10.17487/RFC9190, February 2022,
               <https://www.rfc-editor.org/info/rfc9190>.
 
-
-
-
-
-Arkko, et al.            Expires April 23, 2023                [Page 26]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
    [TrustCom2015]
               Arkko, J., Norrman, K., Naeslund, M., and B. Sahlin, "A
               USIM compatible 5G AKA protocol with perfect forward
@@ -1472,6 +1504,15 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    [DOW1992]  Diffie, W., Van Oorschot, P., and M. Wiener,
               "Authentication and Authenticated Key Exchanges", Designs,
               Codes and Cryptography 2 pp. 107-125, June 1992.
+
+
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 27]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
    [TS.33.501]
               3GPP, "Security architecture and procedures for 5G
@@ -1489,10 +1530,15 @@ Appendix A.  Change Log
       Section 6.4, in order to align the requirements with 3GPP SUCI
       encryption requirements.
 
+   o  Addition of a discussion about the impacts of potential future
+      quantum computing attacks with specific impacts to this extension.
+
    o  Addition of a discussion about metadata/unproctected data in
       Section 7.4.
 
    o  Reference updates.
+
+   o  Various editorial improvements.
 
    The -07 version of the WG draft has the following changes:
 
@@ -1506,14 +1552,6 @@ Appendix A.  Change Log
    o  The draft does no longer refer to issues within the smart cards
       but rather the smart card supply chain.
 
-
-
-
-Arkko, et al.            Expires April 23, 2023                [Page 27]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
    o  The rationale for chosen algorithms is explained.
 
    o  Also, the authors have checked the language relating to the public
@@ -1522,6 +1560,15 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
    The -06 version of the WG draft is a refresh and a reference update.
    However, the following should be noted:
+
+
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 28]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
    o  The draft now uses "forward secrecy" terminology and references
       RFC 7624 per recommendations on mailing list discussion.
@@ -1562,14 +1609,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
    The -04 version of this draft made only editorial changes.
 
-
-
-
-Arkko, et al.            Expires April 23, 2023                [Page 28]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
    The -03 version of this draft changed the naming of various protocol
    components, values, and notation to match with the use of ECDH in
    ephemeral mode.  The AT_KDF_FS negotiation process was clarified in
@@ -1579,6 +1618,14 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    considerations for the FS process have been updated.  Bidding down
    attacks against this extension itself are discussed extensively.
    This version also addressed comments from reviewers, including the
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 29]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    August review from Mohit Sethi, and comments made during IETF-102
    discussion.
 
@@ -1616,22 +1663,23 @@ Authors' Addresses
    Email: karl.norrman@ericsson.com
 
 
-
-
-
-
-
-Arkko, et al.            Expires April 23, 2023                [Page 29]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
    Vesa Torvinen
    Ericsson
    Jorvas  02420
    Finland
 
    Email: vesa.torvinen@ericsson.com
+
+
+
+
+
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 30]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
    John Preuss Mattsson
@@ -1677,4 +1725,12 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 23, 2023                [Page 30]
+
+
+
+
+
+
+
+
+Arkko, et al.            Expires April 24, 2023                [Page 31]
