@@ -1396,8 +1396,8 @@ Value      Description                       Reference
     order to align the requirements with 3GPP SUCI encryption
     requirements.</t>
 	  
-    <t>The explanation about the impacts of potential future quantum
-    computing attacks has been updated to be more specific about impacts to this extension.</t>
+    <t>Addition of a discussion about the impacts of potential future quantum
+    computing attacks with specific impacts to this extension.</t>
 
     <t>Addition of a discussion about metadata/unproctected data in
     <xref target="unp"/>.</t>
