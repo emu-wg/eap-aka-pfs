@@ -63,6 +63,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
+<date month="October" year="2022" />
+
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
 <keyword>AKA'</keyword>
@@ -371,7 +373,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>Forward Secrecy for EAP-AKA' is achieved by using an Elliptic
   Curve Diffie-Hellman (ECDH) exchange <xref target="RFC7748"/>. To provide
   FS, the exchange must be run in an ephemeral manner, i.e.,
-  both sides generate temporary keys as specified in e.g., <xref target="RFC7748"/>.
+  both sides generate temporary keys according to the negotiated ciphersuite,
+  e.g., for X25519 this is done as specified in <xref target="RFC7748"/>.
   This method is referred to as ECDHE, where the last 'E' stands
   for Ephemeral. The two initially registered elliptic curves and their
   wire format is chosen to align with the elliptic curves and formats
@@ -701,7 +704,7 @@ EMSK     = MK_ECDHE[768..1279]
 	MAY check for zero-value shared secret as specified in Section 6.1 of
 	<xref target="RFC7748"/>.</t>
 		
-	 <list style="empty">
+	 <t><list style="empty">
 
 	   <t>Note: The way that shared secret is tested for zero can,
 	   if performed inappropriately, provide an ability for
@@ -710,7 +713,7 @@ EMSK     = MK_ECDHE[768..1279]
 	   perform this check in a way that it does not become a
 	   problem.</t>
 
-	 </list>	    
+	 </list></t>	    
 
 	<t>If validation of the public key or the shared secret fails, both
         parties MUST behave as if the  current EAP-AKA' authentication
@@ -1164,7 +1167,7 @@ EMSK     = MK_ECDHE[768..1279]
       in the Identity Response (or any message used instead of the Identity Response).</t>
   </section>
 
-   <section title="Unprotected Data and Privacy">
+  <section title="Unprotected Data and Privacy">
    <t>Unprotected data and metadata can reveal sensitive information and need to be selected with care.
    In particular, this applies to
    AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT. AT_KDF, AT_KDF_FS, and
@@ -1259,7 +1262,7 @@ Value      Description                       Reference
         <date month="July" year='2013'/>
         </front>
         <seriesInfo name="FIPS" value="186-4" />
-        <format target='https://doi.org/10.6028/NIST.FIPS.186-4'/>
+        <format type='HTML' target='https://doi.org/10.6028/NIST.FIPS.186-4'/>
       </reference>
       <reference anchor="SEC1">
         <front>
@@ -1270,7 +1273,7 @@ Value      Description                       Reference
         <date month="May" year='2009'/>
         </front>
         <seriesInfo name="Standards for Efficient Cryptography 1 (SEC 1)" value="Version 2.0" />
-        <format target='https://www.secg.org/sec1-v2.pdf'/>
+        <format type='HTML' target='https://www.secg.org/sec1-v2.pdf'/>
       </reference>
       <reference anchor="SEC2">
         <front>
@@ -1281,7 +1284,7 @@ Value      Description                       Reference
         <date month="January" year='2010'/>
         </front>
         <seriesInfo name="Standards for Efficient Cryptography 2 (SEC 2)" value="Version 2.0" />
-        <format target='https://www.secg.org/sec2-v2.pdf'/>
+        <format type='HTML' target='https://www.secg.org/sec2-v2.pdf'/>
       </reference>
 <reference anchor="SP-800-56A" target="https://doi.org/10.6028/NIST.SP.800-56Ar3">
   <front>
@@ -1322,9 +1325,10 @@ Value      Description                       Reference
       <author initials="K." surname="Norrman"></author>
       <author initials="M." surname="Näslund"></author>
       <author initials="B." surname="Sahlin"></author>
+      <date month='August' year='2015'/>
     </front>
     <seriesInfo name="Proceedings of IEEE International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom)" value="2015" />
-    <format target='https://doi.org/10.1109/Trustcom.2015.506'/>
+    <format type='HTML' target='https://doi.org/10.1109/Trustcom.2015.506'/>
   </reference>
 
     <reference anchor="Heist2015">
@@ -1334,7 +1338,7 @@ Value      Description                       Reference
       <author initials="J." surname="Begley"></author>
       <date month="February" year="2015"/>
     </front>
-    <format target='https://theintercept.com/2015/02/19/great-sim-heist/'/>
+    <format type='HTML' target='https://theintercept.com/2015/02/19/great-sim-heist/'/>
   </reference>
 
     <reference anchor="DOW1992">
@@ -1346,7 +1350,7 @@ Value      Description                       Reference
       <date month="June" year="1992"/>
     </front>
     <seriesInfo name="Designs, Codes and Cryptography 2" value="pp. 107-125" />
-    <format target='https://doi.org/10.1007/BF00124891'/>
+    <format type='HTML' target='https://doi.org/10.1007/BF00124891'/>
   </reference>
 
   <reference anchor="TS.33.501">
@@ -1369,10 +1373,21 @@ Value      Description                       Reference
   <t>The -08 version of the WG draft has the following changes:
   <list style="symbols">
 
-    <t>Support for the NIST  P-256 group has been made mandatory, in
+    <t>Further clarification of key calculation in <xref
+    target="kdf2"/>.</t>
+    
+    <t>Support for the NIST  P-256 group has been made mandatory in
+    <xref target="groups"/>, in
     order to align the requirements with 3GPP SUCI encryption
     requirements.</t>
 
+    <t>Addition of a discussion about metadata/unproctected data in
+    <xref target="unp"/>.</t>
+      
+    <t>Reference updates.</t>
+
+    <t>Various editorial improvements.</t>
+    
   </list></t>
   
   <t>The -07 version of the WG draft has the following changes:
@@ -1464,7 +1479,8 @@ Value      Description                       Reference
     <t>The authors would like to note that the technical solution in
     this document came out of the TrustCom paper <xref
     target="TrustCom2015"/>, whose authors were J. Arkko, K. Norrman,
-    <contact fullname="M. Näslund"/>, and B. Sahlin. This document
+    <contact fullname="M. Näslund"/>,
+    and B. Sahlin. This document
     uses also a lot of material from <xref target="RFC4187"/> by
     J. Arkko and H. Haverinen as well as <xref target="RFC5448"/> by J. Arkko,
     V. Lehtovirta, and P. Eronen.</t>

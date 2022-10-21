@@ -5,9 +5,9 @@
 Network Working Group                                           J. Arkko
 Internet-Draft                                                K. Norrman
 Updates: 9048 (if approved)                                  V. Torvinen
-Intended status: Informational                         J. Preuß Mattsson
-Expires: 7 February 2023                                        Ericsson
-                                                           6 August 2022
+Intended status: Informational                        J. Preuss Mattsson
+Expires: April 23, 2023                                         Ericsson
+                                                        October 20, 2022
 
 
  Forward Secrecy for the Extensible Authentication Protocol Method for
@@ -45,25 +45,23 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at https://datatracker.ietf.org/drafts/current/.
-
-
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023                [Page 1]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                 [Page 1]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 February 2023.
+   This Internet-Draft will expire on April 23, 2023.
 
 Copyright Notice
 
@@ -71,13 +69,14 @@ Copyright Notice
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents (https://trustee.ietf.org/
-   license-info) in effect on the date of publication of this document.
-   Please review these documents carefully, as they describe your rights
-   and restrictions with respect to this document.  Code Components
-   extracted from this document must include Revised BSD License text as
-   described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Revised BSD License.
+   Provisions Relating to IETF Documents
+   (http://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
 
 Table of Contents
 
@@ -86,8 +85,7 @@ Table of Contents
    3.  Background  . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  AKA . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.2.  EAP-AKA' Protocol . . . . . . . . . . . . . . . . . . . .   6
-     3.3.  Attacks Against Long-Term Shared Secrets in Smart
-           Cards . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     3.3.  Attacks Against Long-Term Shared Secrets in Smart Cards .   7
    4.  Requirements Language . . . . . . . . . . . . . . . . . . . .   8
    5.  Protocol Overview . . . . . . . . . . . . . . . . . . . . . .   8
    6.  Extensions to EAP-AKA'  . . . . . . . . . . . . . . . . . . .  11
@@ -95,34 +93,34 @@ Table of Contents
      6.2.  AT_KDF_FS . . . . . . . . . . . . . . . . . . . . . . . .  11
      6.3.  Forward Secrecy Key Derivation Functions  . . . . . . . .  13
      6.4.  ECDHE Groups  . . . . . . . . . . . . . . . . . . . . . .  15
-     6.5.  Message Processing  . . . . . . . . . . . . . . . . . . .  16
+     6.5.  Message Processing  . . . . . . . . . . . . . . . . . . .  15
        6.5.1.  EAP-Request/AKA'-Identity . . . . . . . . . . . . . .  16
        6.5.2.  EAP-Response/AKA'-Identity  . . . . . . . . . . . . .  16
        6.5.3.  EAP-Request/AKA'-Challenge  . . . . . . . . . . . . .  16
        6.5.4.  EAP-Response/AKA'-Challenge . . . . . . . . . . . . .  17
        6.5.5.  EAP-Request/AKA'-Reauthentication . . . . . . . . . .  17
-       6.5.6.  EAP-Response/AKA'-Reauthentication  . . . . . . . . .  18
+       6.5.6.  EAP-Response/AKA'-Reauthentication  . . . . . . . . .  17
        6.5.7.  EAP-Response/AKA'-Synchronization-Failure . . . . . .  18
        6.5.8.  EAP-Response/AKA'-Authentication-Reject . . . . . . .  18
        6.5.9.  EAP-Response/AKA'-Client-Error  . . . . . . . . . . .  18
        6.5.10. EAP-Request/AKA'-Notification . . . . . . . . . . . .  18
-
-
-
-Arkko, et al.            Expires 7 February 2023                [Page 2]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
        6.5.11. EAP-Response/AKA'-Notification  . . . . . . . . . . .  18
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
+
+
+
+Arkko, et al.            Expires April 23, 2023                 [Page 2]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
      7.1.  Security Properties . . . . . . . . . . . . . . . . . . .  20
      7.2.  Denial-of-Service . . . . . . . . . . . . . . . . . . . .  22
      7.3.  Identity Privacy  . . . . . . . . . . . . . . . . . . . .  23
-     7.4.  Unprotected Data and Privacy  . . . . . . . . . . . . . .  24
-     7.5.  Post-Quantum Considerations . . . . . . . . . . . . . . .  24
+     7.4.  Unprotected Data and Privacy  . . . . . . . . . . . . . .  23
+     7.5.  Post-Quantum Considerations . . . . . . . . . . . . . . .  23
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  25
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  26
    Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  27
@@ -165,9 +163,11 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 7 February 2023                [Page 3]
+
+
+Arkko, et al.            Expires April 23, 2023                 [Page 3]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
    This specification updates [RFC9048], the EAP-AKA' authentication
@@ -221,9 +221,9 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 7 February 2023                [Page 4]
+Arkko, et al.            Expires April 23, 2023                 [Page 4]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
    in EAP-AKA'.  Old implementations can ignore these attributes, but
@@ -243,19 +243,19 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    believe that the approach chosen here is relatively easily
    deployable.  In particular:
 
-   *  As noted above, no new credentials are needed; there is no change
+   o  As noted above, no new credentials are needed; there is no change
       to SIM cards.
 
-   *  FS property can be incorporated into any current or future system
+   o  FS property can be incorporated into any current or future system
       that supports EAP, without changing any network functions beyond
       the EAP endpoints.
 
-   *  Key generation happens at the endpoints, enabling highest grade
+   o  Key generation happens at the endpoints, enabling highest grade
       key material to be used both by the endpoints and the intermediate
       systems (such as access points that are given access to specific
       keys).
 
-   *  While EAP-AKA' is just one EAP method, for practical purposes
+   o  While EAP-AKA' is just one EAP method, for practical purposes
       forward secrecy being available for both EAP-TLS [RFC5216]
       [RFC9190] and EAP-AKA' ensures that for many practical systems
       forward secrecy can be enabled for either all or significant
@@ -277,17 +277,17 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 7 February 2023                [Page 5]
+Arkko, et al.            Expires April 23, 2023                 [Page 5]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
    AKA works in the following manner:
 
-   *  The identity module and the home environment have agreed on a
+   o  The identity module and the home environment have agreed on a
       secret key beforehand.
 
-   *  The actual authentication process starts by having the home
+   o  The actual authentication process starts by having the home
       environment produce an authentication vector, based on the secret
       key and a sequence number.  The authentication vector contains a
       random part RAND, an authenticator part AUTN used for
@@ -295,18 +295,18 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
       result part XRES, a 128-bit session key for integrity check IK,
       and a 128-bit session key for encryption CK.
 
-   *  The authentication vector is passed to the serving network, which
+   o  The authentication vector is passed to the serving network, which
       uses it to authenticate the device.
 
-   *  The RAND and the AUTN are delivered to the identity module.
+   o  The RAND and the AUTN are delivered to the identity module.
 
-   *  The identity module verifies the AUTN, again based on the secret
+   o  The identity module verifies the AUTN, again based on the secret
       key and the sequence number.  If this process is successful (the
       AUTN is valid and the sequence number used to generate AUTN is
       within the correct range), the identity module produces an
       authentication result RES and sends it to the serving network.
 
-   *  The serving network verifies the correct result from the identity
+   o  The serving network verifies the correct result from the identity
       module.  If the result is correct, IK and CK can be used to
       protect further communications between the identity module and the
       home environment.
@@ -333,9 +333,9 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 7 February 2023                [Page 6]
+Arkko, et al.            Expires April 23, 2023                 [Page 6]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
       |      | Server determines the network name and ensures that    |
@@ -389,9 +389,9 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 7 February 2023                [Page 7]
+Arkko, et al.            Expires April 23, 2023                 [Page 7]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
    An important vulnerability in that discussion relates to the recent
@@ -420,7 +420,8 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    Forward Secrecy for EAP-AKA' is achieved by using an Elliptic Curve
    Diffie-Hellman (ECDH) exchange [RFC7748].  To provide FS, the
    exchange must be run in an ephemeral manner, i.e., both sides
-   generate temporary keys as specified in e.g., [RFC7748].  This method
+   generate temporary keys according to the negotiated ciphersuite,
+   e.g., for X25519 this is done as specified in [RFC7748].  This method
    is referred to as ECDHE, where the last 'E' stands for Ephemeral.
    The two initially registered elliptic curves and their wire format is
    chosen to align with the elliptic curves and formats specified for
@@ -438,21 +439,17 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    calculation of key material, providing new properties that are not
    present in key material provided by EAP-AKA' in its original form.
 
-
-
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023                [Page 8]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    Figure 2 below describes the overall process.  Since our goal has
    been to not require new infrastructure or credentials, the flow
    diagrams also show the conceptual interaction with the USIM card and
+
+
+
+Arkko, et al.            Expires April 23, 2023                 [Page 8]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    the 3GPP authentication server (HSS).  The details of those
    interactions are outside the scope of this document, however, and the
    reader is referred to the 3GPP specifications.
@@ -498,17 +495,17 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
       |              |   AT_KDF_FS, AT_KDF_INPUT, |                |
       |              |       AT_PUB_ECDHE, AT_MAC |                |
       |              |<---------------------------|                |
-
-
-
-Arkko, et al.            Expires 7 February 2023                [Page 9]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    +--------------------------------------------------------+      |
    | The peer checks if it wants to do the FS extension. If |      |
    | yes, it will eventually respond with AT_PUB_ECDHE and  |      |
+
+
+
+Arkko, et al.            Expires April 23, 2023                 [Page 9]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    | AT_MAC. If not, it will ignore AT_PUB_ECDHE and        |      |
    | AT_KDF_FS and base all calculations on basic EAP-AKA'  |      |
    | attributes, continuing just as in EAP-AKA' per RFC     |      |
@@ -551,15 +548,18 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
       |              |                EAP-Success |                |
       |              |<---------------------------|                |
 
-                Figure 2: EAP-AKA' FS Authentication Process
+               Figure 2: EAP-AKA' FS Authentication Process
 
 
 
 
 
-Arkko, et al.            Expires 7 February 2023               [Page 10]
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 10]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 6.  Extensions to EAP-AKA'
@@ -579,13 +579,16 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    The fields are as follows:
 
    AT_PUB_ECDHE
+
       This is set to TBA1 BY IANA.
 
    Length
+
       The length of the attribute, set as other attributes in EAP-AKA
       [RFC4187].
 
    Value
+
       This value is the sender's ECDHE public key.  The value depend on
       AT_KDF_FS and is calculated as follows:
 
@@ -608,15 +611,14 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    the forward secrecy KDF value.  The legacy KDF value is also used by
    those EAP peers that cannot or do not want to use this extension.
 
-   The format of the AT_KDF_FS attribute is shown below.
 
 
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 11]
+Arkko, et al.            Expires April 23, 2023                [Page 11]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
+
+   The format of the AT_KDF_FS attribute is shown below.
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -627,12 +629,15 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    The fields are as follows:
 
    AT_KDF_FS
+
       This is set to TBA2 BY IANA.
 
    Length
+
       The length of the attribute, MUST be set to 1.
 
    FS Key Derivation Function
+
       An enumerated value representing the forward secrecy key
       derivation function that the server (or peer) wishes to use.  See
       Section 6.3 for the functions specified in this document.  Note:
@@ -649,36 +654,36 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
    Upon receiving a set of these attributes:
 
-   *  If the peer supports and is willing to use the FS Key Derivation
+   o  If the peer supports and is willing to use the FS Key Derivation
       Function indicated by the first AT_KDF_FS attribute, and is
       willing and able to use the extension defined in this
       specification, the function is taken into use without any further
       negotiation.
 
-   *  If the peer does not support this function or is unwilling to use
+   o  If the peer does not support this function or is unwilling to use
       it, it responds to the server with an indication that a different
       function is needed.  Similarly with the negotiation process
       defined in [RFC9048] for AT_KDF, the peer sends EAP-Response/AKA'-
       Challenge message that contains only one attribute, AT_KDF_FS with
       the value set to the desired alternative function from among the
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 12]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
       ones suggested by the server earlier.  If there is no suitable
       alternative, the peer has a choice of either falling back to EAP-
       AKA' or behaving as if AUTN had been incorrect and failing
       authentication (see Figure 3 of [RFC4187]).  The peer MUST fail
       the authentication if there are any duplicate values within the
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 12]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
       list of AT_KDF_FS attributes (except where the duplication is due
       to a request to change the key derivation function; see below for
       further information).
 
-   *  If the peer does not recognize the extension defined in this
+   o  If the peer does not recognize the extension defined in this
       specification or is unwilling to use it, it ignores the AT_KDF_FS
       attribute.
 
@@ -715,23 +720,16 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    particular choice of key derivation function and at the same time
    selects an ECDHE group to be used.
 
-
-
-
-
-
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 13]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    The FS Key Derivation Function type value is only used in the
    AT_KDF_FS attribute.  When the forward secrecy extension is used, the
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 13]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    AT_KDF_FS attribute determines how to derive the keys MK_ECDHE, K_re,
    MSK, and EMSK.  The AT_KDF_FS attribute should not be confused with
    the different range of key derivation functions that can be
@@ -781,9 +779,11 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-Arkko, et al.            Expires 7 February 2023               [Page 14]
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 14]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
    If validation of the public key or the shared secret fails, both
@@ -825,22 +825,7 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    For "EAP-AKA' with ECDHE and P-256" the group is the NIST P-256 group
    (SEC group secp256r1), specified in Appendix D.1.2.3 of [FIPS186-4]
    or alternatively Section 2.4.2 of [SEC2].  The support for this group
-   is OPTIONAL.
-
-
-
-
-
-
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 15]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
+   is REQUIRED.
 
 6.5.  Message Processing
 
@@ -849,6 +834,14 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    be transmitted or accepted, which attributes are allowed in a
    message, which attributes are required in a message, and other
    message-specific details, where those details are different for this
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 15]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    extension than the base EAP-AKA' or EAP-AKA protocol.  Unless
    otherwise specified here, the rules from [RFC9048] or [RFC4187]
    apply.
@@ -890,17 +883,20 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    AT_KDF_FS, AT_PUB_ECDHE before processing other attributes.  Only if
    these attributes are verified to be valid, the peer derives keys and
    verifies AT_MAC.  If the peer is unable or unwilling to perform the
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 16]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    extension specified in this document, it proceeds as defined in
    [RFC9048].  Finally, the operation in case an error occurs is
    specified in Section 6.3.1. of [RFC4187].
+
+
+
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 16]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
 6.5.4.  EAP-Response/AKA'-Challenge
 
@@ -943,22 +939,20 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    extension specified in this document is in use, employs key material
    from the Diffie-Hellman procedure.
 
-
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 17]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
 6.5.6.  EAP-Response/AKA'-Reauthentication
 
    No changes, but as discussed in Section 6.5.5, re-authentication is
    based on the key material generated by EAP-AKA' and the extension
    defined in this document.
+
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 17]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
 6.5.7.  EAP-Response/AKA'-Synchronization-Failure
 
@@ -992,24 +986,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    as they differ from EAP-AKA', or as new information has been gathered
    since the publication of [RFC9048].
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 18]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    The possibility of attacks against key storage offered in SIM or
    other smart cards has been a known threat.  But as the discussion in
    Section 3.3 shows, the likelihood of practically feasible attacks
@@ -1025,6 +1001,15 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    If a mechanism without forward secrecy such as (5G-AKA, EAP-AKA') is
    used the effects of key compromise are devastating.  The serious
    consequences of breach somewhere in the supply chain or after
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 18]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    delivery that are possible when 5G-AKA or EAP-AKA' is used but not
    when something with forward secrecy like EAP-AKA-FS is used are:
 
@@ -1040,8 +1025,9 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
        real network (control and user plane both directions).
 
    Best practice security today is to mandate forward secrecy (as is
-   done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, etc.).  It is RECOMMENDED to
-   long term completely phase out AKA without forward secrecy.
+   done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard,
+   Signal, etc.).  It is RECOMMENDED to long term completely phase out
+   AKA without forward secrecy.
 
    This extension can provide assistance in situations where there is a
    danger of attacks against the key material on SIM cards by
@@ -1058,14 +1044,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    [RFC7296], the session keys produced by IKEv2 have this property, so
    better characteristics of EAP keys is not that useful.  However,
    typical link layer usage of EAP does not involve running Diffie-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 19]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    Hellman, so using EAP to authenticate access to a network is one
    situation where the extension defined in this document can be
    helpful.
@@ -1078,6 +1056,15 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    and gets access to all of the AKA long-term keys cannot reconstruct
    the keys used to protect the session or any previous session, without
    doing a brute force search of the session key space.
+
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 19]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
    Even if a compromise of the long-term keys has occurred, FS is still
    provided for all future sessions, as long as the attacker does not
@@ -1112,16 +1099,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
    Protected ciphersuite negotiation
 
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 20]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
       EAP-AKA' has a negotiation mechanism for selecting the key
       derivation functions, and this mechanism has been extended by the
       extension specified in this document.  The resulting mechanism
@@ -1130,16 +1107,26 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
       There are two specific needs in the negotiation mechanism:
 
       Negotiating key derivation function within the extension
+
          The negotiation mechanism allows changing the offered key
          derivation function, but the change is visible in the final
          EAP- Request/AKA'-Challenge message that the server sends to
          the peer.  This message is authenticated via the AT_MAC
          attribute, and carries both the chosen alternative and the
          initially offered list.  The peer refuses to accept a change it
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 20]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
          did not initiate.  As a result, both parties are aware that a
          change is being made and what the original offer was.
 
       Negotiating the use of this extension
+
          This extension is offered by the server through presenting the
          AT_KDF_FS and AT_PUB_ECDHE attributes in the EAP-Request/AKA'-
          Challenge message.  These attributes are protected by AT_MAC,
@@ -1168,16 +1155,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
          extension is not supported or negotiated by the parties, no FS
          can obviously provided.
 
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 21]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
          If turning off the extension specified in this protocol is not
          allowed by policy, the use of legacy equipment that does not
          support this protocol is no longer possible.  This may be
@@ -1186,12 +1163,21 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
          a mobile network.
 
    Key derivation
+
       This extension provides key material that is based on the Diffie-
       Hellman keys, yet bound to the authentication through the SIM
       card.  This means that subsequent payload communications between
       the parties are protected with keys that are not solely based on
       information in the clear (such as the RAND) and information
       derivable from the long-term shared secrets on the SIM card.  As a
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 21]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
       result, if anyone successfully recovers shared secret information,
       they are unable to decrypt communications protected by the keys
       generated through this extension.  Note that the recovery of
@@ -1225,37 +1211,37 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    factors help mitigate the concerns relating to public key
    cryptography and EAP-AKA' FS.
 
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 22]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
-   *  In 5G context, other parts of the connection setup involve public
+   o  In 5G context, other parts of the connection setup involve public
       key cryptography, so while performing additional operations in
       EAP-AKA' is an additional concern, it does not change the overall
       situation.  As a result, the relevant system components need to be
       dimensioned appropriately, and detection and management mechanisms
       to reduce the effect of attacks need to be in place.
 
-   *  This specification is constructed so that a separation between the
+   o  This specification is constructed so that a separation between the
       USIM and Peer on client side and the Server and HSS on network
       side is possible.  This ensures that the most sensitive (or
       legacy) system components can not be the target of the attack.
       For instance, EAP-AKA' and public key cryptography takes place in
       the phone and not the low-power SIM card.
 
-   *  EAP-AKA' has been designed so that the first actual message in the
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 22]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
+   o  EAP-AKA' has been designed so that the first actual message in the
       authentication process comes from the Server, and that this
       message will not be sent unless the user has been identified as an
       active subscriber of the operator in question.  While the initial
       identity can be spoofed before authentication has succeeded, this
       reduces the efficiency of an attack.
 
-   *  Finally, this memo specifies an order in which computations and
+   o  Finally, this memo specifies an order in which computations and
       checks must occur.  When processing the EAP-Request/AKA'-Challenge
       message, for instance, the AKA authentication must be checked and
       succeed before the peer proceeds to calculating or processing the
@@ -1278,18 +1264,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    identifiers) in cleartext in the Identity Response (or any message
    used instead of the Identity Response).
 
-
-
-
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 23]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
 7.4.  Unprotected Data and Privacy
 
    The Initiator and the Responder must make sure that unprotected data
@@ -1308,6 +1282,14 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    elliptic curve cryptography will exist.  Deployments that need to
    consider risks decades into the future should transition to Post-
    Quantum Cryptography (PQC) in the not-too-distant future.  Many other
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 23]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    systems should take a slower wait-and-see approach where PQC is
    phased in when the quantum threat is more imminent.  Current PQC
    algorithms have limitations compared to Elliptic Curve Cryptography
@@ -1337,15 +1319,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    (Section 6.2 in the EAP-AKA and EAP-SIM Parameters registry under
    Attribute Types.
 
-
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 24]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    Also, a new registry should be created to represent FS Key Derivation
    Function types.  The "EAP-AKA' with ECDHE and X25519" and "EAP-AKA'
    with ECDHE and P-256" types (1 and 2, see Section 6.3) need to be
@@ -1362,12 +1335,23 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 9.  References
 
+
+
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 24]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
 9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
+              editor.org/info/rfc2119>.
 
    [RFC3748]  Aboba, B., Blunk, L., Vollbrecht, J., Carlson, J., and H.
               Levkowetz, Ed., "Extensible Authentication Protocol
@@ -1383,8 +1367,8 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
               Trammell, B., Huitema, C., and D. Borkmann,
               "Confidentiality in the Face of Pervasive Surveillance: A
               Threat Model and Problem Statement", RFC 7624,
-              DOI 10.17487/RFC7624, August 2015,
-              <https://www.rfc-editor.org/info/rfc7624>.
+              DOI 10.17487/RFC7624, August 2015, <https://www.rfc-
+              editor.org/info/rfc7624>.
 
    [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
               for Security", RFC 7748, DOI 10.17487/RFC7748, January
@@ -1394,13 +1378,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
               Writing an IANA Considerations Section in RFCs", BCP 26,
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/info/rfc8126>.
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 25]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -1414,16 +1391,24 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
    [FIPS186-4]
               NIST, "Digital Signature Standard (DSS)", FIPS 186-4, July
-              2013, <https://doi.org/10.6028/NIST.FIPS.186-4>.
+              2013.
+
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 25]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
    [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
               Standards for Efficient Cryptography 1 (SEC 1) Version
-              2.0, May 2009, <https://www.secg.org/sec1-v2.pdf>.
+              2.0, May 2009.
 
    [SEC2]     Certicom Research, "SEC 2: Recommended Elliptic Curve
               Domain Parameters", Standards for Efficient Cryptography 2
-              (SEC 2) Version 2.0, January 2010,
-              <https://www.secg.org/sec2-v2.pdf>.
+              (SEC 2) Version 2.0, January 2010.
 
    [SP-800-56A]
               Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
@@ -1450,14 +1435,6 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
               RFC 5448, DOI 10.17487/RFC5448, May 2009,
               <https://www.rfc-editor.org/info/rfc5448>.
 
-
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 26]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
               Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
               2014, <https://www.rfc-editor.org/info/rfc7258>.
@@ -1467,28 +1444,34 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
               (IKEv2)", STD 79, RFC 7296, DOI 10.17487/RFC7296, October
               2014, <https://www.rfc-editor.org/info/rfc7296>.
 
-   [RFC9190]  Preuß Mattsson, J. and M. Sethi, "EAP-TLS 1.3: Using the
-              Extensible Authentication Protocol with TLS 1.3",
-              RFC 9190, DOI 10.17487/RFC9190, February 2022,
+   [RFC9190]  Preu&#258;&#159; Mattsson, J. and M. Sethi, "EAP-TLS 1.3:
+              Using the Extensible Authentication Protocol with TLS
+              1.3", RFC 9190, DOI 10.17487/RFC9190, February 2022,
               <https://www.rfc-editor.org/info/rfc9190>.
 
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 26]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    [TrustCom2015]
-              Arkko, J., Norrman, K., Näslund, M., and B. Sahlin, "A
+              Arkko, J., Norrman, K., Naeslund, M., and B. Sahlin, "A
               USIM compatible 5G AKA protocol with perfect forward
               secrecy", Proceedings of IEEE International Conference on
               Trust, Security and Privacy in Computing and
-              Communications (TrustCom) 2015,
-              <https://doi.org/10.1109/Trustcom.2015.506>.
+              Communications (TrustCom) 2015, August 2015.
 
    [Heist2015]
               Scahill, J. and J. Begley, "The Great SIM Heist", February
-              2015,
-              <https://theintercept.com/2015/02/19/great-sim-heist/>.
+              2015.
 
    [DOW1992]  Diffie, W., Van Oorschot, P., and M. Wiener,
               "Authentication and Authenticated Key Exchanges", Designs,
-              Codes and Cryptography 2 pp. 107-125, June 1992,
-              <https://doi.org/10.1007/BF00124891>.
+              Codes and Cryptography 2 pp. 107-125, June 1992.
 
    [TS.33.501]
               3GPP, "Security architecture and procedures for 5G
@@ -1498,38 +1481,52 @@ Appendix A.  Change Log
 
    RFC Editor: Please remove this appendix.
 
+   The -08 version of the WG draft has the following changes:
+
+   o  Further clarification of key calculation in Section 6.3.
+
+   o  Support for the NIST P-256 group has been made mandatory in
+      Section 6.4, in order to align the requirements with 3GPP SUCI
+      encryption requirements.
+
+   o  Addition of a discussion about metadata/unproctected data in
+      Section 7.4.
+
+   o  Reference updates.
+
    The -07 version of the WG draft has the following changes:
 
-   *  The impact of forward secrecy explanation has been improved in the
+   o  The impact of forward secrecy explanation has been improved in the
       abstract and security considerations.
 
-   *  The draft now more forcefully explains why the authors believe it
+   o  The draft now more forcefully explains why the authors believe it
       is important to migrate existing systems to use forward secrecy,
       and makes a recommendation for this migration.
 
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 27]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
-   *  The draft does no longer refer to issues within the smart cards
+   o  The draft does no longer refer to issues within the smart cards
       but rather the smart card supply chain.
 
-   *  The rationale for chosen algorithms is explained.
 
-   *  Also, the authors have checked the language relating to the public
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 27]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
+   o  The rationale for chosen algorithms is explained.
+
+   o  Also, the authors have checked the language relating to the public
       value encoding, and believe it is exactly according to the
       references ([RFC7748] Section 6.1 and [SEC2] Section 2.7.1)
 
    The -06 version of the WG draft is a refresh and a reference update.
    However, the following should be noted:
 
-   *  The draft now uses "forward secrecy" terminology and references
+   o  The draft now uses "forward secrecy" terminology and references
       RFC 7624 per recommendations on mailing list discussion.
 
-   *  There's been mailing list disccussion about the encoding of the
+   o  There's been mailing list disccussion about the encoding of the
       public values; the current text requires confirmation from the
       working group that it is sufficient.
 
@@ -1563,14 +1560,15 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
    The -05 version is merely a refresh while the draft was waiting for
    WG adoption.
 
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 28]
-
-Internet-Draft                 EAP-AKA' FS                   August 2022
-
-
    The -04 version of this draft made only editorial changes.
+
+
+
+
+Arkko, et al.            Expires April 23, 2023                [Page 28]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
 
    The -03 version of this draft changed the naming of various protocol
    components, values, and notation to match with the use of ECDH in
@@ -1588,14 +1586,14 @@ Acknowledgments
 
    The authors would like to note that the technical solution in this
    document came out of the TrustCom paper [TrustCom2015], whose authors
-   were J.  Arkko, K.  Norrman, M. Näslund, and B.  Sahlin.  This
+   were J.  Arkko, K.  Norrman, M.  Naeslund, and B.  Sahlin.  This
    document uses also a lot of material from [RFC4187] by J.  Arkko and
    H.  Haverinen as well as [RFC5448] by J.  Arkko, V.  Lehtovirta, and
    P.  Eronen.
 
    The authors would also like to thank Ben Campbell, Tim Evans, Zhang
    Fu, Russ Housley, Tero Kivinen, Eliot Lear, Vesa Lehtovirta, Kathleen
-   Moriarty, Prajwol Kumar Nakarmi, Anand R. Prasad, Göran Rune, Bengt
+   Moriarty, Prajwol Kumar Nakarmi, Anand R.  Prasad, Goeran Rune, Bengt
    Sahlin, Joseph Salowey, Mohit Sethi, Rene Struik, Sean Turner, Helena
    Vahidi Mazinani, and many other people at the IETF, GSMA and 3GPP
    groups for interesting discussions in this problem space.
@@ -1604,15 +1602,17 @@ Authors' Addresses
 
    Jari Arkko
    Ericsson
-   FI-02420 Jorvas
+   Jorvas  02420
    Finland
+
    Email: jari.arkko@piuha.net
 
 
    Karl Norrman
    Ericsson
-   SE-16483 Stockholm
+   Stockholm  16483
    Sweden
+
    Email: karl.norrman@ericsson.com
 
 
@@ -1621,22 +1621,24 @@ Authors' Addresses
 
 
 
-Arkko, et al.            Expires 7 February 2023               [Page 29]
+Arkko, et al.            Expires April 23, 2023                [Page 29]
 
-Internet-Draft                 EAP-AKA' FS                   August 2022
+Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
    Vesa Torvinen
    Ericsson
-   FI-02420 Jorvas
+   Jorvas  02420
    Finland
+
    Email: vesa.torvinen@ericsson.com
 
 
-   John Preuß Mattsson
+   John Preuss Mattsson
    Ericsson
-   SE-164 40 Kista
+   Kista  164 40
    Sweden
+
    Email: john.mattsson@ericsson.com
 
 
@@ -1675,6 +1677,4 @@ Internet-Draft                 EAP-AKA' FS                   August 2022
 
 
 
-
-
-Arkko, et al.            Expires 7 February 2023               [Page 30]
+Arkko, et al.            Expires April 23, 2023                [Page 30]
