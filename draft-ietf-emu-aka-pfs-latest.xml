@@ -1167,15 +1167,17 @@ EMSK     = MK_ECDHE[768..1279]
       in the Identity Response (or any message used instead of the Identity Response).</t>
   </section>
 
-   <section anchor="unp" title="Unprotected Data and Privacy">
-   <t>The Initiator and the Responder must make sure that unprotected data and
-   metadata do not reveal any sensitive information. In particular, this applies to
+  <section title="Unprotected Data and Privacy">
+   <t>Unprotected data and metadata can reveal sensitive information and need to be selected with care.
+   In particular, this applies to
    AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT. AT_KDF, AT_KDF_FS, and
    AT_PUB_ECDHE reveals the used cryptographic algorithms, if these depend on the
    peer identity they leak information about the peer. AT_KDF_INPUT reveals the
-   network name. An attacker observing network traffic may use such information
+   network name, although that is done on purpose to bind the authentication to a particular context. 
+   <vspace blankLines="1"/>
+   An attacker observing network traffic may use the above types of information
    for traffic flow analysis or to track an endpoint.</t>
-  </section>
+   </section>
 
    <section title="Post-Quantum Considerations">
    <t>As of the publication of this specification, it is unclear when or
