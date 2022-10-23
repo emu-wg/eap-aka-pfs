@@ -1304,8 +1304,8 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    Computer (CRQC) is built it could recover the SHARED_SECRET from the
    ECDHE public keys.
 
-   This would not affect the ability of EAP-AKA' (with or without this
-   extension) to authenticate properly, however.  As symmetric key
+   This would not affect the ability of EAP-AKA' - with or without this
+   extension - to authenticate properly, however.  As symmetric key
    cryptography is safe even if CRQCs are built, an adversary still will
    not be able to disrupt authentication as it requires computing a
    correct AT_MAC value.  This computation requires the K_aut key which
@@ -1319,9 +1319,10 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    However, if the adversary has also obtained knowledge of the secrets
    associated with the SIM card, they could then compute CK', IK', and
    SHARED_SECRET, and any derived output keys.  This means that the the
-   introduction of a powerful enough quantum computer would enable
-   subverting this protocol extension, making it necessary to update the
-   current ECC algorithms in this specification to PQC algorithms.  This
+   introduction of a powerful enough quantum computer would disable this
+   protocol extension's ability to provide the forward security
+   capability.  This would make it necessary to update the current ECC
+   algorithms in this specification to PQC algorithms.  This
    specification does not add such algorithms, but a future
    specification may do that.
 
@@ -1335,7 +1336,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    the key exchange adheres to a KEM interface.  AT_PUB_ECDHE would then
    contain either the ephemeral public key of the server or the
    SHARED_SECRET encapsulated with the server's public key.
-
 
 
 

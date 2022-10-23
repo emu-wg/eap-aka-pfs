@@ -1220,7 +1220,7 @@ EMSK     = MK_ECDHE[768..1279]
    this protocol extension's ability to provide the forward security
    capability. This would 
    make it necessary to update the current ECC algorithms in this specification to PQC algorithms. This
-   specification does not add such algorithms, but a future specification may do that.
+   specification does not add such algorithms, but a future update can do that.
    </t>
 
    <t>Symmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
