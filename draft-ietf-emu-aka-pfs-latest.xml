@@ -559,7 +559,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 	 the following combinations of basic KDF values and forward secrecy
 	 KDF values:
 	 The basic KDF value in AT_KDF is 1, as specified in <xref target="RFC5448"/> and <xref target="RFC9048"/>,
-	 and the forward secrecy KDF values 1 and 2, as specified below and in <xref target="kdf2"/>.</t>
+	 and the forward secrecy KDF values in AT_KDF_FS are 1 or 2, as specified below and in <xref target="kdf2"/>.</t>
 	       
 	 <t>Any future specifications that add either new basic KDF or new forward secrecy KDF values need to specify
 	 how they are treated and what combinations are allowed. This requirement is an update to how 
