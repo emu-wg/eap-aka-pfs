@@ -1203,7 +1203,8 @@ EMSK     = MK_ECDHE[768..1279]
    systems. If a Cryptographically Relevant Quantum Computer (CRQC) is built
    it could recover the SHARED_SECRET from the ECDHE public keys.
    <vspace blankLines="1"/>
-   This would not affect the ability of EAP-AKA' (with or without this extension)
+   This would not affect the ability of EAP-AKA' - with or without
+   this extension -
    to authenticate properly, however. As symmetric key cryptography is safe even
    if CRQCs are built, an adversary still will not be able to disrupt authentication
    as it requires computing a correct AT_MAC value. This computation requires the K_aut key

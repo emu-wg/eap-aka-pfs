@@ -1274,14 +1274,14 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    Unprotected data and metadata can reveal sensitive information and
    need to be selected with care.  In particular, this applies to
    AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT.  AT_KDF,
-   AT_KDF_FS, and AT_PUB_ECDHE reveals the used cryptographic
-   algorithms, if these depend on the peer identity they leak
-   information about the peer.  AT_KDF_INPUT reveals the network name,
-   although that is done on purpose to bind the authentication to a
-   particular context.
+   AT_KDF_FS, and AT_PUB_ECDHE reveal the used cryptographic algorithms,
+   if these depend on the peer identity they leak information about the
+   peer.  AT_KDF_INPUT reveals the network name, although that is done
+   on purpose to bind the authentication to a particular context.
 
    An attacker observing network traffic may use the above types of
    information for traffic flow analysis or to track an endpoint.
+
 
 
 
