@@ -1216,8 +1216,10 @@ EMSK     = MK_ECDHE[768..1279]
    <vspace blankLines="1"/>
    However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
    could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that the
-   the introduction of a powerful enough quantum computer would enable subverting this protocol extension,
-   making it necessary to update the current ECC algorithms in this specification to PQC algorithms. This
+   the introduction of a powerful enough quantum computer would disable
+   this protocol extension's ability to provide the forward security
+   capability. This would 
+   make it necessary to update the current ECC algorithms in this specification to PQC algorithms. This
    specification does not add such algorithms, but a future specification may do that.
    </t>
 
