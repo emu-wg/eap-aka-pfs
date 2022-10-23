@@ -4,10 +4,10 @@
 
 Network Working Group                                           J. Arkko
 Internet-Draft                                                K. Norrman
-Updates: 9048 (if approved)                                  V. Torvinen
+Updates: 5448,9048 (if approved)                             V. Torvinen
 Intended status: Informational                        J. Preuss Mattsson
-Expires: April 24, 2023                                         Ericsson
-                                                        October 21, 2022
+Expires: April 26, 2023                                         Ericsson
+                                                        October 23, 2022
 
 
  Forward Secrecy for the Extensible Authentication Protocol Method for
@@ -28,14 +28,15 @@ Abstract
    essential zero-trust principles.
 
    This specification updates RFC 9048, the EAP-AKA' authentication
-   method, with an optional extension.  The extension, when negotiated,
-   provides Forward Secrecy for the session key generated as a part of
-   the authentication run in EAP-AKA'.  This prevents an attacker who
-   has gained access to the long-term pre-shared secret in a SIM card
-   from being able to decrypt any past communications.  In addition, if
-   the attacker stays merely a passive eavesdropper, the extension
-   prevents attacks against future sessions.  This forces attackers to
-   use active attacks instead.
+   method, with an optional extension.  Similarly, this specification
+   also updates the earlier version of the EAP-AKA' specification in RFC
+   5448.  The extension, when negotiated, provides Forward Secrecy for
+   the session key generated as a part of the authentication run in EAP-
+   AKA'.  This prevents an attacker who has gained access to the long-
+   term pre-shared secret in a SIM card from being able to decrypt any
+   past communications.  In addition, if the attacker stays merely a
+   passive eavesdropper, the extension prevents attacks against future
+   sessions.  This forces attackers to use active attacks instead.
 
 Status of This Memo
 
@@ -52,8 +53,7 @@ Status of This Memo
 
 
 
-
-Arkko, et al.            Expires April 24, 2023                 [Page 1]
+Arkko, et al.            Expires April 26, 2023                 [Page 1]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -61,7 +61,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 24, 2023.
+   This Internet-Draft will expire on April 26, 2023.
 
 Copyright Notice
 
@@ -91,15 +91,15 @@ Table of Contents
    6.  Extensions to EAP-AKA'  . . . . . . . . . . . . . . . . . . .  11
      6.1.  AT_PUB_ECDHE  . . . . . . . . . . . . . . . . . . . . . .  11
      6.2.  AT_KDF_FS . . . . . . . . . . . . . . . . . . . . . . . .  11
-     6.3.  Forward Secrecy Key Derivation Functions  . . . . . . . .  13
+     6.3.  Forward Secrecy Key Derivation Functions  . . . . . . . .  14
      6.4.  ECDHE Groups  . . . . . . . . . . . . . . . . . . . . . .  15
-     6.5.  Message Processing  . . . . . . . . . . . . . . . . . . .  15
+     6.5.  Message Processing  . . . . . . . . . . . . . . . . . . .  16
        6.5.1.  EAP-Request/AKA'-Identity . . . . . . . . . . . . . .  16
        6.5.2.  EAP-Response/AKA'-Identity  . . . . . . . . . . . . .  16
        6.5.3.  EAP-Request/AKA'-Challenge  . . . . . . . . . . . . .  16
        6.5.4.  EAP-Response/AKA'-Challenge . . . . . . . . . . . . .  17
        6.5.5.  EAP-Request/AKA'-Reauthentication . . . . . . . . . .  17
-       6.5.6.  EAP-Response/AKA'-Reauthentication  . . . . . . . . .  17
+       6.5.6.  EAP-Response/AKA'-Reauthentication  . . . . . . . . .  18
        6.5.7.  EAP-Response/AKA'-Synchronization-Failure . . . . . .  18
        6.5.8.  EAP-Response/AKA'-Authentication-Reject . . . . . . .  18
        6.5.9.  EAP-Response/AKA'-Client-Error  . . . . . . . . . . .  18
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Arkko, et al.            Expires April 24, 2023                 [Page 2]
+Arkko, et al.            Expires April 26, 2023                 [Page 2]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -165,7 +165,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                 [Page 3]
+Arkko, et al.            Expires April 26, 2023                 [Page 3]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -221,7 +221,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                 [Page 4]
+Arkko, et al.            Expires April 26, 2023                 [Page 4]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -277,7 +277,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                 [Page 5]
+Arkko, et al.            Expires April 26, 2023                 [Page 5]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -333,7 +333,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                 [Page 6]
+Arkko, et al.            Expires April 26, 2023                 [Page 6]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -389,7 +389,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                 [Page 7]
+Arkko, et al.            Expires April 26, 2023                 [Page 7]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -445,7 +445,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                 [Page 8]
+Arkko, et al.            Expires April 26, 2023                 [Page 8]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -501,7 +501,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                 [Page 9]
+Arkko, et al.            Expires April 26, 2023                 [Page 9]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -557,7 +557,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                [Page 10]
+Arkko, et al.            Expires April 26, 2023                [Page 10]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -607,16 +607,27 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    generation function, if the Forward Secrecy extension is taken into
    use.  It will also at the same time indicate the used or desired
    ECDHE group.  A new attribute is needed to carry this information, as
-   AT_KDF carries the legacy KDF value which is still used together with
-   the forward secrecy KDF value.  The legacy KDF value is also used by
+   AT_KDF carries the basic KDF value which is still used together with
+   the forward secrecy KDF value.  The basic KDF value is also used by
    those EAP peers that cannot or do not want to use this extension.
 
 
 
-Arkko, et al.            Expires April 24, 2023                [Page 11]
+Arkko, et al.            Expires April 26, 2023                [Page 11]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
+
+   This specification only specifies the behaviour relating to the
+   following combinations of basic KDF values and forward secrecy KDF
+   values: The basic KDF value in AT_KDF is 1, as specified in [RFC5448]
+   and [RFC9048], and the forward secrecy KDF values in AT_KDF_FS are 1
+   or 2, as specified below and in Section 6.3.
+
+   Any future specifications that add either new basic KDF or new
+   forward secrecy KDF values need to specify how they are treated and
+   what combinations are allowed.  This requirement is an update to how
+   [RFC5448] and [RFC9048] may be extended in the future.
 
    The format of the AT_KDF_FS attribute is shown below.
 
@@ -654,6 +665,15 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
    Upon receiving a set of these attributes:
 
+
+
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 12]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    o  If the peer supports and is willing to use the FS Key Derivation
       Function indicated by the first AT_KDF_FS attribute, and is
       willing and able to use the extension defined in this
@@ -666,14 +686,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
       defined in [RFC9048] for AT_KDF, the peer sends EAP-Response/AKA'-
       Challenge message that contains only one attribute, AT_KDF_FS with
       the value set to the desired alternative function from among the
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 12]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
       ones suggested by the server earlier.  If there is no suitable
       alternative, the peer has a choice of either falling back to EAP-
       AKA' or behaving as if AUTN had been incorrect and failing
@@ -709,6 +721,15 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    If not, it behaves as if AT_MAC had been incorrect and fails the
    authentication.  If the peer receives multiple EAP-Request/AKA'-
    Challenge messages with differing AT_KDF_FS attributes without having
+
+
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 13]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    requested negotiation, the peer MUST behave as if AT_MAC had been
    incorrect and fail the authentication.
 
@@ -722,14 +743,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
    The FS Key Derivation Function type value is only used in the
    AT_KDF_FS attribute.  When the forward secrecy extension is used, the
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 13]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
    AT_KDF_FS attribute determines how to derive the keys MK_ECDHE, K_re,
    MSK, and EMSK.  The AT_KDF_FS attribute should not be confused with
    the different range of key derivation functions that can be
@@ -766,6 +779,13 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    requirements are defined in Section 5 of [SP-800-56A].  At least
    partial public-key validation MUST be done.
 
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 14]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    For X25519 the SHARED_SECRET is the shared secret computed as
    specified in Section 6.1 of [RFC7748].  Both the peer and the server
    MAY check for zero-value shared secret as specified in Section 6.1 of
@@ -776,15 +796,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
       listen to CPU power usage side channels.  Refer to [RFC7748] for a
       description of how to perform this check in a way that it does not
       become a problem.
-
-
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 14]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
 
    If validation of the public key or the shared secret fails, both
    parties MUST behave as if the current EAP-AKA' authentication process
@@ -822,6 +833,15 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    group specified in [RFC7748].  The support for this group is
    REQUIRED.
 
+
+
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 15]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    For "EAP-AKA' with ECDHE and P-256" the group is the NIST P-256 group
    (SEC group secp256r1), specified in Appendix D.1.2.3 of [FIPS186-4]
    or alternatively Section 2.4.2 of [SEC2].  The support for this group
@@ -834,14 +854,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    be transmitted or accepted, which attributes are allowed in a
    message, which attributes are required in a message, and other
    message-specific details, where those details are different for this
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 15]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
    extension than the base EAP-AKA' or EAP-AKA protocol.  Unless
    otherwise specified here, the rules from [RFC9048] or [RFC4187]
    apply.
@@ -879,6 +891,13 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    AT_NEXT_PSEUDONYM, AT_NEXT_REAUTH_ID and other attributes may be
    included as specified in Section 9.3 of [RFC4187].
 
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 16]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    When processing this message, the peer MUST process AT_RAND, AT_AUTN,
    AT_KDF_FS, AT_PUB_ECDHE before processing other attributes.  Only if
    these attributes are verified to be valid, the peer derives keys and
@@ -886,17 +905,6 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    extension specified in this document, it proceeds as defined in
    [RFC9048].  Finally, the operation in case an error occurs is
    specified in Section 6.3.1. of [RFC4187].
-
-
-
-
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 16]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
 
 6.5.4.  EAP-Response/AKA'-Challenge
 
@@ -939,20 +947,18 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    extension specified in this document is in use, employs key material
    from the Diffie-Hellman procedure.
 
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 17]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
 6.5.6.  EAP-Response/AKA'-Reauthentication
 
    No changes, but as discussed in Section 6.5.5, re-authentication is
    based on the key material generated by EAP-AKA' and the extension
    defined in this document.
-
-
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 17]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
 
 6.5.7.  EAP-Response/AKA'-Synchronization-Failure
 
@@ -995,21 +1001,21 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    personnel, etc.  But not all attacks can be entirely ruled out for
    well-resourced adversaries, irrespective of what the technical
    algorithms and protection measures are.  Always assuming breach such
+
+
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 18]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    as key compromise and minimizing the impact of breach are essential
    zero-trust principles.
 
    If a mechanism without forward secrecy such as (5G-AKA, EAP-AKA') is
    used the effects of key compromise are devastating.  The serious
    consequences of breach somewhere in the supply chain or after
-
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 18]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
    delivery that are possible when 5G-AKA or EAP-AKA' is used but not
    when something with forward secrecy like EAP-AKA-FS is used are:
 
@@ -1052,19 +1058,18 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    order to gain the FS property.  This means that once an EAP-AKA'
    authentication run ends, the session that it was used to protect is
    closed, and the corresponding keys are forgotten, even someone who
+
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 19]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
    has recorded all of the data from the authentication run and session
    and gets access to all of the AKA long-term keys cannot reconstruct
    the keys used to protect the session or any previous session, without
    doing a brute force search of the session key space.
-
-
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 19]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
 
    Even if a compromise of the long-term keys has occurred, FS is still
    provided for all future sessions, as long as the attacker does not
@@ -1108,20 +1113,21 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
       Negotiating key derivation function within the extension
 
+
+
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 20]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
          The negotiation mechanism allows changing the offered key
          derivation function, but the change is visible in the final
          EAP- Request/AKA'-Challenge message that the server sends to
          the peer.  This message is authenticated via the AT_MAC
          attribute, and carries both the chosen alternative and the
          initially offered list.  The peer refuses to accept a change it
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 20]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
          did not initiate.  As a result, both parties are aware that a
          change is being made and what the original offer was.
 
@@ -1164,20 +1170,20 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
    Key derivation
 
+
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 21]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
       This extension provides key material that is based on the Diffie-
       Hellman keys, yet bound to the authentication through the SIM
       card.  This means that subsequent payload communications between
       the parties are protected with keys that are not solely based on
       information in the clear (such as the RAND) and information
       derivable from the long-term shared secrets on the SIM card.  As a
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 21]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
-
       result, if anyone successfully recovers shared secret information,
       they are unable to decrypt communications protected by the keys
       generated through this extension.  Note that the recovery of
@@ -1220,19 +1226,18 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
    o  This specification is constructed so that a separation between the
       USIM and Peer on client side and the Server and HSS on network
+
+
+
+Arkko, et al.            Expires April 26, 2023                [Page 22]
+
+Internet-Draft                 EAP-AKA' FS                  October 2022
+
+
       side is possible.  This ensures that the most sensitive (or
       legacy) system components can not be the target of the attack.
       For instance, EAP-AKA' and public key cryptography takes place in
       the phone and not the low-power SIM card.
-
-
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 22]
-
-Internet-Draft                 EAP-AKA' FS                  October 2022
-
 
    o  EAP-AKA' has been designed so that the first actual message in the
       authentication process comes from the Server, and that this
@@ -1280,12 +1285,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-
-
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 23]
+Arkko, et al.            Expires April 26, 2023                [Page 23]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1341,7 +1341,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                [Page 24]
+Arkko, et al.            Expires April 26, 2023                [Page 24]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1397,7 +1397,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                [Page 25]
+Arkko, et al.            Expires April 26, 2023                [Page 25]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1453,7 +1453,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                [Page 26]
+Arkko, et al.            Expires April 26, 2023                [Page 26]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1509,7 +1509,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                [Page 27]
+Arkko, et al.            Expires April 26, 2023                [Page 27]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1529,6 +1529,10 @@ Appendix A.  Change Log
    o  Support for the NIST P-256 group has been made mandatory in
       Section 6.4, in order to align the requirements with 3GPP SUCI
       encryption requirements.
+
+   o  The interaction between AT_KDF and AT_KDF_FS has been specified
+      more clearly, including specifying how future specifications need
+      to specify the treatment of new combinations.
 
    o  Addition of a discussion about the impacts of potential future
       quantum computing attacks with specific impacts to this extension.
@@ -1558,17 +1562,16 @@ Appendix A.  Change Log
       value encoding, and believe it is exactly according to the
       references ([RFC7748] Section 6.1 and [SEC2] Section 2.7.1)
 
-   The -06 version of the WG draft is a refresh and a reference update.
-   However, the following should be noted:
 
 
 
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 28]
+Arkko, et al.            Expires April 26, 2023                [Page 28]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
+
+   The -06 version of the WG draft is a refresh and a reference update.
+   However, the following should be noted:
 
    o  The draft now uses "forward secrecy" terminology and references
       RFC 7624 per recommendations on mailing list discussion.
@@ -1615,17 +1618,17 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
    that exactly one key is ever sent in AT_KDF_ECDHE.  The option of
    checking for zero key values IN ECDHE was added.  The format of the
    actual key in AT_PUB_ECDHE was specified.  Denial-of-service
-   considerations for the FS process have been updated.  Bidding down
-   attacks against this extension itself are discussed extensively.
-   This version also addressed comments from reviewers, including the
 
 
 
-Arkko, et al.            Expires April 24, 2023                [Page 29]
+Arkko, et al.            Expires April 26, 2023                [Page 29]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
+   considerations for the FS process have been updated.  Bidding down
+   attacks against this extension itself are discussed extensively.
+   This version also addressed comments from reviewers, including the
    August review from Mohit Sethi, and comments made during IETF-102
    discussion.
 
@@ -1674,10 +1677,7 @@ Authors' Addresses
 
 
 
-
-
-
-Arkko, et al.            Expires April 24, 2023                [Page 30]
+Arkko, et al.            Expires April 26, 2023                [Page 30]
 
 Internet-Draft                 EAP-AKA' FS                  October 2022
 
@@ -1733,4 +1733,4 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
 
 
-Arkko, et al.            Expires April 24, 2023                [Page 31]
+Arkko, et al.            Expires April 26, 2023                [Page 31]

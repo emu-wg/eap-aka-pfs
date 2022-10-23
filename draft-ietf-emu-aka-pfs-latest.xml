@@ -523,7 +523,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            attribute, set as other attributes in EAP-AKA <xref target="RFC4187"/>.</t>
            
            <t hangText="Value"><vspace blankLines="1"/>This value is
-           the sender's ECDHE public key. The value depend on AT_KDF_FS and
+           the sender's ECDHE public key. The value depends on AT_KDF_FS and
            is calculated as follows:
 
            <list style="symbols">
