@@ -589,7 +589,7 @@ Internet-Draft                 EAP-AKA' FS                  October 2022
 
    Value
 
-      This value is the sender's ECDHE public key.  The value depend on
+      This value is the sender's ECDHE public key.  The value depends on
       AT_KDF_FS and is calculated as follows:
 
       *  For X25519/Curve25519, the length of this value is 32 bytes,
