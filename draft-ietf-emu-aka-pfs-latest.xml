@@ -63,8 +63,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
-<date month="October" year="2022" />
-
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
 <keyword>AKA'</keyword>
@@ -1956,9 +1954,9 @@ EMSK     = MK_ECDHE[768..1279]
    AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT. AT_KDF, AT_KDF_FS, and
    AT_PUB_ECDHE reveal the used cryptographic algorithms, if these depend on the
    peer identity they leak information about the peer. AT_KDF_INPUT reveals the
-   network name, although that is done on purpose to bind the authentication to a particular context. 
-   <vspace blankLines="1"/>
-   An attacker observing network traffic may use the above types of information
+   network name, although that is done on purpose to bind the authentication to a particular context.</t> 
+	  
+   <t>An attacker observing network traffic may use the above types of information
    for traffic flow analysis or to track an endpoint.</t>
    </section>
 
@@ -1972,20 +1970,20 @@ EMSK     = MK_ECDHE[768..1279]
    algorithms have limitations compared to Elliptic Curve Cryptography
    (ECC) and the data sizes could be problematic for some constrained
    systems. If a Cryptographically Relevant Quantum Computer (CRQC) is built
-   it could recover the SHARED_SECRET from the ECDHE public keys.
-   <vspace blankLines="1"/>
-   This would not affect the ability of EAP-AKA' - with or without
+   it could recover the SHARED_SECRET from the ECDHE public keys.</t>
+   
+   <t>This would not affect the ability of EAP-AKA' - with or without
    this extension -
    to authenticate properly, however. As symmetric key cryptography is safe even
    if CRQCs are built, an adversary still will not be able to disrupt authentication
    as it requires computing a correct AT_MAC value. This computation requires the K_aut key
-   which is based on MK and, ultimately, CK' and IK', but not SHARED_SECRET.
-   <vspace blankLines="1"/>
-   Other output keys do include SHARED_SECRET via MK_ECDHE, but still include also
+   which is based on MK and, ultimately, CK' and IK', but not SHARED_SECRET.</t>
+
+   <t>Other output keys do include SHARED_SECRET via MK_ECDHE, but still include also
    CK' and IK' which are entirely based on symmetricy cryptography. As a result,
-   an adversary with a quantum computer still cannot compute the other output keys either.
-   <vspace blankLines="1"/>
-   However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
+   an adversary with a quantum computer still cannot compute the other output keys either.</t>
+	   
+   <t>However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
    could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that the
    the introduction of a powerful enough quantum computer would disable
    this protocol extension's ability to provide the forward security
