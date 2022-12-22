@@ -287,7 +287,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    | EAP-Response/Identity                                      |
    | (Includes user's Network Access Identifier, NAI)           |
    +----------------------------------------------------------->|
-   |       .----------------------------------------------------+-.
+   |      +-----------------------------------------------------+--+
    |      | Server determines the network name and ensures that    |
    |      | the given access network is authorized to use the      |
    |      | claimed name. The server then runs the AKA' algorithms |
@@ -297,12 +297,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | transported in the AT_KDF_INPUT attribute. AT_KDF      |
    |      | signals the used key derivation function. The session  |
    |      | keys are used in creating the AT_MAC attribute.        |
-   |       '----------------------------------------------------+-'
+   |      +-----------------------------------------------------+--+
    |                                                            |
    |                                 EAP-Request/AKA'-Challenge |
    |           (AT_RAND, AT_AUTN, AT_KDF, AT_KDF_INPUT, AT_MAC) |
    |<-----------------------------------------------------------+
- .-+----------------------------------------------------.       |
++--+-----------------------------------------------------+      |
 | The peer determines what the network name should be,   |      |
 | based on, e.g., what access technology it is using.    |      |
 | The peer also retrieves the network name sent by the   |      |
@@ -314,16 +314,16 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 | from AT_MAC attributes. The peer then generates RES.   |      |
 | The peer also derives session keys from CK'/IK'. The   |      |
 | AT_RES and AT_MAC attributes are constructed.          |      |
- '-+----------------------------------------------------'       |
++--+-----------------------------------------------------+      |
    |                                                            |
    | EAP-Response/AKA'-Challenge                                |
    | (AT_RES, AT_MAC)                                           |
    +----------------------------------------------------------->|
-   |       .----------------------------------------------------+-.
+   |      +-----------------------------------------------------+--+
    |      | Server checks the RES and MAC values received in       |
    |      | AT_RES and AT_MAC, respectively. Success requires both |
    |      | to be found correct.                                   |
-   |       '----------------------------------------------------+-'
+   |      +-----------------------------------------------------+--+
    |                                                            |
    |                                                EAP-Success |
    |<-----------------------------------------------------------+
@@ -648,29 +648,29 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
  USIM           Peer                        Server             HSS
    |              |                            |                |
    |              |           EAP-Req/Identity |                |
-   |              |<---------------------------|                |
+   |              |<---------------------------+                |
    |              |                            |                |
    |              | EAP-Resp/Identity          |                |
    |              | (Privacy-Friendly)         |                |
-   |              |--------------------------->|                |
-   |      +--------------------------------------------------------+
+   |              +--------------------------->|                |
+   |      +-------+----------------------------+----------------+--+
    |      | Server now has an identity for the peer. The server    |
    |      | then asks the help of HSS to run AKA algorithms,       |
    |      | generating RAND, AUTN, XRES, CK, IK. Typically, the    |
    |      | HSS performs the first part of key derivations so that |
    |      | the authentication server gets the CK' and IK' keys    |
    |      | already tied to a particular network name.             |
-   |      +--------------------------------------------------------+
+   |      +-------+----------------------------+----------------+--+
    |              |                            |                |
    |              |                            | ID, key deriv. |
    |              |                            | function,      |
    |              |                            | network name   |
-   |              |                            |--------------->|
+   |              |                            +--------------->|
    |              |                            |                |
    |              |                            |    RAND, AUTN, |
    |              |                            | XRES, CK', IK' |
-   |              |                            |<---------------|
-   |      +--------------------------------------------------------+
+   |              |                            |<---------------+
+   |      +-------+----------------------------+----------------+--+
    |      | Server now has the needed authentication vector. It    |
    |      | generates an ephemeral key pair, sends the public key  |
    |      | of that key pair and the first EAP method message to   |
@@ -679,14 +679,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | carries other FS-related parameters. Both of these are |
    |      | skippable attributes that can be ignored if the peer   |
    |      | does not support this extension.                       |
-   |      +--------------------------------------------------------+
+   |      +-------+----------------------------+----------------+--+
    |              |                            |                |
    |              |     EAP-Req/AKA'-Challenge |                |
    |              |  AT_RAND, AT_AUTN, AT_KDF, |                |
    |              |   AT_KDF_FS, AT_KDF_INPUT, |                |
    |              |       AT_PUB_ECDHE, AT_MAC |                |
-   |              |<---------------------------|                |
-+--------------------------------------------------------+      |
+   |              |<---------------------------+                |
++--+--------------+----------------------------+---------+      |
 | The peer checks if it wants to do the FS extension. If |      |
 | yes, it will eventually respond with AT_PUB_ECDHE and  |      |
 | AT_MAC. If not, it will ignore AT_PUB_ECDHE and        |      |
@@ -694,27 +694,27 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 | attributes, continuing just as in EAP-AKA' per RFC     |      |
 | 9048 rules. In any case, the peer needs to query the   |      |
 | auth parameters from the USIM card.                    |      |
-+--------------------------------------------------------+      |
++--+--------------+----------------------------+---------+      |
    |              |                            |                |
    |   RAND, AUTN |                            |                |
-   |<-------------|                            |                |
+   |<-------------+                            |                |
    |              |                            |                |
    | CK, IK, RES  |                            |                |
-   |------------->|                            |                |
-+--------------------------------------------------------+      |
+   +------------->|                            |                |
++--+--------------+----------------------------+---------+      |
 | The peer now has everything to respond. If it wants to |      |
 | participate in the FS extension, it will then generate |      |
 | its key pair, calculate a shared key based on its key  |      |
 | pair and the server's public key. Finally, it proceeds |      | 
 | to derive all EAP-AKA' key values and constructs a     |      |
 | full response.                                         |      |
-+--------------------------------------------------------+      |
++--+--------------+----------------------------+---------+      |
    |              |                            |                |
    |              | EAP-Resp/AKA'-Challenge    |                |
    |              | AT_RES, AT_PUB_ECDHE,      |                |
    |              | AT_MAC                     |                |
-   |              |--------------------------->|                |
-   |      +--------------------------------------------------------+
+   |              +--------------------------->|                |
+   |      +-------+----------------------------+----------------+--+
    |      | The server now has all the necessary values. It        |
    |      | generates the ECDHE shared secret and checks the RES   |
    |      | and MAC values received in AT_RES and AT_MAC,          |
@@ -724,12 +724,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | CK/IK as well as the ECDHE value. Even if there was an |
    |      | attacker who held the long-term secret keys, only an   |
    |      | active attacker could have determined the generated    |
-   |      | session keys; in basic EAP-AKA' the keys are only      |
-   |      | based on CK and IK.                                    |
-   |      +--------------------------------------------------------+
+   |      | session keys; in basic EAP-AKA' the generated keys are |
+   |      | only based on CK and IK.                               |
+   |      +-------+----------------------------+----------------+--+
    |              |                            |                |
    |              |                EAP-Success |                |
-   |              |<---------------------------|                |
+   |              |<---------------------------+                |
+   |              |                            |                |
+
 ]]></artwork>
           <artwork type="svg"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1392" width="552" viewBox="0 0 552 1392" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
               <path d="M 8,688 L 8,816" fill="none" stroke="black"/>
