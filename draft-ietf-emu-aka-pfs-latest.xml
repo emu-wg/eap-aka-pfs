@@ -272,7 +272,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     network performs the role of a pass-through authenticator.
     <xref target="figaka"/> describes the basic flow in the EAP-AKA'
     authentication process. The definition of the full protocol
-    behaviour, along with the definition of attributes AT_RAND,
+    behavior, along with the definition of attributes AT_RAND,
     AT_AUTN, AT_MAC, and AT_RES can be found in <xref
     target="RFC9048"/> and <xref target="RFC4187"/>.</t>
 
@@ -1273,7 +1273,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          value. The basic KDF value is also used by those EAP peers
          that cannot or do not want to use this extension.</t>
          
-	 <t>This specification only specifies the behaviour relating to
+	 <t>This specification only specifies the behavior relating to
 	 the following combinations of basic KDF values and forward secrecy
 	 KDF values:
 	 The basic KDF value in AT_KDF is 1, as specified in <xref target="RFC5448"/> and <xref target="RFC9048"/>,
@@ -1832,18 +1832,18 @@ EMSK     = MK_ECDHE[768..1279]
 	technical solution. However, as discussed in the introduction,
 	even an attacker with access to the long-term keys is required
 	to be a MITM on each AKA run and subsequent communication,
-	which makes mass surveillance more laborous.
+	which makes mass surveillance more laborious.
 	<vspace blankLines="1"/>
 	
 	The security properties of the extension also depend on a
 	policy choice. As discussed in <xref
 	target="procakachallresp"/>, both the peer and the server make
-	a policy decision of what to do when it was willing to peform
+	a policy decision of what to do when it was willing to perform
 	the extension specified in this protocol, but the other side
 	does not wish to use the extension. Allowing this has the
 	benefit of allowing backwards compatibility to equipment that
 	did not yet support the extension. When the extension is not
-	supported or negotiated by the parties, no FS can obviously
+	supported or negotiated by the parties, no FS can obviously be
 	provided.
 	<vspace blankLines="1"/>
 	
@@ -1914,7 +1914,7 @@ EMSK     = MK_ECDHE[768..1279]
     <t>This specification is constructed so that a separation
     between the USIM and Peer on client side and the Server and HSS on
     network side is possible. This ensures that the most sensitive (or
-    legacy) system components can not be the target of the attack. For
+    legacy) system components cannot be the target of the attack. For
     instance, EAP-AKA' and public key cryptography takes place in the
     phone and not the low-power SIM card.</t>
 
@@ -1984,11 +1984,11 @@ EMSK     = MK_ECDHE[768..1279]
    which is based on MK and, ultimately, CK' and IK', but not SHARED_SECRET.</t>
 
    <t>Other output keys do include SHARED_SECRET via MK_ECDHE, but still include also
-   CK' and IK' which are entirely based on symmetricy cryptography. As a result,
+   CK' and IK' which are entirely based on symmetric cryptography. As a result,
    an adversary with a quantum computer still cannot compute the other output keys either.</t>
 	   
    <t>However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
-   could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that the
+   could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that
    the introduction of a powerful enough quantum computer would disable
    this protocol extension's ability to provide the forward security
    capability. This would 
@@ -2213,7 +2213,7 @@ EMSK     = MK_ECDHE[768..1279]
     <t>Addition of a discussion about the impacts of potential future quantum
     computing attacks with specific impacts to this extension.</t>
 
-    <t>Addition of a discussion about metadata/unproctected data in
+    <t>Addition of a discussion about metadata/unprotected data in
     <xref target="unp"/>.</t>
       
     <t>Reference updates.</t>
@@ -2253,7 +2253,7 @@ EMSK     = MK_ECDHE[768..1279]
     <t>The draft now uses "forward secrecy" terminology and references
     RFC 7624 per recommendations on mailing list discussion.</t>
 
-    <t>There's been mailing list disccussion about the encoding of the
+    <t>There's been mailing list discussion about the encoding of the
     public values; the current text requires confirmation from the
     working group that it is sufficient.</t>
     
