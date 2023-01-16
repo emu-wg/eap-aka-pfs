@@ -2017,30 +2017,51 @@ EMSK     = MK_ECDHE[768..1279]
   <xref target="RFC4186"/>, EAP-AKA <xref target="RFC4186"/>, and
   EAP-AKA' <xref target="RFC9048"/>.</t>
 
-  <t>Two new Attribute Type value (TBA1, TBA2) in the skippable
+  <t>Two new values (TBA1, TBA2) in the skippable
   range need to be assigned for AT_PUB_ECDHE (<xref target="at_pub_dh"/>)
   and AT_KDF_FS (<xref target="at_kdf_dh"/>
-  in the EAP-AKA and EAP-SIM Parameters registry under Attribute
-  Types.</t>
+  in the "Attribute Types" registry under the "EAP-AKA and EAP-SIM Parameters" group.</t>
 
-  <t>Also, a new registry should be created to represent
+  <t>Also, a new registry "EAP-AKA' AT_KDF_FS Key Derivation Function Values"
+  should be created to represent
   FS Key Derivation Function types. The "EAP-AKA' with
   ECDHE and X25519" and "EAP-AKA' with ECDHE and P-256"
   types (1 and 2, see <xref target="kdf2"/>) need to be assigned,
   along with one reserved value. The initial contents of this
-  namespace are therefore as below; new values can be created through
+  namespace are therefore as illustrated below; new values can be created through
   the Specification Required policy <xref target="RFC8126"/>.</t>
 
-  <figure>
-  <artwork>
-Value      Description                       Reference
--------    ------------------------------    -----------------------
-0          Reserved                          [TBD BY IANA: THIS RFC]
-1          EAP-AKA' with ECDHE and X25519    [TBD BY IANA: THIS RFC]
-2          EAP-AKA' with ECDHE and P-256     [TBD BY IANA: THIS RFC]
-3-65535    Unassigned                        [TBD BY IANA: THIS RFC]
-  </artwork>
-  </figure>
+        <table>
+          <thead>
+            <tr>
+              <th align="left">Value</th>
+              <th align="left">Description</th>
+              <th align="left">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td align="left">0</td>
+              <td align="left">Reserved</td>
+              <td align="left">[TBD BY IANA: THIS RFC]</td>
+            </tr>
+            <tr>
+              <td align="left">1</td>
+              <td align="left">EAP-AKA' with ECDHE and X25519</td>
+              <td align="left">[TBD BY IANA: THIS RFC]</td>
+            </tr>
+            <tr>
+              <td align="left">2</td>
+              <td align="left">EAP-AKA' with ECDHE and P-256</td>
+              <td align="left">[TBD BY IANA: THIS RFC]</td>
+            </tr>
+            <tr>
+              <td align="left">3-65535</td>
+              <td align="left">Unassigned</td>
+              <td align="left">[TBD BY IANA: THIS RFC]</td>
+            </tr>
+          </tbody>
+        </table>
   
 </section>
 
