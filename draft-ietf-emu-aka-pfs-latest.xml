@@ -2028,10 +2028,11 @@ EMSK     = MK_ECDHE[768..1279]
   ECDHE and X25519" and "EAP-AKA' with ECDHE and P-256"
   types (1 and 2, see <xref target="kdf2"/>) need to be assigned,
   along with one reserved value. The initial contents of this
-  namespace are therefore as illustrated below; new values can be created through
+  registry is illustrated in <xref target="iana-fs-values"/>; new values can be created through
   the Specification Required policy <xref target="RFC8126"/>.</t>
-
-        <table>
+			
+        <table anchor="iana-fs-values">
+          <name>Initial Content of the EAP-AKA' AT_KDF_FS Key Derivation Function Values Registry</name>
           <thead>
             <tr>
               <th align="left">Value</th>
