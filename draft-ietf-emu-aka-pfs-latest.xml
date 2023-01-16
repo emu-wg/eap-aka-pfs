@@ -2309,12 +2309,13 @@ EMSK     = MK_ECDHE[768..1279]
 
     <t>The authors would like to note that the technical solution in
     this document came out of the TrustCom paper <xref
-    target="TrustCom2015"/>, whose authors were J. Arkko, K. Norrman,
-    <contact fullname="M. Näslund"/>,
-    and B. Sahlin. This document
+    target="TrustCom2015"/>, whose authors were <contact fullname="J. Arkko"/>,
+	   <contact fullname="K. Norrman"/>, <contact fullname="M. Näslund"/>,
+    and <contact fullname="B. Sahlin"/>. This document
     uses also a lot of material from <xref target="RFC4187"/> by
-    J. Arkko and H. Haverinen as well as <xref target="RFC5448"/> by J. Arkko,
-    V. Lehtovirta, and P. Eronen.</t>
+    <contact fullname="J. Arkko"/> and <contact fullname="H. Haverinen"/> as well
+	    as <xref target="RFC5448"/> by <contact fullname="J. Arkko"/>,
+    <contact fullname="V. Lehtovirta"/>, and <contact fullname="P. Eronen"/>.</t>
     
     <t>The authors would also like to thank
     <contact fullname="Ben Campbell"/>,
