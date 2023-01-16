@@ -1,0 +1,3590 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>Forward Secrecy for the Extensible Authentication Protocol Method for Authentication and Key Agreement (EAP-AKA' FS)</title>
+<meta content="Jari Arkko" name="author">
+<meta content="Karl Norrman" name="author">
+<meta content="Vesa Torvinen" name="author">
+<meta content="John Preuß Mattsson" name="author">
+<meta content="
+       Many different attacks have been reported as part of revelations
+  associated with pervasive surveillance. Some of the reported attacks
+  involved compromising the smart card supply chain, such as attacking SIM card
+  manufacturers and operators in an effort to compromise shared
+  secrets stored on these cards. Since the publication of those
+  reports, manufacturing and provisioning processes have gained much
+  scrutiny and have improved. However, the danger of resourceful
+  attackers for these systems is still a concern. Always assuming breach
+  such as key compromise and minimizing the impact of breach are essential
+  zero-trust principles. 
+       This specification updates RFC 9048, the EAP-AKA'
+  authentication method, with an optional extension. 
+  Similarly, this specification also updates the earlier version 
+  of the EAP-AKA' specification in RFC 5448. The extension, when
+  negotiated, provides Forward Secrecy for the session key
+  generated as a part of the authentication run in EAP-AKA'. This
+  prevents an attacker who has gained access to the long-term
+  pre-shared secret in a SIM card from being able to decrypt any past
+  communications. In addition, if the attacker stays merely a passive
+  eavesdropper, the extension prevents attacks against future
+  sessions. This forces attackers to use active attacks instead. 
+    " name="description">
+<meta content="xml2rfc 3.15.3" name="generator">
+<meta content="EAP" name="keyword">
+<meta content="AKA" name="keyword">
+<meta content="AKA'" name="keyword">
+<meta content="3GPP" name="keyword">
+<meta content="draft-ietf-emu-aka-pfs-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.15.3
+    Python 3.10.6
+    appdirs 1.4.4
+    ConfigArgParse 1.5.3
+    google-i18n-address 2.5.2
+    html5lib 1.1
+    intervaltree 3.1.0
+    Jinja2 3.1.2
+    lxml 4.9.1
+    MarkupSafe 2.1.1
+    pycountry 22.3.5
+    PyYAML 6.0
+    requests 2.28.1
+    setuptools 59.6.0
+    six 1.16.0
+    wcwidth 0.2.5
+    weasyprint 57.1
+-->
+<link href="/usr/src/app/tmp/30f452ca-ab97-4abb-a203-d8dc688e9919/draft-ietf-emu-aka-pfs-latest_abcds.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">/*
+
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
+
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necessary during the development of the v3
+  formatters.
+
+*/
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans'); /* Sans-serif */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif'); /* Serif (print) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); /* Monospace */
+
+:root {
+  --font-sans: 'Noto Sans', Arial, Helvetica, sans-serif;
+  --font-serif: 'Noto Serif', 'Times', 'Times New Roman', serif;
+  --font-mono: 'Roboto Mono', Courier, 'Courier New', monospace;
+}
+
+@viewport {
+  zoom: 1.0;
+  width: extend-to-zoom;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
+}
+#title {
+  clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
+}
+.author {
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h4 {
+  font-size: 16px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
+p {
+  padding: 0;
+  margin: 0 0 1em 0;
+  text-align: left;
+}
+div, span {
+  position: relative;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+svg[font-family~="serif" i], svg [font-family~="serif" i] {
+  font-family: var(--font-serif);
+}
+svg[font-family~="sans-serif" i], svg [font-family~="sans-serif" i] {
+  font-family: var(--font-sans);
+}
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  display: table;
+  border: none;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.ulBare, li.ulBare {
+  margin-left: 0em !important;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #22e; /* Arlen: WCAG 2019 */
+}
+a[href]:hover {
+  background-color: #f2f2f2;
+}
+figcaption a[href],
+a[href].selfRef {
+  color: #222;
+}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
+
+/* Figures */
+tt, code, pre {
+  background-color: #f9f9f9;
+  font-family: var(--font-mono);
+}
+pre {
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption {
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+@media screen {
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+    max-width: calc(100% - 22px);
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 1.2em 2em;
+}
+blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em;
+}
+th {
+  text-align: left;
+  background-color: #e9e9e9;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
+}
+table caption {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: 0.9em;
+}
+#identifiers dt {
+  width: 3em;
+  clear: left;
+}
+#identifiers dd {
+  float: left;
+  margin-bottom: 0;
+}
+/* Fix PDF info block run off issue */
+@media print {
+  #identifiers dd {
+    float: none;
+  }
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #666; /* Arlen: WCAG 2019 */
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc  {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+nav.toc ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+nav.toc li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  font-family: var(--font-sans);
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
+}
+.cref {
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid #ccc;
+  }
+  #toc h2 {
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
+    padding-right: 1em;
+    min-width: 190px;
+    font-size: 1.1em;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 6px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
+  }
+  #toc {
+    position: fixed;
+    top: 42px;
+    right: 42px;
+    width: 25%;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 1;
+  }
+  #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 0;
+    overflow: auto;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  .breakable pre {
+    break-inside: auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+  /* The following is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
+}
+
+/* Changes introduced to fix issues found during implementation */
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* prevent monospace from becoming overly large */
+tt, code, pre {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+.sourcecode pre,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table td.text-left,
+table th.text-left {
+  text-align: left;
+}
+table td.text-center,
+table th.text-center {
+  text-align: center;
+}
+table td.text-right,
+table th.text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 30em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
+}
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
+}
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
+}
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
+}
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin-bottom: 0.25em;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .artwork > pre,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: lower-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background slightly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr {
+  break-inside: avoid;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
+/* Add support for keepWithNext */
+.keepWithNext {
+  break-after: avoid-page;
+  break-after: avoid-page;
+}
+/* Add support for keepWithPrevious */
+.keepWithPrevious {
+  break-before: avoid-page;
+}
+/* Change the approach to avoiding breaks inside artwork etc. */
+figure, pre, table, .artwork, .sourcecode  {
+  break-before: auto;
+  break-after: auto;
+}
+/* Avoid breaks between <dt> and <dd> */
+dl {
+  break-before: auto;
+  break-inside: auto;
+}
+dt {
+  break-before: auto;
+  break-after: avoid-page;
+}
+dd {
+  break-before: avoid-page;
+  break-after: auto;
+  orphans: 3;
+  widows: 3
+}
+span.break, dd.break {
+  margin-bottom: 0;
+  min-height: 0;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+}
+/* Undo break-before ToC */
+@media print {
+  #toc {
+    break-before: auto;
+  }
+}
+/* Text in compact lists should not get extra bottom margin space,
+   since that would makes the list not compact */
+ul.compact p, .ulCompact p,
+ol.compact p, .olCompact p {
+ margin: 0;
+}
+/* But the list as a whole needs the extra space at the end */
+section ul.compact,
+section .ulCompact,
+section ol.compact,
+section .olCompact {
+  margin-bottom: 1em;                    /* same as p not within ul.compact etc. */
+}
+/* The tt and code background above interferes with for instance table cell
+   backgrounds.  Changed to something a bit more selective. */
+tt, code {
+  background-color: transparent;
+}
+p tt, p code, li tt, li code {
+  background-color: #f8f8f8;
+}
+/* Tweak the pre margin -- 0px doesn't come out well */
+pre {
+   margin-top: 0.5px;
+}
+/* Tweak the compact list text */
+ul.compact, .ulCompact,
+ol.compact, .olCompact,
+dl.compact, .dlCompact {
+  line-height: normal;
+}
+/* Don't add top margin for nested lists */
+li > ul, li > ol, li > dl,
+dd > ul, dd > ol, dd > dl,
+dl > dd > dl {
+  margin-top: initial;
+}
+/* Elements that should not be rendered on the same line as a <dt> */
+/* This should match the element list in writer.text.TextWriter.render_dl() */
+dd > div.artwork:first-child,
+dd > aside:first-child,
+dd > figure:first-child,
+dd > ol:first-child,
+dd > div.sourcecode:first-child,
+dd > table:first-child,
+dd > ul:first-child {
+  clear: left;
+}
+/* fix for weird browser behaviour when <dd/> is empty */
+dt+dd:empty::before{
+  content: "\00a0";
+}
+/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
+li > p {
+  margin-bottom: 0.5em
+}
+/* Don't let p margin spill out from inside list items */
+li > p:last-of-type:only-child {
+  margin-bottom: 0;
+}
+</style>
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
+</head>
+<body class="xml2rfc">
+<script src="metadata.min.js"></script>
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">EAP-AKA' FS</td>
+<td class="right">January 2023</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Arkko, et al.</td>
+<td class="center">Expires 20 July 2023</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Network Working Group</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-ietf-emu-aka-pfs-latest</dd>
+<dt class="label-updates">Updates:</dt>
+<dd class="updates">
+<a href="https://www.rfc-editor.org/rfc/rfc5448" class="eref">5448</a>, <a href="https://www.rfc-editor.org/rfc/rfc9048" class="eref">9048</a> (if approved)</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2023-01-16" class="published">16 January 2023</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2023-07-20">20 July 2023</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">J. Arkko</div>
+<div class="org">Ericsson</div>
+</div>
+<div class="author">
+      <div class="author-name">K. Norrman</div>
+<div class="org">Ericsson</div>
+</div>
+<div class="author">
+      <div class="author-name">V. Torvinen</div>
+<div class="org">Ericsson</div>
+</div>
+<div class="author">
+      <div class="author-name">J. Preuß Mattsson</div>
+<div class="org">Ericsson</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">Forward Secrecy for the Extensible Authentication Protocol Method for Authentication and Key Agreement (EAP-AKA' FS)</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">Many different attacks have been reported as part of revelations
+  associated with pervasive surveillance. Some of the reported attacks
+  involved compromising the smart card supply chain, such as attacking SIM card
+  manufacturers and operators in an effort to compromise shared
+  secrets stored on these cards. Since the publication of those
+  reports, manufacturing and provisioning processes have gained much
+  scrutiny and have improved. However, the danger of resourceful
+  attackers for these systems is still a concern. Always assuming breach
+  such as key compromise and minimizing the impact of breach are essential
+  zero-trust principles.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This specification updates RFC 9048, the EAP-AKA'
+  authentication method, with an optional extension. 
+  Similarly, this specification also updates the earlier version 
+  of the EAP-AKA' specification in RFC 5448. The extension, when
+  negotiated, provides Forward Secrecy for the session key
+  generated as a part of the authentication run in EAP-AKA'. This
+  prevents an attacker who has gained access to the long-term
+  pre-shared secret in a SIM card from being able to decrypt any past
+  communications. In addition, if the attacker stays merely a passive
+  eavesdropper, the extension prevents attacks against future
+  sessions. This forces attackers to use active attacks instead.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 20 July 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2023 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-protocol-design-and-deploym" class="internal xref">Protocol Design and Deployment Objectives</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-background" class="internal xref">Background</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-aka" class="internal xref">AKA</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-eap-aka-protocol" class="internal xref">EAP-AKA' Protocol</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-attacks-against-long-term-s" class="internal xref">Attacks Against Long-Term Shared Secrets in Smart Cards</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-protocol-overview" class="internal xref">Protocol Overview</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-extensions-to-eap-aka" class="internal xref">Extensions to EAP-AKA'</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-at_pub_ecdhe" class="internal xref">AT_PUB_ECDHE</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-at_kdf_fs" class="internal xref">AT_KDF_FS</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-forward-secrecy-key-derivat" class="internal xref">Forward Secrecy Key Derivation Functions</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-ecdhe-groups" class="internal xref">ECDHE Groups</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
+                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-message-processing" class="internal xref">Message Processing</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.1">
+                    <p id="section-toc.1-1.6.2.5.2.1.1"><a href="#section-6.5.1" class="auto internal xref">6.5.1</a>.  <a href="#name-eap-request-aka-identity" class="internal xref">EAP-Request/AKA'-Identity</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.2">
+                    <p id="section-toc.1-1.6.2.5.2.2.1"><a href="#section-6.5.2" class="auto internal xref">6.5.2</a>.  <a href="#name-eap-response-aka-identity" class="internal xref">EAP-Response/AKA'-Identity</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.3">
+                    <p id="section-toc.1-1.6.2.5.2.3.1"><a href="#section-6.5.3" class="auto internal xref">6.5.3</a>.  <a href="#name-eap-request-aka-challenge" class="internal xref">EAP-Request/AKA'-Challenge</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.4">
+                    <p id="section-toc.1-1.6.2.5.2.4.1"><a href="#section-6.5.4" class="auto internal xref">6.5.4</a>.  <a href="#name-eap-response-aka-challenge" class="internal xref">EAP-Response/AKA'-Challenge</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.5">
+                    <p id="section-toc.1-1.6.2.5.2.5.1"><a href="#section-6.5.5" class="auto internal xref">6.5.5</a>.  <a href="#name-eap-request-aka-reauthentic" class="internal xref">EAP-Request/AKA'-Reauthentication</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.6">
+                    <p id="section-toc.1-1.6.2.5.2.6.1"><a href="#section-6.5.6" class="auto internal xref">6.5.6</a>.  <a href="#name-eap-response-aka-reauthenti" class="internal xref">EAP-Response/AKA'-Reauthentication</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.7">
+                    <p id="section-toc.1-1.6.2.5.2.7.1"><a href="#section-6.5.7" class="auto internal xref">6.5.7</a>.  <a href="#name-eap-response-aka-synchroniz" class="internal xref">EAP-Response/AKA'-Synchronization-Failure</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.8">
+                    <p id="section-toc.1-1.6.2.5.2.8.1"><a href="#section-6.5.8" class="auto internal xref">6.5.8</a>.  <a href="#name-eap-response-aka-authentica" class="internal xref">EAP-Response/AKA'-Authentication-Reject</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.9">
+                    <p id="section-toc.1-1.6.2.5.2.9.1"><a href="#section-6.5.9" class="auto internal xref">6.5.9</a>.  <a href="#name-eap-response-aka-client-err" class="internal xref">EAP-Response/AKA'-Client-Error</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.10">
+                    <p id="section-toc.1-1.6.2.5.2.10.1"><a href="#section-6.5.10" class="auto internal xref">6.5.10</a>. <a href="#name-eap-request-aka-notificatio" class="internal xref">EAP-Request/AKA'-Notification</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.11">
+                    <p id="section-toc.1-1.6.2.5.2.11.1"><a href="#section-6.5.11" class="auto internal xref">6.5.11</a>. <a href="#name-eap-response-aka-notificati" class="internal xref">EAP-Response/AKA'-Notification</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-security-properties" class="internal xref">Security Properties</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-denial-of-service" class="internal xref">Denial-of-Service</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-identity-privacy" class="internal xref">Identity Privacy</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
+                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-unprotected-data-and-privac" class="internal xref">Unprotected Data and Privacy</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5">
+                <p id="section-toc.1-1.7.2.5.1"><a href="#section-7.5" class="auto internal xref">7.5</a>.  <a href="#name-post-quantum-considerations" class="internal xref">Post-Quantum Considerations</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-change-log" class="internal xref">Change Log</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">Many different attacks have been reported as part of revelations
+  associated with pervasive surveillance. Some of the reported attacks
+  involved compromising the smart card supply chain, such as attacking SIM card
+  manufacturers and operators in an effort to compromise shared
+  secrets stored on these cards. Such attacks are conceivable, for
+  instance, during the manufacturing process of cards, or during the
+  transfer of cards and associated information to the operator. Since
+  the publication of reports about such attacks, manufacturing and
+  provisioning processes have gained much scrutiny and have
+  improved.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">However, the danger of resourceful attackers attempting to gain
+  information about SIM cards is still a concern. They are a
+  high-value target and concern a large number of people.  Note that
+  the attacks are largely independent of the used authentication
+  technology; the issue is not vulnerabilities in algorithms or
+  protocols, but rather the possibility of someone gaining unlawful
+  access to key material. While the better protection of manufacturing
+  and other processes is essential in protecting against this, there
+  is one question that we as protocol designers can ask.  Is there
+  something that we can do to limit the consequences of attacks,
+  should they occur?<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">The authors want to provide a public specification of an
+  extension that helps defend against one aspect of pervasive
+  surveillance. This is important, given the large number of users such
+  practices may affect. It is also a stated goal of the IETF to ensure
+  that we understand the surveillance concerns related to IETF
+  protocols and take appropriate countermeasures <span>[<a href="#RFC7258" class="cite xref">RFC7258</a>]</span>. This document does that for EAP-AKA'.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This specification updates <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>, the EAP-AKA'
+  authentication method, with an optional extension. While optional,
+  the use of this extension is strongly RECOMMENDED.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">The extension, when
+  negotiated, provides Forward Secrecy (FS) for the session key
+  generated as a part of the authentication run in EAP-AKA'.  This
+  prevents an attacker who has gained access to the long-term
+  pre-shared secret in a SIM card from being able to decrypt any past
+  communications. In addition, if the attacker stays merely a passive
+  eavesdropper, the extension prevents attacks against future
+  sessions. This forces attackers to use active attacks instead. This
+  is beneficial, because active attacks demand much more resources to
+  launch, and can generally be detected much easier. As
+  with other protocols, an active attacker with access to the
+  long-term key material will of course be able to attack all future
+  communications, but risks detection, particularly if done at
+  scale. The attacker
+  is forced to attempt to exfiltrate key material, if it can, on a
+  continuous basis, as opposed to learning it once <span>[<a href="#RFC7624" class="cite xref">RFC7624</a>]</span>.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">Attacks against AKA authentication via compromising the long-term
+  secrets in the SIM cards have been an active discussion topic in
+  many contexts. Forward secrecy is on the list of features
+  for the next release of 3GPP (5G Phase 2), and this document provides
+  a basis for providing this feature in a particular fashion.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">It should also be noted that 5G network architecture <span>[<a href="#TS.33.501" class="cite xref">TS.33.501</a>]</span>
+  includes the
+  use of the EAP framework for authentication. While any methods can
+  be run, the default authentication method within that context will
+  be EAP-AKA'. As a result, improvements in EAP-AKA' security have a
+  potential to improve security for large number of users.<a href="#section-1-7" class="pilcrow">¶</a></p>
+</section>
+<section id="section-2">
+      <h2 id="name-protocol-design-and-deploym">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-protocol-design-and-deploym" class="section-name selfRef">Protocol Design and Deployment Objectives</a>
+      </h2>
+<p id="section-2-1">The extension specified here re-uses large portions of the
+  current structure of 3GPP interfaces and functions, with the
+  rationale that this will make the construction more easily adopted.
+  In particular, the construction maintains the interface between the
+  Universal Subscriber Identification Module (USIM) and the mobile
+  terminal intact. As a consequence, there is no need to roll out new
+  credentials to existing subscribers. The work is based on an earlier
+  paper <span>[<a href="#TrustCom2015" class="cite xref">TrustCom2015</a>]</span>, and uses much of the same
+  material, but applied to EAP rather than the underlying AKA
+  method.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">It has been a goal to implement this change as an extension
+  of the widely supported EAP-AKA' method, rather than a completely new
+  authentication method. The extension is implemented as a set of
+  new, optional attributes, that are provided alongside the
+  base attributes in EAP-AKA'. Old implementations can ignore
+  these attributes, but their presence will nevertheless be verified
+  as part of base EAP-AKA' integrity verification process, helping
+  protect against bidding down attacks. This extension does
+  not increase the number of rounds necessary to complete the
+  protocol.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">The use of this extension is at the discretion of the
+  authenticating parties. It should be noted that FS and defenses
+  against passive attacks are by no means a panacea, but they can
+  provide a partial defense that increases the cost and risk
+  associated with pervasive surveillance.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-4">While adding forward secrecy to the existing mobile
+  network infrastructure can be done in multiple different ways, the
+  authors believe that the approach chosen here is relatively easily
+  deployable. In particular:<a href="#section-2-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-5.1">As noted above, no new credentials are needed; there is no
+    change to SIM cards.<a href="#section-2-5.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-2-5.2">FS property can be incorporated into any current or future
+    system that supports EAP, without changing
+    any network functions beyond the EAP endpoints.<a href="#section-2-5.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-2-5.3">Key generation happens at the endpoints, enabling highest grade
+    key material to be used both by the endpoints and the intermediate
+    systems (such as access points that are given access to specific
+    keys).<a href="#section-2-5.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-2-5.4">While EAP-AKA' is just one EAP method, for practical purposes
+    forward secrecy being available for both EAP-TLS <span>[<a href="#RFC5216" class="cite xref">RFC5216</a>]</span> <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> and
+    EAP-AKA' ensures that for many practical systems forward
+    secrecy can be enabled for either all or significant fraction of
+    users.<a href="#section-2-5.4" class="pilcrow">¶</a>
+</li>
+      </ul>
+</section>
+<section id="section-3">
+      <h2 id="name-background">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-background" class="section-name selfRef">Background</a>
+      </h2>
+<section id="section-3.1">
+        <h3 id="name-aka">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-aka" class="section-name selfRef">AKA</a>
+        </h3>
+<p id="section-3.1-1">Authentication and Key Agreement (AKA) is based on challenge-response
+    mechanisms and symmetric cryptography. In contrast with its earlier GSM
+    counterparts, AKA provides long key lengths and mutual authentication.
+    AKA typically runs in a UMTS Subscriber Identity Module (USIM). USIM is
+    technically just an application that can reside on a removable UICC, an
+    embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
+    this document we use the term "SIM card" to refer to any Subscriber
+    Identity Module capable of running AKA.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">AKA works in the following manner:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-3.1">The identity module and the home environment have agreed on a
+      secret key beforehand.<a href="#section-3.1-3.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-3.2">The actual authentication process starts by having the home
+      environment produce an authentication vector, based on the secret
+      key and a sequence number.  The authentication vector contains a
+      random part RAND, an authenticator part AUTN used for
+      authenticating the network to the identity module, an expected
+      result part XRES, a 128-bit session key for integrity check IK,
+      and a 128-bit session key for encryption CK.<a href="#section-3.1-3.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-3.3">The authentication vector is passed to the serving network, which
+      uses it to authenticate the device.<a href="#section-3.1-3.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-3.4">The RAND and the AUTN are delivered to the identity module.<a href="#section-3.1-3.4" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-3.5">The identity module verifies the AUTN, again based on the secret
+      key and the sequence number.  If this process is successful (the
+      AUTN is valid and the sequence number used to generate AUTN is
+      within the correct range), the identity module produces an
+      authentication result RES and sends it to the serving network.<a href="#section-3.1-3.5" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-3.6">The serving network verifies the correct result from the identity
+      module.  If the result is correct, IK and CK can be used to
+      protect further communications between the identity module and the
+      home environment.<a href="#section-3.1-3.6" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+<section id="section-3.2">
+        <h3 id="name-eap-aka-protocol">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-eap-aka-protocol" class="section-name selfRef">EAP-AKA' Protocol</a>
+        </h3>
+<p id="section-3.2-1">When AKA are embedded into EAP, the authentication on
+    the network side is moved to the home environment; the serving
+    network performs the role of a pass-through authenticator.
+    <a href="#figaka" class="auto internal xref">Figure 1</a> describes the basic flow in the EAP-AKA'
+    authentication process. The definition of the full protocol
+    behavior, along with the definition of attributes AT_RAND,
+    AT_AUTN, AT_MAC, and AT_RES can be found in <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span> and <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<span id="name-eap-aka-authentication-proc"></span><div id="figaka">
+<figure id="figure-1">
+          <div id="section-3.2-2.1">
+            <div class="alignCenter art-svg artwork" id="section-3.2-2.1.2">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="816" width="552" viewBox="0 0 552 816" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+                <path d="M 8,400 L 8,592" fill="none" stroke="black"></path>
+                <path d="M 32,48 L 32,400" fill="none" stroke="black"></path>
+                <path d="M 32,592 L 32,800" fill="none" stroke="black"></path>
+                <path d="M 88,160 L 88,320" fill="none" stroke="black"></path>
+                <path d="M 88,672 L 88,736" fill="none" stroke="black"></path>
+                <path d="M 464,400 L 464,592" fill="none" stroke="black"></path>
+                <path d="M 520,48 L 520,160" fill="none" stroke="black"></path>
+                <path d="M 520,320 L 520,672" fill="none" stroke="black"></path>
+                <path d="M 520,736 L 520,800" fill="none" stroke="black"></path>
+                <path d="M 544,160 L 544,320" fill="none" stroke="black"></path>
+                <path d="M 544,672 L 544,736" fill="none" stroke="black"></path>
+                <path d="M 40,80 L 520,80" fill="none" stroke="black"></path>
+                <path d="M 32,144 L 512,144" fill="none" stroke="black"></path>
+                <path d="M 88,160 L 544,160" fill="none" stroke="black"></path>
+                <path d="M 88,320 L 544,320" fill="none" stroke="black"></path>
+                <path d="M 40,384 L 520,384" fill="none" stroke="black"></path>
+                <path d="M 8,400 L 464,400" fill="none" stroke="black"></path>
+                <path d="M 8,592 L 464,592" fill="none" stroke="black"></path>
+                <path d="M 32,656 L 512,656" fill="none" stroke="black"></path>
+                <path d="M 88,672 L 544,672" fill="none" stroke="black"></path>
+                <path d="M 88,736 L 544,736" fill="none" stroke="black"></path>
+                <path d="M 40,784 L 520,784" fill="none" stroke="black"></path>
+                <path d="M 144,624 L 144,624" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="520,656 508,650.4 508,661.6" fill="black" transform="rotate(0,512,656)"></polygon>
+                <polygon class="arrowhead" points="520,144 508,138.4 508,149.6" fill="black" transform="rotate(0,512,144)"></polygon>
+                <polygon class="arrowhead" points="48,784 36,778.4 36,789.6" fill="black" transform="rotate(180,40,784)"></polygon>
+                <polygon class="arrowhead" points="48,384 36,378.4 36,389.6" fill="black" transform="rotate(180,40,384)"></polygon>
+                <polygon class="arrowhead" points="48,80 36,74.4 36,85.6" fill="black" transform="rotate(180,40,80)"></polygon>
+                <g class="text">
+                  <text x="28" y="36">Peer</text>
+                  <text x="516" y="36">Server</text>
+                  <text x="428" y="68">EAP-Request/Identity</text>
+                  <text x="128" y="116">EAP-Response/Identity</text>
+                  <text x="80" y="132">(Includes</text>
+                  <text x="148" y="132">user's</text>
+                  <text x="208" y="132">Network</text>
+                  <text x="268" y="132">Access</text>
+                  <text x="344" y="132">Identifier,</text>
+                  <text x="412" y="132">NAI)</text>
+                  <text x="124" y="180">Server</text>
+                  <text x="196" y="180">determines</text>
+                  <text x="256" y="180">the</text>
+                  <text x="304" y="180">network</text>
+                  <text x="356" y="180">name</text>
+                  <text x="392" y="180">and</text>
+                  <text x="440" y="180">ensures</text>
+                  <text x="492" y="180">that</text>
+                  <text x="112" y="196">the</text>
+                  <text x="152" y="196">given</text>
+                  <text x="204" y="196">access</text>
+                  <text x="264" y="196">network</text>
+                  <text x="308" y="196">is</text>
+                  <text x="364" y="196">authorized</text>
+                  <text x="420" y="196">to</text>
+                  <text x="448" y="196">use</text>
+                  <text x="480" y="196">the</text>
+                  <text x="128" y="212">claimed</text>
+                  <text x="184" y="212">name.</text>
+                  <text x="224" y="212">The</text>
+                  <text x="268" y="212">server</text>
+                  <text x="316" y="212">then</text>
+                  <text x="356" y="212">runs</text>
+                  <text x="392" y="212">the</text>
+                  <text x="428" y="212">AKA'</text>
+                  <text x="492" y="212">algorithms</text>
+                  <text x="140" y="228">generating</text>
+                  <text x="204" y="228">RAND</text>
+                  <text x="240" y="228">and</text>
+                  <text x="280" y="228">AUTN,</text>
+                  <text x="336" y="228">derives</text>
+                  <text x="400" y="228">session</text>
+                  <text x="452" y="228">keys</text>
+                  <text x="492" y="228">from</text>
+                  <text x="112" y="244">CK'</text>
+                  <text x="144" y="244">and</text>
+                  <text x="180" y="244">IK'.</text>
+                  <text x="220" y="244">RAND</text>
+                  <text x="256" y="244">and</text>
+                  <text x="292" y="244">AUTN</text>
+                  <text x="328" y="244">are</text>
+                  <text x="364" y="244">sent</text>
+                  <text x="396" y="244">as</text>
+                  <text x="440" y="244">AT_RAND</text>
+                  <text x="488" y="244">and</text>
+                  <text x="128" y="260">AT_AUTN</text>
+                  <text x="208" y="260">attributes,</text>
+                  <text x="288" y="260">whereas</text>
+                  <text x="336" y="260">the</text>
+                  <text x="384" y="260">network</text>
+                  <text x="436" y="260">name</text>
+                  <text x="468" y="260">is</text>
+                  <text x="144" y="276">transported</text>
+                  <text x="204" y="276">in</text>
+                  <text x="232" y="276">the</text>
+                  <text x="300" y="276">AT_KDF_INPUT</text>
+                  <text x="396" y="276">attribute.</text>
+                  <text x="468" y="276">AT_KDF</text>
+                  <text x="128" y="292">signals</text>
+                  <text x="176" y="292">the</text>
+                  <text x="212" y="292">used</text>
+                  <text x="248" y="292">key</text>
+                  <text x="308" y="292">derivation</text>
+                  <text x="392" y="292">function.</text>
+                  <text x="448" y="292">The</text>
+                  <text x="496" y="292">session</text>
+                  <text x="116" y="308">keys</text>
+                  <text x="152" y="308">are</text>
+                  <text x="188" y="308">used</text>
+                  <text x="220" y="308">in</text>
+                  <text x="268" y="308">creating</text>
+                  <text x="320" y="308">the</text>
+                  <text x="364" y="308">AT_MAC</text>
+                  <text x="436" y="308">attribute.</text>
+                  <text x="404" y="356">EAP-Request/AKA'-Challenge</text>
+                  <text x="160" y="372">(AT_RAND,</text>
+                  <text x="236" y="372">AT_AUTN,</text>
+                  <text x="304" y="372">AT_KDF,</text>
+                  <text x="392" y="372">AT_KDF_INPUT,</text>
+                  <text x="480" y="372">AT_MAC)</text>
+                  <text x="32" y="420">The</text>
+                  <text x="68" y="420">peer</text>
+                  <text x="132" y="420">determines</text>
+                  <text x="196" y="420">what</text>
+                  <text x="232" y="420">the</text>
+                  <text x="280" y="420">network</text>
+                  <text x="332" y="420">name</text>
+                  <text x="380" y="420">should</text>
+                  <text x="424" y="420">be,</text>
+                  <text x="40" y="436">based</text>
+                  <text x="80" y="436">on,</text>
+                  <text x="120" y="436">e.g.,</text>
+                  <text x="164" y="436">what</text>
+                  <text x="212" y="436">access</text>
+                  <text x="284" y="436">technology</text>
+                  <text x="340" y="436">it</text>
+                  <text x="364" y="436">is</text>
+                  <text x="404" y="436">using.</text>
+                  <text x="32" y="452">The</text>
+                  <text x="68" y="452">peer</text>
+                  <text x="108" y="452">also</text>
+                  <text x="168" y="452">retrieves</text>
+                  <text x="224" y="452">the</text>
+                  <text x="272" y="452">network</text>
+                  <text x="324" y="452">name</text>
+                  <text x="364" y="452">sent</text>
+                  <text x="396" y="452">by</text>
+                  <text x="424" y="452">the</text>
+                  <text x="48" y="468">network</text>
+                  <text x="100" y="468">from</text>
+                  <text x="136" y="468">the</text>
+                  <text x="204" y="468">AT_KDF_INPUT</text>
+                  <text x="300" y="468">attribute.</text>
+                  <text x="360" y="468">The</text>
+                  <text x="392" y="468">two</text>
+                  <text x="432" y="468">names</text>
+                  <text x="32" y="484">are</text>
+                  <text x="84" y="484">compared</text>
+                  <text x="136" y="484">for</text>
+                  <text x="212" y="484">discrepancies,</text>
+                  <text x="288" y="484">and</text>
+                  <text x="316" y="484">if</text>
+                  <text x="372" y="484">necessary,</text>
+                  <text x="432" y="484">the</text>
+                  <text x="76" y="500">authentication</text>
+                  <text x="148" y="500">is</text>
+                  <text x="196" y="500">aborted.</text>
+                  <text x="276" y="500">Otherwise,</text>
+                  <text x="336" y="500">the</text>
+                  <text x="384" y="500">network</text>
+                  <text x="436" y="500">name</text>
+                  <text x="36" y="516">from</text>
+                  <text x="108" y="516">AT_KDF_INPUT</text>
+                  <text x="200" y="516">attribute</text>
+                  <text x="252" y="516">is</text>
+                  <text x="284" y="516">used</text>
+                  <text x="316" y="516">in</text>
+                  <text x="360" y="516">running</text>
+                  <text x="408" y="516">the</text>
+                  <text x="36" y="532">AKA'</text>
+                  <text x="104" y="532">algorithms,</text>
+                  <text x="192" y="532">verifying</text>
+                  <text x="252" y="532">AUTN</text>
+                  <text x="292" y="532">from</text>
+                  <text x="344" y="532">AT_AUTN</text>
+                  <text x="392" y="532">and</text>
+                  <text x="424" y="532">MAC</text>
+                  <text x="36" y="548">from</text>
+                  <text x="84" y="548">AT_MAC</text>
+                  <text x="160" y="548">attributes.</text>
+                  <text x="224" y="548">The</text>
+                  <text x="260" y="548">peer</text>
+                  <text x="300" y="548">then</text>
+                  <text x="360" y="548">generates</text>
+                  <text x="420" y="548">RES.</text>
+                  <text x="32" y="564">The</text>
+                  <text x="68" y="564">peer</text>
+                  <text x="108" y="564">also</text>
+                  <text x="160" y="564">derives</text>
+                  <text x="224" y="564">session</text>
+                  <text x="276" y="564">keys</text>
+                  <text x="316" y="564">from</text>
+                  <text x="372" y="564">CK'/IK'.</text>
+                  <text x="424" y="564">The</text>
+                  <text x="44" y="580">AT_RES</text>
+                  <text x="88" y="580">and</text>
+                  <text x="132" y="580">AT_MAC</text>
+                  <text x="204" y="580">attributes</text>
+                  <text x="264" y="580">are</text>
+                  <text x="332" y="580">constructed.</text>
+                  <text x="92" y="628">EAP-Response</text>
+                  <text x="204" y="628">AKA'-Challenge</text>
+                  <text x="76" y="644">(AT_RES,</text>
+                  <text x="144" y="644">AT_MAC)</text>
+                  <text x="124" y="692">Server</text>
+                  <text x="180" y="692">checks</text>
+                  <text x="224" y="692">the</text>
+                  <text x="256" y="692">RES</text>
+                  <text x="288" y="692">and</text>
+                  <text x="320" y="692">MAC</text>
+                  <text x="364" y="692">values</text>
+                  <text x="428" y="692">received</text>
+                  <text x="476" y="692">in</text>
+                  <text x="124" y="708">AT_RES</text>
+                  <text x="168" y="708">and</text>
+                  <text x="216" y="708">AT_MAC,</text>
+                  <text x="304" y="708">respectively.</text>
+                  <text x="392" y="708">Success</text>
+                  <text x="460" y="708">requires</text>
+                  <text x="516" y="708">both</text>
+                  <text x="108" y="724">to</text>
+                  <text x="132" y="724">be</text>
+                  <text x="168" y="724">found</text>
+                  <text x="228" y="724">correct.</text>
+                  <text x="464" y="772">EAP-Success</text>
+                </g>
+              </svg><a href="#section-3.2-2.1.2" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-eap-aka-authentication-proc" class="selfRef">EAP-AKA' Authentication Process</a>
+          </figcaption></figure>
+</div>
+</section>
+<div id="attacks">
+<section id="section-3.3">
+        <h3 id="name-attacks-against-long-term-s">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-attacks-against-long-term-s" class="section-name selfRef">Attacks Against Long-Term Shared Secrets in Smart Cards</a>
+        </h3>
+<p id="section-3.3-1">Current 3GPP systems use SIM pre-shared key based protocols
+    and Authentication and Key Agreement (AKA) to authenticate
+    subscribers. The general security properties and potential
+    vulnerabilities of AKA and EAP-AKA' are discussed in <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">An important vulnerability in that discussion relates to the
+    recent reports of compromised long term pre-shared keys used in
+    AKA <span>[<a href="#Heist2015" class="cite xref">Heist2015</a>]</span>. These attacks are not specific to
+    AKA or EAP-AKA', as all security systems fail at least to some
+    extent if key material is stolen. However, the reports indicate a
+    need to look into solutions that can operate at least to an extent
+    under these types of attacks. It is noted in <span>[<a href="#Heist2015" class="cite xref">Heist2015</a>]</span> that some security can be retained even in
+    the face of the attacks by providing Forward Secrecy
+    (FS) <span>[<a href="#DOW1992" class="cite xref">DOW1992</a>]</span> for the session key. If AKA would
+    have provided FS, compromising the pre-shared key would not be
+    sufficient to perform passive attacks; the attacker is, in
+    addition, forced to be a Man-In-The-Middle (MITM) during the AKA
+    run and subsequent communication between the parties.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+<section id="section-4">
+      <h2 id="name-requirements-language">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-requirements-language" class="section-name selfRef">Requirements Language</a>
+      </h2>
+<p id="section-4-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+  "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+  "OPTIONAL" in this document are to be interpreted as described in BCP
+  14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only
+  when, they appear in all capitals, as shown here.<a href="#section-4-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-5">
+      <h2 id="name-protocol-overview">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-protocol-overview" class="section-name selfRef">Protocol Overview</a>
+      </h2>
+<p id="section-5-1">Forward Secrecy for EAP-AKA' is achieved by using an Elliptic
+  Curve Diffie-Hellman (ECDH) exchange <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>. To provide
+  FS, the exchange must be run in an ephemeral manner, i.e.,
+  both sides generate temporary keys according to the negotiated ciphersuite,
+  e.g., for X25519 this is done as specified in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.
+  This method is referred to as ECDHE, where the last 'E' stands
+  for Ephemeral. The two initially registered elliptic curves and their
+  wire format is chosen to align with the elliptic curves and formats
+  specified for Subscription Concealed Identifier (SUCI) encryption in
+  Appendix C.3.4 of 3GPP TS 33.501 <span>[<a href="#TS.33.501" class="cite xref">TS.33.501</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The enhancements in the EAP-AKA' FS protocol are compatible
+  with the signaling flow and other basic structures of both AKA and
+  EAP-AKA'. The intent is to implement the enhancement as optional
+  attributes that legacy implementations can ignore.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">The purpose of the protocol is to achieve mutual authentication
+  between the EAP server and peer, and to establish keying material
+  for secure communication between the two.  This document specifies
+  the calculation of key material, providing new properties that are
+  not present in key material provided by EAP-AKA' in its original
+  form.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4"><a href="#figakafs" class="auto internal xref">Figure 2</a> below describes the overall process. Since our goal
+  has been to not require new infrastructure or credentials, the
+  flow diagrams also show the conceptual interaction with the USIM card
+  and the 3GPP authentication server (HSS). The details of those
+  interactions
+  are outside the scope of this document, however, and the reader
+  is referred to the 3GPP specifications.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<span id="name-eap-aka-fs-authentication-p"></span><div id="figakafs">
+<figure id="figure-2">
+        <div id="section-5-5.1">
+          <div class="alignCenter art-svg artwork" id="section-5-5.1.2">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1408" width="552" viewBox="0 0 552 1408" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+              <path d="M 8,688 L 8,816" fill="none" stroke="black"></path>
+              <path d="M 8,928 L 8,1040" fill="none" stroke="black"></path>
+              <path d="M 32,48 L 32,688" fill="none" stroke="black"></path>
+              <path d="M 32,816 L 32,928" fill="none" stroke="black"></path>
+              <path d="M 32,1040 L 32,1392" fill="none" stroke="black"></path>
+              <path d="M 88,160 L 88,272" fill="none" stroke="black"></path>
+              <path d="M 88,432 L 88,576" fill="none" stroke="black"></path>
+              <path d="M 88,1136 L 88,1328" fill="none" stroke="black"></path>
+              <path d="M 152,48 L 152,160" fill="none" stroke="black"></path>
+              <path d="M 152,272 L 152,432" fill="none" stroke="black"></path>
+              <path d="M 152,576 L 152,688" fill="none" stroke="black"></path>
+              <path d="M 152,816 L 152,928" fill="none" stroke="black"></path>
+              <path d="M 152,1040 L 152,1136" fill="none" stroke="black"></path>
+              <path d="M 152,1328 L 152,1392" fill="none" stroke="black"></path>
+              <path d="M 384,48 L 384,160" fill="none" stroke="black"></path>
+              <path d="M 384,272 L 384,432" fill="none" stroke="black"></path>
+              <path d="M 384,576 L 384,688" fill="none" stroke="black"></path>
+              <path d="M 384,816 L 384,928" fill="none" stroke="black"></path>
+              <path d="M 384,1040 L 384,1136" fill="none" stroke="black"></path>
+              <path d="M 384,1328 L 384,1392" fill="none" stroke="black"></path>
+              <path d="M 464,688 L 464,816" fill="none" stroke="black"></path>
+              <path d="M 464,928 L 464,1040" fill="none" stroke="black"></path>
+              <path d="M 520,48 L 520,160" fill="none" stroke="black"></path>
+              <path d="M 520,272 L 520,432" fill="none" stroke="black"></path>
+              <path d="M 520,576 L 520,1136" fill="none" stroke="black"></path>
+              <path d="M 520,1328 L 520,1392" fill="none" stroke="black"></path>
+              <path d="M 544,160 L 544,272" fill="none" stroke="black"></path>
+              <path d="M 544,432 L 544,576" fill="none" stroke="black"></path>
+              <path d="M 544,1136 L 544,1328" fill="none" stroke="black"></path>
+              <path d="M 160,80 L 384,80" fill="none" stroke="black"></path>
+              <path d="M 152,144 L 376,144" fill="none" stroke="black"></path>
+              <path d="M 88,160 L 544,160" fill="none" stroke="black"></path>
+              <path d="M 88,272 L 544,272" fill="none" stroke="black"></path>
+              <path d="M 384,352 L 512,352" fill="none" stroke="black"></path>
+              <path d="M 392,416 L 520,416" fill="none" stroke="black"></path>
+              <path d="M 88,432 L 544,432" fill="none" stroke="black"></path>
+              <path d="M 88,576 L 544,576" fill="none" stroke="black"></path>
+              <path d="M 160,672 L 384,672" fill="none" stroke="black"></path>
+              <path d="M 8,688 L 464,688" fill="none" stroke="black"></path>
+              <path d="M 8,816 L 464,816" fill="none" stroke="black"></path>
+              <path d="M 40,864 L 152,864" fill="none" stroke="black"></path>
+              <path d="M 32,912 L 144,912" fill="none" stroke="black"></path>
+              <path d="M 8,928 L 464,928" fill="none" stroke="black"></path>
+              <path d="M 8,1040 L 464,1040" fill="none" stroke="black"></path>
+              <path d="M 152,1120 L 376,1120" fill="none" stroke="black"></path>
+              <path d="M 88,1136 L 544,1136" fill="none" stroke="black"></path>
+              <path d="M 88,1328 L 544,1328" fill="none" stroke="black"></path>
+              <path d="M 160,1376 L 384,1376" fill="none" stroke="black"></path>
+              <polygon class="arrowhead" points="520,352 508,346.4 508,357.6" fill="black" transform="rotate(0,512,352)"></polygon>
+              <polygon class="arrowhead" points="400,416 388,410.4 388,421.6" fill="black" transform="rotate(180,392,416)"></polygon>
+              <polygon class="arrowhead" points="384,1120 372,1114.4 372,1125.6" fill="black" transform="rotate(0,376,1120)"></polygon>
+              <polygon class="arrowhead" points="384,144 372,138.4 372,149.6" fill="black" transform="rotate(0,376,144)"></polygon>
+              <polygon class="arrowhead" points="168,1376 156,1370.4 156,1381.6" fill="black" transform="rotate(180,160,1376)"></polygon>
+              <polygon class="arrowhead" points="168,672 156,666.4 156,677.6" fill="black" transform="rotate(180,160,672)"></polygon>
+              <polygon class="arrowhead" points="168,80 156,74.4 156,85.6" fill="black" transform="rotate(180,160,80)"></polygon>
+              <polygon class="arrowhead" points="152,912 140,906.4 140,917.6" fill="black" transform="rotate(0,144,912)"></polygon>
+              <polygon class="arrowhead" points="48,864 36,858.4 36,869.6" fill="black" transform="rotate(180,40,864)"></polygon>
+              <g class="text">
+                <text x="28" y="36">USIM</text>
+                <text x="148" y="36">Peer</text>
+                <text x="380" y="36">Server</text>
+                <text x="520" y="36">HSS</text>
+                <text x="308" y="68">EAP-Req/Identity</text>
+                <text x="232" y="116">EAP-Resp/Identity</text>
+                <text x="236" y="132">(Privacy-Friendly)</text>
+                <text x="124" y="180">Server</text>
+                <text x="168" y="180">now</text>
+                <text x="200" y="180">has</text>
+                <text x="228" y="180">an</text>
+                <text x="276" y="180">identity</text>
+                <text x="328" y="180">for</text>
+                <text x="360" y="180">the</text>
+                <text x="400" y="180">peer.</text>
+                <text x="440" y="180">The</text>
+                <text x="484" y="180">server</text>
+                <text x="116" y="196">then</text>
+                <text x="156" y="196">asks</text>
+                <text x="192" y="196">the</text>
+                <text x="228" y="196">help</text>
+                <text x="260" y="196">of</text>
+                <text x="288" y="196">HSS</text>
+                <text x="316" y="196">to</text>
+                <text x="344" y="196">run</text>
+                <text x="376" y="196">AKA</text>
+                <text x="440" y="196">algorithms,</text>
+                <text x="140" y="212">generating</text>
+                <text x="208" y="212">RAND,</text>
+                <text x="256" y="212">AUTN,</text>
+                <text x="304" y="212">XRES,</text>
+                <text x="344" y="212">CK,</text>
+                <text x="376" y="212">IK.</text>
+                <text x="436" y="212">Typically,</text>
+                <text x="496" y="212">the</text>
+                <text x="112" y="228">HSS</text>
+                <text x="164" y="228">performs</text>
+                <text x="216" y="228">the</text>
+                <text x="256" y="228">first</text>
+                <text x="300" y="228">part</text>
+                <text x="332" y="228">of</text>
+                <text x="360" y="228">key</text>
+                <text x="424" y="228">derivations</text>
+                <text x="484" y="228">so</text>
+                <text x="516" y="228">that</text>
+                <text x="112" y="244">the</text>
+                <text x="188" y="244">authentication</text>
+                <text x="276" y="244">server</text>
+                <text x="324" y="244">gets</text>
+                <text x="360" y="244">the</text>
+                <text x="392" y="244">CK'</text>
+                <text x="424" y="244">and</text>
+                <text x="456" y="244">IK'</text>
+                <text x="492" y="244">keys</text>
+                <text x="128" y="260">already</text>
+                <text x="180" y="260">tied</text>
+                <text x="212" y="260">to</text>
+                <text x="232" y="260">a</text>
+                <text x="284" y="260">particular</text>
+                <text x="360" y="260">network</text>
+                <text x="416" y="260">name.</text>
+                <text x="408" y="308">ID,</text>
+                <text x="440" y="308">key</text>
+                <text x="484" y="308">deriv.</text>
+                <text x="432" y="324">function,</text>
+                <text x="424" y="340">network</text>
+                <text x="476" y="340">name</text>
+                <text x="440" y="388">RAND,</text>
+                <text x="488" y="388">AUTN,</text>
+                <text x="416" y="404">XRES,</text>
+                <text x="460" y="404">CK',</text>
+                <text x="496" y="404">IK'</text>
+                <text x="124" y="452">Server</text>
+                <text x="168" y="452">now</text>
+                <text x="200" y="452">has</text>
+                <text x="232" y="452">the</text>
+                <text x="276" y="452">needed</text>
+                <text x="364" y="452">authentication</text>
+                <text x="456" y="452">vector.</text>
+                <text x="500" y="452">It</text>
+                <text x="136" y="468">generates</text>
+                <text x="188" y="468">an</text>
+                <text x="240" y="468">ephemeral</text>
+                <text x="296" y="468">key</text>
+                <text x="336" y="468">pair,</text>
+                <text x="384" y="468">sends</text>
+                <text x="424" y="468">the</text>
+                <text x="468" y="468">public</text>
+                <text x="512" y="468">key</text>
+                <text x="108" y="484">of</text>
+                <text x="140" y="484">that</text>
+                <text x="176" y="484">key</text>
+                <text x="212" y="484">pair</text>
+                <text x="248" y="484">and</text>
+                <text x="280" y="484">the</text>
+                <text x="320" y="484">first</text>
+                <text x="360" y="484">EAP</text>
+                <text x="404" y="484">method</text>
+                <text x="464" y="484">message</text>
+                <text x="508" y="484">to</text>
+                <text x="112" y="500">the</text>
+                <text x="152" y="500">peer.</text>
+                <text x="188" y="500">In</text>
+                <text x="216" y="500">the</text>
+                <text x="264" y="500">message</text>
+                <text x="312" y="500">the</text>
+                <text x="380" y="500">AT_PUB_ECDHE</text>
+                <text x="472" y="500">attribute</text>
+                <text x="128" y="516">carries</text>
+                <text x="176" y="516">the</text>
+                <text x="220" y="516">public</text>
+                <text x="264" y="516">key</text>
+                <text x="296" y="516">and</text>
+                <text x="328" y="516">the</text>
+                <text x="384" y="516">AT_KDF_FS</text>
+                <text x="464" y="516">attribute</text>
+                <text x="128" y="532">carries</text>
+                <text x="184" y="532">other</text>
+                <text x="252" y="532">FS-related</text>
+                <text x="344" y="532">parameters.</text>
+                <text x="412" y="532">Both</text>
+                <text x="444" y="532">of</text>
+                <text x="480" y="532">these</text>
+                <text x="520" y="532">are</text>
+                <text x="136" y="548">skippable</text>
+                <text x="220" y="548">attributes</text>
+                <text x="284" y="548">that</text>
+                <text x="320" y="548">can</text>
+                <text x="348" y="548">be</text>
+                <text x="392" y="548">ignored</text>
+                <text x="436" y="548">if</text>
+                <text x="464" y="548">the</text>
+                <text x="500" y="548">peer</text>
+                <text x="116" y="564">does</text>
+                <text x="152" y="564">not</text>
+                <text x="200" y="564">support</text>
+                <text x="252" y="564">this</text>
+                <text x="316" y="564">extension.</text>
+                <text x="284" y="612">EAP-Req/AKA'-Challenge</text>
+                <text x="204" y="628">AT_RAND,</text>
+                <text x="276" y="628">AT_AUTN,</text>
+                <text x="344" y="628">AT_KDF,</text>
+                <text x="220" y="644">AT_KDF_FS,</text>
+                <text x="320" y="644">AT_KDF_INPUT,</text>
+                <text x="264" y="660">AT_PUB_ECDHE,</text>
+                <text x="348" y="660">AT_MAC</text>
+                <text x="32" y="708">The</text>
+                <text x="68" y="708">peer</text>
+                <text x="116" y="708">checks</text>
+                <text x="156" y="708">if</text>
+                <text x="180" y="708">it</text>
+                <text x="216" y="708">wants</text>
+                <text x="252" y="708">to</text>
+                <text x="276" y="708">do</text>
+                <text x="304" y="708">the</text>
+                <text x="332" y="708">FS</text>
+                <text x="388" y="708">extension.</text>
+                <text x="444" y="708">If</text>
+                <text x="36" y="724">yes,</text>
+                <text x="68" y="724">it</text>
+                <text x="100" y="724">will</text>
+                <text x="164" y="724">eventually</text>
+                <text x="240" y="724">respond</text>
+                <text x="292" y="724">with</text>
+                <text x="364" y="724">AT_PUB_ECDHE</text>
+                <text x="432" y="724">and</text>
+                <text x="48" y="740">AT_MAC.</text>
+                <text x="92" y="740">If</text>
+                <text x="124" y="740">not,</text>
+                <text x="156" y="740">it</text>
+                <text x="188" y="740">will</text>
+                <text x="236" y="740">ignore</text>
+                <text x="316" y="740">AT_PUB_ECDHE</text>
+                <text x="384" y="740">and</text>
+                <text x="56" y="756">AT_KDF_FS</text>
+                <text x="112" y="756">and</text>
+                <text x="148" y="756">base</text>
+                <text x="184" y="756">all</text>
+                <text x="252" y="756">calculations</text>
+                <text x="316" y="756">on</text>
+                <text x="352" y="756">basic</text>
+                <text x="412" y="756">EAP-AKA'</text>
+                <text x="64" y="772">attributes,</text>
+                <text x="156" y="772">continuing</text>
+                <text x="220" y="772">just</text>
+                <text x="252" y="772">as</text>
+                <text x="276" y="772">in</text>
+                <text x="324" y="772">EAP-AKA'</text>
+                <text x="376" y="772">per</text>
+                <text x="408" y="772">RFC</text>
+                <text x="36" y="788">9048</text>
+                <text x="84" y="788">rules.</text>
+                <text x="124" y="788">In</text>
+                <text x="152" y="788">any</text>
+                <text x="192" y="788">case,</text>
+                <text x="232" y="788">the</text>
+                <text x="268" y="788">peer</text>
+                <text x="312" y="788">needs</text>
+                <text x="348" y="788">to</text>
+                <text x="384" y="788">query</text>
+                <text x="424" y="788">the</text>
+                <text x="36" y="804">auth</text>
+                <text x="100" y="804">parameters</text>
+                <text x="164" y="804">from</text>
+                <text x="200" y="804">the</text>
+                <text x="236" y="804">USIM</text>
+                <text x="280" y="804">card.</text>
+                <text x="80" y="852">RAND,</text>
+                <text x="124" y="852">AUTN</text>
+                <text x="56" y="900">CK,</text>
+                <text x="88" y="900">IK,</text>
+                <text x="120" y="900">RES</text>
+                <text x="32" y="948">The</text>
+                <text x="68" y="948">peer</text>
+                <text x="104" y="948">now</text>
+                <text x="136" y="948">has</text>
+                <text x="196" y="948">everything</text>
+                <text x="252" y="948">to</text>
+                <text x="300" y="948">respond.</text>
+                <text x="348" y="948">If</text>
+                <text x="372" y="948">it</text>
+                <text x="408" y="948">wants</text>
+                <text x="444" y="948">to</text>
+                <text x="64" y="964">participate</text>
+                <text x="124" y="964">in</text>
+                <text x="152" y="964">the</text>
+                <text x="180" y="964">FS</text>
+                <text x="236" y="964">extension,</text>
+                <text x="292" y="964">it</text>
+                <text x="324" y="964">will</text>
+                <text x="364" y="964">then</text>
+                <text x="420" y="964">generate</text>
+                <text x="32" y="980">its</text>
+                <text x="64" y="980">key</text>
+                <text x="104" y="980">pair,</text>
+                <text x="168" y="980">calculate</text>
+                <text x="216" y="980">a</text>
+                <text x="252" y="980">shared</text>
+                <text x="296" y="980">key</text>
+                <text x="336" y="980">based</text>
+                <text x="372" y="980">on</text>
+                <text x="400" y="980">its</text>
+                <text x="432" y="980">key</text>
+                <text x="36" y="996">pair</text>
+                <text x="72" y="996">and</text>
+                <text x="104" y="996">the</text>
+                <text x="156" y="996">server's</text>
+                <text x="220" y="996">public</text>
+                <text x="268" y="996">key.</text>
+                <text x="324" y="996">Finally,</text>
+                <text x="372" y="996">it</text>
+                <text x="420" y="996">proceeds</text>
+                <text x="28" y="1012">to</text>
+                <text x="68" y="1012">derive</text>
+                <text x="112" y="1012">all</text>
+                <text x="164" y="1012">EAP-AKA'</text>
+                <text x="216" y="1012">key</text>
+                <text x="260" y="1012">values</text>
+                <text x="304" y="1012">and</text>
+                <text x="364" y="1012">constructs</text>
+                <text x="416" y="1012">a</text>
+                <text x="36" y="1028">full</text>
+                <text x="96" y="1028">response.</text>
+                <text x="256" y="1076">EAP-Resp/AKA'-Challenge</text>
+                <text x="192" y="1092">AT_RES,</text>
+                <text x="280" y="1092">AT_PUB_ECDHE,</text>
+                <text x="188" y="1108">AT_MAC</text>
+                <text x="112" y="1156">The</text>
+                <text x="156" y="1156">server</text>
+                <text x="200" y="1156">now</text>
+                <text x="232" y="1156">has</text>
+                <text x="264" y="1156">all</text>
+                <text x="296" y="1156">the</text>
+                <text x="352" y="1156">necessary</text>
+                <text x="424" y="1156">values.</text>
+                <text x="468" y="1156">It</text>
+                <text x="136" y="1172">generates</text>
+                <text x="192" y="1172">the</text>
+                <text x="232" y="1172">ECDHE</text>
+                <text x="284" y="1172">shared</text>
+                <text x="340" y="1172">secret</text>
+                <text x="384" y="1172">and</text>
+                <text x="428" y="1172">checks</text>
+                <text x="472" y="1172">the</text>
+                <text x="504" y="1172">RES</text>
+                <text x="112" y="1188">and</text>
+                <text x="144" y="1188">MAC</text>
+                <text x="188" y="1188">values</text>
+                <text x="252" y="1188">received</text>
+                <text x="300" y="1188">in</text>
+                <text x="340" y="1188">AT_RES</text>
+                <text x="384" y="1188">and</text>
+                <text x="432" y="1188">AT_MAC,</text>
+                <text x="152" y="1204">respectively.</text>
+                <text x="240" y="1204">Success</text>
+                <text x="308" y="1204">requires</text>
+                <text x="364" y="1204">both</text>
+                <text x="396" y="1204">to</text>
+                <text x="420" y="1204">be</text>
+                <text x="456" y="1204">found</text>
+                <text x="132" y="1220">correct.</text>
+                <text x="188" y="1220">Note</text>
+                <text x="228" y="1220">that</text>
+                <text x="268" y="1220">when</text>
+                <text x="308" y="1220">this</text>
+                <text x="384" y="1220">specification</text>
+                <text x="452" y="1220">is</text>
+                <text x="488" y="1220">used,</text>
+                <text x="112" y="1236">the</text>
+                <text x="148" y="1236">keys</text>
+                <text x="208" y="1236">generated</text>
+                <text x="268" y="1236">from</text>
+                <text x="324" y="1236">EAP-AKA'</text>
+                <text x="376" y="1236">are</text>
+                <text x="416" y="1236">based</text>
+                <text x="452" y="1236">on</text>
+                <text x="484" y="1236">both</text>
+                <text x="120" y="1252">CK/IK</text>
+                <text x="156" y="1252">as</text>
+                <text x="188" y="1252">well</text>
+                <text x="220" y="1252">as</text>
+                <text x="248" y="1252">the</text>
+                <text x="288" y="1252">ECDHE</text>
+                <text x="340" y="1252">value.</text>
+                <text x="388" y="1252">Even</text>
+                <text x="420" y="1252">if</text>
+                <text x="456" y="1252">there</text>
+                <text x="496" y="1252">was</text>
+                <text x="524" y="1252">an</text>
+                <text x="132" y="1268">attacker</text>
+                <text x="184" y="1268">who</text>
+                <text x="220" y="1268">held</text>
+                <text x="256" y="1268">the</text>
+                <text x="312" y="1268">long-term</text>
+                <text x="380" y="1268">secret</text>
+                <text x="432" y="1268">keys,</text>
+                <text x="476" y="1268">only</text>
+                <text x="508" y="1268">an</text>
+                <text x="124" y="1284">active</text>
+                <text x="188" y="1284">attacker</text>
+                <text x="248" y="1284">could</text>
+                <text x="292" y="1284">have</text>
+                <text x="356" y="1284">determined</text>
+                <text x="416" y="1284">the</text>
+                <text x="472" y="1284">generated</text>
+                <text x="128" y="1300">session</text>
+                <text x="184" y="1300">keys;</text>
+                <text x="220" y="1300">in</text>
+                <text x="256" y="1300">basic</text>
+                <text x="316" y="1300">EAP-AKA'</text>
+                <text x="368" y="1300">the</text>
+                <text x="424" y="1300">generated</text>
+                <text x="484" y="1300">keys</text>
+                <text x="520" y="1300">are</text>
+                <text x="116" y="1316">only</text>
+                <text x="160" y="1316">based</text>
+                <text x="196" y="1316">on</text>
+                <text x="220" y="1316">CK</text>
+                <text x="248" y="1316">and</text>
+                <text x="280" y="1316">IK.</text>
+                <text x="328" y="1364">EAP-Success</text>
+              </g>
+            </svg><a href="#section-5-5.1.2" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-eap-aka-fs-authentication-p" class="selfRef">EAP-AKA' FS Authentication Process</a>
+        </figcaption></figure>
+</div>
+</section>
+<section id="section-6">
+      <h2 id="name-extensions-to-eap-aka">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-extensions-to-eap-aka" class="section-name selfRef">Extensions to EAP-AKA'</a>
+      </h2>
+<div id="at_pub_dh">
+<section id="section-6.1">
+        <h3 id="name-at_pub_ecdhe">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-at_pub_ecdhe" class="section-name selfRef">AT_PUB_ECDHE</a>
+        </h3>
+<p id="section-6.1-1">The AT_PUB_ECDHE carries an ECDHE value.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">The format of the AT_PUB_ECDHE attribute is shown below.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<div id="section-6.1-3">
+          <div class="alignLeft art-svg artwork" id="section-6.1-3.2">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="112" width="528" viewBox="0 0 528 112" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+              <path d="M 8,64 L 8,96" fill="none" stroke="black"></path>
+              <path d="M 136,64 L 136,96" fill="none" stroke="black"></path>
+              <path d="M 264,64 L 264,96" fill="none" stroke="black"></path>
+              <path d="M 520,64 L 520,96" fill="none" stroke="black"></path>
+              <path d="M 8,64 L 520,64" fill="none" stroke="black"></path>
+              <path d="M 8,96 L 520,96" fill="none" stroke="black"></path>
+              <g class="text">
+                <text x="16" y="36">0</text>
+                <text x="176" y="36">1</text>
+                <text x="336" y="36">2</text>
+                <text x="496" y="36">3</text>
+                <text x="16" y="52">0</text>
+                <text x="32" y="52">1</text>
+                <text x="48" y="52">2</text>
+                <text x="64" y="52">3</text>
+                <text x="80" y="52">4</text>
+                <text x="96" y="52">5</text>
+                <text x="112" y="52">6</text>
+                <text x="128" y="52">7</text>
+                <text x="144" y="52">8</text>
+                <text x="160" y="52">9</text>
+                <text x="176" y="52">0</text>
+                <text x="192" y="52">1</text>
+                <text x="208" y="52">2</text>
+                <text x="224" y="52">3</text>
+                <text x="240" y="52">4</text>
+                <text x="256" y="52">5</text>
+                <text x="272" y="52">6</text>
+                <text x="288" y="52">7</text>
+                <text x="304" y="52">8</text>
+                <text x="320" y="52">9</text>
+                <text x="336" y="52">0</text>
+                <text x="352" y="52">1</text>
+                <text x="368" y="52">2</text>
+                <text x="384" y="52">3</text>
+                <text x="400" y="52">4</text>
+                <text x="416" y="52">5</text>
+                <text x="432" y="52">6</text>
+                <text x="448" y="52">7</text>
+                <text x="464" y="52">8</text>
+                <text x="480" y="52">9</text>
+                <text x="496" y="52">0</text>
+                <text x="512" y="52">1</text>
+                <text x="68" y="84">AT_PUB_ECDHE</text>
+                <text x="172" y="84">Length</text>
+                <text x="296" y="84">Value</text>
+              </g>
+            </svg><a href="#section-6.1-3.2" class="pilcrow">¶</a>
+</div>
+</div>
+<p id="section-6.1-4">The fields are as follows:<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlNewline" id="section-6.1-5">
+          <dt id="section-6.1-5.1">AT_PUB_ECDHE</dt>
+          <dd style="margin-left: 1.5em" id="section-6.1-5.2">This is set to TBA1 BY
+           IANA.<a href="#section-6.1-5.2" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-6.1-5.3">Length</dt>
+          <dd style="margin-left: 1.5em" id="section-6.1-5.4">The length of the
+           attribute, set as other attributes in EAP-AKA <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>.<a href="#section-6.1-5.4" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-6.1-5.5">Value</dt>
+          <dd style="margin-left: 1.5em" id="section-6.1-5.6">
+            <p id="section-6.1-5.6.1">This value is
+           the sender's ECDHE public key. The value depends on AT_KDF_FS and
+           is calculated as follows:<a href="#section-6.1-5.6.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-5.6.2.1">For X25519/Curve25519,
+           the length of this value is 32 bytes, encoded as specified in
+           <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span> Section 5.<a href="#section-6.1-5.6.2.1" class="pilcrow">¶</a>
+</li>
+              <li class="normal" id="section-6.1-5.6.2.2">For P-256, the length of this value is 33 bytes, encoded
+           using the compressed form specified in Section 2.3.3 of
+           <span>[<a href="#SEC1" class="cite xref">SEC1</a>]</span>.<a href="#section-6.1-5.6.2.2" class="pilcrow">¶</a>
+</li>
+            </ul>
+<p id="section-6.1-5.6.3">
+
+           To retain the security of the keys, the sender SHALL generate
+           a fresh value for each run of the protocol.<a href="#section-6.1-5.6.3" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="at_kdf_dh">
+<section id="section-6.2">
+        <h3 id="name-at_kdf_fs">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-at_kdf_fs" class="section-name selfRef">AT_KDF_FS</a>
+        </h3>
+<p id="section-6.2-1">The AT_KDF_FS indicates the used or desired forward secrecy key
+         generation function, if the Forward Secrecy extension
+         is taken into use. It will also at the same time indicate the
+         used or desired ECDHE group. A new attribute is needed to
+         carry this information, as AT_KDF carries the basic KDF
+         value which is still used together with the forward secrecy KDF
+         value. The basic KDF value is also used by those EAP peers
+         that cannot or do not want to use this extension.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">This specification only specifies the behavior relating to
+  the following combinations of basic KDF values and forward secrecy
+  KDF values:
+  The basic KDF value in AT_KDF is 1, as specified in <span>[<a href="#RFC5448" class="cite xref">RFC5448</a>]</span> and <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>,
+  and the forward secrecy KDF values in AT_KDF_FS are 1 or 2, as specified below and in <a href="#kdf2" class="auto internal xref">Section 6.3</a>.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">Any future specifications that add either new basic KDF or new forward secrecy KDF values need to specify
+  how they are treated and what combinations are allowed. This requirement is an update to how 
+  <span>[<a href="#RFC5448" class="cite xref">RFC5448</a>]</span> and <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span> may be extended in the future.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-4">The format of the AT_KDF_FS attribute is shown below.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+<div id="section-6.2-5">
+          <div class="alignLeft art-svg artwork" id="section-6.2-5.2">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="112" width="528" viewBox="0 0 528 112" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+              <path d="M 8,64 L 8,96" fill="none" stroke="black"></path>
+              <path d="M 136,64 L 136,96" fill="none" stroke="black"></path>
+              <path d="M 264,64 L 264,96" fill="none" stroke="black"></path>
+              <path d="M 520,64 L 520,96" fill="none" stroke="black"></path>
+              <path d="M 8,64 L 520,64" fill="none" stroke="black"></path>
+              <path d="M 8,96 L 520,96" fill="none" stroke="black"></path>
+              <g class="text">
+                <text x="16" y="36">0</text>
+                <text x="176" y="36">1</text>
+                <text x="336" y="36">2</text>
+                <text x="496" y="36">3</text>
+                <text x="16" y="52">0</text>
+                <text x="32" y="52">1</text>
+                <text x="48" y="52">2</text>
+                <text x="64" y="52">3</text>
+                <text x="80" y="52">4</text>
+                <text x="96" y="52">5</text>
+                <text x="112" y="52">6</text>
+                <text x="128" y="52">7</text>
+                <text x="144" y="52">8</text>
+                <text x="160" y="52">9</text>
+                <text x="176" y="52">0</text>
+                <text x="192" y="52">1</text>
+                <text x="208" y="52">2</text>
+                <text x="224" y="52">3</text>
+                <text x="240" y="52">4</text>
+                <text x="256" y="52">5</text>
+                <text x="272" y="52">6</text>
+                <text x="288" y="52">7</text>
+                <text x="304" y="52">8</text>
+                <text x="320" y="52">9</text>
+                <text x="336" y="52">0</text>
+                <text x="352" y="52">1</text>
+                <text x="368" y="52">2</text>
+                <text x="384" y="52">3</text>
+                <text x="400" y="52">4</text>
+                <text x="416" y="52">5</text>
+                <text x="432" y="52">6</text>
+                <text x="448" y="52">7</text>
+                <text x="464" y="52">8</text>
+                <text x="480" y="52">9</text>
+                <text x="496" y="52">0</text>
+                <text x="512" y="52">1</text>
+                <text x="56" y="84">AT_KDF_FS</text>
+                <text x="172" y="84">Length</text>
+                <text x="284" y="84">FS</text>
+                <text x="312" y="84">Key</text>
+                <text x="372" y="84">Derivation</text>
+                <text x="452" y="84">Function</text>
+              </g>
+            </svg><a href="#section-6.2-5.2" class="pilcrow">¶</a>
+</div>
+</div>
+<p id="section-6.2-6">The fields are as follows:<a href="#section-6.2-6" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlNewline" id="section-6.2-7">
+          <dt id="section-6.2-7.1">AT_KDF_FS</dt>
+          <dd style="margin-left: 1.5em" id="section-6.2-7.2">This is set to TBA2 BY
+           IANA.<a href="#section-6.2-7.2" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-6.2-7.3">Length</dt>
+          <dd style="margin-left: 1.5em" id="section-6.2-7.4">The length of the
+           attribute, MUST be set to 1.<a href="#section-6.2-7.4" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-6.2-7.5">FS Key Derivation Function</dt>
+          <dd style="margin-left: 1.5em" id="section-6.2-7.6">An
+           enumerated value representing the forward secrecy key derivation function that the
+           server (or peer) wishes to use. See <a href="#kdf2" class="auto internal xref">Section 6.3</a> for the functions
+           specified in this document. Note: This field has a
+           different name space than the similar field in the AT_KDF
+           attribute Key Derivation Function defined in <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>.<a href="#section-6.2-7.6" class="pilcrow">¶</a>
+</dd>
+        <dd class="break"></dd>
+</dl>
+<p id="section-6.2-8">Servers MUST send one or more AT_KDF_FS attributes in the
+         EAP-Request/AKA'-Challenge message. These attributes represent the desired
+         functions ordered by preference, the most preferred function being the first
+         attribute. The most preferred function is the only one that the server includes a
+         public key value for, however. So for a set of AT_KDF_FS attributes, there is
+         always only one AT_PUB_ECDHE attribute.<a href="#section-6.2-8" class="pilcrow">¶</a></p>
+<p id="section-6.2-9">Upon receiving a set of these attributes:<a href="#section-6.2-9" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.2-10.1">If the peer supports and is willing to use the FS Key Derivation Function
+    indicated by the first AT_KDF_FS attribute, and is willing and able to use the
+    extension defined in this specification, the function is taken into use without
+    any further negotiation.<a href="#section-6.2-10.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-6.2-10.2">If the peer does not support this function or is unwilling to use it, it
+    responds to the server with an indication that a different function is
+    needed. Similarly with the negotiation process defined in <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span> for AT_KDF, the peer sends
+    EAP-Response/AKA'-Challenge message that contains only one attribute,
+    AT_KDF_FS with the value set to the desired alternative function from among
+    the ones suggested by the server earlier. If there is no suitable alternative,
+    the peer has a choice of either falling back to EAP-AKA' or behaving as if AUTN
+    had been incorrect and failing authentication (see Figure 3 of <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>). The peer MUST fail the authentication if there are any
+    duplicate values within the list of AT_KDF_FS attributes (except where the
+    duplication is due to a request to change the key derivation function; see
+    below for further information).<a href="#section-6.2-10.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-6.2-10.3">If the peer does not recognize the extension defined in this specification
+           or is unwilling to use it, it ignores the AT_KDF_FS attribute.<a href="#section-6.2-10.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-6.2-11">Upon receiving an EAP-Response/AKA'-Challenge with AT_KDF_FS from the
+         peer, the server checks that the suggested AT_KDF_FS value was one of the
+         alternatives in its offer. The first AT_KDF_FS value in the message from
+         the server is not a valid alternative. If the peer has replied with
+         the first AT_KDF_FS value, the server behaves as if AT_MAC of the
+         response had been incorrect and fails the authentication. For an
+         overview of the failed authentication process in the server side, see
+         Section 3 and Figure 2 in <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>. Otherwise, the
+         server re-sends the EAP-Response/AKA'-Challenge message, but adds the
+         selected alternative to the beginning of the list of AT_KDF_FS
+         attributes, and retains the entire list following it. Note that this
+         means that the selected alternative appears twice in the set of AT_KDF
+         values. Responding to the peer's request to change the FS Key Derivation Function
+         is the only legal situation where such duplication may
+         occur.<a href="#section-6.2-11" class="pilcrow">¶</a></p>
+<p id="section-6.2-12">When the peer receives the new EAP-Request/AKA'-Challenge message,
+         it MUST check that the requested change, and only the requested change
+         occurred in the list of AT_KDF_FS attributes. If yes, it continues.  If
+         not, it behaves as if AT_MAC had been incorrect and fails the
+         authentication. If the peer receives multiple
+         EAP-Request/AKA'-Challenge messages with differing AT_KDF_FS attributes
+         without having requested negotiation, the peer MUST behave as if
+         AT_MAC had been incorrect and fail the authentication.<a href="#section-6.2-12" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="kdf2">
+<section id="section-6.3">
+        <h3 id="name-forward-secrecy-key-derivat">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-forward-secrecy-key-derivat" class="section-name selfRef">Forward Secrecy Key Derivation Functions</a>
+        </h3>
+<p id="section-6.3-1">Two new FS Key Derivation Function types are defined for
+         "EAP-AKA' with ECDHE and X25519", represented by value 1, and
+         "EAP-AKA' with ECDHE and P-256", represented by
+         value 2. These represent a particular choice of key
+         derivation function and at the same time selects an ECDHE
+         group to be used.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">The FS Key Derivation Function type value is only used
+         in the AT_KDF_FS attribute. When the forward secrecy extension
+         is used, the AT_KDF_FS attribute determines how to derive the
+         keys MK_ECDHE, K_re, MSK, and EMSK. The AT_KDF_FS attribute should
+  not be confused with the different range of key derivation functions
+  that can be represented in the AT_KDF attribute as defined in
+  <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>. When the forward secrecy extension
+         is used, the AT_KDF attribute only specifies how to derive the
+         keys MK, K_encr, and K_aut.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">Key derivation in this extension produces exactly the same
+         keys for internal use within one authentication run as <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span> EAP-AKA' does.  For
+         instance, K_aut that is used in AT_MAC is still exactly as it
+         was in EAP-AKA'. The only change to key derivation is in
+         re-authentication keys and keys exported out of the EAP
+         method, MSK and EMSK. As a result, EAP-AKA' attributes such
+         as AT_MAC continue to be usable even when this extension is
+         in use.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-4">When the FS Key Derivation Function field in the AT_KDF_FS
+         attribute is set to 1 or 2 and the Key Derivation Function field
+         in the AT_KDF attribute is set to 1, the Master Key (MK) is
+         derived as follows below.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
+<div class="alignCenter art-text artwork" id="section-6.3-5">
+<pre>
+MK       = PRF'(IK'|CK',"EAP-AKA'"|Identity)
+MK_ECDHE = PRF'(IK'|CK'|SHARED_SECRET,"EAP-AKA' FS"|Identity)
+K_encr   = MK[0..127]
+K_aut    = MK[128..383]
+K_re     = MK_ECDHE[0..255]
+MSK      = MK_ECDHE[256..767]
+EMSK     = MK_ECDHE[768..1279]
+</pre><a href="#section-6.3-5" class="pilcrow">¶</a>
+</div>
+<p id="section-6.3-6">Requirements for how to securely generate, validate, and process the
+ ephemeral public keys depend on the elliptic curve.<a href="#section-6.3-6" class="pilcrow">¶</a></p>
+<p id="section-6.3-7">For P-256 the SHARED_SECRET is the shared
+ secret computed as specified in Section 5.7.1.2 of <span>[<a href="#SP-800-56A" class="cite xref">SP-800-56A</a>]</span>.
+ Public key validation requirements are defined in Section 5 of <span>[<a href="#SP-800-56A" class="cite xref">SP-800-56A</a>]</span>.
+ At least partial public-key validation MUST be done.<a href="#section-6.3-7" class="pilcrow">¶</a></p>
+<p id="section-6.3-8">For X25519 the SHARED_SECRET is the shared secret computed as specified in
+ Section 6.1 of <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>. Both the peer and the server
+ MAY check for zero-value shared secret as specified in Section 6.1 of
+ <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-6.3-8" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-6.3-9.1">Note: The way that shared secret is tested for zero can,
+    if performed inappropriately, provide an ability for
+    attackers to listen to CPU power usage side channels. Refer
+    to <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span> for a description of how to
+    perform this check in a way that it does not become a
+    problem.<a href="#section-6.3-9.1" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-6.3-10">If validation of the public key or the shared secret fails, both
+        parties MUST behave as if the  current EAP-AKA' authentication
+ process starts again from the beginning.<a href="#section-6.3-10" class="pilcrow">¶</a></p>
+<p id="section-6.3-11">The rest of computation proceeds as defined in Section 3.3 of <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>.<a href="#section-6.3-11" class="pilcrow">¶</a></p>
+<p id="section-6.3-12">For readability, an explanation of the notation used above
+            is copied here: [n..m] denotes the substring from bit n to m.
+            PRF' is a new pseudo-random function specified in <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>.  K_encr is the encryption key, 128 bits,
+            K_aut is the authentication key, 256 bits, K_re is the
+            re-authentication key, 256 bits, MSK is the Master Session
+            Key, 512 bits, and EMSK is the Extended Master Session Key,
+            512 bits. MSK and EMSK are outputs from a successful EAP
+            method run <span>[<a href="#RFC3748" class="cite xref">RFC3748</a>]</span>.<a href="#section-6.3-12" class="pilcrow">¶</a></p>
+<p id="section-6.3-13">CK and IK are produced by the AKA algorithm. IK' and CK'
+         are derived as specified in <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span> from IK
+         and CK.<a href="#section-6.3-13" class="pilcrow">¶</a></p>
+<p id="section-6.3-14">The value "EAP-AKA'" is an eight-characters-long ASCII string.  It is
+         used as is, without any trailing NUL characters. Similarly,
+         "EAP-AKA' FS" is an eleven-characters-long ASCII string, also
+         used as is.<a href="#section-6.3-14" class="pilcrow">¶</a></p>
+<p id="section-6.3-15">Identity is the peer identity as specified in Section 7 of <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>.
+  A privacy-friendly identifier SHALL be used.<a href="#section-6.3-15" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="groups">
+<section id="section-6.4">
+        <h3 id="name-ecdhe-groups">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-ecdhe-groups" class="section-name selfRef">ECDHE Groups</a>
+        </h3>
+<p id="section-6.4-1">The selection of suitable groups for the elliptic curve
+         computation is necessary. The choice of a group is made at
+         the same time as deciding to use of particular key derivation
+         function in AT_KDF_FS.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.4-2">For "EAP-AKA' with ECDHE and
+         X25519" the group is the Curve25519 group specified in
+         <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>. The support for this group is REQUIRED.<a href="#section-6.4-2" class="pilcrow">¶</a></p>
+<p id="section-6.4-3">For "EAP-AKA' with ECDHE and P-256" the group is the NIST
+         P-256 group (SEC group secp256r1), specified in Appendix D.1.2.3
+  of <span>[<a href="#FIPS186-4" class="cite xref">FIPS186-4</a>]</span> or alternatively Section 2.4.2 of <span>[<a href="#SEC2" class="cite xref">SEC2</a>]</span>.
+  The support for this group is REQUIRED.<a href="#section-6.4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-6.5">
+        <h3 id="name-message-processing">
+<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-message-processing" class="section-name selfRef">Message Processing</a>
+        </h3>
+<p id="section-6.5-1">This section specifies the changes related to message processing
+    when this extension is used in EAP-AKA'. It specifies when a
+    message may be transmitted or accepted, which attributes are
+    allowed in a message, which attributes are required in a message,
+    and other message-specific details, where those details are
+    different for this extension than the base EAP-AKA' or EAP-AKA
+    protocol. Unless otherwise specified here, the rules from <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span> or <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span> apply.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+<section id="section-6.5.1">
+          <h4 id="name-eap-request-aka-identity">
+<a href="#section-6.5.1" class="section-number selfRef">6.5.1. </a><a href="#name-eap-request-aka-identity" class="section-name selfRef">EAP-Request/AKA'-Identity</a>
+          </h4>
+<p id="section-6.5.1-1">No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
+      MUST NOT be added to this message.  The appearance of these
+      messages in a received message MUST be ignored.<a href="#section-6.5.1-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-6.5.2">
+          <h4 id="name-eap-response-aka-identity">
+<a href="#section-6.5.2" class="section-number selfRef">6.5.2. </a><a href="#name-eap-response-aka-identity" class="section-name selfRef">EAP-Response/AKA'-Identity</a>
+          </h4>
+<p id="section-6.5.2-1">No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
+      MUST NOT be added to this message and that a privacy-friendly identifier
+      MUST be used.  The appearance of these messages in a received message
+      MUST be ignored.<a href="#section-6.5.2-1" class="pilcrow">¶</a></p>
+</section>
+<div id="procakachall">
+<section id="section-6.5.3">
+          <h4 id="name-eap-request-aka-challenge">
+<a href="#section-6.5.3" class="section-number selfRef">6.5.3. </a><a href="#name-eap-request-aka-challenge" class="section-name selfRef">EAP-Request/AKA'-Challenge</a>
+          </h4>
+<p id="section-6.5.3-1">The server sends the EAP-Request/AKA'-Challenge on full authentication
+      as specified by <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span> and <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>.
+      The attributes AT_RAND, AT_AUTN, and AT_MAC MUST be included and
+      checked on reception as specified
+      in <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>. They are also necessary
+      for backwards compatibility.<a href="#section-6.5.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.5.3-2">In EAP-Request/AKA'-Challenge, there is no message-specific
+      data covered by the MAC for the AT_MAC attribute. The AT_KDF_FS
+      and AT_PUB_ECDHE attributes MUST be included. The AT_PUB_ECDHE
+      attribute carries the server's public Diffie-Hellman key. If
+      either AT_KDF_FS or AT_PUB_ECDHE is missing on reception, the peer
+      MUST treat them as if neither one was sent, and the assume that
+      the extension defined in this specification is not in use.<a href="#section-6.5.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.5.3-3">The AT_RESULT_IND, AT_CHECKCODE, AT_IV, AT_ENCR_DATA, AT_PADDING,
+      AT_NEXT_PSEUDONYM, AT_NEXT_REAUTH_ID and other attributes may be
+      included as specified in Section 9.3 of <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>.<a href="#section-6.5.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.5.3-4">When processing this message, the peer MUST process AT_RAND,
+      AT_AUTN, AT_KDF_FS, AT_PUB_ECDHE before processing other attributes.
+      Only if these attributes are verified to be valid, the peer
+      derives keys and verifies AT_MAC.  If the peer is unable or
+      unwilling to perform the extension specified in this document,
+      it proceeds as defined in <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>. Finally, the
+      operation in case an error occurs is specified in Section
+      6.3.1. of <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>.<a href="#section-6.5.3-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="procakachallresp">
+<section id="section-6.5.4">
+          <h4 id="name-eap-response-aka-challenge">
+<a href="#section-6.5.4" class="section-number selfRef">6.5.4. </a><a href="#name-eap-response-aka-challenge" class="section-name selfRef">EAP-Response/AKA'-Challenge</a>
+          </h4>
+<p id="section-6.5.4-1">The peer sends EAP-Response/AKA'-Challenge in response to a
+      valid EAP-Request/AKA'-Challenge message, as specified by <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span> and <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>.
+      If the peer supports and is willing to perform the extension
+      specified in this protocol, and the server had made a valid
+      request involving the attributes specified in <a href="#procakachall" class="auto internal xref">Section 6.5.3</a>, the peer responds per the rules
+      specified below. Otherwise, the peer responds as specified in
+      <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span> and <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span> and ignores the attributes
+      related to this extension. If the peer has not received
+      attributes related to this extension from the Server, and has a
+      policy that requires it to always use this extension, it behaves
+      as if AUTN had been incorrect and fails the authentication.<a href="#section-6.5.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.5.4-2">The AT_MAC attribute MUST be included and checked as
+      specified in <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>. In
+      EAP-Response/AKA'-Challenge, there is no message-specific data
+      covered by the MAC. The AT_PUB_ECDHE attribute MUST be included,
+      and carries the peer's public Diffie-Hellman key.<a href="#section-6.5.4-2" class="pilcrow">¶</a></p>
+<p id="section-6.5.4-3">The AT_RES attribute MUST be included and checked as
+      specified in <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>.  When processing this
+      message, the Server MUST process AT_RES before processing other
+      attributes.  Only if these attribute is verified to be valid,
+      the Server derives keys and verifies AT_MAC.<a href="#section-6.5.4-3" class="pilcrow">¶</a></p>
+<p id="section-6.5.4-4">If the Server has proposed the use of the extension specified
+      in this protocol, but the peer ignores and continues the basic
+      EAP-AKA' authentication, the Server makes policy decision of
+      whether this is allowed. If this is allowed, it continues the
+      EAP-AKA' authentication to completion. If it is not allowed, the
+      Server MUST behave as if authentication failed.<a href="#section-6.5.4-4" class="pilcrow">¶</a></p>
+<p id="section-6.5.4-5">The AT_CHECKCODE, AT_RESULT_IND, AT_IV, AT_ENCR_DATA and other
+      attributes may be included as specified in Section 9.4 of <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span>.<a href="#section-6.5.4-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="reauth">
+<section id="section-6.5.5">
+          <h4 id="name-eap-request-aka-reauthentic">
+<a href="#section-6.5.5" class="section-number selfRef">6.5.5. </a><a href="#name-eap-request-aka-reauthentic" class="section-name selfRef">EAP-Request/AKA'-Reauthentication</a>
+          </h4>
+<p id="section-6.5.5-1">No changes, but note that the re-authentication process
+      uses the keys generated in the original EAP-AKA' authentication,
+      which, if the extension specified in this document is in use,
+      employs key material from the Diffie-Hellman procedure.<a href="#section-6.5.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-6.5.6">
+          <h4 id="name-eap-response-aka-reauthenti">
+<a href="#section-6.5.6" class="section-number selfRef">6.5.6. </a><a href="#name-eap-response-aka-reauthenti" class="section-name selfRef">EAP-Response/AKA'-Reauthentication</a>
+          </h4>
+<p id="section-6.5.6-1">No changes, but as discussed in <a href="#reauth" class="auto internal xref">Section 6.5.5</a>,
+      re-authentication is based on the key material generated by
+      EAP-AKA' and the extension defined in this document.<a href="#section-6.5.6-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-6.5.7">
+          <h4 id="name-eap-response-aka-synchroniz">
+<a href="#section-6.5.7" class="section-number selfRef">6.5.7. </a><a href="#name-eap-response-aka-synchroniz" class="section-name selfRef">EAP-Response/AKA'-Synchronization-Failure</a>
+          </h4>
+<p id="section-6.5.7-1">No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
+      attributes MUST NOT be added to this message.
+      The appearance of these messages in a received message MUST be ignored.<a href="#section-6.5.7-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-6.5.8">
+          <h4 id="name-eap-response-aka-authentica">
+<a href="#section-6.5.8" class="section-number selfRef">6.5.8. </a><a href="#name-eap-response-aka-authentica" class="section-name selfRef">EAP-Response/AKA'-Authentication-Reject</a>
+          </h4>
+<p id="section-6.5.8-1">No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
+      attributes MUST NOT be added to this message.
+      The appearance of these messages in a received message MUST be ignored.<a href="#section-6.5.8-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-6.5.9">
+          <h4 id="name-eap-response-aka-client-err">
+<a href="#section-6.5.9" class="section-number selfRef">6.5.9. </a><a href="#name-eap-response-aka-client-err" class="section-name selfRef">EAP-Response/AKA'-Client-Error</a>
+          </h4>
+<p id="section-6.5.9-1">No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
+      attributes MUST NOT be added to this message.
+      The appearance of these messages in a received message MUST be ignored.<a href="#section-6.5.9-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-6.5.10">
+          <h4 id="name-eap-request-aka-notificatio">
+<a href="#section-6.5.10" class="section-number selfRef">6.5.10. </a><a href="#name-eap-request-aka-notificatio" class="section-name selfRef">EAP-Request/AKA'-Notification</a>
+          </h4>
+<p id="section-6.5.10-1">No changes.<a href="#section-6.5.10-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-6.5.11">
+          <h4 id="name-eap-response-aka-notificati">
+<a href="#section-6.5.11" class="section-number selfRef">6.5.11. </a><a href="#name-eap-response-aka-notificati" class="section-name selfRef">EAP-Response/AKA'-Notification</a>
+          </h4>
+<p id="section-6.5.11-1">No changes.<a href="#section-6.5.11-1" class="pilcrow">¶</a></p>
+</section>
+</section>
+</section>
+<section id="section-7">
+      <h2 id="name-security-considerations">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-7-1">This section deals only with the changes to security considerations
+    as they differ from EAP-AKA', or as new information has been gathered
+    since the publication of <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">The possibility of attacks against key storage offered in SIM or
+    other smart cards has been a known threat. But as the discussion in
+    <a href="#attacks" class="auto internal xref">Section 3.3</a> shows, the likelihood of practically
+    feasible attacks such as breaches in the smart card supply chain has
+    increased. Many of these attacks can be best
+    dealt with improved processes, e.g., limiting the access to the key
+    material within the factory or personnel, etc. But not all attacks can
+    be entirely ruled out for well-resourced adversaries, irrespective
+    of what the technical algorithms and protection measures are. Always
+    assuming breach such as key compromise and minimizing the impact of
+    breach are essential zero-trust principles.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">If a mechanism without forward secrecy such as (5G-AKA,
+    EAP-AKA') is used the effects of key compromise are devastating.
+    The serious consequences of breach somewhere in the supply chain
+    or after delivery that are possible when 5G-AKA or EAP-AKA' is
+    used but not when something with forward secrecy like EAP-AKA-FS
+    is used are:<a href="#section-7-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-7-4">
+<li id="section-7-4.1">A passive attacker can eavesdrop (decrypt) all
+    future 5G communication (control and user plane both directions),<a href="#section-7-4.1" class="pilcrow">¶</a>
+</li>
+        <li id="section-7-4.2">A passive attacker can decrypt 5G communication that they
+    previously recorded in the past (control and user plane both
+    directions), and<a href="#section-7-4.2" class="pilcrow">¶</a>
+</li>
+        <li id="section-7-4.3">An active attacker can impersonate UE and
+    Network and inject messages in an ongoing 5G connection between
+    the real UE and the real network (control and user plane both
+    directions).<a href="#section-7-4.3" class="pilcrow">¶</a>
+</li>
+      </ol>
+<p id="section-7-5">Best practice security today is to mandate forward secrecy (as
+   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.). It is RECOMMENDED
+   to long term completely phase out AKA without forward secrecy.<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-6">This extension can provide assistance in situations where there
+    is a danger of attacks against the key material on SIM cards by
+    adversaries that cannot or who are unwilling to mount active
+    attacks against large number of sessions. The extension also
+    provides protection against active attacks as they are forced to
+    be a Man-In-The-Middle (MITM) during the AKA run and subsequent
+    communication between the parties. Without forward secrecy an
+    active attacker that has compromised the long-term key can
+    inject messages in an connection between the real Peer and the
+    real server without being a man-in-the-middle. This extension is most
+    useful when used in a context where EAP keys are used without
+    further mixing that can provide Forward Secrecy.  For
+    instance, when used with IKEv2 <span>[<a href="#RFC7296" class="cite xref">RFC7296</a>]</span>, the
+    session keys produced by IKEv2 have this property, so better
+    characteristics of EAP keys is not that useful. However, typical
+    link layer usage of EAP does not involve running Diffie-Hellman,
+    so using EAP to authenticate access to a network is one situation
+    where the extension defined in this document can be helpful.<a href="#section-7-6" class="pilcrow">¶</a></p>
+<p id="section-7-7">This extension generates keying material using the ECDHE
+    exchange in order to gain the FS property. This means that once
+    an EAP-AKA' authentication run ends, the session that it was used
+    to protect is closed, and the corresponding keys are forgotten,
+    even someone who has recorded all of the data from the
+    authentication run and session and gets access to all of the AKA
+    long-term keys cannot reconstruct the keys used to protect the
+    session or any previous session, without doing a brute force
+    search of the session key space.<a href="#section-7-7" class="pilcrow">¶</a></p>
+<p id="section-7-8">Even if a compromise of the long-term keys has occurred, FS is
+    still provided for all future sessions, as long as the attacker
+    does not become an active attacker. Of course, as with other
+    protocols, if the attacker has learned the keys and does become an
+    active attacker, there is no protection that that can be provided
+    for future sessions. Among other things, such an active attacker
+    can impersonate any legitimate endpoint in EAP-AKA', become a
+    MITM in EAP-AKA' or the extension defined in this
+    document, retrieve all keys, or turn off FS. Still, past sessions
+    where FS was in use remain protected.<a href="#section-7-8" class="pilcrow">¶</a></p>
+<p id="section-7-9">Achieving FS requires that when a connection is closed, each
+    endpoint MUST forget not only the ephemeral keys used by the
+    connection but also any information that could be used to
+    recompute those keys.<a href="#section-7-9" class="pilcrow">¶</a></p>
+<p id="section-7-10">Using EAP-AKA' FS once provides forward secrecy. Forward secrecy limits the
+       effect of key leakage in one direction (compromise of a key at time T2 does
+       not compromise some key at time T1 where T1 &lt; T2). Protection in the other
+       direction (compromise at time T1 does not compromise keys at time T2) can
+       be achieved by rerunning ECDHE frequently. If a long-term authentication key
+       has been compromised, rerunning EAP-AKA' FS gives protection against passive
+       attackers. Using the terms in <span>[<a href="#RFC7624" class="cite xref">RFC7624</a>]</span>, forward secrecy without rerunning
+       ECDHE does not stop an attacker from doing static key exfiltration. Frequently
+       rerunning EC(DHE) forces an attacker to do dynamic key exfiltration
+       (or content exfiltration).<a href="#section-7-10" class="pilcrow">¶</a></p>
+<section id="section-7.1">
+        <h3 id="name-security-properties">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-security-properties" class="section-name selfRef">Security Properties</a>
+        </h3>
+<p id="section-7.1-1">The following security properties of
+    EAP-AKA' are impacted through this extension:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlNewline" id="section-7.1-2">
+          <dt id="section-7.1-2.1">Protected ciphersuite negotiation</dt>
+          <dd style="margin-left: 1.5em" id="section-7.1-2.2">
+            <p id="section-7.1-2.2.1">
+      
+      EAP-AKA' has a negotiation mechanism for selecting the key
+      derivation functions, and this mechanism has been extended by
+      the extension specified in this document.  The resulting
+      mechanism continues to be secure against bidding down
+      attacks.<a href="#section-7.1-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2.2.2">
+
+      There are two specific needs in the negotiation mechanism:<a href="#section-7.1-2.2.2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlNewline" id="section-7.1-2.2.3">
+              <dt id="section-7.1-2.2.3.1">Negotiating key derivation function within the extension</dt>
+              <dd style="margin-left: 1.5em" id="section-7.1-2.2.3.2">
+        The negotiation mechanism allows changing the offered key
+        derivation function, but the change is visible in the final EAP-
+        Request/AKA'-Challenge message that the server sends to the peer.
+        This message is authenticated via the AT_MAC attribute, and
+        carries both the chosen alternative and the initially offered
+        list.  The peer refuses to accept a change it did not initiate.
+        As a result, both parties are aware that a change is being made
+        and what the original offer was.<a href="#section-7.1-2.2.3.2" class="pilcrow">¶</a>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-7.1-2.2.3.3">Negotiating the use of this extension</dt>
+              <dd style="margin-left: 1.5em" id="section-7.1-2.2.3.4">
+                <p id="section-7.1-2.2.3.4.1"> This extension is offered by the server
+        through presenting the AT_KDF_FS and AT_PUB_ECDHE attributes in
+        the EAP-Request/AKA'-Challenge message. These attributes are
+        protected by AT_MAC, so attempts to change or omit them by an
+        adversary will be detected.<a href="#section-7.1-2.2.3.4.1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2.2.3.4.2">
+
+ Except of course, if the adversary holds the long-term shared
+ secret and is willing to engage in an active attack. Such an
+ attack can, for instance, forge the negotiation process so
+ that no FS will be provided. However, as noted above, an
+ attacker with these capabilities will in any case be able to
+ impersonate any party in the protocol and perform MITM
+ attacks. That is not a situation that can be improved by a
+ technical solution. However, as discussed in the introduction,
+ even an attacker with access to the long-term keys is required
+ to be a MITM on each AKA run and subsequent communication,
+ which makes mass surveillance more laborious.<a href="#section-7.1-2.2.3.4.2" class="pilcrow">¶</a></p>
+<p id="section-7.1-2.2.3.4.3">
+ 
+ The security properties of the extension also depend on a
+ policy choice. As discussed in <a href="#procakachallresp" class="auto internal xref">Section 6.5.4</a>, both the peer and the server make
+ a policy decision of what to do when it was willing to perform
+ the extension specified in this protocol, but the other side
+ does not wish to use the extension. Allowing this has the
+ benefit of allowing backwards compatibility to equipment that
+ did not yet support the extension. When the extension is not
+ supported or negotiated by the parties, no FS can obviously be
+ provided.<a href="#section-7.1-2.2.3.4.3" class="pilcrow">¶</a></p>
+<p id="section-7.1-2.2.3.4.4">
+ 
+ If turning off the extension specified in this protocol is not
+ allowed by policy, the use of legacy equipment that does not
+ support this protocol is no longer possible. This may be
+ appropriate when, for instance, support for the extension is
+ sufficiently widespread, or required in a particular version
+ of a mobile network.<a href="#section-7.1-2.2.3.4.4" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+</dl>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-7.1-2.3">Key derivation</dt>
+          <dd style="margin-left: 1.5em" id="section-7.1-2.4">
+            <p id="section-7.1-2.4.1">
+      
+      This extension provides key material that is based on
+      the Diffie-Hellman keys, yet bound to the authentication
+      through the SIM card. This means that subsequent payload communications between
+      the parties are protected with keys that are not solely based on
+      information in the clear (such as the RAND) and information
+      derivable from the long-term shared secrets on the SIM
+      card. As a result, if anyone successfully recovers
+      shared secret information, they are unable to decrypt
+      communications protected by the keys generated through this
+      extension. Note that the recovery of shared secret information
+      could occur either before or after the time that the protected
+      communications are used. When this extension is used,
+      communications at time t0 can be protected if at some later time
+      t1 an adversary learns of long-term shared secret and has access
+      to a recording of the encrypted communications.<a href="#section-7.1-2.4.1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2.4.2">Obviously, this extension is still
+      vulnerable to attackers that are willing to perform an active
+      attack and who at the time of the attack have access to the
+      long-term shared secret.<a href="#section-7.1-2.4.2" class="pilcrow">¶</a></p>
+<p id="section-7.1-2.4.3">
+
+      This extension does not change the properties related to
+      re-authentication. No new Diffie-Hellman run is performed during
+      the re-authentication allowed by EAP-AKA'. However, if this
+      extension was in use when the original EAP-AKA' authentication
+      was performed, the keys used for re-authentication (K_re) are
+      based on the Diffie-Hellman keys, and hence continue to be
+      equally safe against expose of the long-term secrets as the
+      original authentication.<a href="#section-7.1-2.4.3" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</section>
+<section id="section-7.2">
+        <h3 id="name-denial-of-service">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-denial-of-service" class="section-name selfRef">Denial-of-Service</a>
+        </h3>
+<p id="section-7.2-1">In addition, it is worthwhile to discuss Denial-of-Service
+  attacks and their impact on this protocol. The calculations involved
+  in public key cryptography require computing power, which could be
+  used in an attack to overpower either the peer or the server. While
+  some forms of Denial-of-Service attacks are always possible, the
+  following factors help mitigate the concerns relating to public key
+  cryptography and EAP-AKA' FS.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.2-2.1">In 5G context, other parts of the connection setup involve
+    public key cryptography, so while performing additional operations
+    in EAP-AKA' is an additional concern, it does not change the
+    overall situation. As a result, the relevant system components
+    need to be dimensioned appropriately, and detection and management
+    mechanisms to reduce the effect of attacks need to be in
+    place.<a href="#section-7.2-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.2-2.2">This specification is constructed so that a separation
+    between the USIM and Peer on client side and the Server and HSS on
+    network side is possible. This ensures that the most sensitive (or
+    legacy) system components cannot be the target of the attack. For
+    instance, EAP-AKA' and public key cryptography takes place in the
+    phone and not the low-power SIM card.<a href="#section-7.2-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.2-2.3">EAP-AKA' has been designed so that the first actual message in
+    the authentication process comes from the Server, and that this
+    message will not be sent unless the user has been identified as
+    an active subscriber of the operator in question. While the initial identity
+    can be spoofed before authentication has succeeded, this reduces the efficiency of
+    an attack.<a href="#section-7.2-2.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.2-2.4">Finally, this memo specifies an order in which computations and
+    checks must occur. When processing the EAP-Request/AKA'-Challenge
+    message, for instance, the AKA authentication must be checked and
+    succeed before the peer proceeds to calculating or processing the
+    FS related parameters (see <a href="#procakachallresp" class="auto internal xref">Section 6.5.4</a>). The same is true of
+    EAP-Response/AKA'-Challenge (see <a href="#procakachallresp" class="auto internal xref">Section 6.5.4</a>). This ensures that the parties need to
+    show possession of the long-term secret in some way, and only then
+    will the FS calculations become active. This limits the
+    Denial-of-Service to specific, identified subscribers. While
+    botnets and other forms of malicious parties could take advantage
+    of actual subscribers and their key material, at least such
+    attacks are (a) limited in terms of subscribers they control, and
+    (b) identifiable for the purposes of blocking the affected
+    subscribers.<a href="#section-7.2-2.4" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+<section id="section-7.3">
+        <h3 id="name-identity-privacy">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-identity-privacy" class="section-name selfRef">Identity Privacy</a>
+        </h3>
+<p id="section-7.3-1">Best practice privacy today is to mandate client identity protection as
+      is done in EAP-TLS 1.3, EAP-TTLS 1.3, etc. A client supporting EAP-AKA' FS
+      MUST NOT send its username (or any other permanent identifiers) in cleartext
+      in the Identity Response (or any message used instead of the Identity Response).<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+</section>
+<div id="unp">
+<section id="section-7.4">
+        <h3 id="name-unprotected-data-and-privac">
+<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-unprotected-data-and-privac" class="section-name selfRef">Unprotected Data and Privacy</a>
+        </h3>
+<p id="section-7.4-1">Unprotected data and metadata can reveal sensitive information and need to be selected with care.
+   In particular, this applies to
+   AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT. AT_KDF, AT_KDF_FS, and
+   AT_PUB_ECDHE reveal the used cryptographic algorithms, if these depend on the
+   peer identity they leak information about the peer. AT_KDF_INPUT reveals the
+   network name, although that is done on purpose to bind the authentication to a particular context.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.4-2">An attacker observing network traffic may use the above types of information
+   for traffic flow analysis or to track an endpoint.<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-7.5">
+        <h3 id="name-post-quantum-considerations">
+<a href="#section-7.5" class="section-number selfRef">7.5. </a><a href="#name-post-quantum-considerations" class="section-name selfRef">Post-Quantum Considerations</a>
+        </h3>
+<p id="section-7.5-1">As of the publication of this specification, it is unclear when or
+   even if a quantum computer of sufficient size and power to exploit
+   elliptic curve cryptography will exist.  Deployments that need to
+   consider risks decades into the future should transition to Post-
+   Quantum Cryptography (PQC) in the not-too-distant future.  Other
+   systems may employ PQC when the quantum threat is more imminent. Current PQC
+   algorithms have limitations compared to Elliptic Curve Cryptography
+   (ECC) and the data sizes could be problematic for some constrained
+   systems. If a Cryptographically Relevant Quantum Computer (CRQC) is built
+   it could recover the SHARED_SECRET from the ECDHE public keys.<a href="#section-7.5-1" class="pilcrow">¶</a></p>
+<p id="section-7.5-2">This would not affect the ability of EAP-AKA' - with or without
+   this extension -
+   to authenticate properly, however. As symmetric key cryptography is safe even
+   if CRQCs are built, an adversary still will not be able to disrupt authentication
+   as it requires computing a correct AT_MAC value. This computation requires the K_aut key
+   which is based on MK and, ultimately, CK' and IK', but not SHARED_SECRET.<a href="#section-7.5-2" class="pilcrow">¶</a></p>
+<p id="section-7.5-3">Other output keys do include SHARED_SECRET via MK_ECDHE, but still include also
+   CK' and IK' which are entirely based on symmetric cryptography. As a result,
+   an adversary with a quantum computer still cannot compute the other output keys either.<a href="#section-7.5-3" class="pilcrow">¶</a></p>
+<p id="section-7.5-4">However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
+   could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that
+   the introduction of a powerful enough quantum computer would disable
+   this protocol extension's ability to provide the forward security
+   capability. This would 
+   make it necessary to update the current ECC algorithms in this specification to PQC algorithms. This
+   specification does not add such algorithms, but a future update can do that.<a href="#section-7.5-4" class="pilcrow">¶</a></p>
+<p id="section-7.5-5">Symmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
+   and the algorithms use to generate AT_AUTN and AT_RES are
+   practically secure against even large robust quantum
+   computers. EAP-AKA' FS is currently only specified for use
+   with ECDHE key exchange algorithms, but use of any Key
+   Encapsulation Method (KEM), including Post-Quantum Cryptography
+   (PQC) KEMs, can be specified in the future. While the key exchange is
+   specified with terms of the Diffie-Hellman protocol, the key exchange
+   adheres to a KEM interface. AT_PUB_ECDHE would then contain
+   either the ephemeral public key of the server or the SHARED_SECRET
+   encapsulated with the server's public key.<a href="#section-7.5-5" class="pilcrow">¶</a></p>
+</section>
+</section>
+<section id="section-8">
+      <h2 id="name-iana-considerations">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-8-1">This extension of EAP-AKA' shares its attribute space and subtypes with EAP-SIM
+  <span>[<a href="#RFC4186" class="cite xref">RFC4186</a>]</span>, EAP-AKA <span>[<a href="#RFC4186" class="cite xref">RFC4186</a>]</span>, and
+  EAP-AKA' <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">Two new values (TBA1, TBA2) in the skippable
+  range need to be assigned for AT_PUB_ECDHE (<a href="#at_pub_dh" class="auto internal xref">Section 6.1</a>)
+  and AT_KDF_FS (<a href="#at_kdf_dh" class="auto internal xref">Section 6.2</a>
+  in the "Attribute Types" registry under the "EAP-AKA and EAP-SIM Parameters" group.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">Also, a new registry "EAP-AKA' AT_KDF_FS Key Derivation Function Values"
+  should be created to represent
+  FS Key Derivation Function types. The "EAP-AKA' with
+  ECDHE and X25519" and "EAP-AKA' with ECDHE and P-256"
+  types (1 and 2, see <a href="#kdf2" class="auto internal xref">Section 6.3</a>) need to be assigned,
+  along with one reserved value. The initial contents of this
+  registry is illustrated in <a href="#iana-fs-values" class="auto internal xref">Table 1</a>; new values can be created through
+  the Specification Required policy <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>.<a href="#section-8-3" class="pilcrow">¶</a></p>
+<span id="name-initial-content-of-the-eap-"></span><div id="iana-fs-values">
+<table class="center" id="table-1">
+        <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-initial-content-of-the-eap-" class="selfRef">Initial Content of the EAP-AKA' AT_KDF_FS Key Derivation Function Values Registry</a>
+        </caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Value</th>
+            <th class="text-left" rowspan="1" colspan="1">Description</th>
+            <th class="text-left" rowspan="1" colspan="1">Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">0</td>
+            <td class="text-left" rowspan="1" colspan="1">Reserved</td>
+            <td class="text-left" rowspan="1" colspan="1">[TBD BY IANA: THIS RFC]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">1</td>
+            <td class="text-left" rowspan="1" colspan="1">EAP-AKA' with ECDHE and X25519</td>
+            <td class="text-left" rowspan="1" colspan="1">[TBD BY IANA: THIS RFC]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">2</td>
+            <td class="text-left" rowspan="1" colspan="1">EAP-AKA' with ECDHE and P-256</td>
+            <td class="text-left" rowspan="1" colspan="1">[TBD BY IANA: THIS RFC]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">3-65535</td>
+            <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+            <td class="text-left" rowspan="1" colspan="1">[TBD BY IANA: THIS RFC]</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</section>
+<section id="section-9">
+      <h2 id="name-references">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<section id="section-9.1">
+        <h3 id="name-normative-references">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span> and <span class="refAuthor">RFC Publisher</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3748">[RFC3748]</dt>
+        <dd>
+<span class="refAuthor">Aboba, B.</span>, <span class="refAuthor">Blunk, L.</span>, <span class="refAuthor">Vollbrecht, J.</span>, <span class="refAuthor">Carlson, J.</span>, and <span class="refAuthor">H. Levkowetz, Ed.</span>, <span class="refTitle">"Extensible Authentication Protocol (EAP)"</span>, <span class="seriesInfo">RFC 3748</span>, <span class="seriesInfo">DOI 10.17487/RFC3748</span>, <time datetime="2004-06" class="refDate">June 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3748">https://www.rfc-editor.org/info/rfc3748</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4187">[RFC4187]</dt>
+        <dd>
+<span class="refAuthor">Arkko, J.</span> and <span class="refAuthor">H. Haverinen</span>, <span class="refTitle">"Extensible Authentication Protocol Method for 3rd Generation Authentication and Key Agreement (EAP-AKA)"</span>, <span class="seriesInfo">RFC 4187</span>, <span class="seriesInfo">DOI 10.17487/RFC4187</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4187">https://www.rfc-editor.org/info/rfc4187</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7624">[RFC7624]</dt>
+        <dd>
+<span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Schneier, B.</span>, <span class="refAuthor">Jennings, C.</span>, <span class="refAuthor">Hardie, T.</span>, <span class="refAuthor">Trammell, B.</span>, <span class="refAuthor">Huitema, C.</span>, and <span class="refAuthor">D. Borkmann</span>, <span class="refTitle">"Confidentiality in the Face of Pervasive Surveillance: A Threat Model and Problem Statement"</span>, <span class="seriesInfo">RFC 7624</span>, <span class="seriesInfo">DOI 10.17487/RFC7624</span>, <time datetime="2015-08" class="refDate">August 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7624">https://www.rfc-editor.org/info/rfc7624</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7748">[RFC7748]</dt>
+        <dd>
+<span class="refAuthor">Langley, A.</span>, <span class="refAuthor">Hamburg, M.</span>, and <span class="refAuthor">S. Turner</span>, <span class="refTitle">"Elliptic Curves for Security"</span>, <span class="seriesInfo">RFC 7748</span>, <span class="seriesInfo">DOI 10.17487/RFC7748</span>, <time datetime="2016-01" class="refDate">January 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7748">https://www.rfc-editor.org/info/rfc7748</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8126">[RFC8126]</dt>
+        <dd>
+<span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, <span class="refAuthor">Narten, T.</span>, and <span class="refAuthor">RFC Publisher</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8126">https://www.rfc-editor.org/info/rfc8126</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span> and <span class="refAuthor">RFC Publisher</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9048">[RFC9048]</dt>
+        <dd>
+<span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Lehtovirta, V.</span>, <span class="refAuthor">Torvinen, V.</span>, and <span class="refAuthor">P. Eronen</span>, <span class="refTitle">"Improved Extensible Authentication Protocol Method for 3GPP Mobile Network Authentication and Key Agreement (EAP-AKA')"</span>, <span class="seriesInfo">RFC 9048</span>, <span class="seriesInfo">DOI 10.17487/RFC9048</span>, <time datetime="2021-10" class="refDate">October 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9048">https://www.rfc-editor.org/info/rfc9048</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="FIPS186-4">[FIPS186-4]</dt>
+        <dd>
+<span class="refAuthor">NIST</span>, <span class="refTitle">"Digital Signature Standard (DSS)"</span>, <span class="seriesInfo">FIPS 186-4</span>, <time datetime="2013-07" class="refDate">July 2013</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.186-4">https://doi.org/10.6028/NIST.FIPS.186-4</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SEC1">[SEC1]</dt>
+        <dd>
+<span class="refAuthor">Certicom Research</span>, <span class="refTitle">"SEC 1: Elliptic Curve Cryptography"</span>, <span class="seriesInfo">Standards for Efficient Cryptography 1 (SEC 1) Version 2.0</span>, <time datetime="2009-05" class="refDate">May 2009</time>, <span>&lt;<a href="https://www.secg.org/sec1-v2.pdf">https://www.secg.org/sec1-v2.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SEC2">[SEC2]</dt>
+        <dd>
+<span class="refAuthor">Certicom Research</span>, <span class="refTitle">"SEC 2: Recommended Elliptic Curve Domain Parameters"</span>, <span class="seriesInfo">Standards for Efficient Cryptography 2 (SEC 2) Version 2.0</span>, <time datetime="2010-01" class="refDate">January 2010</time>, <span>&lt;<a href="https://www.secg.org/sec2-v2.pdf">https://www.secg.org/sec2-v2.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP-800-56A">[SP-800-56A]</dt>
+      <dd>
+<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, <span class="refAuthor">Vassilev, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography"</span>, <span class="seriesInfo">NIST Special Publication 800-56A Revision 3</span>, <time datetime="2018-04" class="refDate">April 2018</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Ar3">https://doi.org/10.6028/NIST.SP.800-56Ar3</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<section id="section-9.2">
+        <h3 id="name-informative-references">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC4186">[RFC4186]</dt>
+        <dd>
+<span class="refAuthor">Haverinen, H., Ed.</span> and <span class="refAuthor">J. Salowey, Ed.</span>, <span class="refTitle">"Extensible Authentication Protocol Method for Global System for Mobile Communications (GSM) Subscriber Identity Modules (EAP-SIM)"</span>, <span class="seriesInfo">RFC 4186</span>, <span class="seriesInfo">DOI 10.17487/RFC4186</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4186">https://www.rfc-editor.org/info/rfc4186</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5216">[RFC5216]</dt>
+        <dd>
+<span class="refAuthor">Simon, D.</span>, <span class="refAuthor">Aboba, B.</span>, and <span class="refAuthor">R. Hurst</span>, <span class="refTitle">"The EAP-TLS Authentication Protocol"</span>, <span class="seriesInfo">RFC 5216</span>, <span class="seriesInfo">DOI 10.17487/RFC5216</span>, <time datetime="2008-03" class="refDate">March 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5216">https://www.rfc-editor.org/info/rfc5216</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5448">[RFC5448]</dt>
+        <dd>
+<span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Lehtovirta, V.</span>, and <span class="refAuthor">P. Eronen</span>, <span class="refTitle">"Improved Extensible Authentication Protocol Method for 3rd Generation Authentication and Key Agreement (EAP-AKA')"</span>, <span class="seriesInfo">RFC 5448</span>, <span class="seriesInfo">DOI 10.17487/RFC5448</span>, <time datetime="2009-05" class="refDate">May 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5448">https://www.rfc-editor.org/info/rfc5448</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7258">[RFC7258]</dt>
+        <dd>
+<span class="refAuthor">Farrell, S.</span> and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Pervasive Monitoring Is an Attack"</span>, <span class="seriesInfo">BCP 188</span>, <span class="seriesInfo">RFC 7258</span>, <span class="seriesInfo">DOI 10.17487/RFC7258</span>, <time datetime="2014-05" class="refDate">May 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7258">https://www.rfc-editor.org/info/rfc7258</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7296">[RFC7296]</dt>
+        <dd>
+<span class="refAuthor">Kaufman, C.</span>, <span class="refAuthor">Hoffman, P.</span>, <span class="refAuthor">Nir, Y.</span>, <span class="refAuthor">Eronen, P.</span>, and <span class="refAuthor">T. Kivinen</span>, <span class="refTitle">"Internet Key Exchange Protocol Version 2 (IKEv2)"</span>, <span class="seriesInfo">STD 79</span>, <span class="seriesInfo">RFC 7296</span>, <span class="seriesInfo">DOI 10.17487/RFC7296</span>, <time datetime="2014-10" class="refDate">October 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7296">https://www.rfc-editor.org/info/rfc7296</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9190">[RFC9190]</dt>
+        <dd>
+<span class="refAuthor">Preuß Mattsson, J.</span> and <span class="refAuthor">M. Sethi</span>, <span class="refTitle">"EAP-TLS 1.3: Using the Extensible Authentication Protocol with TLS 1.3"</span>, <span class="seriesInfo">RFC 9190</span>, <span class="seriesInfo">DOI 10.17487/RFC9190</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9190">https://www.rfc-editor.org/info/rfc9190</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TrustCom2015">[TrustCom2015]</dt>
+        <dd>
+<span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Norrman, K.</span>, <span class="refAuthor">Näslund, M.</span>, and <span class="refAuthor">B. Sahlin</span>, <span class="refTitle">"A USIM compatible 5G AKA protocol with perfect forward secrecy"</span>, <span class="seriesInfo">Proceedings of IEEE International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom) 2015</span>, <time datetime="2015-08" class="refDate">August 2015</time>, <span>&lt;<a href="https://doi.org/10.1109/Trustcom.2015.506">https://doi.org/10.1109/Trustcom.2015.506</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="Heist2015">[Heist2015]</dt>
+        <dd>
+<span class="refAuthor">Scahill, J.</span> and <span class="refAuthor">J. Begley</span>, <span class="refTitle">"The Great SIM Heist"</span>, <time datetime="2015-02" class="refDate">February 2015</time>, <span>&lt;<a href="https://theintercept.com/2015/02/19/great-sim-heist/">https://theintercept.com/2015/02/19/great-sim-heist/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="DOW1992">[DOW1992]</dt>
+        <dd>
+<span class="refAuthor">Diffie, W.</span>, <span class="refAuthor">Van Oorschot, P.</span>, and <span class="refAuthor">M. Wiener</span>, <span class="refTitle">"Authentication and Authenticated Key Exchanges"</span>, <span class="seriesInfo">Designs, Codes and Cryptography 2 pp. 107-125</span>, <time datetime="1992-06" class="refDate">June 1992</time>, <span>&lt;<a href="https://doi.org/10.1007/BF00124891">https://doi.org/10.1007/BF00124891</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TS.33.501">[TS.33.501]</dt>
+      <dd>
+<span class="refAuthor">3GPP</span>, <span class="refTitle">"Security architecture and procedures for 5G System"</span>, <span class="seriesInfo">3GPP TS 33.501 18.0.0</span>, <time datetime="2022-12" class="refDate">December 2022</time>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</section>
+<section id="appendix-A">
+      <h2 id="name-change-log">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-change-log" class="section-name selfRef">Change Log</a>
+      </h2>
+<p id="appendix-A-1">RFC Editor: Please remove this appendix.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">The -08 version of the WG draft has the following changes:<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A-3.1">Further clarification of key calculation in <a href="#kdf2" class="auto internal xref">Section 6.3</a>.<a href="#appendix-A-3.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-3.2">Support for the NIST  P-256 group has been made mandatory in
+    <a href="#groups" class="auto internal xref">Section 6.4</a>, in
+    order to align the requirements with 3GPP SUCI encryption
+    requirements.<a href="#appendix-A-3.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-3.3">The interaction between AT_KDF and AT_KDF_FS has been specified more 
+    clearly, including specifying how future specifications need to specify 
+    the treatment of new combinations.<a href="#appendix-A-3.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-3.4">Addition of a discussion about the impacts of potential future quantum
+    computing attacks with specific impacts to this extension.<a href="#appendix-A-3.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-3.5">Addition of a discussion about metadata/unprotected data in
+    <a href="#unp" class="auto internal xref">Section 7.4</a>.<a href="#appendix-A-3.5" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-3.6">Reference updates.<a href="#appendix-A-3.6" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-3.7">Various editorial improvements.<a href="#appendix-A-3.7" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-A-4">The -07 version of the WG draft has the following changes:<a href="#appendix-A-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A-5.1">The impact of forward secrecy explanation has been improved in
+    the abstract and security considerations.<a href="#appendix-A-5.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-5.2">The draft now more forcefully explains why the authors believe
+    it is important to migrate existing systems to use forward
+    secrecy, and makes a recommendation for this migration.<a href="#appendix-A-5.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-5.3">The draft does no longer refer to issues within the smart cards but
+    rather the smart card supply chain.<a href="#appendix-A-5.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-5.4">The rationale for chosen algorithms is explained.<a href="#appendix-A-5.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-5.5">Also, the authors have checked the language relating to the
+    public value encoding, and believe it is exactly according to the
+    references (<span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span> Section 6.1 and <span>[<a href="#SEC2" class="cite xref">SEC2</a>]</span> Section 2.7.1)<a href="#appendix-A-5.5" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-A-6">The -06 version of the WG draft is a refresh and a
+  reference update. However, the
+  following should be noted:<a href="#appendix-A-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A-7.1">The draft now uses "forward secrecy" terminology and references
+    RFC 7624 per recommendations on mailing list discussion.<a href="#appendix-A-7.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-A-7.2">There's been mailing list discussion about the encoding of the
+    public values; the current text requires confirmation from the
+    working group that it is sufficient.<a href="#appendix-A-7.2" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-A-8">The -05 version of the WG draft takes into account feedback from
+  the working group list, about the number of bytes needed to encode
+  P-256  values.<a href="#appendix-A-8" class="pilcrow">¶</a></p>
+<p id="appendix-A-9">The -04 version of the WG draft takes into account feedback from
+  the May 2020 WG interim meeting, correcting the reference to the
+  NIST P-256 specification.<a href="#appendix-A-9" class="pilcrow">¶</a></p>
+<p id="appendix-A-10">The -03 version of the WG draft is first of all a refresh; there
+  are no issues that we think need addressing, beyond the one for
+  which there is a suggestion in -03: The specification now suggests
+  an alternate group/curve as an optional one besides X25519. The
+  specific choice of particular groups and algorithms is still up to the
+  working group.<a href="#appendix-A-10" class="pilcrow">¶</a></p>
+<p id="appendix-A-11">The -02 version of the WG draft took into account additional
+  reviews, and changed the document to update RFC 5448 (or rather, its
+  successor, <span>[<a href="#RFC9048" class="cite xref">RFC9048</a>]</span>), changed the
+  wording of the recommendation with regards to the use of this
+  extension, clarified the references to the definition of X25519 and
+  Curve25519, clarified the distinction to ECDH methods that use
+  partially static keys, and simplified the use of AKA and SIM card
+  terminology. Some editorial changes were also made.<a href="#appendix-A-11" class="pilcrow">¶</a></p>
+<p id="appendix-A-12">The -00 and -01 versions of the WG draft made no major 
+  changes, only updates to some references.<a href="#appendix-A-12" class="pilcrow">¶</a></p>
+<p id="appendix-A-13">The -05 version is merely a refresh while the draft was waiting
+  for WG adoption.<a href="#appendix-A-13" class="pilcrow">¶</a></p>
+<p id="appendix-A-14">The -04 version of this draft made only editorial changes.<a href="#appendix-A-14" class="pilcrow">¶</a></p>
+<p id="appendix-A-15">The -03 version of this draft changed the naming of various
+    protocol components, values, and notation to match with the use of
+    ECDH in ephemeral mode. The AT_KDF_FS negotiation process was
+    clarified in that exactly one key is ever sent in
+    AT_KDF_ECDHE. The option of checking for zero key values IN ECDHE
+    was added. The format of the actual key in AT_PUB_ECDHE was
+    specified. Denial-of-service considerations for the FS process
+    have been updated. Bidding down attacks against this extension
+    itself are discussed extensively. This version also addressed
+    comments from reviewers, including the August review from Mohit
+    Sethi, and comments made during IETF-102 discussion.<a href="#appendix-A-15" class="pilcrow">¶</a></p>
+</section>
+<section id="appendix-B">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-B-1">The authors would like to note that the technical solution in
+    this document came out of the TrustCom paper <span>[<a href="#TrustCom2015" class="cite xref">TrustCom2015</a>]</span>, whose authors were <span class="contact-name">J. Arkko</span>,
+    <span class="contact-name">K. Norrman</span>, <span class="contact-name">M. Näslund</span>,
+    and <span class="contact-name">B. Sahlin</span>. This document
+    uses also a lot of material from <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span> by
+    <span class="contact-name">J. Arkko</span> and <span class="contact-name">H. Haverinen</span> as well
+     as <span>[<a href="#RFC5448" class="cite xref">RFC5448</a>]</span> by <span class="contact-name">J. Arkko</span>,
+    <span class="contact-name">V. Lehtovirta</span>, and <span class="contact-name">P. Eronen</span>.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">The authors would also like to thank
+    <span class="contact-name">Ben Campbell</span>,
+    <span class="contact-name">Tim Evans</span>,
+    <span class="contact-name">Zhang Fu</span>,
+    <span class="contact-name">Russ Housley</span>,
+    <span class="contact-name">Tero Kivinen</span>,
+    <span class="contact-name">Eliot Lear</span>,
+    <span class="contact-name">Vesa Lehtovirta</span>,
+    <span class="contact-name">Kathleen Moriarty</span>,
+    <span class="contact-name">Prajwol Kumar Nakarmi</span>,
+    <span class="contact-name">Anand R. Prasad</span>,
+    <span class="contact-name">Michael Richardson</span>,
+    <span class="contact-name">Göran Rune</span>,
+    <span class="contact-name">Bengt Sahlin</span>,    
+    <span class="contact-name">Joseph Salowey</span>,
+    <span class="contact-name">Mohit Sethi</span>,
+    <span class="contact-name">Rene Struik</span>,
+    <span class="contact-name">Sean Turner</span>,
+    <span class="contact-name">Helena Vahidi Mazinani</span>,    
+    and many other people at the IETF, GSMA and 3GPP groups
+    for interesting discussions in this problem space.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+</section>
+<div id="authors-addresses">
+<section id="appendix-C">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Jari Arkko</span></div>
+<div dir="auto" class="left"><span class="org">Ericsson</span></div>
+<div dir="auto" class="left">FI-<span class="postal-code">02420</span> <span class="locality">Jorvas</span>
+</div>
+<div dir="auto" class="left"><span class="country-name">Finland</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:jari.arkko@piuha.net" class="email">jari.arkko@piuha.net</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Karl Norrman</span></div>
+<div dir="auto" class="left"><span class="org">Ericsson</span></div>
+<div dir="auto" class="left">SE-<span class="postal-code">16483</span> <span class="locality">Stockholm</span>
+</div>
+<div dir="auto" class="left"><span class="country-name">Sweden</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:karl.norrman@ericsson.com" class="email">karl.norrman@ericsson.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Vesa Torvinen</span></div>
+<div dir="auto" class="left"><span class="org">Ericsson</span></div>
+<div dir="auto" class="left">FI-<span class="postal-code">02420</span> <span class="locality">Jorvas</span>
+</div>
+<div dir="auto" class="left"><span class="country-name">Finland</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:vesa.torvinen@ericsson.com" class="email">vesa.torvinen@ericsson.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">John Preuß Mattsson</span></div>
+<div dir="auto" class="left"><span class="org">Ericsson</span></div>
+<div dir="auto" class="left">SE-<span class="postal-code">164 40</span> <span class="locality">Kista</span>
+</div>
+<div dir="auto" class="left"><span class="country-name">Sweden</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:john.mattsson@ericsson.com" class="email">john.mattsson@ericsson.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
