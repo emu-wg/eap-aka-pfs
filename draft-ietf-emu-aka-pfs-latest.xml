@@ -2197,6 +2197,27 @@ EMSK     = MK_ECDHE[768..1279]
 
   <t>RFC Editor: Please remove this appendix.</t>
 
+  <t>The -09 version of the WG draft has the following changes:
+  <list style="symbols">
+
+    <t>Scalable Vector Graphics (SVG) versions for all figures has been added
+    and the figures has been slightly modified to render nicely with aasvg.</t>
+    
+    <t>A reference has been added to the Section in SEC1 describing how
+    to do decompression.</t>
+	  
+    <t>The strengthened identity protection requirements are now mentioned in the
+    introduction.</t>
+	  
+    <t>Corrections and clarifications were made in the IANA considerations. The
+    table in the IANA section has been made into a proper xml table.</t>
+
+    <t>Reference updates.</t>
+
+    <t>Various editorial improvements.</t>
+    
+  </list></t>
+
   <t>The -08 version of the WG draft has the following changes:
   <list style="symbols">
 
