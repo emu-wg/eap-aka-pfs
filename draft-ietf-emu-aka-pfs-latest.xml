@@ -1483,7 +1483,8 @@ EMSK     = MK_ECDHE[768..1279]
 	<t>For P-256 the SHARED_SECRET is the shared
 	secret computed as specified in Section 5.7.1.2 of <xref target="SP-800-56A"/>.
 	Public key validation requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
-	At least partial public-key validation MUST be done.</t>
+	At least partial public-key validation MUST be done. The uncompressed y-coordinate can be
+        computed as described in Section 2.3.4 of <xref target="SEC1"/>.
 
 	<t>For X25519 the SHARED_SECRET is the shared secret computed as specified in
 	Section 6.1 of <xref target="RFC7748"/>. Both the peer and the server
@@ -2140,6 +2141,7 @@ EMSK     = MK_ECDHE[768..1279]
   <?rfc include="reference.RFC.4186.xml"?>
   <?rfc include="reference.RFC.5216.xml"?>
   <?rfc include="reference.RFC.5448.xml"?>
+  <?rfc include="reference.RFC.6090.xml"?>
   <?rfc include="reference.RFC.7258.xml"?>
   <?rfc include="reference.RFC.7296.xml"?>
   <?rfc include="reference.RFC.9190.xml"?>
