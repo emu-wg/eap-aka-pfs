@@ -1,0 +1,2369 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-latest"
+     category="info" updates="5448,9048">
+<?rfc toc="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc autobreaks="yes"?>
+<?rfc tocindent="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+
+<front>
+
+<title abbrev="EAP-AKA' FS">Forward Secrecy for the
+Extensible Authentication Protocol Method for Authentication and Key Agreement (EAP-AKA' FS)</title>
+
+<author initials="J" surname="Arkko" fullname="Jari Arkko">
+<organization>Ericsson</organization>
+<address>
+<postal>
+<street/>
+<city>Jorvas</city> <code>02420</code>
+<country>Finland</country>
+</postal>
+<email>jari.arkko@piuha.net</email>
+</address>
+</author>
+
+<author initials="K" surname="Norrman" fullname="Karl Norrman">
+<organization>Ericsson</organization>
+<address>
+<postal>
+<street/>
+<city>Stockholm</city> <code>16483</code>
+<country>Sweden</country>
+</postal>
+<email>karl.norrman@ericsson.com</email>
+</address>
+</author>
+
+<author initials="V" surname="Torvinen" fullname="Vesa Torvinen">
+<organization>Ericsson</organization>
+<address>
+<postal>
+<street/>
+<city>Jorvas</city> <code>02420</code>
+<country>Finland</country>
+</postal>
+<email>vesa.torvinen@ericsson.com</email>
+</address>
+</author>
+
+<author initials="J" surname="Preuß Mattsson" fullname="John Preuß Mattsson">
+<organization>Ericsson</organization>
+<address>
+<postal>
+<street/>
+<city>Kista</city> <code>164 40</code>
+<country>Sweden</country>
+</postal>
+<email>john.mattsson@ericsson.com</email>
+</address>
+</author>
+
+<keyword>EAP</keyword>
+<keyword>AKA</keyword>
+<keyword>AKA'</keyword>
+<keyword>3GPP</keyword>
+
+<abstract>
+
+  <t>Many different attacks have been reported as part of revelations
+  associated with pervasive surveillance. Some of the reported attacks
+  involved compromising the smart card supply chain, such as attacking SIM card
+  manufacturers and operators in an effort to compromise shared
+  secrets stored on these cards. Since the publication of those
+  reports, manufacturing and provisioning processes have gained much
+  scrutiny and have improved. However, the danger of resourceful
+  attackers for these systems is still a concern. Always assuming breach
+  such as key compromise and minimizing the impact of breach are essential
+  zero-trust principles.</t>
+
+  <t>This specification updates RFC 9048, the EAP-AKA'
+  authentication method, with an optional extension. 
+  Similarly, this specification also updates the earlier version 
+  of the EAP-AKA' specification in RFC 5448. The extension, when
+  negotiated, provides Forward Secrecy for the session key
+  generated as a part of the authentication run in EAP-AKA'. This
+  prevents an attacker who has gained access to the long-term
+  pre-shared secret in a SIM card from being able to decrypt any past
+  communications. In addition, if the attacker stays merely a passive
+  eavesdropper, the extension prevents attacks against future
+  sessions. This forces attackers to use active attacks instead.</t>
+
+</abstract>
+
+</front>
+<middle>
+
+<section title="Introduction">
+
+  <t>Many different attacks have been reported as part of revelations
+  associated with pervasive surveillance. Some of the reported attacks
+  involved compromising the smart card supply chain, such as attacking SIM card
+  manufacturers and operators in an effort to compromise shared
+  secrets stored on these cards. Such attacks are conceivable, for
+  instance, during the manufacturing process of cards, or during the
+  transfer of cards and associated information to the operator. Since
+  the publication of reports about such attacks, manufacturing and
+  provisioning processes have gained much scrutiny and have
+  improved.</t>
+
+  <t>However, the danger of resourceful attackers attempting to gain
+  information about SIM cards is still a concern. They are a
+  high-value target and concern a large number of people.  Note that
+  the attacks are largely independent of the used authentication
+  technology; the issue is not vulnerabilities in algorithms or
+  protocols, but rather the possibility of someone gaining unlawful
+  access to key material. While the better protection of manufacturing
+  and other processes is essential in protecting against this, there
+  is one question that we as protocol designers can ask.  Is there
+  something that we can do to limit the consequences of attacks,
+  should they occur?</t>
+  
+  <t>The authors want to provide a public specification of an
+  extension that helps defend against one aspect of pervasive
+  surveillance. This is important, given the large number of users such
+  practices may affect. It is also a stated goal of the IETF to ensure
+  that we understand the surveillance concerns related to IETF
+  protocols and take appropriate countermeasures <xref
+  target="RFC7258"/>. This document does that for EAP-AKA'.</t>
+
+  <t>This specification updates <xref target="RFC9048"/>, the EAP-AKA'
+  authentication method, with an optional extension and strengthens
+  the identity privacy requirements. While optional, the use of this
+  extension is strongly RECOMMENDED.</t>
+
+  <t>The extension, when
+  negotiated, provides Forward Secrecy (FS) for the session key
+  generated as a part of the authentication run in EAP-AKA'.  This
+  prevents an attacker who has gained access to the long-term
+  pre-shared secret in a SIM card from being able to decrypt any past
+  communications. In addition, if the attacker stays merely a passive
+  eavesdropper, the extension prevents attacks against future
+  sessions. This forces attackers to use active attacks instead. This
+  is beneficial, because active attacks demand much more resources to
+  launch, and can generally be detected much easier. As
+  with other protocols, an active attacker with access to the
+  long-term key material will of course be able to attack all future
+  communications, but risks detection, particularly if done at
+  scale. The attacker
+  is forced to attempt to exfiltrate key material, if it can, on a
+  continuous basis, as opposed to learning it once <xref
+  target="RFC7624"/>.</t>
+
+  <t>Attacks against AKA authentication via compromising the long-term
+  secrets in the SIM cards have been an active discussion topic in
+  many contexts. Forward secrecy is on the list of features
+  for the next release of 3GPP (5G Phase 2), and this document provides
+  a basis for providing this feature in a particular fashion.</t>
+  
+  <t>It should also be noted that 5G network architecture <xref target="TS.33.501"/>
+  includes the
+  use of the EAP framework for authentication. While any methods can
+  be run, the default authentication method within that context will
+  be EAP-AKA'. As a result, improvements in EAP-AKA' security have a
+  potential to improve security for large number of users.</t>
+
+</section>
+
+<section title="Protocol Design and Deployment Objectives">
+  
+  <t>The extension specified here re-uses large portions of the
+  current structure of 3GPP interfaces and functions, with the
+  rationale that this will make the construction more easily adopted.
+  In particular, the construction maintains the interface between the
+  Universal Subscriber Identification Module (USIM) and the mobile
+  terminal intact. As a consequence, there is no need to roll out new
+  credentials to existing subscribers. The work is based on an earlier
+  paper <xref target="TrustCom2015"/>, and uses much of the same
+  material, but applied to EAP rather than the underlying AKA
+  method.</t>
+
+  <t>It has been a goal to implement this change as an extension
+  of the widely supported EAP-AKA' method, rather than a completely new
+  authentication method. The extension is implemented as a set of
+  new, optional attributes, that are provided alongside the
+  base attributes in EAP-AKA'. Old implementations can ignore
+  these attributes, but their presence will nevertheless be verified
+  as part of base EAP-AKA' integrity verification process, helping
+  protect against bidding down attacks. This extension does
+  not increase the number of rounds necessary to complete the
+  protocol.</t>
+
+  <t>The use of this extension is at the discretion of the
+  authenticating parties. It should be noted that FS and defenses
+  against passive attacks are by no means a panacea, but they can
+  provide a partial defense that increases the cost and risk
+  associated with pervasive surveillance.</t>
+
+  <t>While adding forward secrecy to the existing mobile
+  network infrastructure can be done in multiple different ways, the
+  authors believe that the approach chosen here is relatively easily
+  deployable. In particular:
+  <list style="symbols">
+    
+    <t>As noted above, no new credentials are needed; there is no
+    change to SIM cards.</t>
+    
+    <t>FS property can be incorporated into any current or future
+    system that supports EAP, without changing
+    any network functions beyond the EAP endpoints.</t>
+    
+    <t>Key generation happens at the endpoints, enabling highest grade
+    key material to be used both by the endpoints and the intermediate
+    systems (such as access points that are given access to specific
+    keys).</t>
+    
+    <t>While EAP-AKA' is just one EAP method, for practical purposes
+    forward secrecy being available for both EAP-TLS <xref
+    target="RFC5216"/> <xref target="RFC9190"/> and
+    EAP-AKA' ensures that for many practical systems forward
+    secrecy can be enabled for either all or significant fraction of
+    users.</t>
+    
+  </list></t>
+  
+</section>
+
+<section title="Background">
+  <section title="AKA">
+
+    <t>Authentication and Key Agreement (AKA) is based on challenge-response
+    mechanisms and symmetric cryptography. In contrast with its earlier GSM
+    counterparts, AKA provides long key lengths and mutual authentication.
+    AKA typically runs in a UMTS Subscriber Identity Module (USIM). USIM is
+    technically just an application that can reside on a removable UICC, an
+    embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
+    this document we use the term "SIM card" to refer to any Subscriber
+    Identity Module capable of running AKA.</t>
+
+    <t>AKA works in the following manner:
+    <list style="symbols">
+
+   <t>The identity module and the home environment have agreed on a
+      secret key beforehand.</t>
+   <t>The actual authentication process starts by having the home
+      environment produce an authentication vector, based on the secret
+      key and a sequence number.  The authentication vector contains a
+      random part RAND, an authenticator part AUTN used for
+      authenticating the network to the identity module, an expected
+      result part XRES, a 128-bit session key for integrity check IK,
+      and a 128-bit session key for encryption CK.</t>
+   <t>The authentication vector is passed to the serving network, which
+      uses it to authenticate the device.</t>
+   <t>The RAND and the AUTN are delivered to the identity module.</t>
+   <t>The identity module verifies the AUTN, again based on the secret
+      key and the sequence number.  If this process is successful (the
+      AUTN is valid and the sequence number used to generate AUTN is
+      within the correct range), the identity module produces an
+      authentication result RES and sends it to the serving network.</t>
+      <t>The serving network verifies the correct result from the identity
+      module.  If the result is correct, IK and CK can be used to
+      protect further communications between the identity module and the
+      home environment.</t>
+    </list></t>
+  </section>
+  <section title="EAP-AKA' Protocol">
+
+    <t>When AKA are embedded into EAP, the authentication on
+    the network side is moved to the home environment; the serving
+    network performs the role of a pass-through authenticator.
+    <xref target="figaka"/> describes the basic flow in the EAP-AKA'
+    authentication process. The definition of the full protocol
+    behavior, along with the definition of attributes AT_RAND,
+    AT_AUTN, AT_MAC, and AT_RES can be found in <xref
+    target="RFC9048"/> and <xref target="RFC4187"/>.</t>
+
+<figure title="EAP-AKA' Authentication Process" anchor="figaka">
+<artset>
+<artwork type="ascii-art"><![CDATA[
+ Peer                                                        Server
+   |                                                            |
+   |                                       EAP-Request/Identity |
+   |<-----------------------------------------------------------+
+   |                                                            |
+   | EAP-Response/Identity                                      |
+   | (Includes user's Network Access Identifier, NAI)           |
+   +----------------------------------------------------------->|
+   |      +-----------------------------------------------------+--+
+   |      | Server determines the network name and ensures that    |
+   |      | the given access network is authorized to use the      |
+   |      | claimed name. The server then runs the AKA' algorithms |
+   |      | generating RAND and AUTN, derives session keys from    |
+   |      | CK' and IK'. RAND and AUTN are sent as AT_RAND and     |
+   |      | AT_AUTN attributes, whereas the network name is        |
+   |      | transported in the AT_KDF_INPUT attribute. AT_KDF      |
+   |      | signals the used key derivation function. The session  |
+   |      | keys are used in creating the AT_MAC attribute.        |
+   |      +-----------------------------------------------------+--+
+   |                                                            |
+   |                                 EAP-Request/AKA'-Challenge |
+   |           (AT_RAND, AT_AUTN, AT_KDF, AT_KDF_INPUT, AT_MAC) |
+   |<-----------------------------------------------------------+
++--+-----------------------------------------------------+      |
+| The peer determines what the network name should be,   |      |
+| based on, e.g., what access technology it is using.    |      |
+| The peer also retrieves the network name sent by the   |      |
+| network from the AT_KDF_INPUT attribute. The two names |      |
+| are compared for discrepancies, and if necessary, the  |      |
+| authentication is aborted. Otherwise, the network name |      |
+| from AT_KDF_INPUT attribute is used in running the     |      |
+| AKA' algorithms, verifying AUTN from AT_AUTN and MAC   |      |
+| from AT_MAC attributes. The peer then generates RES.   |      |
+| The peer also derives session keys from CK'/IK'. The   |      |
+| AT_RES and AT_MAC attributes are constructed.          |      |
++--+-----------------------------------------------------+      |
+   |                                                            |
+   | EAP-Response/AKA'-Challenge                                |
+   | (AT_RES, AT_MAC)                                           |
+   +----------------------------------------------------------->|
+   |      +-----------------------------------------------------+--+
+   |      | Server checks the RES and MAC values received in       |
+   |      | AT_RES and AT_MAC, respectively. Success requires both |
+   |      | to be found correct.                                   |
+   |      +-----------------------------------------------------+--+
+   |                                                            |
+   |                                                EAP-Success |
+   |<-----------------------------------------------------------+
+   |                                                            |
+]]></artwork>
+            <artwork type="svg" align="center"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="816" width="552" viewBox="0 0 552 816" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+                <path d="M 8,400 L 8,592" fill="none" stroke="black"/>
+                <path d="M 32,48 L 32,400" fill="none" stroke="black"/>
+                <path d="M 32,592 L 32,800" fill="none" stroke="black"/>
+                <path d="M 88,160 L 88,320" fill="none" stroke="black"/>
+                <path d="M 88,672 L 88,736" fill="none" stroke="black"/>
+                <path d="M 464,400 L 464,592" fill="none" stroke="black"/>
+                <path d="M 520,48 L 520,160" fill="none" stroke="black"/>
+                <path d="M 520,320 L 520,672" fill="none" stroke="black"/>
+                <path d="M 520,736 L 520,800" fill="none" stroke="black"/>
+                <path d="M 544,160 L 544,320" fill="none" stroke="black"/>
+                <path d="M 544,672 L 544,736" fill="none" stroke="black"/>
+                <path d="M 40,80 L 520,80" fill="none" stroke="black"/>
+                <path d="M 32,144 L 512,144" fill="none" stroke="black"/>
+                <path d="M 88,160 L 544,160" fill="none" stroke="black"/>
+                <path d="M 88,320 L 544,320" fill="none" stroke="black"/>
+                <path d="M 40,384 L 520,384" fill="none" stroke="black"/>
+                <path d="M 8,400 L 464,400" fill="none" stroke="black"/>
+                <path d="M 8,592 L 464,592" fill="none" stroke="black"/>
+                <path d="M 32,656 L 512,656" fill="none" stroke="black"/>
+                <path d="M 88,672 L 544,672" fill="none" stroke="black"/>
+                <path d="M 88,736 L 544,736" fill="none" stroke="black"/>
+                <path d="M 40,784 L 520,784" fill="none" stroke="black"/>
+                <path d="M 144,624 L 144,624" fill="none" stroke="black"/>
+                <polygon class="arrowhead" points="520,656 508,650.4 508,661.6" fill="black" transform="rotate(0,512,656)"/>
+                <polygon class="arrowhead" points="520,144 508,138.4 508,149.6" fill="black" transform="rotate(0,512,144)"/>
+                <polygon class="arrowhead" points="48,784 36,778.4 36,789.6" fill="black" transform="rotate(180,40,784)"/>
+                <polygon class="arrowhead" points="48,384 36,378.4 36,389.6" fill="black" transform="rotate(180,40,384)"/>
+                <polygon class="arrowhead" points="48,80 36,74.4 36,85.6" fill="black" transform="rotate(180,40,80)"/>
+                <g class="text">
+                  <text x="28" y="36">Peer</text>
+                  <text x="516" y="36">Server</text>
+                  <text x="428" y="68">EAP-Request/Identity</text>
+                  <text x="128" y="116">EAP-Response/Identity</text>
+                  <text x="80" y="132">(Includes</text>
+                  <text x="148" y="132">user's</text>
+                  <text x="208" y="132">Network</text>
+                  <text x="268" y="132">Access</text>
+                  <text x="344" y="132">Identifier,</text>
+                  <text x="412" y="132">NAI)</text>
+                  <text x="124" y="180">Server</text>
+                  <text x="196" y="180">determines</text>
+                  <text x="256" y="180">the</text>
+                  <text x="304" y="180">network</text>
+                  <text x="356" y="180">name</text>
+                  <text x="392" y="180">and</text>
+                  <text x="440" y="180">ensures</text>
+                  <text x="492" y="180">that</text>
+                  <text x="112" y="196">the</text>
+                  <text x="152" y="196">given</text>
+                  <text x="204" y="196">access</text>
+                  <text x="264" y="196">network</text>
+                  <text x="308" y="196">is</text>
+                  <text x="364" y="196">authorized</text>
+                  <text x="420" y="196">to</text>
+                  <text x="448" y="196">use</text>
+                  <text x="480" y="196">the</text>
+                  <text x="128" y="212">claimed</text>
+                  <text x="184" y="212">name.</text>
+                  <text x="224" y="212">The</text>
+                  <text x="268" y="212">server</text>
+                  <text x="316" y="212">then</text>
+                  <text x="356" y="212">runs</text>
+                  <text x="392" y="212">the</text>
+                  <text x="428" y="212">AKA'</text>
+                  <text x="492" y="212">algorithms</text>
+                  <text x="140" y="228">generating</text>
+                  <text x="204" y="228">RAND</text>
+                  <text x="240" y="228">and</text>
+                  <text x="280" y="228">AUTN,</text>
+                  <text x="336" y="228">derives</text>
+                  <text x="400" y="228">session</text>
+                  <text x="452" y="228">keys</text>
+                  <text x="492" y="228">from</text>
+                  <text x="112" y="244">CK'</text>
+                  <text x="144" y="244">and</text>
+                  <text x="180" y="244">IK'.</text>
+                  <text x="220" y="244">RAND</text>
+                  <text x="256" y="244">and</text>
+                  <text x="292" y="244">AUTN</text>
+                  <text x="328" y="244">are</text>
+                  <text x="364" y="244">sent</text>
+                  <text x="396" y="244">as</text>
+                  <text x="440" y="244">AT_RAND</text>
+                  <text x="488" y="244">and</text>
+                  <text x="128" y="260">AT_AUTN</text>
+                  <text x="208" y="260">attributes,</text>
+                  <text x="288" y="260">whereas</text>
+                  <text x="336" y="260">the</text>
+                  <text x="384" y="260">network</text>
+                  <text x="436" y="260">name</text>
+                  <text x="468" y="260">is</text>
+                  <text x="144" y="276">transported</text>
+                  <text x="204" y="276">in</text>
+                  <text x="232" y="276">the</text>
+                  <text x="300" y="276">AT_KDF_INPUT</text>
+                  <text x="396" y="276">attribute.</text>
+                  <text x="468" y="276">AT_KDF</text>
+                  <text x="128" y="292">signals</text>
+                  <text x="176" y="292">the</text>
+                  <text x="212" y="292">used</text>
+                  <text x="248" y="292">key</text>
+                  <text x="308" y="292">derivation</text>
+                  <text x="392" y="292">function.</text>
+                  <text x="448" y="292">The</text>
+                  <text x="496" y="292">session</text>
+                  <text x="116" y="308">keys</text>
+                  <text x="152" y="308">are</text>
+                  <text x="188" y="308">used</text>
+                  <text x="220" y="308">in</text>
+                  <text x="268" y="308">creating</text>
+                  <text x="320" y="308">the</text>
+                  <text x="364" y="308">AT_MAC</text>
+                  <text x="436" y="308">attribute.</text>
+                  <text x="404" y="356">EAP-Request/AKA'-Challenge</text>
+                  <text x="160" y="372">(AT_RAND,</text>
+                  <text x="236" y="372">AT_AUTN,</text>
+                  <text x="304" y="372">AT_KDF,</text>
+                  <text x="392" y="372">AT_KDF_INPUT,</text>
+                  <text x="480" y="372">AT_MAC)</text>
+                  <text x="32" y="420">The</text>
+                  <text x="68" y="420">peer</text>
+                  <text x="132" y="420">determines</text>
+                  <text x="196" y="420">what</text>
+                  <text x="232" y="420">the</text>
+                  <text x="280" y="420">network</text>
+                  <text x="332" y="420">name</text>
+                  <text x="380" y="420">should</text>
+                  <text x="424" y="420">be,</text>
+                  <text x="40" y="436">based</text>
+                  <text x="80" y="436">on,</text>
+                  <text x="120" y="436">e.g.,</text>
+                  <text x="164" y="436">what</text>
+                  <text x="212" y="436">access</text>
+                  <text x="284" y="436">technology</text>
+                  <text x="340" y="436">it</text>
+                  <text x="364" y="436">is</text>
+                  <text x="404" y="436">using.</text>
+                  <text x="32" y="452">The</text>
+                  <text x="68" y="452">peer</text>
+                  <text x="108" y="452">also</text>
+                  <text x="168" y="452">retrieves</text>
+                  <text x="224" y="452">the</text>
+                  <text x="272" y="452">network</text>
+                  <text x="324" y="452">name</text>
+                  <text x="364" y="452">sent</text>
+                  <text x="396" y="452">by</text>
+                  <text x="424" y="452">the</text>
+                  <text x="48" y="468">network</text>
+                  <text x="100" y="468">from</text>
+                  <text x="136" y="468">the</text>
+                  <text x="204" y="468">AT_KDF_INPUT</text>
+                  <text x="300" y="468">attribute.</text>
+                  <text x="360" y="468">The</text>
+                  <text x="392" y="468">two</text>
+                  <text x="432" y="468">names</text>
+                  <text x="32" y="484">are</text>
+                  <text x="84" y="484">compared</text>
+                  <text x="136" y="484">for</text>
+                  <text x="212" y="484">discrepancies,</text>
+                  <text x="288" y="484">and</text>
+                  <text x="316" y="484">if</text>
+                  <text x="372" y="484">necessary,</text>
+                  <text x="432" y="484">the</text>
+                  <text x="76" y="500">authentication</text>
+                  <text x="148" y="500">is</text>
+                  <text x="196" y="500">aborted.</text>
+                  <text x="276" y="500">Otherwise,</text>
+                  <text x="336" y="500">the</text>
+                  <text x="384" y="500">network</text>
+                  <text x="436" y="500">name</text>
+                  <text x="36" y="516">from</text>
+                  <text x="108" y="516">AT_KDF_INPUT</text>
+                  <text x="200" y="516">attribute</text>
+                  <text x="252" y="516">is</text>
+                  <text x="284" y="516">used</text>
+                  <text x="316" y="516">in</text>
+                  <text x="360" y="516">running</text>
+                  <text x="408" y="516">the</text>
+                  <text x="36" y="532">AKA'</text>
+                  <text x="104" y="532">algorithms,</text>
+                  <text x="192" y="532">verifying</text>
+                  <text x="252" y="532">AUTN</text>
+                  <text x="292" y="532">from</text>
+                  <text x="344" y="532">AT_AUTN</text>
+                  <text x="392" y="532">and</text>
+                  <text x="424" y="532">MAC</text>
+                  <text x="36" y="548">from</text>
+                  <text x="84" y="548">AT_MAC</text>
+                  <text x="160" y="548">attributes.</text>
+                  <text x="224" y="548">The</text>
+                  <text x="260" y="548">peer</text>
+                  <text x="300" y="548">then</text>
+                  <text x="360" y="548">generates</text>
+                  <text x="420" y="548">RES.</text>
+                  <text x="32" y="564">The</text>
+                  <text x="68" y="564">peer</text>
+                  <text x="108" y="564">also</text>
+                  <text x="160" y="564">derives</text>
+                  <text x="224" y="564">session</text>
+                  <text x="276" y="564">keys</text>
+                  <text x="316" y="564">from</text>
+                  <text x="372" y="564">CK'/IK'.</text>
+                  <text x="424" y="564">The</text>
+                  <text x="44" y="580">AT_RES</text>
+                  <text x="88" y="580">and</text>
+                  <text x="132" y="580">AT_MAC</text>
+                  <text x="204" y="580">attributes</text>
+                  <text x="264" y="580">are</text>
+                  <text x="332" y="580">constructed.</text>
+                  <text x="92" y="628">EAP-Response</text>
+                  <text x="204" y="628">AKA'-Challenge</text>
+                  <text x="76" y="644">(AT_RES,</text>
+                  <text x="144" y="644">AT_MAC)</text>
+                  <text x="124" y="692">Server</text>
+                  <text x="180" y="692">checks</text>
+                  <text x="224" y="692">the</text>
+                  <text x="256" y="692">RES</text>
+                  <text x="288" y="692">and</text>
+                  <text x="320" y="692">MAC</text>
+                  <text x="364" y="692">values</text>
+                  <text x="428" y="692">received</text>
+                  <text x="476" y="692">in</text>
+                  <text x="124" y="708">AT_RES</text>
+                  <text x="168" y="708">and</text>
+                  <text x="216" y="708">AT_MAC,</text>
+                  <text x="304" y="708">respectively.</text>
+                  <text x="392" y="708">Success</text>
+                  <text x="460" y="708">requires</text>
+                  <text x="516" y="708">both</text>
+                  <text x="108" y="724">to</text>
+                  <text x="132" y="724">be</text>
+                  <text x="168" y="724">found</text>
+                  <text x="228" y="724">correct.</text>
+                  <text x="464" y="772">EAP-Success</text>
+                </g>
+              </svg>
+            </artwork>
+</artset>
+</figure>
+
+  </section>
+
+  <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
+
+    <t>Current 3GPP systems use SIM pre-shared key based protocols
+    and Authentication and Key Agreement (AKA) to authenticate
+    subscribers. The general security properties and potential
+    vulnerabilities of AKA and EAP-AKA' are discussed in <xref
+    target="RFC9048"/>.</t>
+    
+    <t>An important vulnerability in that discussion relates to the
+    recent reports of compromised long term pre-shared keys used in
+    AKA <xref target="Heist2015"/>. These attacks are not specific to
+    AKA or EAP-AKA', as all security systems fail at least to some
+    extent if key material is stolen. However, the reports indicate a
+    need to look into solutions that can operate at least to an extent
+    under these types of attacks. It is noted in <xref
+    target="Heist2015"/> that some security can be retained even in
+    the face of the attacks by providing Forward Secrecy
+    (FS) <xref target="DOW1992"/> for the session key. If AKA would
+    have provided FS, compromising the pre-shared key would not be
+    sufficient to perform passive attacks; the attacker is, in
+    addition, forced to be a Man-In-The-Middle (MITM) during the AKA
+    run and subsequent communication between the parties.</t>
+
+  </section>
+
+</section>
+
+<section title="Requirements Language">
+
+  <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+  "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+  "OPTIONAL" in this document are to be interpreted as described in BCP
+  14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only
+  when, they appear in all capitals, as shown here.</t>
+   
+</section>
+
+<section title="Protocol Overview">
+  
+  <t>Forward Secrecy for EAP-AKA' is achieved by using an Elliptic
+  Curve Diffie-Hellman (ECDH) exchange <xref target="RFC7748"/>. To provide
+  FS, the exchange must be run in an ephemeral manner, i.e.,
+  both sides generate temporary keys according to the negotiated ciphersuite,
+  e.g., for X25519 this is done as specified in <xref target="RFC7748"/>.
+  This method is referred to as ECDHE, where the last 'E' stands
+  for Ephemeral. The two initially registered elliptic curves and their
+  wire format is chosen to align with the elliptic curves and formats
+  specified for Subscription Concealed Identifier (SUCI) encryption in
+  Appendix C.3.4 of 3GPP TS 33.501 <xref target="TS.33.501"/>.</t>
+  
+  <t>The enhancements in the EAP-AKA' FS protocol are compatible
+  with the signaling flow and other basic structures of both AKA and
+  EAP-AKA'. The intent is to implement the enhancement as optional
+  attributes that legacy implementations can ignore.</t>
+  
+  <t>The purpose of the protocol is to achieve mutual authentication
+  between the EAP server and peer, and to establish keying material
+  for secure communication between the two.  This document specifies
+  the calculation of key material, providing new properties that are
+  not present in key material provided by EAP-AKA' in its original
+  form.</t>
+  
+  <t><xref target="figakafs"/> below describes the overall process. Since our goal
+  has been to not require new infrastructure or credentials, the
+  flow diagrams also show the conceptual interaction with the USIM card
+  and the 3GPP authentication server (HSS). The details of those
+  interactions
+  are outside the scope of this document, however, and the reader
+  is referred to the 3GPP specifications.</t>
+
+<figure title="EAP-AKA' FS Authentication Process" anchor="figakafs">
+<artset>
+<artwork type="ascii-art"><![CDATA[
+ USIM           Peer                        Server             HSS
+   |              |                            |                |
+   |              |           EAP-Req/Identity |                |
+   |              |<---------------------------+                |
+   |              |                            |                |
+   |              | EAP-Resp/Identity          |                |
+   |              | (Privacy-Friendly)         |                |
+   |              +--------------------------->|                |
+   |      +-------+----------------------------+----------------+--+
+   |      | Server now has an identity for the peer. The server    |
+   |      | then asks the help of HSS to run AKA algorithms,       |
+   |      | generating RAND, AUTN, XRES, CK, IK. Typically, the    |
+   |      | HSS performs the first part of key derivations so that |
+   |      | the authentication server gets the CK' and IK' keys    |
+   |      | already tied to a particular network name.             |
+   |      +-------+----------------------------+----------------+--+
+   |              |                            |                |
+   |              |                            | ID, key deriv. |
+   |              |                            | function,      |
+   |              |                            | network name   |
+   |              |                            +--------------->|
+   |              |                            |                |
+   |              |                            |    RAND, AUTN, |
+   |              |                            | XRES, CK', IK' |
+   |              |                            |<---------------+
+   |      +-------+----------------------------+----------------+--+
+   |      | Server now has the needed authentication vector. It    |
+   |      | generates an ephemeral key pair, sends the public key  |
+   |      | of that key pair and the first EAP method message to   |
+   |      | the peer. In the message the AT_PUB_ECDHE attribute    |
+   |      | carries the public key and the AT_KDF_FS attribute     |
+   |      | carries other FS-related parameters. Both of these are |
+   |      | skippable attributes that can be ignored if the peer   |
+   |      | does not support this extension.                       |
+   |      +-------+----------------------------+----------------+--+
+   |              |                            |                |
+   |              |     EAP-Req/AKA'-Challenge |                |
+   |              |  AT_RAND, AT_AUTN, AT_KDF, |                |
+   |              |   AT_KDF_FS, AT_KDF_INPUT, |                |
+   |              |       AT_PUB_ECDHE, AT_MAC |                |
+   |              |<---------------------------+                |
++--+--------------+----------------------------+---------+      |
+| The peer checks if it wants to do the FS extension. If |      |
+| yes, it will eventually respond with AT_PUB_ECDHE and  |      |
+| AT_MAC. If not, it will ignore AT_PUB_ECDHE and        |      |
+| AT_KDF_FS and base all calculations on basic EAP-AKA'  |      |
+| attributes, continuing just as in EAP-AKA' per RFC     |      |
+| 9048 rules. In any case, the peer needs to query the   |      |
+| auth parameters from the USIM card.                    |      |
++--+--------------+----------------------------+---------+      |
+   |              |                            |                |
+   |   RAND, AUTN |                            |                |
+   |<-------------+                            |                |
+   |              |                            |                |
+   | CK, IK, RES  |                            |                |
+   +------------->|                            |                |
++--+--------------+----------------------------+---------+      |
+| The peer now has everything to respond. If it wants to |      |
+| participate in the FS extension, it will then generate |      |
+| its key pair, calculate a shared key based on its key  |      |
+| pair and the server's public key. Finally, it proceeds |      | 
+| to derive all EAP-AKA' key values and constructs a     |      |
+| full response.                                         |      |
++--+--------------+----------------------------+---------+      |
+   |              |                            |                |
+   |              | EAP-Resp/AKA'-Challenge    |                |
+   |              | AT_RES, AT_PUB_ECDHE,      |                |
+   |              | AT_MAC                     |                |
+   |              +--------------------------->|                |
+   |      +-------+----------------------------+----------------+--+
+   |      | The server now has all the necessary values. It        |
+   |      | generates the ECDHE shared secret and checks the RES   |
+   |      | and MAC values received in AT_RES and AT_MAC,          |
+   |      | respectively. Success requires both to be found        |
+   |      | correct. Note that when this specification is used,    |
+   |      | the keys generated from EAP-AKA' are based on both     |
+   |      | CK/IK as well as the ECDHE value. Even if there was an |
+   |      | attacker who held the long-term secret keys, only an   |
+   |      | active attacker could have determined the generated    |
+   |      | session keys; in basic EAP-AKA' the generated keys are |
+   |      | only based on CK and IK.                               |
+   |      +-------+----------------------------+----------------+--+
+   |              |                            |                |
+   |              |                EAP-Success |                |
+   |              |<---------------------------+                |
+   |              |                            |                |
+
+]]></artwork>
+            <artwork type="svg" align="center"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1408" width="552" viewBox="0 0 552 1408" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+                <path d="M 8,688 L 8,816" fill="none" stroke="black"/>
+                <path d="M 8,928 L 8,1040" fill="none" stroke="black"/>
+                <path d="M 32,48 L 32,688" fill="none" stroke="black"/>
+                <path d="M 32,816 L 32,928" fill="none" stroke="black"/>
+                <path d="M 32,1040 L 32,1392" fill="none" stroke="black"/>
+                <path d="M 88,160 L 88,272" fill="none" stroke="black"/>
+                <path d="M 88,432 L 88,576" fill="none" stroke="black"/>
+                <path d="M 88,1136 L 88,1328" fill="none" stroke="black"/>
+                <path d="M 152,48 L 152,160" fill="none" stroke="black"/>
+                <path d="M 152,272 L 152,432" fill="none" stroke="black"/>
+                <path d="M 152,576 L 152,688" fill="none" stroke="black"/>
+                <path d="M 152,816 L 152,928" fill="none" stroke="black"/>
+                <path d="M 152,1040 L 152,1136" fill="none" stroke="black"/>
+                <path d="M 152,1328 L 152,1392" fill="none" stroke="black"/>
+                <path d="M 384,48 L 384,160" fill="none" stroke="black"/>
+                <path d="M 384,272 L 384,432" fill="none" stroke="black"/>
+                <path d="M 384,576 L 384,688" fill="none" stroke="black"/>
+                <path d="M 384,816 L 384,928" fill="none" stroke="black"/>
+                <path d="M 384,1040 L 384,1136" fill="none" stroke="black"/>
+                <path d="M 384,1328 L 384,1392" fill="none" stroke="black"/>
+                <path d="M 464,688 L 464,816" fill="none" stroke="black"/>
+                <path d="M 464,928 L 464,1040" fill="none" stroke="black"/>
+                <path d="M 520,48 L 520,160" fill="none" stroke="black"/>
+                <path d="M 520,272 L 520,432" fill="none" stroke="black"/>
+                <path d="M 520,576 L 520,1136" fill="none" stroke="black"/>
+                <path d="M 520,1328 L 520,1392" fill="none" stroke="black"/>
+                <path d="M 544,160 L 544,272" fill="none" stroke="black"/>
+                <path d="M 544,432 L 544,576" fill="none" stroke="black"/>
+                <path d="M 544,1136 L 544,1328" fill="none" stroke="black"/>
+                <path d="M 160,80 L 384,80" fill="none" stroke="black"/>
+                <path d="M 152,144 L 376,144" fill="none" stroke="black"/>
+                <path d="M 88,160 L 544,160" fill="none" stroke="black"/>
+                <path d="M 88,272 L 544,272" fill="none" stroke="black"/>
+                <path d="M 384,352 L 512,352" fill="none" stroke="black"/>
+                <path d="M 392,416 L 520,416" fill="none" stroke="black"/>
+                <path d="M 88,432 L 544,432" fill="none" stroke="black"/>
+                <path d="M 88,576 L 544,576" fill="none" stroke="black"/>
+                <path d="M 160,672 L 384,672" fill="none" stroke="black"/>
+                <path d="M 8,688 L 464,688" fill="none" stroke="black"/>
+                <path d="M 8,816 L 464,816" fill="none" stroke="black"/>
+                <path d="M 40,864 L 152,864" fill="none" stroke="black"/>
+                <path d="M 32,912 L 144,912" fill="none" stroke="black"/>
+                <path d="M 8,928 L 464,928" fill="none" stroke="black"/>
+                <path d="M 8,1040 L 464,1040" fill="none" stroke="black"/>
+                <path d="M 152,1120 L 376,1120" fill="none" stroke="black"/>
+                <path d="M 88,1136 L 544,1136" fill="none" stroke="black"/>
+                <path d="M 88,1328 L 544,1328" fill="none" stroke="black"/>
+                <path d="M 160,1376 L 384,1376" fill="none" stroke="black"/>
+                <polygon class="arrowhead" points="520,352 508,346.4 508,357.6" fill="black" transform="rotate(0,512,352)"/>
+                <polygon class="arrowhead" points="400,416 388,410.4 388,421.6" fill="black" transform="rotate(180,392,416)"/>
+                <polygon class="arrowhead" points="384,1120 372,1114.4 372,1125.6" fill="black" transform="rotate(0,376,1120)"/>
+                <polygon class="arrowhead" points="384,144 372,138.4 372,149.6" fill="black" transform="rotate(0,376,144)"/>
+                <polygon class="arrowhead" points="168,1376 156,1370.4 156,1381.6" fill="black" transform="rotate(180,160,1376)"/>
+                <polygon class="arrowhead" points="168,672 156,666.4 156,677.6" fill="black" transform="rotate(180,160,672)"/>
+                <polygon class="arrowhead" points="168,80 156,74.4 156,85.6" fill="black" transform="rotate(180,160,80)"/>
+                <polygon class="arrowhead" points="152,912 140,906.4 140,917.6" fill="black" transform="rotate(0,144,912)"/>
+                <polygon class="arrowhead" points="48,864 36,858.4 36,869.6" fill="black" transform="rotate(180,40,864)"/>
+                <g class="text">
+                  <text x="28" y="36">USIM</text>
+                  <text x="148" y="36">Peer</text>
+                  <text x="380" y="36">Server</text>
+                  <text x="520" y="36">HSS</text>
+                  <text x="308" y="68">EAP-Req/Identity</text>
+                  <text x="232" y="116">EAP-Resp/Identity</text>
+                  <text x="236" y="132">(Privacy-Friendly)</text>
+                  <text x="124" y="180">Server</text>
+                  <text x="168" y="180">now</text>
+                  <text x="200" y="180">has</text>
+                  <text x="228" y="180">an</text>
+                  <text x="276" y="180">identity</text>
+                  <text x="328" y="180">for</text>
+                  <text x="360" y="180">the</text>
+                  <text x="400" y="180">peer.</text>
+                  <text x="440" y="180">The</text>
+                  <text x="484" y="180">server</text>
+                  <text x="116" y="196">then</text>
+                  <text x="156" y="196">asks</text>
+                  <text x="192" y="196">the</text>
+                  <text x="228" y="196">help</text>
+                  <text x="260" y="196">of</text>
+                  <text x="288" y="196">HSS</text>
+                  <text x="316" y="196">to</text>
+                  <text x="344" y="196">run</text>
+                  <text x="376" y="196">AKA</text>
+                  <text x="440" y="196">algorithms,</text>
+                  <text x="140" y="212">generating</text>
+                  <text x="208" y="212">RAND,</text>
+                  <text x="256" y="212">AUTN,</text>
+                  <text x="304" y="212">XRES,</text>
+                  <text x="344" y="212">CK,</text>
+                  <text x="376" y="212">IK.</text>
+                  <text x="436" y="212">Typically,</text>
+                  <text x="496" y="212">the</text>
+                  <text x="112" y="228">HSS</text>
+                  <text x="164" y="228">performs</text>
+                  <text x="216" y="228">the</text>
+                  <text x="256" y="228">first</text>
+                  <text x="300" y="228">part</text>
+                  <text x="332" y="228">of</text>
+                  <text x="360" y="228">key</text>
+                  <text x="424" y="228">derivations</text>
+                  <text x="484" y="228">so</text>
+                  <text x="516" y="228">that</text>
+                  <text x="112" y="244">the</text>
+                  <text x="188" y="244">authentication</text>
+                  <text x="276" y="244">server</text>
+                  <text x="324" y="244">gets</text>
+                  <text x="360" y="244">the</text>
+                  <text x="392" y="244">CK'</text>
+                  <text x="424" y="244">and</text>
+                  <text x="456" y="244">IK'</text>
+                  <text x="492" y="244">keys</text>
+                  <text x="128" y="260">already</text>
+                  <text x="180" y="260">tied</text>
+                  <text x="212" y="260">to</text>
+                  <text x="232" y="260">a</text>
+                  <text x="284" y="260">particular</text>
+                  <text x="360" y="260">network</text>
+                  <text x="416" y="260">name.</text>
+                  <text x="408" y="308">ID,</text>
+                  <text x="440" y="308">key</text>
+                  <text x="484" y="308">deriv.</text>
+                  <text x="432" y="324">function,</text>
+                  <text x="424" y="340">network</text>
+                  <text x="476" y="340">name</text>
+                  <text x="440" y="388">RAND,</text>
+                  <text x="488" y="388">AUTN,</text>
+                  <text x="416" y="404">XRES,</text>
+                  <text x="460" y="404">CK',</text>
+                  <text x="496" y="404">IK'</text>
+                  <text x="124" y="452">Server</text>
+                  <text x="168" y="452">now</text>
+                  <text x="200" y="452">has</text>
+                  <text x="232" y="452">the</text>
+                  <text x="276" y="452">needed</text>
+                  <text x="364" y="452">authentication</text>
+                  <text x="456" y="452">vector.</text>
+                  <text x="500" y="452">It</text>
+                  <text x="136" y="468">generates</text>
+                  <text x="188" y="468">an</text>
+                  <text x="240" y="468">ephemeral</text>
+                  <text x="296" y="468">key</text>
+                  <text x="336" y="468">pair,</text>
+                  <text x="384" y="468">sends</text>
+                  <text x="424" y="468">the</text>
+                  <text x="468" y="468">public</text>
+                  <text x="512" y="468">key</text>
+                  <text x="108" y="484">of</text>
+                  <text x="140" y="484">that</text>
+                  <text x="176" y="484">key</text>
+                  <text x="212" y="484">pair</text>
+                  <text x="248" y="484">and</text>
+                  <text x="280" y="484">the</text>
+                  <text x="320" y="484">first</text>
+                  <text x="360" y="484">EAP</text>
+                  <text x="404" y="484">method</text>
+                  <text x="464" y="484">message</text>
+                  <text x="508" y="484">to</text>
+                  <text x="112" y="500">the</text>
+                  <text x="152" y="500">peer.</text>
+                  <text x="188" y="500">In</text>
+                  <text x="216" y="500">the</text>
+                  <text x="264" y="500">message</text>
+                  <text x="312" y="500">the</text>
+                  <text x="380" y="500">AT_PUB_ECDHE</text>
+                  <text x="472" y="500">attribute</text>
+                  <text x="128" y="516">carries</text>
+                  <text x="176" y="516">the</text>
+                  <text x="220" y="516">public</text>
+                  <text x="264" y="516">key</text>
+                  <text x="296" y="516">and</text>
+                  <text x="328" y="516">the</text>
+                  <text x="384" y="516">AT_KDF_FS</text>
+                  <text x="464" y="516">attribute</text>
+                  <text x="128" y="532">carries</text>
+                  <text x="184" y="532">other</text>
+                  <text x="252" y="532">FS-related</text>
+                  <text x="344" y="532">parameters.</text>
+                  <text x="412" y="532">Both</text>
+                  <text x="444" y="532">of</text>
+                  <text x="480" y="532">these</text>
+                  <text x="520" y="532">are</text>
+                  <text x="136" y="548">skippable</text>
+                  <text x="220" y="548">attributes</text>
+                  <text x="284" y="548">that</text>
+                  <text x="320" y="548">can</text>
+                  <text x="348" y="548">be</text>
+                  <text x="392" y="548">ignored</text>
+                  <text x="436" y="548">if</text>
+                  <text x="464" y="548">the</text>
+                  <text x="500" y="548">peer</text>
+                  <text x="116" y="564">does</text>
+                  <text x="152" y="564">not</text>
+                  <text x="200" y="564">support</text>
+                  <text x="252" y="564">this</text>
+                  <text x="316" y="564">extension.</text>
+                  <text x="284" y="612">EAP-Req/AKA'-Challenge</text>
+                  <text x="204" y="628">AT_RAND,</text>
+                  <text x="276" y="628">AT_AUTN,</text>
+                  <text x="344" y="628">AT_KDF,</text>
+                  <text x="220" y="644">AT_KDF_FS,</text>
+                  <text x="320" y="644">AT_KDF_INPUT,</text>
+                  <text x="264" y="660">AT_PUB_ECDHE,</text>
+                  <text x="348" y="660">AT_MAC</text>
+                  <text x="32" y="708">The</text>
+                  <text x="68" y="708">peer</text>
+                  <text x="116" y="708">checks</text>
+                  <text x="156" y="708">if</text>
+                  <text x="180" y="708">it</text>
+                  <text x="216" y="708">wants</text>
+                  <text x="252" y="708">to</text>
+                  <text x="276" y="708">do</text>
+                  <text x="304" y="708">the</text>
+                  <text x="332" y="708">FS</text>
+                  <text x="388" y="708">extension.</text>
+                  <text x="444" y="708">If</text>
+                  <text x="36" y="724">yes,</text>
+                  <text x="68" y="724">it</text>
+                  <text x="100" y="724">will</text>
+                  <text x="164" y="724">eventually</text>
+                  <text x="240" y="724">respond</text>
+                  <text x="292" y="724">with</text>
+                  <text x="364" y="724">AT_PUB_ECDHE</text>
+                  <text x="432" y="724">and</text>
+                  <text x="48" y="740">AT_MAC.</text>
+                  <text x="92" y="740">If</text>
+                  <text x="124" y="740">not,</text>
+                  <text x="156" y="740">it</text>
+                  <text x="188" y="740">will</text>
+                  <text x="236" y="740">ignore</text>
+                  <text x="316" y="740">AT_PUB_ECDHE</text>
+                  <text x="384" y="740">and</text>
+                  <text x="56" y="756">AT_KDF_FS</text>
+                  <text x="112" y="756">and</text>
+                  <text x="148" y="756">base</text>
+                  <text x="184" y="756">all</text>
+                  <text x="252" y="756">calculations</text>
+                  <text x="316" y="756">on</text>
+                  <text x="352" y="756">basic</text>
+                  <text x="412" y="756">EAP-AKA'</text>
+                  <text x="64" y="772">attributes,</text>
+                  <text x="156" y="772">continuing</text>
+                  <text x="220" y="772">just</text>
+                  <text x="252" y="772">as</text>
+                  <text x="276" y="772">in</text>
+                  <text x="324" y="772">EAP-AKA'</text>
+                  <text x="376" y="772">per</text>
+                  <text x="408" y="772">RFC</text>
+                  <text x="36" y="788">9048</text>
+                  <text x="84" y="788">rules.</text>
+                  <text x="124" y="788">In</text>
+                  <text x="152" y="788">any</text>
+                  <text x="192" y="788">case,</text>
+                  <text x="232" y="788">the</text>
+                  <text x="268" y="788">peer</text>
+                  <text x="312" y="788">needs</text>
+                  <text x="348" y="788">to</text>
+                  <text x="384" y="788">query</text>
+                  <text x="424" y="788">the</text>
+                  <text x="36" y="804">auth</text>
+                  <text x="100" y="804">parameters</text>
+                  <text x="164" y="804">from</text>
+                  <text x="200" y="804">the</text>
+                  <text x="236" y="804">USIM</text>
+                  <text x="280" y="804">card.</text>
+                  <text x="80" y="852">RAND,</text>
+                  <text x="124" y="852">AUTN</text>
+                  <text x="56" y="900">CK,</text>
+                  <text x="88" y="900">IK,</text>
+                  <text x="120" y="900">RES</text>
+                  <text x="32" y="948">The</text>
+                  <text x="68" y="948">peer</text>
+                  <text x="104" y="948">now</text>
+                  <text x="136" y="948">has</text>
+                  <text x="196" y="948">everything</text>
+                  <text x="252" y="948">to</text>
+                  <text x="300" y="948">respond.</text>
+                  <text x="348" y="948">If</text>
+                  <text x="372" y="948">it</text>
+                  <text x="408" y="948">wants</text>
+                  <text x="444" y="948">to</text>
+                  <text x="64" y="964">participate</text>
+                  <text x="124" y="964">in</text>
+                  <text x="152" y="964">the</text>
+                  <text x="180" y="964">FS</text>
+                  <text x="236" y="964">extension,</text>
+                  <text x="292" y="964">it</text>
+                  <text x="324" y="964">will</text>
+                  <text x="364" y="964">then</text>
+                  <text x="420" y="964">generate</text>
+                  <text x="32" y="980">its</text>
+                  <text x="64" y="980">key</text>
+                  <text x="104" y="980">pair,</text>
+                  <text x="168" y="980">calculate</text>
+                  <text x="216" y="980">a</text>
+                  <text x="252" y="980">shared</text>
+                  <text x="296" y="980">key</text>
+                  <text x="336" y="980">based</text>
+                  <text x="372" y="980">on</text>
+                  <text x="400" y="980">its</text>
+                  <text x="432" y="980">key</text>
+                  <text x="36" y="996">pair</text>
+                  <text x="72" y="996">and</text>
+                  <text x="104" y="996">the</text>
+                  <text x="156" y="996">server's</text>
+                  <text x="220" y="996">public</text>
+                  <text x="268" y="996">key.</text>
+                  <text x="324" y="996">Finally,</text>
+                  <text x="372" y="996">it</text>
+                  <text x="420" y="996">proceeds</text>
+                  <text x="28" y="1012">to</text>
+                  <text x="68" y="1012">derive</text>
+                  <text x="112" y="1012">all</text>
+                  <text x="164" y="1012">EAP-AKA'</text>
+                  <text x="216" y="1012">key</text>
+                  <text x="260" y="1012">values</text>
+                  <text x="304" y="1012">and</text>
+                  <text x="364" y="1012">constructs</text>
+                  <text x="416" y="1012">a</text>
+                  <text x="36" y="1028">full</text>
+                  <text x="96" y="1028">response.</text>
+                  <text x="256" y="1076">EAP-Resp/AKA'-Challenge</text>
+                  <text x="192" y="1092">AT_RES,</text>
+                  <text x="280" y="1092">AT_PUB_ECDHE,</text>
+                  <text x="188" y="1108">AT_MAC</text>
+                  <text x="112" y="1156">The</text>
+                  <text x="156" y="1156">server</text>
+                  <text x="200" y="1156">now</text>
+                  <text x="232" y="1156">has</text>
+                  <text x="264" y="1156">all</text>
+                  <text x="296" y="1156">the</text>
+                  <text x="352" y="1156">necessary</text>
+                  <text x="424" y="1156">values.</text>
+                  <text x="468" y="1156">It</text>
+                  <text x="136" y="1172">generates</text>
+                  <text x="192" y="1172">the</text>
+                  <text x="232" y="1172">ECDHE</text>
+                  <text x="284" y="1172">shared</text>
+                  <text x="340" y="1172">secret</text>
+                  <text x="384" y="1172">and</text>
+                  <text x="428" y="1172">checks</text>
+                  <text x="472" y="1172">the</text>
+                  <text x="504" y="1172">RES</text>
+                  <text x="112" y="1188">and</text>
+                  <text x="144" y="1188">MAC</text>
+                  <text x="188" y="1188">values</text>
+                  <text x="252" y="1188">received</text>
+                  <text x="300" y="1188">in</text>
+                  <text x="340" y="1188">AT_RES</text>
+                  <text x="384" y="1188">and</text>
+                  <text x="432" y="1188">AT_MAC,</text>
+                  <text x="152" y="1204">respectively.</text>
+                  <text x="240" y="1204">Success</text>
+                  <text x="308" y="1204">requires</text>
+                  <text x="364" y="1204">both</text>
+                  <text x="396" y="1204">to</text>
+                  <text x="420" y="1204">be</text>
+                  <text x="456" y="1204">found</text>
+                  <text x="132" y="1220">correct.</text>
+                  <text x="188" y="1220">Note</text>
+                  <text x="228" y="1220">that</text>
+                  <text x="268" y="1220">when</text>
+                  <text x="308" y="1220">this</text>
+                  <text x="384" y="1220">specification</text>
+                  <text x="452" y="1220">is</text>
+                  <text x="488" y="1220">used,</text>
+                  <text x="112" y="1236">the</text>
+                  <text x="148" y="1236">keys</text>
+                  <text x="208" y="1236">generated</text>
+                  <text x="268" y="1236">from</text>
+                  <text x="324" y="1236">EAP-AKA'</text>
+                  <text x="376" y="1236">are</text>
+                  <text x="416" y="1236">based</text>
+                  <text x="452" y="1236">on</text>
+                  <text x="484" y="1236">both</text>
+                  <text x="120" y="1252">CK/IK</text>
+                  <text x="156" y="1252">as</text>
+                  <text x="188" y="1252">well</text>
+                  <text x="220" y="1252">as</text>
+                  <text x="248" y="1252">the</text>
+                  <text x="288" y="1252">ECDHE</text>
+                  <text x="340" y="1252">value.</text>
+                  <text x="388" y="1252">Even</text>
+                  <text x="420" y="1252">if</text>
+                  <text x="456" y="1252">there</text>
+                  <text x="496" y="1252">was</text>
+                  <text x="524" y="1252">an</text>
+                  <text x="132" y="1268">attacker</text>
+                  <text x="184" y="1268">who</text>
+                  <text x="220" y="1268">held</text>
+                  <text x="256" y="1268">the</text>
+                  <text x="312" y="1268">long-term</text>
+                  <text x="380" y="1268">secret</text>
+                  <text x="432" y="1268">keys,</text>
+                  <text x="476" y="1268">only</text>
+                  <text x="508" y="1268">an</text>
+                  <text x="124" y="1284">active</text>
+                  <text x="188" y="1284">attacker</text>
+                  <text x="248" y="1284">could</text>
+                  <text x="292" y="1284">have</text>
+                  <text x="356" y="1284">determined</text>
+                  <text x="416" y="1284">the</text>
+                  <text x="472" y="1284">generated</text>
+                  <text x="128" y="1300">session</text>
+                  <text x="184" y="1300">keys;</text>
+                  <text x="220" y="1300">in</text>
+                  <text x="256" y="1300">basic</text>
+                  <text x="316" y="1300">EAP-AKA'</text>
+                  <text x="368" y="1300">the</text>
+                  <text x="424" y="1300">generated</text>
+                  <text x="484" y="1300">keys</text>
+                  <text x="520" y="1300">are</text>
+                  <text x="116" y="1316">only</text>
+                  <text x="160" y="1316">based</text>
+                  <text x="196" y="1316">on</text>
+                  <text x="220" y="1316">CK</text>
+                  <text x="248" y="1316">and</text>
+                  <text x="280" y="1316">IK.</text>
+                  <text x="328" y="1364">EAP-Success</text>
+                </g>
+              </svg>
+            </artwork>
+</artset>
+</figure>
+	
+     </section>
+
+     <section title="Extensions to EAP-AKA'">
+       <section anchor="at_pub_dh" title="AT_PUB_ECDHE">
+         
+         <t>The AT_PUB_ECDHE carries an ECDHE value.</t>
+         
+         <t>The format of the AT_PUB_ECDHE attribute is shown below.</t>
+         
+         <figure>
+         <artset>
+           <artwork type="ascii-art" align="center">
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| AT_PUB_ECDHE  | Length        | Value                         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+           </artwork>
+           <artwork type="svg"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="112" width="528" viewBox="0 0 528 112" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+              <path d="M 8,64 L 8,96" fill="none" stroke="black"/>
+              <path d="M 136,64 L 136,96" fill="none" stroke="black"/>
+              <path d="M 264,64 L 264,96" fill="none" stroke="black"/>
+              <path d="M 520,64 L 520,96" fill="none" stroke="black"/>
+              <path d="M 8,64 L 520,64" fill="none" stroke="black"/>
+              <path d="M 8,96 L 520,96" fill="none" stroke="black"/>
+              <g class="text">
+                <text x="16" y="36">0</text>
+                <text x="176" y="36">1</text>
+                <text x="336" y="36">2</text>
+                <text x="496" y="36">3</text>
+                <text x="16" y="52">0</text>
+                <text x="32" y="52">1</text>
+                <text x="48" y="52">2</text>
+                <text x="64" y="52">3</text>
+                <text x="80" y="52">4</text>
+                <text x="96" y="52">5</text>
+                <text x="112" y="52">6</text>
+                <text x="128" y="52">7</text>
+                <text x="144" y="52">8</text>
+                <text x="160" y="52">9</text>
+                <text x="176" y="52">0</text>
+                <text x="192" y="52">1</text>
+                <text x="208" y="52">2</text>
+                <text x="224" y="52">3</text>
+                <text x="240" y="52">4</text>
+                <text x="256" y="52">5</text>
+                <text x="272" y="52">6</text>
+                <text x="288" y="52">7</text>
+                <text x="304" y="52">8</text>
+                <text x="320" y="52">9</text>
+                <text x="336" y="52">0</text>
+                <text x="352" y="52">1</text>
+                <text x="368" y="52">2</text>
+                <text x="384" y="52">3</text>
+                <text x="400" y="52">4</text>
+                <text x="416" y="52">5</text>
+                <text x="432" y="52">6</text>
+                <text x="448" y="52">7</text>
+                <text x="464" y="52">8</text>
+                <text x="480" y="52">9</text>
+                <text x="496" y="52">0</text>
+                <text x="512" y="52">1</text>
+                <text x="68" y="84">AT_PUB_ECDHE</text>
+                <text x="172" y="84">Length</text>
+                <text x="296" y="84">Value</text>
+              </g>
+            </svg>
+          </artwork>
+        </artset>
+         </figure>
+
+         <t>The fields are as follows:</t>
+         
+         <t><list style="hanging">
+           
+           <t hangText="AT_PUB_ECDHE"><vspace blankLines="1"/>This is set to TBA1 BY
+           IANA.</t>
+           
+           <t hangText="Length"><vspace blankLines="1"/>The length of the
+           attribute, set as other attributes in EAP-AKA <xref target="RFC4187"/>.</t>
+           
+           <t hangText="Value"><vspace blankLines="1"/>This value is
+           the sender's ECDHE public key. The value depends on AT_KDF_FS and
+           is calculated as follows:
+
+           <list style="symbols">
+           <t>For X25519/Curve25519,
+           the length of this value is 32 bytes, encoded as specified in
+           <xref target="RFC7748"/> Section 5.</t>
+           <t>For P-256, the length of this value is 33 bytes, encoded
+           using the compressed form specified in Section 2.3.3 of
+           <xref target="SEC1"/>.</t>
+           </list>
+
+           <vspace blankLines="1"/>
+
+           To retain the security of the keys, the sender SHALL generate
+           a fresh value for each run of the protocol.</t>
+           
+         </list></t>
+         
+       </section>
+       
+       <section anchor="at_kdf_dh" title="AT_KDF_FS">
+         
+         <t>The AT_KDF_FS indicates the used or desired forward secrecy key
+         generation function, if the Forward Secrecy extension
+         is taken into use. It will also at the same time indicate the
+         used or desired ECDHE group. A new attribute is needed to
+         carry this information, as AT_KDF carries the basic KDF
+         value which is still used together with the forward secrecy KDF
+         value. The basic KDF value is also used by those EAP peers
+         that cannot or do not want to use this extension.</t>
+         
+	 <t>This specification only specifies the behavior relating to
+	 the following combinations of basic KDF values and forward secrecy
+	 KDF values:
+	 The basic KDF value in AT_KDF is 1, as specified in <xref target="RFC5448"/> and <xref target="RFC9048"/>,
+	 and the forward secrecy KDF values in AT_KDF_FS are 1 or 2, as specified below and in <xref target="kdf2"/>.</t>
+	       
+	 <t>Any future specifications that add either new basic KDF or new forward secrecy KDF values need to specify
+	 how they are treated and what combinations are allowed. This requirement is an update to how 
+	 <xref target="RFC5448"/> and <xref target="RFC9048"/> may be extended in the future.</t>
+		 
+         <t>The format of the AT_KDF_FS attribute is shown below.</t>
+         
+         <figure>
+         <artset>
+           <artwork type="ascii-art" align="center">
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| AT_KDF_FS     | Length        | FS Key Derivation Function    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+           </artwork>
+           <artwork type="svg"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="112" width="528" viewBox="0 0 528 112" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+              <path d="M 8,64 L 8,96" fill="none" stroke="black"/>
+              <path d="M 136,64 L 136,96" fill="none" stroke="black"/>
+              <path d="M 264,64 L 264,96" fill="none" stroke="black"/>
+              <path d="M 520,64 L 520,96" fill="none" stroke="black"/>
+              <path d="M 8,64 L 520,64" fill="none" stroke="black"/>
+              <path d="M 8,96 L 520,96" fill="none" stroke="black"/>
+              <g class="text">
+                <text x="16" y="36">0</text>
+                <text x="176" y="36">1</text>
+                <text x="336" y="36">2</text>
+                <text x="496" y="36">3</text>
+                <text x="16" y="52">0</text>
+                <text x="32" y="52">1</text>
+                <text x="48" y="52">2</text>
+                <text x="64" y="52">3</text>
+                <text x="80" y="52">4</text>
+                <text x="96" y="52">5</text>
+                <text x="112" y="52">6</text>
+                <text x="128" y="52">7</text>
+                <text x="144" y="52">8</text>
+                <text x="160" y="52">9</text>
+                <text x="176" y="52">0</text>
+                <text x="192" y="52">1</text>
+                <text x="208" y="52">2</text>
+                <text x="224" y="52">3</text>
+                <text x="240" y="52">4</text>
+                <text x="256" y="52">5</text>
+                <text x="272" y="52">6</text>
+                <text x="288" y="52">7</text>
+                <text x="304" y="52">8</text>
+                <text x="320" y="52">9</text>
+                <text x="336" y="52">0</text>
+                <text x="352" y="52">1</text>
+                <text x="368" y="52">2</text>
+                <text x="384" y="52">3</text>
+                <text x="400" y="52">4</text>
+                <text x="416" y="52">5</text>
+                <text x="432" y="52">6</text>
+                <text x="448" y="52">7</text>
+                <text x="464" y="52">8</text>
+                <text x="480" y="52">9</text>
+                <text x="496" y="52">0</text>
+                <text x="512" y="52">1</text>
+                <text x="56" y="84">AT_KDF_FS</text>
+                <text x="172" y="84">Length</text>
+                <text x="284" y="84">FS</text>
+                <text x="312" y="84">Key</text>
+                <text x="372" y="84">Derivation</text>
+                <text x="452" y="84">Function</text>
+              </g>
+            </svg>
+          </artwork>
+         </artset>
+         </figure>
+         
+         <t>The fields are as follows:</t>
+         
+         <t><list style="hanging">
+           
+           <t hangText="AT_KDF_FS"><vspace blankLines="1"/>This is set to TBA2 BY
+           IANA.</t>
+           
+           <t hangText="Length"><vspace blankLines="1"/>The length of the
+           attribute, MUST be set to 1.</t>
+           
+           <t hangText="FS Key Derivation Function"><vspace blankLines="1"/>An
+           enumerated value representing the forward secrecy key derivation function that the
+           server (or peer) wishes to use. See <xref target="kdf2"/> for the functions
+           specified in this document. Note: This field has a
+           different name space than the similar field in the AT_KDF
+           attribute Key Derivation Function defined in <xref
+           target="RFC9048"/>.</t>
+           
+         </list></t>
+         
+         <t>Servers MUST send one or more AT_KDF_FS attributes in the
+         EAP-Request/AKA'-Challenge message. These attributes represent the desired
+         functions ordered by preference, the most preferred function being the first
+         attribute. The most preferred function is the only one that the server includes a
+         public key value for, however. So for a set of AT_KDF_FS attributes, there is
+         always only one AT_PUB_ECDHE attribute.</t>
+         
+         <t>Upon receiving a set of these attributes:
+	 <list style="symbols">
+	   
+	   <t>If the peer supports and is willing to use the FS Key Derivation Function
+	   indicated by the first AT_KDF_FS attribute, and is willing and able to use the
+	   extension defined in this specification, the function is taken into use without
+	   any further negotiation.</t>
+
+	   <t>If the peer does not support this function or is unwilling to use it, it
+	   responds to the server with an indication that a different function is
+	   needed. Similarly with the negotiation process defined in <xref
+	   target="RFC9048"/> for AT_KDF, the peer sends
+	   EAP-Response/AKA'-Challenge message that contains only one attribute,
+	   AT_KDF_FS with the value set to the desired alternative function from among
+	   the ones suggested by the server earlier. If there is no suitable alternative,
+	   the peer has a choice of either falling back to EAP-AKA' or behaving as if AUTN
+	   had been incorrect and failing authentication (see Figure 3 of <xref
+	   target="RFC4187"/>). The peer MUST fail the authentication if there are any
+	   duplicate values within the list of AT_KDF_FS attributes (except where the
+	   duplication is due to a request to change the key derivation function; see
+	   below for further information).</t>
+	   
+           <t>If the peer does not recognize the extension defined in this specification
+           or is unwilling to use it, it ignores the AT_KDF_FS attribute.</t>
+
+	 </list></t>
+	 
+         <t>Upon receiving an EAP-Response/AKA'-Challenge with AT_KDF_FS from the
+         peer, the server checks that the suggested AT_KDF_FS value was one of the
+         alternatives in its offer. The first AT_KDF_FS value in the message from
+         the server is not a valid alternative. If the peer has replied with
+         the first AT_KDF_FS value, the server behaves as if AT_MAC of the
+         response had been incorrect and fails the authentication. For an
+         overview of the failed authentication process in the server side, see
+         Section 3 and Figure 2 in <xref target="RFC4187"/>. Otherwise, the
+         server re-sends the EAP-Response/AKA'-Challenge message, but adds the
+         selected alternative to the beginning of the list of AT_KDF_FS
+         attributes, and retains the entire list following it. Note that this
+         means that the selected alternative appears twice in the set of AT_KDF
+         values. Responding to the peer's request to change the FS Key Derivation Function
+         is the only legal situation where such duplication may
+         occur.</t>
+         
+         <t>When the peer receives the new EAP-Request/AKA'-Challenge message,
+         it MUST check that the requested change, and only the requested change
+         occurred in the list of AT_KDF_FS attributes. If yes, it continues.  If
+         not, it behaves as if AT_MAC had been incorrect and fails the
+         authentication. If the peer receives multiple
+         EAP-Request/AKA'-Challenge messages with differing AT_KDF_FS attributes
+         without having requested negotiation, the peer MUST behave as if
+         AT_MAC had been incorrect and fail the authentication.</t>
+         
+       </section>
+       
+       <section anchor="kdf2" title="Forward Secrecy Key Derivation Functions">
+         <t>Two new FS Key Derivation Function types are defined for
+         "EAP-AKA' with ECDHE and X25519", represented by value 1, and
+         "EAP-AKA' with ECDHE and P-256", represented by
+         value 2. These represent a particular choice of key
+         derivation function and at the same time selects an ECDHE
+         group to be used.</t>
+
+         <t>The FS Key Derivation Function type value is only used
+         in the AT_KDF_FS attribute. When the forward secrecy extension
+         is used, the AT_KDF_FS attribute determines how to derive the
+         keys MK_ECDHE, K_re, MSK, and EMSK. The AT_KDF_FS attribute should
+	 not be confused with the different range of key derivation functions
+	 that can be represented in the AT_KDF attribute as defined in
+	 <xref target="RFC9048"/>. When the forward secrecy extension
+         is used, the AT_KDF attribute only specifies how to derive the
+         keys MK, K_encr, and K_aut.</t>
+         
+         <t>Key derivation in this extension produces exactly the same
+         keys for internal use within one authentication run as <xref
+         target="RFC9048"/> EAP-AKA' does.  For
+         instance, K_aut that is used in AT_MAC is still exactly as it
+         was in EAP-AKA'. The only change to key derivation is in
+         re-authentication keys and keys exported out of the EAP
+         method, MSK and EMSK. As a result, EAP-AKA' attributes such
+         as AT_MAC continue to be usable even when this extension is
+         in use.</t>
+
+         <t>When the FS Key Derivation Function field in the AT_KDF_FS
+         attribute is set to 1 or 2 and the Key Derivation Function field
+         in the AT_KDF attribute is set to 1, the Master Key (MK) is
+         derived as follows below.
+		 
+         <figure>
+           <artwork align="center">
+MK       = PRF'(IK'|CK',"EAP-AKA'"|Identity) 
+MK_ECDHE = PRF'(IK'|CK'|SHARED_SECRET,"EAP-AKA' FS"|Identity)
+K_encr   = MK[0..127]
+K_aut    = MK[128..383]
+K_re     = MK_ECDHE[0..255]
+MSK      = MK_ECDHE[256..767]
+EMSK     = MK_ECDHE[768..1279]
+           </artwork>
+         </figure></t>
+
+	<t>Requirements for how to securely generate, validate, and process the
+	ephemeral public keys depend on the elliptic curve.</t>
+
+	<t>For P-256 the SHARED_SECRET is the shared
+	secret computed as specified in Section 5.7.1.2 of <xref target="SP-800-56A"/>.
+	Public key validation requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
+	At least partial public-key validation MUST be done. The uncompressed y-coordinate can be
+        computed as described in Section 2.3.4 of <xref target="SEC1"/>.</t>
+
+	<t>For X25519 the SHARED_SECRET is the shared secret computed as specified in
+	Section 6.1 of <xref target="RFC7748"/>. Both the peer and the server
+	MAY check for zero-value shared secret as specified in Section 6.1 of
+	<xref target="RFC7748"/>.</t>
+		
+	 <t><list style="empty">
+
+	   <t>Note: The way that shared secret is tested for zero can,
+	   if performed inappropriately, provide an ability for
+	   attackers to listen to CPU power usage side channels. Refer
+	   to <xref target="RFC7748"/> for a description of how to
+	   perform this check in a way that it does not become a
+	   problem.</t>
+
+	 </list></t>	    
+
+	<t>If validation of the public key or the shared secret fails, both
+        parties MUST behave as if the  current EAP-AKA' authentication
+	process starts again from the beginning.</t>
+	       
+	 <t>The rest of computation proceeds as defined in Section 3.3 of <xref
+	 target="RFC9048"/>.</t>
+
+            <t>For readability, an explanation of the notation used above
+            is copied here: [n..m] denotes the substring from bit n to m.
+            PRF' is a new pseudo-random function specified in <xref
+            target="RFC9048"/>.  K_encr is the encryption key, 128 bits,
+            K_aut is the authentication key, 256 bits, K_re is the
+            re-authentication key, 256 bits, MSK is the Master Session
+            Key, 512 bits, and EMSK is the Extended Master Session Key,
+            512 bits. MSK and EMSK are outputs from a successful EAP
+            method run <xref target="RFC3748"/>.</t>
+         
+         <t>CK and IK are produced by the AKA algorithm. IK' and CK'
+         are derived as specified in <xref target="RFC9048"/> from IK
+         and CK.</t>
+         
+         <t>The value "EAP-AKA'" is an eight-characters-long ASCII string.  It is
+         used as is, without any trailing NUL characters. Similarly,
+         "EAP-AKA' FS" is an eleven-characters-long ASCII string, also
+         used as is.</t>
+         
+         <t>Identity is the peer identity as specified in Section 7 of <xref target="RFC4187"/>.
+	 A privacy-friendly identifier SHALL be used.</t>
+         
+       </section>
+       <section anchor="groups" title="ECDHE Groups">
+         <t>The selection of suitable groups for the elliptic curve
+         computation is necessary. The choice of a group is made at
+         the same time as deciding to use of particular key derivation
+         function in AT_KDF_FS.</t>
+
+         <t>For "EAP-AKA' with ECDHE and
+         X25519" the group is the Curve25519 group specified in
+         <xref target="RFC7748"/>. The support for this group is REQUIRED.</t>
+         
+         <t>For "EAP-AKA' with ECDHE and P-256" the group is the NIST
+         P-256 group (SEC group secp256r1), specified in Appendix D.1.2.3
+	 of <xref target="FIPS186-4"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
+	 The support for this group is REQUIRED.</t>
+         
+     </section>
+  
+  <section title="Message Processing">
+
+    <t>This section specifies the changes related to message processing
+    when this extension is used in EAP-AKA'. It specifies when a
+    message may be transmitted or accepted, which attributes are
+    allowed in a message, which attributes are required in a message,
+    and other message-specific details, where those details are
+    different for this extension than the base EAP-AKA' or EAP-AKA
+    protocol. Unless otherwise specified here, the rules from <xref
+    target="RFC9048"/> or <xref target="RFC4187"/> apply.</t>
+    
+    <section title="EAP-Request/AKA'-Identity">
+      <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
+      MUST NOT be added to this message.  The appearance of these
+      messages in a received message MUST be ignored.</t>
+    </section>
+    
+    <section title="EAP-Response/AKA'-Identity">
+      
+      <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
+      MUST NOT be added to this message and that a privacy-friendly identifier
+      MUST be used.  The appearance of these messages in a received message
+      MUST be ignored.</t>
+
+    </section>
+    
+    <section anchor="procakachall" title="EAP-Request/AKA'-Challenge">
+      
+      <t>The server sends the EAP-Request/AKA'-Challenge on full authentication
+      as specified by <xref target="RFC4187"/> and <xref target="RFC9048"/>.
+      The attributes AT_RAND, AT_AUTN, and AT_MAC MUST be included and
+      checked on reception as specified
+      in <xref target="RFC4187"/>. They are also necessary
+      for backwards compatibility.</t>
+      
+      <t>In EAP-Request/AKA'-Challenge, there is no message-specific
+      data covered by the MAC for the AT_MAC attribute. The AT_KDF_FS
+      and AT_PUB_ECDHE attributes MUST be included. The AT_PUB_ECDHE
+      attribute carries the server's public Diffie-Hellman key. If
+      either AT_KDF_FS or AT_PUB_ECDHE is missing on reception, the peer
+      MUST treat them as if neither one was sent, and the assume that
+      the extension defined in this specification is not in use.</t>
+      
+      <t>The AT_RESULT_IND, AT_CHECKCODE, AT_IV, AT_ENCR_DATA, AT_PADDING,
+      AT_NEXT_PSEUDONYM, AT_NEXT_REAUTH_ID and other attributes may be
+      included as specified in Section 9.3 of <xref
+      target="RFC4187"/>.</t>
+      
+      <t>When processing this message, the peer MUST process AT_RAND,
+      AT_AUTN, AT_KDF_FS, AT_PUB_ECDHE before processing other attributes.
+      Only if these attributes are verified to be valid, the peer
+      derives keys and verifies AT_MAC.  If the peer is unable or
+      unwilling to perform the extension specified in this document,
+      it proceeds as defined in <xref target="RFC9048"/>. Finally, the
+      operation in case an error occurs is specified in Section
+      6.3.1. of <xref target="RFC4187"/>.</t>
+      
+    </section>
+    
+    <section anchor="procakachallresp" title="EAP-Response/AKA'-Challenge">
+
+      <t>The peer sends EAP-Response/AKA'-Challenge in response to a
+      valid EAP-Request/AKA'-Challenge message, as specified by <xref
+      target="RFC4187"/> and <xref target="RFC9048"/>.
+      If the peer supports and is willing to perform the extension
+      specified in this protocol, and the server had made a valid
+      request involving the attributes specified in <xref
+      target="procakachall"/>, the peer responds per the rules
+      specified below. Otherwise, the peer responds as specified in
+      <xref target="RFC4187"/> and <xref
+      target="RFC9048"/> and ignores the attributes
+      related to this extension. If the peer has not received
+      attributes related to this extension from the Server, and has a
+      policy that requires it to always use this extension, it behaves
+      as if AUTN had been incorrect and fails the authentication.</t>
+
+      <t>The AT_MAC attribute MUST be included and checked as
+      specified in <xref target="RFC9048"/>. In
+      EAP-Response/AKA'-Challenge, there is no message-specific data
+      covered by the MAC. The AT_PUB_ECDHE attribute MUST be included,
+      and carries the peer's public Diffie-Hellman key.</t>
+      
+      <t>The AT_RES attribute MUST be included and checked as
+      specified in <xref target="RFC4187"/>.  When processing this
+      message, the Server MUST process AT_RES before processing other
+      attributes.  Only if these attribute is verified to be valid,
+      the Server derives keys and verifies AT_MAC.</t>
+
+      <t>If the Server has proposed the use of the extension specified
+      in this protocol, but the peer ignores and continues the basic
+      EAP-AKA' authentication, the Server makes policy decision of
+      whether this is allowed. If this is allowed, it continues the
+      EAP-AKA' authentication to completion. If it is not allowed, the
+      Server MUST behave as if authentication failed.</t>
+     
+      <t>The AT_CHECKCODE, AT_RESULT_IND, AT_IV, AT_ENCR_DATA and other
+      attributes may be included as specified in Section 9.4 of <xref target="RFC4187"/>.</t>
+
+    </section>
+    
+    <section anchor="reauth" title="EAP-Request/AKA'-Reauthentication">
+      <t>No changes, but note that the re-authentication process
+      uses the keys generated in the original EAP-AKA' authentication,
+      which, if the extension specified in this document is in use,
+      employs key material from the Diffie-Hellman procedure.</t>
+    </section>
+    
+    <section title="EAP-Response/AKA'-Reauthentication">
+      <t>No changes, but as discussed in <xref target="reauth"/>,
+      re-authentication is based on the key material generated by
+      EAP-AKA' and the extension defined in this document.</t>
+    </section>
+    
+    <section title="EAP-Response/AKA'-Synchronization-Failure">
+      <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
+      attributes MUST NOT be added to this message.
+      The appearance of these messages in a received message MUST be ignored.</t>
+    </section>
+    
+    <section title="EAP-Response/AKA'-Authentication-Reject">
+      <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
+      attributes MUST NOT be added to this message.
+      The appearance of these messages in a received message MUST be ignored.</t>
+    </section>
+    
+    <section title="EAP-Response/AKA'-Client-Error">
+      <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
+      attributes MUST NOT be added to this message.
+      The appearance of these messages in a received message MUST be ignored.</t>
+    </section>
+    
+    <section title="EAP-Request/AKA'-Notification">
+      <t>No changes.</t>
+    </section>
+    
+    <section title="EAP-Response/AKA'-Notification">
+      <t>No changes.</t>
+    </section>
+    
+  </section>
+  </section>
+  
+  <section title="Security Considerations">
+
+    <t>This section deals only with the changes to security considerations
+    as they differ from EAP-AKA', or as new information has been gathered
+    since the publication of <xref target="RFC9048"/>.</t>
+    
+    <t>The possibility of attacks against key storage offered in SIM or
+    other smart cards has been a known threat. But as the discussion in
+    <xref target="attacks"/> shows, the likelihood of practically
+    feasible attacks such as breaches in the smart card supply chain has
+    increased. Many of these attacks can be best
+    dealt with improved processes, e.g., limiting the access to the key
+    material within the factory or personnel, etc. But not all attacks can
+    be entirely ruled out for well-resourced adversaries, irrespective
+    of what the technical algorithms and protection measures are. Always
+    assuming breach such as key compromise and minimizing the impact of
+    breach are essential zero-trust principles.</t>
+	  
+    <t>If a mechanism without forward secrecy such as (5G-AKA,
+    EAP-AKA') is used the effects of key compromise are devastating.
+    The serious consequences of breach somewhere in the supply chain
+    or after delivery that are possible when 5G-AKA or EAP-AKA' is
+    used but not when something with forward secrecy like EAP-AKA-FS
+    is used are:
+    <list style="numbers">
+    <t>A passive attacker can eavesdrop (decrypt) all
+    future 5G communication (control and user plane both directions),</t>
+    <t>A passive attacker can decrypt 5G communication that they
+    previously recorded in the past (control and user plane both
+    directions), and </t>
+    <t>An active attacker can impersonate UE and
+    Network and inject messages in an ongoing 5G connection between
+    the real UE and the real network (control and user plane both
+    directions).</t>
+    </list>
+    </t>
+
+   <t>Best practice security today is to mandate forward secrecy (as
+   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.). It is RECOMMENDED
+   to long term completely phase out AKA without forward secrecy.</t>
+	  
+    <t>This extension can provide assistance in situations where there
+    is a danger of attacks against the key material on SIM cards by
+    adversaries that cannot or who are unwilling to mount active
+    attacks against large number of sessions. The extension also
+    provides protection against active attacks as they are forced to
+    be a Man-In-The-Middle (MITM) during the AKA run and subsequent
+    communication between the parties. Without forward secrecy an
+    active attacker that has compromised the long-term key can
+    inject messages in an connection between the real Peer and the
+    real server without being a man-in-the-middle. This extension is most
+    useful when used in a context where EAP keys are used without
+    further mixing that can provide Forward Secrecy.  For
+    instance, when used with IKEv2 <xref target="RFC7296"/>, the
+    session keys produced by IKEv2 have this property, so better
+    characteristics of EAP keys is not that useful. However, typical
+    link layer usage of EAP does not involve running Diffie-Hellman,
+    so using EAP to authenticate access to a network is one situation
+    where the extension defined in this document can be helpful.</t>
+
+    <t>This extension generates keying material using the ECDHE
+    exchange in order to gain the FS property. This means that once
+    an EAP-AKA' authentication run ends, the session that it was used
+    to protect is closed, and the corresponding keys are forgotten,
+    even someone who has recorded all of the data from the
+    authentication run and session and gets access to all of the AKA
+    long-term keys cannot reconstruct the keys used to protect the
+    session or any previous session, without doing a brute force
+    search of the session key space.</t>
+
+    <t>Even if a compromise of the long-term keys has occurred, FS is
+    still provided for all future sessions, as long as the attacker
+    does not become an active attacker. Of course, as with other
+    protocols, if the attacker has learned the keys and does become an
+    active attacker, there is no protection that that can be provided
+    for future sessions. Among other things, such an active attacker
+    can impersonate any legitimate endpoint in EAP-AKA', become a
+    MITM in EAP-AKA' or the extension defined in this
+    document, retrieve all keys, or turn off FS. Still, past sessions
+    where FS was in use remain protected.</t>
+	
+    <t>Achieving FS requires that when a connection is closed, each
+    endpoint MUST forget not only the ephemeral keys used by the
+    connection but also any information that could be used to
+    recompute those keys.</t>
+	  
+    <t>Using EAP-AKA' FS once provides forward secrecy. Forward secrecy limits the
+       effect of key leakage in one direction (compromise of a key at time T2 does
+       not compromise some key at time T1 where T1 &lt; T2). Protection in the other
+       direction (compromise at time T1 does not compromise keys at time T2) can
+       be achieved by rerunning ECDHE frequently. If a long-term authentication key
+       has been compromised, rerunning EAP-AKA' FS gives protection against passive
+       attackers. Using the terms in <xref target="RFC7624"/>, forward secrecy without rerunning
+       ECDHE does not stop an attacker from doing static key exfiltration. Frequently
+       rerunning EC(DHE) forces an attacker to do dynamic key exfiltration
+       (or content exfiltration).</t>
+
+    <section title="Security Properties">
+
+    <t>The following security properties of
+    EAP-AKA' are impacted through this extension:
+   
+    <list style="hanging">
+      
+      <t hangText="Protected ciphersuite negotiation"><vspace blankLines="1"/>
+      
+      EAP-AKA' has a negotiation mechanism for selecting the key
+      derivation functions, and this mechanism has been extended by
+      the extension specified in this document.  The resulting
+      mechanism continues to be secure against bidding down
+      attacks.
+      <vspace blankLines="1"/>
+
+      There are two specific needs in the negotiation mechanism:
+      <list style="hanging">
+
+        <t hangText="Negotiating key derivation function within the extension"><vspace blankLines="1"/>
+        The negotiation mechanism allows changing the offered key
+        derivation function, but the change is visible in the final EAP-
+        Request/AKA'-Challenge message that the server sends to the peer.
+        This message is authenticated via the AT_MAC attribute, and
+        carries both the chosen alternative and the initially offered
+        list.  The peer refuses to accept a change it did not initiate.
+        As a result, both parties are aware that a change is being made
+        and what the original offer was.</t>
+
+        <t hangText="Negotiating the use of this extension"><vspace
+        blankLines="1"/> This extension is offered by the server
+        through presenting the AT_KDF_FS and AT_PUB_ECDHE attributes in
+        the EAP-Request/AKA'-Challenge message. These attributes are
+        protected by AT_MAC, so attempts to change or omit them by an
+        adversary will be detected.<vspace blankLines="1"/>
+
+	Except of course, if the adversary holds the long-term shared
+	secret and is willing to engage in an active attack. Such an
+	attack can, for instance, forge the negotiation process so
+	that no FS will be provided. However, as noted above, an
+	attacker with these capabilities will in any case be able to
+	impersonate any party in the protocol and perform MITM
+	attacks. That is not a situation that can be improved by a
+	technical solution. However, as discussed in the introduction,
+	even an attacker with access to the long-term keys is required
+	to be a MITM on each AKA run and subsequent communication,
+	which makes mass surveillance more laborious.
+	<vspace blankLines="1"/>
+	
+	The security properties of the extension also depend on a
+	policy choice. As discussed in <xref
+	target="procakachallresp"/>, both the peer and the server make
+	a policy decision of what to do when it was willing to perform
+	the extension specified in this protocol, but the other side
+	does not wish to use the extension. Allowing this has the
+	benefit of allowing backwards compatibility to equipment that
+	did not yet support the extension. When the extension is not
+	supported or negotiated by the parties, no FS can obviously be
+	provided.
+	<vspace blankLines="1"/>
+	
+	If turning off the extension specified in this protocol is not
+	allowed by policy, the use of legacy equipment that does not
+	support this protocol is no longer possible. This may be
+	appropriate when, for instance, support for the extension is
+	sufficiently widespread, or required in a particular version
+	of a mobile network.</t>
+	
+      </list></t>
+      
+      <t hangText="Key derivation"><vspace blankLines="1"/>
+      
+      This extension provides key material that is based on
+      the Diffie-Hellman keys, yet bound to the authentication
+      through the SIM card. This means that subsequent payload communications between
+      the parties are protected with keys that are not solely based on
+      information in the clear (such as the RAND) and information
+      derivable from the long-term shared secrets on the SIM
+      card. As a result, if anyone successfully recovers
+      shared secret information, they are unable to decrypt
+      communications protected by the keys generated through this
+      extension. Note that the recovery of shared secret information
+      could occur either before or after the time that the protected
+      communications are used. When this extension is used,
+      communications at time t0 can be protected if at some later time
+      t1 an adversary learns of long-term shared secret and has access
+      to a recording of the encrypted communications.
+
+      <vspace blankLines="1"/>Obviously, this extension is still
+      vulnerable to attackers that are willing to perform an active
+      attack and who at the time of the attack have access to the
+      long-term shared secret.<vspace blankLines="1"/>
+
+      This extension does not change the properties related to
+      re-authentication. No new Diffie-Hellman run is performed during
+      the re-authentication allowed by EAP-AKA'. However, if this
+      extension was in use when the original EAP-AKA' authentication
+      was performed, the keys used for re-authentication (K_re) are
+      based on the Diffie-Hellman keys, and hence continue to be
+      equally safe against expose of the long-term secrets as the
+      original authentication.</t>
+
+  </list></t>
+
+  </section>
+  <section title="Denial-of-Service">
+
+  <t>In addition, it is worthwhile to discuss Denial-of-Service
+  attacks and their impact on this protocol. The calculations involved
+  in public key cryptography require computing power, which could be
+  used in an attack to overpower either the peer or the server. While
+  some forms of Denial-of-Service attacks are always possible, the
+  following factors help mitigate the concerns relating to public key
+  cryptography and EAP-AKA' FS.
+
+  <list style="symbols">
+    
+    <t>In 5G context, other parts of the connection setup involve
+    public key cryptography, so while performing additional operations
+    in EAP-AKA' is an additional concern, it does not change the
+    overall situation. As a result, the relevant system components
+    need to be dimensioned appropriately, and detection and management
+    mechanisms to reduce the effect of attacks need to be in
+    place.</t>
+
+    <t>This specification is constructed so that a separation
+    between the USIM and Peer on client side and the Server and HSS on
+    network side is possible. This ensures that the most sensitive (or
+    legacy) system components cannot be the target of the attack. For
+    instance, EAP-AKA' and public key cryptography takes place in the
+    phone and not the low-power SIM card.</t>
+
+    <t>EAP-AKA' has been designed so that the first actual message in
+    the authentication process comes from the Server, and that this
+    message will not be sent unless the user has been identified as
+    an active subscriber of the operator in question. While the initial identity
+    can be spoofed before authentication has succeeded, this reduces the efficiency of
+    an attack.</t>
+    
+    <t>Finally, this memo specifies an order in which computations and
+    checks must occur. When processing the EAP-Request/AKA'-Challenge
+    message, for instance, the AKA authentication must be checked and
+    succeed before the peer proceeds to calculating or processing the
+    FS related parameters (see <xref
+    target="procakachallresp"/>). The same is true of
+    EAP-Response/AKA'-Challenge (see <xref
+    target="procakachallresp"/>). This ensures that the parties need to
+    show possession of the long-term secret in some way, and only then
+    will the FS calculations become active. This limits the
+    Denial-of-Service to specific, identified subscribers. While
+    botnets and other forms of malicious parties could take advantage
+    of actual subscribers and their key material, at least such
+    attacks are (a) limited in terms of subscribers they control, and
+    (b) identifiable for the purposes of blocking the affected
+    subscribers.</t>
+    
+  </list></t>
+
+  </section>
+  <section title="Identity Privacy">
+   <t>Best practice privacy today is to mandate client identity protection as
+      is done in EAP-TLS 1.3, EAP-TTLS 1.3, etc. A client supporting EAP-AKA' FS
+      MUST NOT send its username (or any other permanent identifiers) in cleartext
+      in the Identity Response (or any message used instead of the Identity Response).</t>
+  </section>
+
+  <section anchor="unp" title="Unprotected Data and Privacy">
+   <t>Unprotected data and metadata can reveal sensitive information and need to be selected with care.
+   In particular, this applies to
+   AT_KDF, AT_KDF_FS, AT_PUB_ECDHE, and AT_KDF_INPUT. AT_KDF, AT_KDF_FS, and
+   AT_PUB_ECDHE reveal the used cryptographic algorithms, if these depend on the
+   peer identity they leak information about the peer. AT_KDF_INPUT reveals the
+   network name, although that is done on purpose to bind the authentication to a particular context.</t> 
+	  
+   <t>An attacker observing network traffic may use the above types of information
+   for traffic flow analysis or to track an endpoint.</t>
+   </section>
+
+   <section title="Post-Quantum Considerations">
+   <t>As of the publication of this specification, it is unclear when or
+   even if a quantum computer of sufficient size and power to exploit
+   elliptic curve cryptography will exist.  Deployments that need to
+   consider risks decades into the future should transition to Post-
+   Quantum Cryptography (PQC) in the not-too-distant future.  Other
+   systems may employ PQC when the quantum threat is more imminent. Current PQC
+   algorithms have limitations compared to Elliptic Curve Cryptography
+   (ECC) and the data sizes could be problematic for some constrained
+   systems. If a Cryptographically Relevant Quantum Computer (CRQC) is built
+   it could recover the SHARED_SECRET from the ECDHE public keys.</t>
+   
+   <t>This would not affect the ability of EAP-AKA' - with or without
+   this extension -
+   to authenticate properly, however. As symmetric key cryptography is safe even
+   if CRQCs are built, an adversary still will not be able to disrupt authentication
+   as it requires computing a correct AT_MAC value. This computation requires the K_aut key
+   which is based on MK and, ultimately, CK' and IK', but not SHARED_SECRET.</t>
+
+   <t>Other output keys do include SHARED_SECRET via MK_ECDHE, but still include also
+   CK' and IK' which are entirely based on symmetric cryptography. As a result,
+   an adversary with a quantum computer still cannot compute the other output keys either.</t>
+	   
+   <t>However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
+   could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that
+   the introduction of a powerful enough quantum computer would disable
+   this protocol extension's ability to provide the forward security
+   capability. This would 
+   make it necessary to update the current ECC algorithms in this specification to PQC algorithms. This
+   specification does not add such algorithms, but a future update can do that.
+   </t>
+
+   <t>Symmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
+   and the algorithms use to generate AT_AUTN and AT_RES are
+   practically secure against even large robust quantum
+   computers. EAP-AKA' FS is currently only specified for use
+   with ECDHE key exchange algorithms, but use of any Key
+   Encapsulation Method (KEM), including Post-Quantum Cryptography
+   (PQC) KEMs, can be specified in the future. While the key exchange is
+   specified with terms of the Diffie-Hellman protocol, the key exchange
+   adheres to a KEM interface. AT_PUB_ECDHE would then contain
+   either the ephemeral public key of the server or the SHARED_SECRET
+   encapsulated with the server's public key.</t>
+  </section>
+
+  </section>
+
+<section title="IANA Considerations">
+  
+  <t>This extension of EAP-AKA' shares its attribute space and subtypes with EAP-SIM
+  <xref target="RFC4186"/>, EAP-AKA <xref target="RFC4186"/>, and
+  EAP-AKA' <xref target="RFC9048"/>.</t>
+
+  <t>Two new values (TBA1, TBA2) in the skippable
+  range need to be assigned for AT_PUB_ECDHE (<xref target="at_pub_dh"/>)
+  and AT_KDF_FS (<xref target="at_kdf_dh"/>
+  in the "Attribute Types" registry under the "EAP-AKA and EAP-SIM Parameters" group.</t>
+
+  <t>Also, a new registry "EAP-AKA' AT_KDF_FS Key Derivation Function Values"
+  should be created to represent
+  FS Key Derivation Function types. The "EAP-AKA' with
+  ECDHE and X25519" and "EAP-AKA' with ECDHE and P-256"
+  types (1 and 2, see <xref target="kdf2"/>) need to be assigned,
+  along with one reserved value. The initial contents of this
+  registry is illustrated in <xref target="iana-fs-values"/>; new values can be created through
+  the Specification Required policy <xref target="RFC8126"/>.</t>
+			
+        <table anchor="iana-fs-values">
+          <name>Initial Content of the EAP-AKA' AT_KDF_FS Key Derivation Function Values Registry</name>
+          <thead>
+            <tr>
+              <th align="left">Value</th>
+              <th align="left">Description</th>
+              <th align="left">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td align="left">0</td>
+              <td align="left">Reserved</td>
+              <td align="left">[TBD BY IANA: THIS RFC]</td>
+            </tr>
+            <tr>
+              <td align="left">1</td>
+              <td align="left">EAP-AKA' with ECDHE and X25519</td>
+              <td align="left">[TBD BY IANA: THIS RFC]</td>
+            </tr>
+            <tr>
+              <td align="left">2</td>
+              <td align="left">EAP-AKA' with ECDHE and P-256</td>
+              <td align="left">[TBD BY IANA: THIS RFC]</td>
+            </tr>
+            <tr>
+              <td align="left">3-65535</td>
+              <td align="left">Unassigned</td>
+              <td align="left">[TBD BY IANA: THIS RFC]</td>
+            </tr>
+          </tbody>
+        </table>
+  
+</section>
+
+</middle>
+<back>
+
+<references title="Normative References">
+      <?rfc include="reference.RFC.2119.xml"?>
+      <?rfc include="reference.RFC.3748.xml"?>
+      <?rfc include="reference.RFC.4187.xml"?>
+      <?rfc include="reference.RFC.7624.xml"?>
+      <?rfc include="reference.RFC.7748.xml"?>
+      <?rfc include="reference.RFC.8126.xml"?>
+      <?rfc include="reference.RFC.8174.xml"?>
+      <?rfc include="reference.RFC.9048.xml"?>
+      <reference anchor="FIPS186-4">
+        <front>
+        <title>Digital Signature Standard (DSS)</title>
+        <author>
+          <organization>NIST</organization>
+        </author>
+        <date month="July" year='2013'/>
+        </front>
+        <seriesInfo name="FIPS" value="186-4" />
+        <format type='HTML' target='https://doi.org/10.6028/NIST.FIPS.186-4'/>
+      </reference>
+      <reference anchor="SEC1">
+        <front>
+        <title>SEC 1: Elliptic Curve Cryptography</title>
+        <author>
+          <organization>Certicom Research</organization>
+        </author>
+        <date month="May" year='2009'/>
+        </front>
+        <seriesInfo name="Standards for Efficient Cryptography 1 (SEC 1)" value="Version 2.0" />
+        <format type='HTML' target='https://www.secg.org/sec1-v2.pdf'/>
+      </reference>
+      <reference anchor="SEC2">
+        <front>
+        <title>SEC 2: Recommended Elliptic Curve Domain Parameters</title>
+        <author>
+          <organization>Certicom Research</organization>
+        </author>
+        <date month="January" year='2010'/>
+        </front>
+        <seriesInfo name="Standards for Efficient Cryptography 2 (SEC 2)" value="Version 2.0" />
+        <format type='HTML' target='https://www.secg.org/sec2-v2.pdf'/>
+      </reference>
+<reference anchor="SP-800-56A" target="https://doi.org/10.6028/NIST.SP.800-56Ar3">
+  <front>
+    <title>Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography</title>
+    <author initials="E." surname="Barker">
+      <organization></organization>
+    </author>
+    <author initials="L." surname="Chen">
+      <organization></organization>
+    </author>
+    <author initials="A." surname="Roginsky">
+      <organization></organization>
+    </author>
+    <author initials="A." surname="Vassilev">
+      <organization></organization>
+    </author>
+    <author initials="R." surname="Davis">
+      <organization></organization>
+    </author>
+    <date year="2018" month="April"/>
+  </front>
+  <seriesInfo name="NIST" value="Special Publication 800-56A Revision 3"/>
+</reference>
+</references>
+
+<references title="Informative References">
+  <?rfc include="reference.RFC.4186.xml"?>
+  <?rfc include="reference.RFC.5216.xml"?>
+  <?rfc include="reference.RFC.5448.xml"?>
+  <?rfc include="reference.RFC.7258.xml"?>
+  <?rfc include="reference.RFC.7296.xml"?>
+  <?rfc include="reference.RFC.9190.xml"?>
+
+  <reference anchor="TrustCom2015">
+    <front>
+      <title>A USIM compatible 5G AKA protocol with perfect forward secrecy</title>
+      <author initials="J." surname="Arkko"></author>
+      <author initials="K." surname="Norrman"></author>
+      <author initials="M." surname="Näslund"></author>
+      <author initials="B." surname="Sahlin"></author>
+      <date month='August' year='2015'/>
+    </front>
+    <seriesInfo name="Proceedings of IEEE International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom)" value="2015" />
+    <format type='HTML' target='https://doi.org/10.1109/Trustcom.2015.506'/>
+  </reference>
+
+    <reference anchor="Heist2015">
+    <front>
+      <title>The Great SIM Heist</title>
+      <author initials="J." surname="Scahill"></author>
+      <author initials="J." surname="Begley"></author>
+      <date month="February" year="2015"/>
+    </front>
+    <format type='HTML' target='https://theintercept.com/2015/02/19/great-sim-heist/'/>
+  </reference>
+
+    <reference anchor="DOW1992">
+    <front>
+      <title>Authentication and Authenticated Key Exchanges</title>
+      <author initials="W." surname="Diffie"></author>
+      <author initials="P." surname="Van Oorschot"></author>
+      <author initials="M." surname="Wiener"></author>
+      <date month="June" year="1992"/>
+    </front>
+    <seriesInfo name="Designs, Codes and Cryptography 2" value="pp. 107-125" />
+    <format type='HTML' target='https://doi.org/10.1007/BF00124891'/>
+  </reference>
+
+  <reference anchor="TS.33.501">
+    <front>
+      <title>Security architecture and procedures for 5G System</title>
+      <author>
+        <organization>3GPP</organization>
+      </author>
+      <date month="December" year="2022" />
+    </front>
+    <seriesInfo name="3GPP TS" value="33.501 18.0.0" />
+  </reference>
+	
+</references>
+
+<section title="Change Log">
+
+  <t>RFC Editor: Please remove this appendix.</t>
+
+  <t>The -09 version of the WG draft has the following changes:
+  <list style="symbols">
+
+    <t>Scalable Vector Graphics (SVG) versions for all figures has been added
+    and the figures has been slightly modified to render nicely with aasvg.</t>
+    
+    <t>A reference has been added to the Section in SEC1 describing how
+    to do decompression.</t>
+	  
+    <t>The strengthened identity protection requirements are now mentioned in the
+    introduction.</t>
+	  
+    <t>Corrections and clarifications were made in the IANA considerations. The
+    table in the IANA section has been made into a proper xml table.</t>
+
+    <t>Reference updates.</t>
+
+    <t>Various editorial improvements.</t>
+    
+  </list></t>
+
+  <t>The -08 version of the WG draft has the following changes:
+  <list style="symbols">
+
+    <t>Further clarification of key calculation in <xref
+    target="kdf2"/>.</t>
+    
+    <t>Support for the NIST  P-256 group has been made mandatory in
+    <xref target="groups"/>, in
+    order to align the requirements with 3GPP SUCI encryption
+    requirements.</t>
+	  
+    <t>The interaction between AT_KDF and AT_KDF_FS has been specified more 
+    clearly, including specifying how future specifications need to specify 
+    the treatment of new combinations.</t>
+	  
+    <t>Addition of a discussion about the impacts of potential future quantum
+    computing attacks with specific impacts to this extension.</t>
+
+    <t>Addition of a discussion about metadata/unprotected data in
+    <xref target="unp"/>.</t>
+      
+    <t>Reference updates.</t>
+
+    <t>Various editorial improvements.</t>
+    
+  </list></t>
+  
+  <t>The -07 version of the WG draft has the following changes:
+  <list style="symbols">
+
+    <t>The impact of forward secrecy explanation has been improved in
+    the abstract and security considerations.</t>
+
+    <t>The draft now more forcefully explains why the authors believe
+    it is important to migrate existing systems to use forward
+    secrecy, and makes a recommendation for this migration.</t>
+
+    <t>The draft does no longer refer to issues within the smart cards but
+    rather the smart card supply chain.</t>
+
+    <t>The rationale for chosen algorithms is explained.</t>
+    
+    <t>Also, the authors have checked the language relating to the
+    public value encoding, and believe it is exactly according to the
+    references (<xref target="RFC7748"/> Section 6.1 and <xref
+    target="SEC2"/> Section 2.7.1)</t>
+    
+    </list></t>
+  
+  <t>The -06 version of the WG draft is a refresh and a
+  reference update. However, the
+  following should be noted:
+
+  <list style="symbols">
+    
+    <t>The draft now uses "forward secrecy" terminology and references
+    RFC 7624 per recommendations on mailing list discussion.</t>
+
+    <t>There's been mailing list discussion about the encoding of the
+    public values; the current text requires confirmation from the
+    working group that it is sufficient.</t>
+    
+  </list>
+  </t>
+  
+  <t>The -05 version of the WG draft takes into account feedback from
+  the working group list, about the number of bytes needed to encode
+  P-256  values.</t>
+  
+  <t>The -04 version of the WG draft takes into account feedback from
+  the May 2020 WG interim meeting, correcting the reference to the
+  NIST P-256 specification.</t>
+  
+  <t>The -03 version of the WG draft is first of all a refresh; there
+  are no issues that we think need addressing, beyond the one for
+  which there is a suggestion in -03: The specification now suggests
+  an alternate group/curve as an optional one besides X25519. The
+  specific choice of particular groups and algorithms is still up to the
+  working group.</t>
+  
+  <t>The -02 version of the WG draft took into account additional
+  reviews, and changed the document to update RFC 5448 (or rather, its
+  successor, <xref target="RFC9048"/>), changed the
+  wording of the recommendation with regards to the use of this
+  extension, clarified the references to the definition of X25519 and
+  Curve25519, clarified the distinction to ECDH methods that use
+  partially static keys, and simplified the use of AKA and SIM card
+  terminology. Some editorial changes were also made.</t>
+  
+  <t>The -00 and -01 versions of the WG draft made no major 
+  changes, only updates to some references.</t>
+  
+  <t>The -05 version is merely a refresh while the draft was waiting
+  for WG adoption.</t>
+  
+  <t>The -04 version of this draft made only editorial changes.</t>
+  
+    <t>The -03 version of this draft changed the naming of various
+    protocol components, values, and notation to match with the use of
+    ECDH in ephemeral mode. The AT_KDF_FS negotiation process was
+    clarified in that exactly one key is ever sent in
+    AT_KDF_ECDHE. The option of checking for zero key values IN ECDHE
+    was added. The format of the actual key in AT_PUB_ECDHE was
+    specified. Denial-of-service considerations for the FS process
+    have been updated. Bidding down attacks against this extension
+    itself are discussed extensively. This version also addressed
+    comments from reviewers, including the August review from Mohit
+    Sethi, and comments made during IETF-102 discussion.</t>
+
+  </section>
+  
+  <section numbered="no" title="Acknowledgments">
+
+    <t>The authors would like to note that the technical solution in
+    this document came out of the TrustCom paper <xref
+    target="TrustCom2015"/>, whose authors were <contact fullname="J. Arkko"/>,
+	   <contact fullname="K. Norrman"/>, <contact fullname="M. Näslund"/>,
+    and <contact fullname="B. Sahlin"/>. This document
+    uses also a lot of material from <xref target="RFC4187"/> by
+    <contact fullname="J. Arkko"/> and <contact fullname="H. Haverinen"/> as well
+	    as <xref target="RFC5448"/> by <contact fullname="J. Arkko"/>,
+    <contact fullname="V. Lehtovirta"/>, and <contact fullname="P. Eronen"/>.</t>
+    
+    <t>The authors would also like to thank
+    <contact fullname="Ben Campbell"/>,
+    <contact fullname="Tim Evans"/>,
+    <contact fullname="Zhang Fu"/>,
+    <contact fullname="Russ Housley"/>,
+    <contact fullname="Tero Kivinen"/>,
+    <contact fullname="Eliot Lear"/>,
+    <contact fullname="Vesa Lehtovirta"/>,
+    <contact fullname="Kathleen Moriarty"/>,
+    <contact fullname="Prajwol Kumar Nakarmi"/>,
+    <contact fullname="Anand R. Prasad"/>,
+    <contact fullname="Michael Richardson"/>,
+    <contact fullname="Göran Rune"/>,
+    <contact fullname="Bengt Sahlin"/>,    
+    <contact fullname="Joseph Salowey"/>,
+    <contact fullname="Mohit Sethi"/>,
+    <contact fullname="Rene Struik"/>,
+    <contact fullname="Sean Turner"/>,
+    <contact fullname="Helena Vahidi Mazinani"/>,    
+    and many other people at the IETF, GSMA and 3GPP groups
+    for interesting discussions in this problem space.</t>
+    
+  </section>
+  
+</back>
+</rfc>
