@@ -234,7 +234,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <t>Authentication and Key Agreement (AKA) is based on challenge-response
     mechanisms and symmetric cryptography. In contrast with its earlier GSM
     counterparts, AKA provides long key lengths and mutual authentication.
-    AKA typically runs in a UMTS Subscriber Identity Module (USIM). USIM is
+    AKA typically runs in a Universal Subscriber Identity Module (USIM). USIM is
     technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
     this document we use the term "SIM card" to refer to any Subscriber
