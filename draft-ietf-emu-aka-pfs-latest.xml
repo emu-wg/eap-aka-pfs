@@ -1418,7 +1418,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          attributes, and retains the entire list following it. Note that this
          means that the selected alternative appears twice in the set of AT_KDF
          values. Responding to the peer's request to change the FS Key Derivation Function
-         is the only legal situation where such duplication may
+         is the only valid situation where such duplication may
          occur.</t>
          
          <t>When the peer receives the new EAP-Request/AKA'-Challenge message,
