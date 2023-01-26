@@ -575,7 +575,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
 
-    <t>Current 3GPP systems use SIM pre-shared key based protocols
+    <t>Current 3GPP systems use SIM pre-shared key-based protocols
     and Authentication and Key Agreement (AKA) to authenticate
     subscribers. The general security properties and potential
     vulnerabilities of AKA and EAP-AKA' are discussed in <xref
