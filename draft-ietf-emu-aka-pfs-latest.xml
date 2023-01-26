@@ -270,7 +270,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   </section>
   <section title="EAP-AKA' Protocol">
 
-    <t>When AKA are embedded into EAP, the authentication on
+    <t>When AKA is embedded into EAP, the authentication on
     the network side is moved to the home environment; the serving
     network performs the role of a pass-through authenticator.
     <xref target="figaka"/> describes the basic flow in the EAP-AKA'
