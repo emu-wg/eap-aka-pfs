@@ -66,6 +66,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 <keyword>EAP</keyword>
 <keyword>AKA</keyword>
 <keyword>AKA'</keyword>
+<keyword>EAP-AKA'</keyword>
+<keyword>EAP-AKA' FS</keyword>
 <keyword>3GPP</keyword>
 
 <abstract>
@@ -81,14 +83,16 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   such as key compromise and minimizing the impact of breach are essential
   zero-trust principles.</t>
 
-  <t>This specification updates RFC 9048, the EAP-AKA'
-  authentication method, with an optional extension. 
+  <t>This specification updates RFC 9048, the improved Extensible
+  Authentication Protocol Method for 3GPP Mobile Network Authentication
+  and Key Agreement (EAP-AKA'), with an optional extension. 
   Similarly, this specification also updates the earlier version 
   of the EAP-AKA' specification in RFC 5448. The extension, when
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from being able to decrypt any past
+  pre-shared secret in a Subscriber Identity Module (SIM) card from
+  being able to decrypt any past
   communications. In addition, if the attacker stays merely a passive
   eavesdropper, the extension prevents attacks against future
   sessions. This forces attackers to use active attacks instead.</t>
@@ -112,7 +116,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   improved.</t>
 
   <t>However, the danger of resourceful attackers attempting to gain
-  information about SIM cards is still a concern. They are a
+  information about Subscriber Identity Module (SIM) cards is still a
+  concern. They are a
   high-value target and concern a large number of people.  Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
@@ -129,12 +134,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   practices may affect. It is also a stated goal of the IETF to ensure
   that we understand the surveillance concerns related to IETF
   protocols and take appropriate countermeasures <xref
-  target="RFC7258"/>. This document does that for EAP-AKA'.</t>
+  target="RFC7258"/>. This document does that for the improved
+  Extensible Authentication Protocol Method for 3GPP Mobile Network
+  Authentication and Key Agreement (EAP-AKA').</t>
 
   <t>This specification updates <xref target="RFC9048"/>, the EAP-AKA'
-  authentication method, with an optional extension and strengthens
-  the identity privacy requirements. While optional, the use of this
-  extension is strongly RECOMMENDED.</t>
+  authentication method, with an optional extension
+  and strengthens the identity privacy requirements. While optional,
+  the use of this extension is strongly RECOMMENDED.</t>
 
   <t>The extension, when
   negotiated, provides Forward Secrecy (FS) for the session key
@@ -154,7 +161,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   continuous basis, as opposed to learning it once <xref
   target="RFC7624"/>.</t>
 
-  <t>Attacks against AKA authentication via compromising the long-term
+  <t>Attacks against Authentication and Key Agreement (AKA) authentication
+  via compromising the long-term
   secrets in the SIM cards have been an active discussion topic in
   many contexts. Forward secrecy is on the list of features
   for the next release of 3GPP (5G Phase 2), and this document provides
@@ -234,7 +242,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <t>Authentication and Key Agreement (AKA) is based on challenge-response
     mechanisms and symmetric cryptography. In contrast with its earlier GSM
     counterparts, AKA provides long key lengths and mutual authentication.
-    AKA typically runs in a UMTS Subscriber Identity Module (USIM). USIM is
+    AKA typically runs in a Universal Subscriber Identity Module (USIM). USIM is
     technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
     this document we use the term "SIM card" to refer to any Subscriber
@@ -268,7 +276,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   </section>
   <section title="EAP-AKA' Protocol">
 
-    <t>When AKA are embedded into EAP, the authentication on
+    <t>When AKA is embedded into EAP, the authentication on
     the network side is moved to the home environment; the serving
     network performs the role of a pass-through authenticator.
     <xref target="figaka"/> describes the basic flow in the EAP-AKA'
@@ -575,7 +583,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
 
-    <t>Current 3GPP systems use SIM pre-shared key based protocols
+    <t>Current 3GPP systems use SIM pre-shared key-based protocols
     and Authentication and Key Agreement (AKA) to authenticate
     subscribers. The general security properties and potential
     vulnerabilities of AKA and EAP-AKA' are discussed in <xref
@@ -1418,7 +1426,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          attributes, and retains the entire list following it. Note that this
          means that the selected alternative appears twice in the set of AT_KDF
          values. Responding to the peer's request to change the FS Key Derivation Function
-         is the only legal situation where such duplication may
+         is the only valid situation where such duplication may
          occur.</t>
          
          <t>When the peer receives the new EAP-Request/AKA'-Challenge message,
@@ -1563,14 +1571,14 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="EAP-Request/AKA'-Identity">
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
       MUST NOT be added to this message.  The appearance of these
-      messages in a received message MUST be ignored.</t>
+      attributes in a received message MUST be ignored.</t>
     </section>
     
     <section title="EAP-Response/AKA'-Identity">
       
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
       MUST NOT be added to this message and that a privacy-friendly identifier
-      MUST be used.  The appearance of these messages in a received message
+      MUST be used.  The appearance of these attributes in a received message
       MUST be ignored.</t>
 
     </section>
@@ -1665,19 +1673,19 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="EAP-Response/AKA'-Synchronization-Failure">
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
       attributes MUST NOT be added to this message.
-      The appearance of these messages in a received message MUST be ignored.</t>
+      The appearance of these attributes in a received message MUST be ignored.</t>
     </section>
     
     <section title="EAP-Response/AKA'-Authentication-Reject">
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
       attributes MUST NOT be added to this message.
-      The appearance of these messages in a received message MUST be ignored.</t>
+      The appearance of these attributes in a received message MUST be ignored.</t>
     </section>
     
     <section title="EAP-Response/AKA'-Client-Error">
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
       attributes MUST NOT be added to this message.
-      The appearance of these messages in a received message MUST be ignored.</t>
+      The appearance of these attributes in a received message MUST be ignored.</t>
     </section>
     
     <section title="EAP-Request/AKA'-Notification">
@@ -2015,7 +2023,9 @@ EMSK     = MK_ECDHE[768..1279]
 
 <section title="IANA Considerations">
   
-  <t>This extension of EAP-AKA' shares its attribute space and subtypes with EAP-SIM
+  <t>This extension of EAP-AKA' shares its attribute space and subtypes with
+  Extensible Authentication Protocol Method for Global System for Mobile Communications (GSM)
+  Subscriber Identity Modules (EAP-SIM)
   <xref target="RFC4186"/>, EAP-AKA <xref target="RFC4186"/>, and
   EAP-AKA' <xref target="RFC9048"/>.</t>
 
@@ -2075,6 +2085,7 @@ EMSK     = MK_ECDHE[768..1279]
       <?rfc include="reference.RFC.2119.xml"?>
       <?rfc include="reference.RFC.3748.xml"?>
       <?rfc include="reference.RFC.4187.xml"?>
+      <?rfc include="reference.RFC.5448.xml"?>
       <?rfc include="reference.RFC.7624.xml"?>
       <?rfc include="reference.RFC.7748.xml"?>
       <?rfc include="reference.RFC.8126.xml"?>
@@ -2140,7 +2151,6 @@ EMSK     = MK_ECDHE[768..1279]
 <references title="Informative References">
   <?rfc include="reference.RFC.4186.xml"?>
   <?rfc include="reference.RFC.5216.xml"?>
-  <?rfc include="reference.RFC.5448.xml"?>
   <?rfc include="reference.RFC.7258.xml"?>
   <?rfc include="reference.RFC.7296.xml"?>
   <?rfc include="reference.RFC.9190.xml"?>
