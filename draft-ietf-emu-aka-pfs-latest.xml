@@ -2207,6 +2207,13 @@ EMSK     = MK_ECDHE[768..1279]
 
   <t>RFC Editor: Please remove this appendix.</t>
 
+  <t>The -10 version of the WG draft has the following changes:
+  <list style="symbols">
+
+    <t>Various nits found by Peter Yee.</t>
+
+  </list></t>
+
   <t>The -09 version of the WG draft has the following changes:
   <list style="symbols">
 
