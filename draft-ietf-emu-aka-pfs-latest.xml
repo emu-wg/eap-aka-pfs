@@ -1565,14 +1565,14 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="EAP-Request/AKA'-Identity">
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
       MUST NOT be added to this message.  The appearance of these
-      messages in a received message MUST be ignored.</t>
+      attributes in a received message MUST be ignored.</t>
     </section>
     
     <section title="EAP-Response/AKA'-Identity">
       
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
       MUST NOT be added to this message and that a privacy-friendly identifier
-      MUST be used.  The appearance of these messages in a received message
+      MUST be used.  The appearance of these attributes in a received message
       MUST be ignored.</t>
 
     </section>
@@ -1667,19 +1667,19 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="EAP-Response/AKA'-Synchronization-Failure">
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
       attributes MUST NOT be added to this message.
-      The appearance of these messages in a received message MUST be ignored.</t>
+      The appearance of these attributes in a received message MUST be ignored.</t>
     </section>
     
     <section title="EAP-Response/AKA'-Authentication-Reject">
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
       attributes MUST NOT be added to this message.
-      The appearance of these messages in a received message MUST be ignored.</t>
+      The appearance of these attributes in a received message MUST be ignored.</t>
     </section>
     
     <section title="EAP-Response/AKA'-Client-Error">
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE
       attributes MUST NOT be added to this message.
-      The appearance of these messages in a received message MUST be ignored.</t>
+      The appearance of these attributes in a received message MUST be ignored.</t>
     </section>
     
     <section title="EAP-Request/AKA'-Notification">
