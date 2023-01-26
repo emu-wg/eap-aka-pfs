@@ -1735,7 +1735,7 @@ EMSK     = MK_ECDHE[768..1279]
     <t>This extension can provide assistance in situations where there
     is a danger of attacks against the key material on SIM cards by
     adversaries that cannot or who are unwilling to mount active
-    attacks against large number of sessions. The extension also
+    attacks against a large number of sessions. The extension also
     provides protection against active attacks as they are forced to
     be a Man-In-The-Middle (MITM) during the AKA run and subsequent
     communication between the parties. Without forward secrecy an
