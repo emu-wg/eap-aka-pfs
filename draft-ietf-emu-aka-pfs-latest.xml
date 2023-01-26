@@ -83,14 +83,16 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   such as key compromise and minimizing the impact of breach are essential
   zero-trust principles.</t>
 
-  <t>This specification updates RFC 9048, the EAP-AKA'
-  authentication method, with an optional extension. 
+  <t>This specification updates RFC 9048, the improved Extensible
+  Authentication Protocol Method for 3GPP Mobile Network Authentication
+  and Key Agreement (EAP-AKA'), with an optional extension. 
   Similarly, this specification also updates the earlier version 
   of the EAP-AKA' specification in RFC 5448. The extension, when
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from being able to decrypt any past
+  pre-shared secret in a Subscriber Identity Module (SIM) card from
+  being able to decrypt any past
   communications. In addition, if the attacker stays merely a passive
   eavesdropper, the extension prevents attacks against future
   sessions. This forces attackers to use active attacks instead.</t>
@@ -114,7 +116,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   improved.</t>
 
   <t>However, the danger of resourceful attackers attempting to gain
-  information about SIM cards is still a concern. They are a
+  information about Subscriber Identity Module (SIM) cards is still a
+  concern. They are a
   high-value target and concern a large number of people.  Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
@@ -131,12 +134,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   practices may affect. It is also a stated goal of the IETF to ensure
   that we understand the surveillance concerns related to IETF
   protocols and take appropriate countermeasures <xref
-  target="RFC7258"/>. This document does that for EAP-AKA'.</t>
+  target="RFC7258"/>. This document does that for the improved
+  Extensible Authentication Protocol Method for 3GPP Mobile Network
+  Authentication and Key Agreement (EAP-AKA').</t>
 
   <t>This specification updates <xref target="RFC9048"/>, the EAP-AKA'
-  authentication method, with an optional extension and strengthens
-  the identity privacy requirements. While optional, the use of this
-  extension is strongly RECOMMENDED.</t>
+  authentication method, with an optional extension
+  and strengthens the identity privacy requirements. While optional,
+  the use of this extension is strongly RECOMMENDED.</t>
 
   <t>The extension, when
   negotiated, provides Forward Secrecy (FS) for the session key
@@ -156,7 +161,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   continuous basis, as opposed to learning it once <xref
   target="RFC7624"/>.</t>
 
-  <t>Attacks against AKA authentication via compromising the long-term
+  <t>Attacks against Authentication and Key Agreement (AKA) authentication
+  via compromising the long-term
   secrets in the SIM cards have been an active discussion topic in
   many contexts. Forward secrecy is on the list of features
   for the next release of 3GPP (5G Phase 2), and this document provides
@@ -2017,7 +2023,9 @@ EMSK     = MK_ECDHE[768..1279]
 
 <section title="IANA Considerations">
   
-  <t>This extension of EAP-AKA' shares its attribute space and subtypes with EAP-SIM
+  <t>This extension of EAP-AKA' shares its attribute space and subtypes with
+  Extensible Authentication Protocol Method for Global System for Mobile Communications (GSM)
+  Subscriber Identity Modules (EAP-SIM)
   <xref target="RFC4186"/>, EAP-AKA <xref target="RFC4186"/>, and
   EAP-AKA' <xref target="RFC9048"/>.</t>
 
