@@ -2348,6 +2348,7 @@ EMSK     = MK_ECDHE[768..1279]
     
     <t>The authors would also like to thank
     <contact fullname="Ben Campbell"/>,
+    <contact fullname="Meiling Chen"/>,
     <contact fullname="Tim Evans"/>,
     <contact fullname="Zhang Fu"/>,
     <contact fullname="Russ Housley"/>,
