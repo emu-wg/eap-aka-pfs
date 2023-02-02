@@ -79,24 +79,25 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   secrets stored on these cards. Since the publication of those
   reports, manufacturing and provisioning processes have gained much
   scrutiny and have improved. However, the danger of resourceful
-  attackers for these systems is still a concern. Always assuming breach
-  such as key compromise and minimizing the impact of breach are essential
-  zero-trust principles.</t>
+  attackers against these systems is still a concern.
+  Therefore, accepting long-term key compromise as a possibility and reducing
+  its impact seems prudent.</t>
 
   <t>This specification updates RFC 9048, the improved Extensible
   Authentication Protocol Method for 3GPP Mobile Network Authentication
-  and Key Agreement (EAP-AKA'), with an optional extension. 
-  Similarly, this specification also updates the earlier version 
+  and Key Agreement (EAP-AKA'), with an optional extension.
+  Similarly, this specification also updates the earlier version
   of the EAP-AKA' specification in RFC 5448. The extension, when
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a Subscriber Identity Module (SIM) card from
-  being able to decrypt any past
-  communications. In addition, if the attacker stays merely a passive
-  eavesdropper, the extension prevents attacks against future
-  sessions. This forces attackers to use active attacks instead.</t>
-
+  pre-shared secret from obtaining session keys established in the past, assuming
+  these have been properly deleted.
+  In addition to providing session-key forward secrecy, EAP-AKA' FS protect
+  session keys established after the long-term-key compromise against passive
+  attackers.  That is, after the compromise, the attacker must still perform a
+  man-in-the-middle attack on exchanges it wishes to obtain the session key
+  from.</t>
 </abstract>
 
 </front>
