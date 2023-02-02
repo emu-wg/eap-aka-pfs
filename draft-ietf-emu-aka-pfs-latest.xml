@@ -165,7 +165,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   use of the EAP framework for authentication. While any methods can
   be run, the default authentication method within that context will
   be EAP-AKA'. As a result, improvements in EAP-AKA' security have a
-  potential to improve security for large number of users.</t>
+  potential to improve security for many users.</t>
 </section>
 
 <section title="Protocol Design and Deployment Objectives">
