@@ -74,7 +74,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking SIM card
+  involved compromising the smart card supply chain, such as attacking USIM card
   manufacturers and operators in an effort to compromise shared
   secrets stored on these cards. Since the publication of those
   reports, manufacturing and provisioning processes have gained much
@@ -106,8 +106,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 <section title="Introduction">
 
   <t>Attacks revealing the AKA long-term key may occur for
-  instance, during the manufacturing process of Subscriber Identity Module
-  (SIM) cards, during the transfer of the cards and associated information to
+  instance, during the manufacturing process of Universal Subscriber Identity Module
+  (USIM) cards, during the transfer of the cards and associated information to
   the operator, and when a system is running. Since
   the publication of reports about such attacks
   <xref target="Heist2015"/>, manufacturing and
@@ -142,7 +142,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy (FS) for the session key
   generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
-  pre-shared key in a SIM card from getting access to past session keys.
+  pre-shared key in a USIM card from getting access to past session keys.
   In addition to FS, the included Diffie-Hellman exchange, forces attackers
   to be active if they want access to future session keys even if they have access
   to the long-term key.
@@ -169,12 +169,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </section>
 
 <section title="Protocol Design and Deployment Objectives">
-  
+
   <t>The extension specified here re-uses large portions of the
   current structure of 3GPP interfaces and functions, with the
   rationale that this will make the construction more easily adopted.
-  In particular, the construction maintains the interface between the
-  Universal Subscriber Identification Module (USIM) and the mobile
+  In particular, the construction keeps the interface between the
+  USIM and the mobile
   terminal intact. As a consequence, there is no need to roll out new
   credentials to existing subscribers. The work is based on an earlier
   paper <xref target="TrustCom2015"/>, and uses much of the same
@@ -205,7 +205,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <list style="symbols">
     
     <t>As noted above, no new credentials are needed; there is no
-    change to SIM cards.</t>
+    change to USIM cards.</t>
     
     <t>FS property can be incorporated into any current or future
     system that supports EAP, without changing
@@ -232,11 +232,11 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
     <t>Authentication and Key Agreement (AKA) is based on challenge-response
     mechanisms and symmetric cryptography. In contrast with its earlier GSM
-    counterparts, AKA provides long key lengths and mutual authentication.
-    AKA typically runs in a Universal Subscriber Identity Module (USIM). USIM is
+    counterparts, AKA today provides long key lengths and mutual authentication.
+    The phone typically execute AKA in a USIM. USIM is
     technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
-    this document we use the term "SIM card" to refer to any Subscriber
+    this document we use the term "USIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
 
     <t>AKA works in the following manner:
@@ -574,7 +574,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
 
-    <t>Current 3GPP systems use SIM pre-shared key-based protocols
+    <t>Current 3GPP systems use USIM pre-shared key-based protocols
     and Authentication and Key Agreement (AKA) to authenticate
     subscribers. The general security properties and potential
     vulnerabilities of AKA and EAP-AKA' are discussed in <xref
@@ -1696,7 +1696,7 @@ EMSK     = MK_ECDHE[768..1279]
     as they differ from EAP-AKA', or as new information has been gathered
     since the publication of <xref target="RFC9048"/>.</t>
     
-    <t>The possibility of attacks against key storage offered in SIM or
+    <t>The possibility of attacks against key storage offered in USIM or
     other smart cards has been a known threat. But as the discussion in
     <xref target="attacks"/> shows, the likelihood of practically
     feasible attacks such as breaches in the smart card supply chain has
@@ -1732,7 +1732,7 @@ EMSK     = MK_ECDHE[768..1279]
    to long term completely phase out AKA without forward secrecy.</t>
 	  
     <t>This extension can provide assistance in situations where there
-    is a danger of attacks against the key material on SIM cards by
+    is a danger of attacks against the key material on USIM cards by
     adversaries that cannot or who are unwilling to mount active
     attacks against a large number of sessions. The extension also
     provides protection against active attacks as they are forced to
@@ -1861,10 +1861,10 @@ EMSK     = MK_ECDHE[768..1279]
       
       This extension provides key material that is based on
       the Diffie-Hellman keys, yet bound to the authentication
-      through the SIM card. This means that subsequent payload communications between
+      through the USIM card. This means that subsequent payload communications between
       the parties are protected with keys that are not solely based on
       information in the clear (such as the RAND) and information
-      derivable from the long-term shared secrets on the SIM
+      derivable from the long-term shared secrets on the USIM
       card. As a result, if anyone successfully recovers
       shared secret information, they are unable to decrypt
       communications protected by the keys generated through this
@@ -1917,7 +1917,7 @@ EMSK     = MK_ECDHE[768..1279]
     network side is possible. This ensures that the most sensitive (or
     legacy) system components cannot be the target of the attack. For
     instance, EAP-AKA' and public key cryptography takes place in the
-    phone and not the low-power SIM card.</t>
+    phone and not the low-power USIM card.</t>
 
     <t>EAP-AKA' has been designed so that the first actual message in
     the authentication process comes from the Server, and that this
@@ -1988,7 +1988,7 @@ EMSK     = MK_ECDHE[768..1279]
    CK' and IK' which are entirely based on symmetric cryptography. As a result,
    an adversary with a quantum computer still cannot compute the other output keys either.</t>
 	   
-   <t>However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
+   <t>However, if the adversary has also obtained knowledge of the secrets associated with the USIM card, they
    could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that
    the introduction of a powerful enough quantum computer would disable
    this protocol extension's ability to provide the forward security
@@ -2312,7 +2312,7 @@ EMSK     = MK_ECDHE[768..1279]
   wording of the recommendation with regards to the use of this
   extension, clarified the references to the definition of X25519 and
   Curve25519, clarified the distinction to ECDH methods that use
-  partially static keys, and simplified the use of AKA and SIM card
+  partially static keys, and simplified the use of AKA and USIM card
   terminology. Some editorial changes were also made.</t>
   
   <t>The -00 and -01 versions of the WG draft made no major 
