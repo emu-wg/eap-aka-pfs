@@ -96,14 +96,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   In addition to providing session-key forward secrecy, EAP-AKA' FS protect
   session keys established after the long-term-key compromise against passive
   attackers.  That is, after the compromise, the attacker must still perform a
-  man-in-the-middle attack on exchanges it wishes to obtain the session key
+  man-in-the-middle (MITM) attack on exchanges it wishes to obtain the session key
   from.</t>
 </abstract>
 
 </front>
 <middle>
 
-<section title="Introduction">
+<section anchor="sec:intro" title="Introduction">
 
   <t>Attacks revealing the AKA long-term key may occur for
   instance, during the manufacturing process of Universal Subscriber Identity Module
@@ -155,7 +155,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Attacks against Authentication and Key Agreement (AKA) authentication
   via compromising the long-term
-  key have been an active discussion topic in many contexts. Forward secrecy is
+  key have been an active discussion topic in many contexts. Forward secrecy
+  <xref target="DOW1992"/> is
   on the list of features
   for the next release of 3GPP (5G Phase 2), and this document provides
   a basis for providing this feature.</t>
@@ -584,32 +585,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </figure>
 
   </section>
-
-  <section anchor="attacks" title="Motivation -- A Large Scale Attack">
-
-    <t>Current 3GPP systems use USIM pre-shared key-based protocols
-    and Authentication and Key Agreement (AKA) to authenticate
-    subscribers. The general security properties and potential
-    vulnerabilities of AKA and EAP-AKA' are discussed in <xref
-    target="RFC9048"/>.</t>
-    
-    <t>An important vulnerability in that discussion relates to the
-    recent reports of compromised long term pre-shared keys used in
-    AKA <xref target="Heist2015"/>. These attacks are not specific to
-    AKA or EAP-AKA', as all security systems fail at least to some
-    extent if key material is stolen. However, the reports indicate a
-    need to look into solutions that can operate at least to an extent
-    under these types of attacks. It is noted in <xref
-    target="Heist2015"/> that some security can be retained even in
-    the face of the attacks by providing Forward Secrecy
-    (FS) <xref target="DOW1992"/> for the session key. If AKA would
-    have provided FS, compromising the pre-shared key would not be
-    sufficient to perform passive attacks; the attacker is, in
-    addition, forced to be a Man-In-The-Middle (MITM) during the AKA
-    run and subsequent communication between the parties.</t>
-
-  </section>
-
 </section>
 
 <section title="Requirements Language">
@@ -1711,7 +1686,7 @@ EMSK     = MK_ECDHE[768..1279]
     
     <t>The possibility of attacks against key storage offered in USIM or
     other smart cards has been a known threat. But as the discussion in
-    <xref target="attacks"/> shows, the likelihood of practically
+    <xref target="sec:intro"/> shows, the likelihood of practically
     feasible attacks such as breaches in the smart card supply chain has
     increased. Many of these attacks can be best
     dealt with improved processes, e.g., limiting the access to the key
