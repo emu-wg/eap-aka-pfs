@@ -605,14 +605,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   both sides generate temporary keys according to the negotiated ciphersuite.
   This method is referred to as ECDHE, where the last 'E' stands
   for Ephemeral. The two initially registered elliptic curves and their
-  wire format is chosen to align with the elliptic curves and formats
+  wire format are chosen to align with the elliptic curves and formats
   specified for Subscription Concealed Identifier (SUCI) encryption in
   Appendix C.3.4 of 3GPP TS 33.501 <xref target="TS.33.501"/>.</t>
   
   <t>The enhancements in the EAP-AKA' FS protocol are compatible
   with the signaling flow and other basic structures of both AKA and
   EAP-AKA'. The intent is to implement the enhancement as optional
-  attributes that legacy implementations can ignore.</t>
+  attributes that legacy implementations ignore.</t>
   
   <t>The purpose of the protocol is to achieve mutual authentication
   between the EAP server and peer, and to establish keying material
@@ -624,15 +624,15 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t><xref target="figakafs"/> below describes the overall process. Since our goal
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
-  and the 3GPP authentication server (HSS). The details of those
-  interactions
+  and the home environment (HE). Recall that the home environment represent
+  the 3GPP authentication server. The details of those interactions
   are outside the scope of this document, however, and the reader
   is referred to the 3GPP specifications.</t>
 
 <figure title="EAP-AKA' FS Authentication Process" anchor="figakafs">
 <artset>
 <artwork type="ascii-art"><![CDATA[
- USIM           Peer                        Server             HSS
+ USIM           Peer                        Server             HE
    |              |                            |                |
    |              |           EAP-Req/Identity |                |
    |              |<---------------------------+                |
@@ -642,9 +642,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |              +--------------------------->|                |
    |      +-------+----------------------------+----------------+--+
    |      | Server now has an identity for the peer. The server    |
-   |      | then asks the help of HSS to run AKA algorithms,       |
+   |      | then asks the help of HE to run AKA algorithms,       |
    |      | generating RAND, AUTN, XRES, CK, IK. Typically, the    |
-   |      | HSS performs the first part of key derivations so that |
+   |      | HE performs the first part of key derivations so that |
    |      | the authentication server gets the CK' and IK' keys    |
    |      | already tied to a particular network name.             |
    |      +-------+----------------------------+----------------+--+
@@ -782,7 +782,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="28" y="36">USIM</text>
                   <text x="148" y="36">Peer</text>
                   <text x="380" y="36">Server</text>
-                  <text x="520" y="36">HSS</text>
+                  <text x="520" y="36">HE</text>
                   <text x="308" y="68">EAP-Req/Identity</text>
                   <text x="232" y="116">EAP-Resp/Identity</text>
                   <text x="236" y="132">(Privacy-Friendly)</text>
@@ -801,7 +801,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="192" y="196">the</text>
                   <text x="228" y="196">help</text>
                   <text x="260" y="196">of</text>
-                  <text x="288" y="196">HSS</text>
+                  <text x="288" y="196">HE</text>
                   <text x="316" y="196">to</text>
                   <text x="344" y="196">run</text>
                   <text x="376" y="196">AKA</text>
@@ -814,7 +814,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="376" y="212">IK.</text>
                   <text x="436" y="212">Typically,</text>
                   <text x="496" y="212">the</text>
-                  <text x="112" y="228">HSS</text>
+                  <text x="112" y="228">HE</text>
                   <text x="164" y="228">performs</text>
                   <text x="216" y="228">the</text>
                   <text x="256" y="228">first</text>
@@ -1900,7 +1900,7 @@ EMSK     = MK_ECDHE[768..1279]
     place.</t>
 
     <t>This specification is constructed so that a separation
-    between the USIM and Peer on client side and the Server and HSS on
+    between the USIM and Peer on client side and the Server and HE on
     network side is possible. This ensures that the most sensitive (or
     legacy) system components cannot be the target of the attack. For
     instance, EAP-AKA' and public key cryptography takes place in the
