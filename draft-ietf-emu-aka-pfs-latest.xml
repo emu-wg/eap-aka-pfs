@@ -245,9 +245,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     this document we use the term "USIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
 
-    The goal of AKA is to mutually authenticate the USIM and the so-called
+    <t>The goal of AKA is to mutually authenticate the USIM and the so-called
     home environment, which is the authentication server in the subscribers
-    home operator's network.
+        home operator's network.</t>
     <t>AKA works in the following manner:
     <list style="symbols">
 
@@ -285,9 +285,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     authentication process. The definition of the full protocol
     behavior, along with the definition of attributes AT_RAND,
     AT_AUTN, AT_MAC, and AT_RES can be found in <xref
-    target="RFC9048"/> and <xref target="RFC4187"/>.</t>
+    target="RFC9048"/> and <xref target="RFC4187"/>.
     Note the use of EAP-terminology from hereon.  That is, the 3GPP
-    serving network takes on the role of an EAP access network.
+    serving network takes on the role of an EAP access network.</t>
 
 <figure title="EAP-AKA' Authentication Process" anchor="figaka">
 <artset>
@@ -585,7 +585,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   </section>
 
-  <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
+  <section anchor="attacks" title="Motivation -- A Large Scale Attack">
 
     <t>Current 3GPP systems use USIM pre-shared key-based protocols
     and Authentication and Key Agreement (AKA) to authenticate
