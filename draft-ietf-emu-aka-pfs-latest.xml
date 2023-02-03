@@ -75,8 +75,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
   involved compromising the smart card supply chain, such as attacking USIM card
-  manufacturers and operators in an effort to compromise shared
-  secrets stored on these cards. Since the publication of those
+  manufacturers and operators in an effort to compromise long-term
+  keys stored on these cards. Since the publication of those
   reports, manufacturing and provisioning processes have gained much
   scrutiny and have improved. However, the danger of resourceful
   attackers against these systems is still a concern.
@@ -91,7 +91,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret from obtaining session keys established in the past, assuming
+  long-term key from obtaining session keys established in the past, assuming
   these have been properly deleted.
   In addition to providing session-key forward secrecy, EAP-AKA' FS protect
   session keys established after the long-term-key compromise against passive
@@ -228,11 +228,17 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </section>
 
 <section title="Background">
-  <section title="AKA">
+    <t>This specification defines a new EAP method and the reader is assumed to
+    have basic understanding of the EAP framework <xref target="RFC3748"/>.</t>
 
-    <t>Authentication and Key Agreement (AKA) is based on challenge-response
-    mechanisms and symmetric cryptography. In contrast with its earlier GSM
-    counterparts, AKA today provides long key lengths and mutual authentication.
+  <section title="AKA">
+    <t>We use the term Authentication and Key Agreement (AKA) for the main
+    authentication and key agreement protocol used by 3GPP mobile networks from
+    the third generation (3G) and onward. Later generations adds new features to
+    AKA, but the core remains the same.
+    It is based on challenge-response mechanisms and symmetric cryptography.
+    In contrast to its earlier GSM
+    counterparts, AKA provides long key lengths and mutual authentication.
     The phone typically execute AKA in a USIM. USIM is
     technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
@@ -242,10 +248,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <t>AKA works in the following manner:
     <list style="symbols">
 
-   <t>The identity module and the home environment have agreed on a
-      secret key beforehand.</t>
+   <t>The USIM and the home environment have agreed on a
+      long-term symmetric key beforehand.</t>
    <t>The actual authentication process starts by having the home
-      environment produce an authentication vector, based on the secret
+      environment produce an authentication vector, based on the long-term
       key and a sequence number.  The authentication vector contains a
       random part RAND, an authenticator part AUTN used for
       authenticating the network to the identity module, an expected
@@ -254,7 +260,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    <t>The authentication vector is passed to the serving network, which
       uses it to authenticate the device.</t>
    <t>The RAND and the AUTN are delivered to the identity module.</t>
-   <t>The identity module verifies the AUTN, again based on the secret
+   <t>The identity module verifies the AUTN, again based on the long-term
       key and the sequence number.  If this process is successful (the
       AUTN is valid and the sequence number used to generate AUTN is
       within the correct range), the identity module produces an
@@ -722,7 +728,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | correct. Note that when this specification is used,    |
    |      | the keys generated from EAP-AKA' are based on both     |
    |      | CK/IK as well as the ECDHE value. Even if there was an |
-   |      | attacker who held the long-term secret keys, only an   |
+   |      | attacker who held the long-term key, only an           |
    |      | active attacker could have determined the generated    |
    |      | session keys; in basic EAP-AKA' the generated keys are |
    |      | only based on CK and IK.                               |
@@ -1823,8 +1829,8 @@ EMSK     = MK_ECDHE[768..1279]
         protected by AT_MAC, so attempts to change or omit them by an
         adversary will be detected.<vspace blankLines="1"/>
 
-	Except of course, if the adversary holds the long-term shared
-	secret and is willing to engage in an active attack. Such an
+	Except of course, if the adversary holds the long-term key
+	and is willing to engage in an active attack. Such an
 	attack can, for instance, forge the negotiation process so
 	that no FS will be provided. However, as noted above, an
 	attacker with these capabilities will in any case be able to
@@ -1864,7 +1870,7 @@ EMSK     = MK_ECDHE[768..1279]
       through the USIM card. This means that subsequent payload communications between
       the parties are protected with keys that are not solely based on
       information in the clear (such as the RAND) and information
-      derivable from the long-term shared secrets on the USIM
+      derivable from the long-term key on the USIM
       card. As a result, if anyone successfully recovers
       shared secret information, they are unable to decrypt
       communications protected by the keys generated through this
@@ -1872,13 +1878,13 @@ EMSK     = MK_ECDHE[768..1279]
       could occur either before or after the time that the protected
       communications are used. When this extension is used,
       communications at time t0 can be protected if at some later time
-      t1 an adversary learns of long-term shared secret and has access
+      t1 an adversary learns of long-term key and has access
       to a recording of the encrypted communications.
 
       <vspace blankLines="1"/>Obviously, this extension is still
       vulnerable to attackers that are willing to perform an active
       attack and who at the time of the attack have access to the
-      long-term shared secret.<vspace blankLines="1"/>
+      long-term key.<vspace blankLines="1"/>
 
       This extension does not change the properties related to
       re-authentication. No new Diffie-Hellman run is performed during
@@ -1886,7 +1892,7 @@ EMSK     = MK_ECDHE[768..1279]
       extension was in use when the original EAP-AKA' authentication
       was performed, the keys used for re-authentication (K_re) are
       based on the Diffie-Hellman keys, and hence continue to be
-      equally safe against expose of the long-term secrets as the
+      equally safe against expose of the long-term key as the
       original authentication.</t>
 
   </list></t>
@@ -1934,7 +1940,7 @@ EMSK     = MK_ECDHE[768..1279]
     target="procakachallresp"/>). The same is true of
     EAP-Response/AKA'-Challenge (see <xref
     target="procakachallresp"/>). This ensures that the parties need to
-    show possession of the long-term secret in some way, and only then
+    show possession of the long-term key in some way, and only then
     will the FS calculations become active. This limits the
     Denial-of-Service to specific, identified subscribers. While
     botnets and other forms of malicious parties could take advantage
@@ -1988,7 +1994,7 @@ EMSK     = MK_ECDHE[768..1279]
    CK' and IK' which are entirely based on symmetric cryptography. As a result,
    an adversary with a quantum computer still cannot compute the other output keys either.</t>
 	   
-   <t>However, if the adversary has also obtained knowledge of the secrets associated with the USIM card, they
+   <t>However, if the adversary has also obtained knowledge of the long-term key, they
    could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that
    the introduction of a powerful enough quantum computer would disable
    this protocol extension's ability to provide the forward security
