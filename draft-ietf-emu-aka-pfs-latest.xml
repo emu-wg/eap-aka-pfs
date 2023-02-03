@@ -245,6 +245,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     this document we use the term "USIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
 
+    The goal of AKA is to mutually authenticate the USIM and the so-called
+    home environment, which is the authentication server in the subscribers
+    home operator's network.
     <t>AKA works in the following manner:
     <list style="symbols">
 
@@ -265,15 +268,17 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
       AUTN is valid and the sequence number used to generate AUTN is
       within the correct range), the USIM produces an
       authentication result RES and sends it to the serving network.</t>
-      <t>The serving network verifies the correct result from the identity
-      module.  If the result is correct, IK and CK can be used to
+   <t>The serving network verifies that the result from the identity
+      module matches the expected value in the authentication vector.
+      If it does, the USIM is considered authenticated,
+      and IK and CK can be used to
       protect further communications between the USIM and the
       home environment.</t>
     </list></t>
   </section>
   <section title="EAP-AKA' Protocol">
 
-    <t>When AKA is embedded into EAP, the authentication on
+    <t>When AKA is embedded into EAP, the authentication processing on
     the network side is moved to the home environment; the serving
     network performs the role of a pass-through authenticator.
     <xref target="figaka"/> describes the basic flow in the EAP-AKA'
@@ -281,6 +286,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     behavior, along with the definition of attributes AT_RAND,
     AT_AUTN, AT_MAC, and AT_RES can be found in <xref
     target="RFC9048"/> and <xref target="RFC4187"/>.</t>
+    Note the use of EAP-terminology from hereon.  That is, the 3GPP
+    serving network takes on the role of an EAP access network.
 
 <figure title="EAP-AKA' Authentication Process" anchor="figaka">
 <artset>
