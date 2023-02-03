@@ -254,20 +254,20 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
       environment produce an authentication vector, based on the long-term
       key and a sequence number.  The authentication vector contains a
       random part RAND, an authenticator part AUTN used for
-      authenticating the network to the identity module, an expected
+      authenticating the network to the USIM, an expected
       result part XRES, a 128-bit session key for integrity check IK,
       and a 128-bit session key for encryption CK.</t>
    <t>The authentication vector is passed to the serving network, which
       uses it to authenticate the device.</t>
-   <t>The RAND and the AUTN are delivered to the identity module.</t>
-   <t>The identity module verifies the AUTN, again based on the long-term
+   <t>The RAND and the AUTN are delivered to the USIM.</t>
+   <t>The USIM verifies the AUTN, again based on the long-term
       key and the sequence number.  If this process is successful (the
       AUTN is valid and the sequence number used to generate AUTN is
-      within the correct range), the identity module produces an
+      within the correct range), the USIM produces an
       authentication result RES and sends it to the serving network.</t>
       <t>The serving network verifies the correct result from the identity
       module.  If the result is correct, IK and CK can be used to
-      protect further communications between the identity module and the
+      protect further communications between the USIM and the
       home environment.</t>
     </list></t>
   </section>
