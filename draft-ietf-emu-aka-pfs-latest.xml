@@ -1450,8 +1450,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
          <t>When the FS Key Derivation Function field in the AT_KDF_FS
          attribute is set to 1 or 2 and the Key Derivation Function field
-         in the AT_KDF attribute is set to 1, the Master Key (MK) is
-         derived as follows below.
+         in the AT_KDF attribute is set to 1, the Master Key (MK) and
+         accompanying keys are derived as follows.
 		 
          <figure>
            <artwork align="center">
