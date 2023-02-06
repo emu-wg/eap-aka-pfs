@@ -1727,16 +1727,14 @@ EMSK     = MK_ECDHE[768..1279]
     using EAP to authenticate access to a network is one situation
     where the extension defined in this document can be helpful.</t>
 
-    <t>Even if a compromise of the long-term keys has occurred, FS is
-    still provided for all future sessions, as long as the attacker
-    does not become an active attacker. Of course, as with other
-    protocols, if the attacker has learned the keys and does become an
-    active attacker, there is no protection that that can be provided
-    for future sessions. Among other things, such an active attacker
+    <t>The extension does not provide Post Compromise Security (PCS).
+    That is, attackers with access to the long-term key that mount
+    a MITM attack on future EAP-AKA' runs will be able to eavesdrop on the
+    traffic protected by the resulting session key(s).
+    Such an active attacker
     can impersonate any legitimate endpoint in EAP-AKA', become a
     MITM in EAP-AKA' or the extension defined in this
-    document, retrieve all keys, or turn off FS. Still, past sessions
-    where FS was in use remain protected.</t>
+    document, retrieve all keys, or turn off FS.</t>
 	
     <t>Achieving FS requires that when a connection is closed, each
     endpoint MUST forget not only the ephemeral keys used by the
