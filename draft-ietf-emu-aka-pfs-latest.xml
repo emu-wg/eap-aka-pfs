@@ -1517,7 +1517,10 @@ EMSK     = MK_ECDHE[768..1279]
          used as is.</t>
          
          <t>Identity is the peer identity as specified in Section 7 of <xref target="RFC4187"/>.
-	 A privacy-friendly identifier SHALL be used.</t>
+         The peer identifier SHALL comply with the privacy-friendly requirements of
+         <xref target="RFC9190"/>.  An example of a compliant way of constructing
+         a privacy-friendly peer identifier is using a non-NULL SUCI <xref target="TS.33.501"/>.
+        </t>
          
        </section>
        <section anchor="groups" title="ECDHE Groups">
