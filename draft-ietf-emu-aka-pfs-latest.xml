@@ -39,18 +39,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </address>
 </author>
 
-<author initials="V" surname="Torvinen" fullname="Vesa Torvinen">
-<organization>Ericsson</organization>
-<address>
-<postal>
-<street/>
-<city>Jorvas</city> <code>02420</code>
-<country>Finland</country>
-</postal>
-<email>vesa.torvinen@ericsson.com</email>
-</address>
-</author>
-
 <author initials="J" surname="Preuß Mattsson" fullname="John Preuß Mattsson">
 <organization>Ericsson</organization>
 <address>
@@ -2305,6 +2293,7 @@ EMSK     = MK_ECDHE[768..1279]
     
     <t>The authors would also like to thank
     <contact fullname="Ben Campbell"/>,
+    <contact fullname="Meiling Chen"/>,
     <contact fullname="Tim Evans"/>,
     <contact fullname="Zhang Fu"/>,
     <contact fullname="Russ Housley"/>,
@@ -2320,6 +2309,7 @@ EMSK     = MK_ECDHE[768..1279]
     <contact fullname="Joseph Salowey"/>,
     <contact fullname="Mohit Sethi"/>,
     <contact fullname="Rene Struik"/>,
+    <contact fullname="Vesa Torvinen"/>,
     <contact fullname="Sean Turner"/>,
     <contact fullname="Helena Vahidi Mazinani"/>,    
     and many other people at the IETF, GSMA and 3GPP groups
