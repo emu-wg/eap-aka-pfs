@@ -2003,7 +2003,6 @@ EMSK     = MK_ECDHE[768..1279]
       <?rfc include="reference.RFC.3748.xml"?>
       <?rfc include="reference.RFC.4187.xml"?>
       <?rfc include="reference.RFC.5448.xml"?>
-      <?rfc include="reference.RFC.7624.xml"?>
       <?rfc include="reference.RFC.7748.xml"?>
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
