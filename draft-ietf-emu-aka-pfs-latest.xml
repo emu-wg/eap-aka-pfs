@@ -1517,9 +1517,6 @@ EMSK     = MK_ECDHE[768..1279]
          used as is.</t>
          
          <t>Identity is the peer identity as specified in Section 7 of <xref target="RFC4187"/>.
-         The peer identifier SHALL comply with the privacy-friendly requirements of
-         <xref target="RFC9190"/>.  An example of a compliant way of constructing
-         a privacy-friendly peer identifier is using a non-NULL SUCI <xref target="TS.33.501"/>.
          </t>
          
        </section>
@@ -1538,8 +1535,8 @@ EMSK     = MK_ECDHE[768..1279]
 	     of <xref target="FIPS186-4"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
 	     The support for this group is REQUIRED.</t>
 
-         The term "support" here means that the group MUST be implemented and
-         MUST be possible to use during a protocol run.
+         <t>The term "support" here means that the group MUST be implemented and
+         MUST be possible to use during a protocol run.</t>
      </section>
   
   <section title="Message Processing">
@@ -1563,7 +1560,11 @@ EMSK     = MK_ECDHE[768..1279]
       
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
       MUST NOT be added to this message and that a privacy-friendly identifier
-      MUST be used.  The appearance of these attributes in a received message
+      MUST be used.
+      The peer identifier SHALL comply with the privacy-friendly requirements of
+      <xref target="RFC9190"/>.  An example of a compliant way of constructing
+      a privacy-friendly peer identifier is using a non-NULL SUCI <xref target="TS.33.501"/>.
+      The appearance of these attributes in a received message
       MUST be ignored.</t>
 
     </section>
