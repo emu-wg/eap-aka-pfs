@@ -1470,8 +1470,8 @@ EMSK     = MK_ECDHE[768..1279]
 
 	<t>For P-256 the SHARED_SECRET is the shared
 	secret computed as specified in Section 5.7.1.2 of <xref target="SP-800-56A"/>.
-	Public key validation requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
-	At least partial public-key validation MUST be done. The uncompressed y-coordinate can be
+	Ephemeral public-key validation requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
+	At least partial ephemeral public-key validation MUST be done. The uncompressed y-coordinate can be
         computed as described in Section 2.3.4 of <xref target="SEC1"/>.</t>
 
 	<t>For X25519 the SHARED_SECRET is the shared secret computed as specified in
@@ -1490,9 +1490,9 @@ EMSK     = MK_ECDHE[768..1279]
 
 	 </list></t>	    
 
-	<t>If validation of the public key or the shared secret fails, both
-        parties MUST behave as if the  current EAP-AKA' authentication
-	process starts again from the beginning.</t>
+     <t>If validation of the other party's ephemeral public key or the shared
+     secret fails, a party MUST behave as if the  current EAP-AKA' authentication
+	 process starts again from the beginning.</t>
 	       
 	 <t>The rest of computation proceeds as defined in Section 3.3 of <xref
 	 target="RFC9048"/>.</t>
