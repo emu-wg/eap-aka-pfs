@@ -1801,26 +1801,11 @@ EMSK     = MK_ECDHE[768..1279]
       
       <t hangText="Key derivation"><vspace blankLines="1"/>
       
-      This extension provides key material that is based on
-      the Diffie-Hellman keys, yet bound to the authentication
-      through the USIM card. This means that subsequent payload communications between
-      the parties are protected with keys that are not solely based on
-      information in the clear (such as the RAND) and information
-      derivable from the long-term key on the USIM
-      card. As a result, if anyone successfully recovers
-      shared secret information, they are unable to decrypt
-      communications protected by the keys generated through this
-      extension. Note that the recovery of shared secret information
-      could occur either before or after the time that the protected
-      communications are used. When this extension is used,
-      communications at time t0 can be protected if at some later time
-      t1 an adversary learns of long-term key and has access
-      to a recording of the encrypted communications.
-
-      <vspace blankLines="1"/>Obviously, this extension is still
-      vulnerable to attackers that are willing to perform an active
-      attack and who at the time of the attack have access to the
-      long-term key.<vspace blankLines="1"/>
+      This extension provides forward secrecy.  As described in several
+      places in this specification, this can be roughly summarized as
+      that an attacker with access
+      to long-term keys is unable to obtain session keys of ended past
+      sessions, assuming these sessions deleted all relevant session key material.
 
       This extension does not change the properties related to
       re-authentication. No new Diffie-Hellman run is performed during
