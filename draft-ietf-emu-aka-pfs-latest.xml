@@ -1710,20 +1710,21 @@ EMSK     = MK_ECDHE[768..1279]
    to long term completely phase out EAP-AKA methods without forward secrecy.</t>
 	  
     <t>
-    The extension
+    In addition to forward secrecy, this extension
     provides protection against active attacks as they are forced to
     be a Man-In-The-Middle (MITM) during the AKA run and subsequent
-    communication between the parties. Without forward secrecy an
-    active attacker that has compromised the long-term key can
-    inject messages in an connection between the real Peer and the
-    real server without being a man-in-the-middle. This extension is most
+    communication between the parties. This is true even if the attacker
+    has access to the long-term key and is a result of the Diffie-Hellman
+    component.
+    This extension is most
     useful when used in a context where EAP keys are used without
-    further mixing that can provide Forward Secrecy.  For
+    further mixing that can provide forward secrecy.  For
     instance, when used with IKEv2 <xref target="RFC7296"/>, the
     session keys produced by IKEv2 have this property, so better
     characteristics of EAP keys is not that useful. However, typical
-    link layer usage of EAP does not involve running Diffie-Hellman,
-    so using EAP to authenticate access to a network is one situation
+    link layer usage of EAP does not involve running another, forward secure,
+    key exchange. Therefore,
+    using EAP to authenticate access to a network is one situation
     where the extension defined in this document can be helpful.</t>
 
     <t>This extension generates keying material using the ECDHE
