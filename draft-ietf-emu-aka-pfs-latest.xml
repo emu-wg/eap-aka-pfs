@@ -1741,17 +1741,6 @@ EMSK     = MK_ECDHE[768..1279]
     connection but also any information that could be used to
     recompute those keys.</t>
 	  
-    <t>Using EAP-AKA' FS once provides forward secrecy. Forward secrecy limits the
-       effect of key leakage in one direction (compromise of a key at time T2 does
-       not compromise some key at time T1 where T1 &lt; T2). Protection in the other
-       direction (compromise at time T1 does not compromise keys at time T2) can
-       be achieved by rerunning ECDHE frequently. If a long-term authentication key
-       has been compromised, rerunning EAP-AKA' FS gives protection against passive
-       attackers. Using the terms in <xref target="RFC7624"/>, forward secrecy without rerunning
-       ECDHE does not stop an attacker from doing static key exfiltration. Frequently
-       rerunning EC(DHE) forces an attacker to do dynamic key exfiltration
-       (or content exfiltration).</t>
-
     <section title="Security Properties">
 
     <t>The following security properties of
