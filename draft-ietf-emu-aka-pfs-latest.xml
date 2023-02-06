@@ -1691,35 +1691,17 @@ EMSK     = MK_ECDHE[768..1279]
     as they differ from EAP-AKA', or as new information has been gathered
     since the publication of <xref target="RFC9048"/>.</t>
     
-    <t>The possibility of attacks against key storage offered in USIM or
-    other smart cards has been a known threat. But as the discussion in
-    <xref target="sec:intro"/> shows, the likelihood of practically
-    feasible attacks such as breaches in the smart card supply chain has
-    increased. Many of these attacks can be best
-    dealt with improved processes, e.g., limiting the access to the key
-    material within the factory or personnel, etc. But not all attacks can
-    be entirely ruled out for well-resourced adversaries, irrespective
-    of what the technical algorithms and protection measures are. Always
-    assuming breach such as key compromise and minimizing the impact of
-    breach are essential zero-trust principles.</t>
+    <t>As discussed in the introduction, forward secrecy is an important
+    countermeasure against well-resourced adversaries that who may get access
+    to the long-term keys, see <xref target="sec:intro"/>.</t>
 	  
     <t>If a mechanism without forward secrecy such as (5G-AKA,
     EAP-AKA') is used the effects of key compromise are devastating.
-    The serious consequences of breach somewhere in the supply chain
-    or after delivery that are possible when 5G-AKA or EAP-AKA' is
-    used but not when something with forward secrecy like EAP-AKA-FS
-    is used are:
-    <list style="numbers">
-    <t>A passive attacker can eavesdrop (decrypt) all
-    future 5G communication (control and user plane both directions),</t>
-    <t>A passive attacker can decrypt 5G communication that they
-    previously recorded in the past (control and user plane both
-    directions), and </t>
-    <t>An active attacker can impersonate UE and
-    Network and inject messages in an ongoing 5G connection between
-    the real UE and the real network (control and user plane both
-    directions).</t>
-    </list>
+    There are serious consequences of not properly providing forward secrecy
+    for the key establishment:
+    an attacker can decrypt 5G communication that they
+    previously recorded (control and user plane both
+    directions).
     </t>
 
    <t>Best practice security today is to mandate forward secrecy (as
