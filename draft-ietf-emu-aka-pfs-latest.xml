@@ -1727,16 +1727,6 @@ EMSK     = MK_ECDHE[768..1279]
     using EAP to authenticate access to a network is one situation
     where the extension defined in this document can be helpful.</t>
 
-    <t>This extension generates keying material using the ECDHE
-    exchange in order to gain the FS property. This means that once
-    an EAP-AKA' authentication run ends, the session that it was used
-    to protect is closed, and the corresponding keys are forgotten,
-    even someone who has recorded all of the data from the
-    authentication run and session and gets access to all of the AKA
-    long-term keys cannot reconstruct the keys used to protect the
-    session or any previous session, without doing a brute force
-    search of the session key space.</t>
-
     <t>Even if a compromise of the long-term keys has occurred, FS is
     still provided for all future sessions, as long as the attacker
     does not become an active attacker. Of course, as with other
