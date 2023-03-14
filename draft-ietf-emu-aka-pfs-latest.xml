@@ -62,13 +62,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking SIM card
+  involved compromising the smart card supply chain, such as attacking Subscriber Identity Module (SIM) card
   manufacturers and operators in an effort to compromise shared
   secrets stored on these cards. Since the publication of those
   reports, manufacturing and provisioning processes have gained much
-  scrutiny and have improved. However, the danger of resourceful
-  attackers for these systems is still a concern. Always assuming breach
-  such as key compromise and minimizing the impact of breach are essential
+  scrutiny and have improved. However, resourceful attackers are always a cause for concern. Always assuming a breach,
+  such as key compromise, and minimizing the impact of breach are essential
   zero-trust principles.</t>
 
   <t>This specification updates RFC 9048, the improved Extensible
@@ -79,7 +78,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a Subscriber Identity Module (SIM) card from
+  pre-shared secret in a SIM card from
   being able to decrypt any past
   communications. In addition, if the attacker stays merely a passive
   eavesdropper, the extension prevents attacks against future
@@ -94,7 +93,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking SIM card
+  involved compromising the smart card supply chain, such as attacking Subscriber Identity Module (SIM) card
   manufacturers and operators in an effort to compromise shared
   secrets stored on these cards. Such attacks are conceivable, for
   instance, during the manufacturing process of cards, or during the
@@ -104,19 +103,19 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   improved.</t>
 
   <t>However, the danger of resourceful attackers attempting to gain
-  information about Subscriber Identity Module (SIM) cards is still a
+  information about SIM cards is still a
   concern. They are a
-  high-value target and concern a large number of people.  Note that
+  high-value target and affect a large number of people.  Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
-  protocols, but rather the possibility of someone gaining unlawful
-  access to key material. While the better protection of manufacturing
-  and other processes is essential in protecting against this, there
-  is one question that we as protocol designers can ask.  Is there
+  protocols, but rather the possibility of someone gaining unauthorized
+  access to key material. While better protections for manufacturing
+  and other processes are essential to mitigate these attacks, there
+  is one question that protocol designers can ask: is there
   something that we can do to limit the consequences of attacks,
   should they occur?</t>
   
-  <t>The authors want to provide a public specification of an
+  <t>This document specifies an
   extension that helps defend against one aspect of pervasive
   surveillance. This is important, given the large number of users such
   practices may affect. It is also a stated goal of the IETF to ensure
@@ -126,7 +125,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   Extensible Authentication Protocol Method for 3GPP Mobile Network
   Authentication and Key Agreement (EAP-AKA').</t>
 
-  <t>This specification updates <xref target="RFC9048"/>, the EAP-AKA'
+  <t>This document updates <xref target="RFC9048"/>, the EAP-AKA'
   authentication method, with an optional extension
   and strengthens the identity privacy requirements. While optional,
   the use of this extension is strongly RECOMMENDED.</t>
@@ -196,8 +195,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   associated with pervasive surveillance.</t>
 
   <t>While adding forward secrecy to the existing mobile
-  network infrastructure can be done in multiple different ways, the
-  authors believe that the approach chosen here is relatively easily
+  network infrastructure can be done in multiple different ways, this
+  document specifies a solution that is relatively easily
   deployable. In particular:
   <list style="symbols">
     
@@ -293,7 +292,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | AT_AUTN attributes, whereas the network name is        |
    |      | transported in the AT_KDF_INPUT attribute. AT_KDF      |
    |      | signals the used key derivation function. The session  |
-   |      | keys are used in creating the AT_MAC attribute.        |
+   |      | keys are used to create the AT_MAC attribute.          |
    |      +-----------------------------------------------------+--+
    |                                                            |
    |                                 EAP-Request/AKA'-Challenge |
@@ -304,13 +303,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 | based on, e.g., what access technology it is using.    |      |
 | The peer also retrieves the network name sent by the   |      |
 | network from the AT_KDF_INPUT attribute. The two names |      |
-| are compared for discrepancies, and if necessary, the  |      |
-| authentication is aborted. Otherwise, the network name |      |
-| from AT_KDF_INPUT attribute is used in running the     |      |
-| AKA' algorithms, verifying AUTN from AT_AUTN and MAC   |      |
-| from AT_MAC attributes. The peer then generates RES.   |      |
-| The peer also derives session keys from CK'/IK'. The   |      |
-| AT_RES and AT_MAC attributes are constructed.          |      |
+| are compared for discrepancies, and if they do not     |      |
+| match, the authentication is aborted. Otherwise, the   |      |
+| network name from AT_KDF_INPUT attribute is used in    |      |
+| running the AKA' algorithms, verifying AUTN from       |      |
+| AT_AUTN and MAC from AT_MAC attributes. The peer then  |      |
+| generates RES. The peer also derives session keys from |      |
+| CK'/IK'. The AT_RES and AT_MAC attributes are          |      |
+| constructed.                                           |      |
 +--+-----------------------------------------------------+      |
    |                                                            |
    | EAP-Response/AKA'-Challenge                                |
@@ -319,7 +319,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      +-----------------------------------------------------+--+
    |      | Server checks the RES and MAC values received in       |
    |      | AT_RES and AT_MAC, respectively. Success requires both |
-   |      | to be found correct.                                   |
+   |      | compared values match, respectively.                   |
    |      +-----------------------------------------------------+--+
    |                                                            |
    |                                                EAP-Success |
@@ -631,7 +631,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   not present in key material provided by EAP-AKA' in its original
   form.</t>
   
-  <t><xref target="figakafs"/> below describes the overall process. Since our goal
+  <t><xref target="figakafs"/> below describes the overall process. Since the goal
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
   and the 3GPP authentication server (HSS). The details of those
@@ -1252,7 +1252,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
            <vspace blankLines="1"/>
 
-           To retain the security of the keys, the sender SHALL generate
+           To retain the security of the sessions, the sender SHALL generate
            a fresh value for each run of the protocol.</t>
            
          </list></t>
@@ -1263,14 +1263,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          
          <t>The AT_KDF_FS indicates the used or desired forward secrecy key
          generation function, if the Forward Secrecy extension
-         is taken into use. It will also at the same time indicate the
+         is used. It will also indicate the
          used or desired ECDHE group. A new attribute is needed to
          carry this information, as AT_KDF carries the basic KDF
          value which is still used together with the forward secrecy KDF
          value. The basic KDF value is also used by those EAP peers
          that cannot or do not want to use this extension.</t>
          
-	 <t>This specification only specifies the behavior relating to
+	 <t>This document only specifies the behavior relating to
 	 the following combinations of basic KDF values and forward secrecy
 	 KDF values:
 	 The basic KDF value in AT_KDF is 1, as specified in <xref target="RFC5448"/> and <xref target="RFC9048"/>,
@@ -1447,8 +1447,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
          keys MK, K_encr, and K_aut.</t>
          
          <t>Key derivation in this extension produces exactly the same
-         keys for internal use within one authentication run as <xref
-         target="RFC9048"/> EAP-AKA' does.  For
+         keys for internal use within one authentication run as EAP-AKA' <xref
+         target="RFC9048"/> does.  For
          instance, K_aut that is used in AT_MAC is still exactly as it
          was in EAP-AKA'. The only change to key derivation is in
          re-authentication keys and keys exported out of the EAP
@@ -1525,7 +1525,7 @@ EMSK     = MK_ECDHE[768..1279]
          used as is.</t>
          
          <t>Identity is the peer identity as specified in Section 7 of <xref target="RFC4187"/>.
-	 A privacy-friendly identifier SHALL be used.</t>
+	 A privacy-friendly identifier <xref target="RFC9048"/> SHALL be used.</t>
          
        </section>
        <section anchor="groups" title="ECDHE Groups">
@@ -1585,7 +1585,7 @@ EMSK     = MK_ECDHE[768..1279]
       and AT_PUB_ECDHE attributes MUST be included. The AT_PUB_ECDHE
       attribute carries the server's public Diffie-Hellman key. If
       either AT_KDF_FS or AT_PUB_ECDHE is missing on reception, the peer
-      MUST treat them as if neither one was sent, and the assume that
+      MUST treat it as if neither one was sent, and the assume that
       the extension defined in this specification is not in use.</t>
       
       <t>The AT_RESULT_IND, AT_CHECKCODE, AT_IV, AT_ENCR_DATA, AT_PADDING,
@@ -1598,9 +1598,8 @@ EMSK     = MK_ECDHE[768..1279]
       Only if these attributes are verified to be valid, the peer
       derives keys and verifies AT_MAC.  If the peer is unable or
       unwilling to perform the extension specified in this document,
-      it proceeds as defined in <xref target="RFC9048"/>. Finally, the
-      operation in case an error occurs is specified in Section
-      6.3.1. of <xref target="RFC4187"/>.</t>
+      it proceeds as defined in <xref target="RFC9048"/>. Finally, if
+      there is an error error, see Section 6.3.1. of <xref target="RFC4187"/>.</t>
       
     </section>
     
@@ -1630,8 +1629,8 @@ EMSK     = MK_ECDHE[768..1279]
       <t>The AT_RES attribute MUST be included and checked as
       specified in <xref target="RFC4187"/>.  When processing this
       message, the Server MUST process AT_RES before processing other
-      attributes.  Only if these attribute is verified to be valid,
-      the Server derives keys and verifies AT_MAC.</t>
+      attributes.  The Server derives keys and verifies AT_MAC only
+      when this attribute is verified to be valid.</t>
 
       <t>If the Server has proposed the use of the extension specified
       in this protocol, but the peer ignores and continues the basic
@@ -1702,7 +1701,7 @@ EMSK     = MK_ECDHE[768..1279]
     material within the factory or personnel, etc. But not all attacks can
     be entirely ruled out for well-resourced adversaries, irrespective
     of what the technical algorithms and protection measures are. Always
-    assuming breach such as key compromise and minimizing the impact of
+    assuming breach, such as key compromise, and minimizing the impact of
     breach are essential zero-trust principles.</t>
 	  
     <t>If a mechanism without forward secrecy such as (5G-AKA,
@@ -1726,7 +1725,7 @@ EMSK     = MK_ECDHE[768..1279]
 
    <t>Best practice security today is to mandate forward secrecy (as
    is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.). It is RECOMMENDED
-   to long term completely phase out AKA without forward secrecy.</t>
+   that AKA without forward secrecy be phased out.</t>
 	  
     <t>This extension can provide assistance in situations where there
     is a danger of attacks against the key material on SIM cards by
@@ -2019,11 +2018,11 @@ EMSK     = MK_ECDHE[768..1279]
 
   <t>Two new values (TBA1, TBA2) in the skippable
   range need to be assigned for AT_PUB_ECDHE (<xref target="at_pub_dh"/>)
-  and AT_KDF_FS (<xref target="at_kdf_dh"/>
+  and AT_KDF_FS (<xref target="at_kdf_dh"/>)
   in the "Attribute Types" registry under the "EAP-AKA and EAP-SIM Parameters" group.</t>
 
-  <t>Also, a new registry "EAP-AKA' AT_KDF_FS Key Derivation Function Values"
-  should be created to represent
+  <t>Also, IANA is requested to create a new registry "EAP-AKA' AT_KDF_FS Key Derivation Function Values"
+  to represent
   FS Key Derivation Function types. The "EAP-AKA' with
   ECDHE and X25519" and "EAP-AKA' with ECDHE and P-256"
   types (1 and 2, see <xref target="kdf2"/>) need to be assigned,
