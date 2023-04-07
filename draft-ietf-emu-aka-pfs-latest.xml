@@ -2349,6 +2349,7 @@ EMSK     = MK_ECDHE[768..1279]
     <t>The authors would also like to thank
     <contact fullname="Ben Campbell"/>,
     <contact fullname="Meiling Chen"/>,
+    <contact fullname="Linda Dunbar"/>,
     <contact fullname="Tim Evans"/>,
     <contact fullname="Zhang Fu"/>,
     <contact fullname="Russ Housley"/>,
@@ -2366,7 +2367,9 @@ EMSK     = MK_ECDHE[768..1279]
     <contact fullname="Rene Struik"/>,
     <contact fullname="Vesa Torvinen"/>,
     <contact fullname="Sean Turner"/>,
-    <contact fullname="Helena Vahidi Mazinani"/>,    
+    <contact fullname="Helena Vahidi Mazinani"/>,
+    <contact fullname="Paul Wouters"/>,
+    <contact fullname="Bo Wu"/>,
     and many other people at the IETF, GSMA and 3GPP groups
     for interesting discussions in this problem space.</t>
     
