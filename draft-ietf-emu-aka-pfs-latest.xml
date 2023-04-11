@@ -1728,6 +1728,31 @@ EMSK     = MK_ECDHE[768..1279]
     connection but also any information that could be used to
     recompute those keys.</t>
 	  
+    <section title="Deployment Considerations">
+        <t>Forward secrecy for the established (E)MSK is provided with respect
+        to the long-term key.  However, when the MSK is transported to a
+        pass-through authenticator, the transport must also provide forward
+        secure encryption with respect to the long-term keys used to establish
+        its security.  Otherwise, an adversary may record the MSK during
+        transport, later compromise the session keys for the
+        transport encryption, and decrypt transported MSK.  This attack
+        applies to any EAP method, not only this one.</t>
+
+        <t>The MSK will only be forward secure once the transport encryption
+        has rekeyed.</t>
+
+        <t>In practice, providing forward secure encryption may be costly if
+        relying on TLS or IPsec for transport protection.  TLS and IPsec
+        can run a new handshake to establish new session keys and discard the
+        old ones.  TLS also has the option to run a key update, which is more
+        light-weight option.  To further lighten the load, one can consider
+        rekeying the transport encryption only at every n:th transaction or
+        after a certain time.  The deployer(s) of EAP and the AAA infrastructure
+        have to make a risk assessment deciding on an appropriate
+        rekeying policy.</t>
+    </section>
+
+
     <section title="Security Properties">
 
     <t>The following security properties of
