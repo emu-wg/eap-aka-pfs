@@ -2079,16 +2079,16 @@ EMSK     = MK_ECDHE[768..1279]
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
       <?rfc include="reference.RFC.9048.xml"?>
-      <reference anchor="FIPS186-4">
+      <reference anchor="FIPS186-5">
         <front>
         <title>Digital Signature Standard (DSS)</title>
         <author>
           <organization>NIST</organization>
         </author>
-        <date month="July" year='2013'/>
+        <date month="February" year='2023'/>
         </front>
-        <seriesInfo name="FIPS" value="186-4" />
-        <format type='HTML' target='https://doi.org/10.6028/NIST.FIPS.186-4'/>
+        <seriesInfo name="FIPS" value="186-5" />
+        <format type='HTML' target='https://doi.org/10.6028/NIST.FIPS.186-5'/>
       </reference>
       <reference anchor="SEC1">
         <front>
@@ -2184,9 +2184,9 @@ EMSK     = MK_ECDHE[768..1279]
       <author>
         <organization>3GPP</organization>
       </author>
-      <date month="December" year="2022" />
+      <date month="March" year="2023" />
     </front>
-    <seriesInfo name="3GPP TS" value="33.501 18.0.0" />
+    <seriesInfo name="3GPP TS" value="33.501 18.1.0" />
   </reference>
 	
 </references>
