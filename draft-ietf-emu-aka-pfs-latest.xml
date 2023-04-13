@@ -105,7 +105,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>However, the danger of resourceful attackers attempting to gain
   information about Subscriber Identity Module (SIM) cards is still a
-  concern. They are a
+  concern. These are a
   high-value target and concern a large number of people.  Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
