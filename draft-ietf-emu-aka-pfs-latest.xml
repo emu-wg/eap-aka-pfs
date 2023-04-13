@@ -191,7 +191,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>The use of this extension is at the discretion of the
   authenticating parties. It should be noted that FS and defenses
-  against passive attacks are by no means a panacea, but they can
+  against passive attacks do not solve all problems, but they can
   provide a partial defense that increases the cost and risk
   associated with pervasive surveillance.</t>
 
