@@ -62,72 +62,67 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking SIM card
-  manufacturers and operators in an effort to compromise shared
-  secrets stored on these cards. Since the publication of those
+  involved compromising the smart card supply chain, such as attacking USIM card
+  manufacturers and operators in an effort to compromise long-term
+  keys stored on these cards. Since the publication of those
   reports, manufacturing and provisioning processes have gained much
   scrutiny and have improved. However, the danger of resourceful
-  attackers for these systems is still a concern. Always assuming breach
-  such as key compromise and minimizing the impact of breach are essential
-  zero-trust principles.</t>
+  attackers against these systems is still a concern.
+  Therefore, accepting long-term key compromise as a possibility and reducing
+  its impact seems prudent.</t>
 
   <t>This specification updates RFC 9048, the improved Extensible
   Authentication Protocol Method for 3GPP Mobile Network Authentication
-  and Key Agreement (EAP-AKA'), with an optional extension. 
-  Similarly, this specification also updates the earlier version 
+  and Key Agreement (EAP-AKA'), with an optional extension.
+  Similarly, this specification also updates the earlier version
   of the EAP-AKA' specification in RFC 5448. The extension, when
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a Subscriber Identity Module (SIM) card from
-  being able to decrypt any past
-  communications. In addition, if the attacker stays merely a passive
-  eavesdropper, the extension prevents attacks against future
-  sessions. This forces attackers to use active attacks instead.</t>
-
+  long-term key from obtaining session keys established in the past, assuming
+  these have been properly deleted.
+  In addition to providing session-key forward secrecy, EAP-AKA' FS protect
+  session keys established after the long-term-key compromise against passive
+  attackers.  That is, after the compromise, the attacker must still perform a
+  man-in-the-middle (MITM) attack on exchanges it wishes to obtain the session key
+  from.</t>
 </abstract>
 
 </front>
 <middle>
 
-<section title="Introduction">
+<section anchor="sec:intro" title="Introduction">
 
-  <t>Many different attacks have been reported as part of revelations
-  associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking SIM card
-  manufacturers and operators in an effort to compromise shared
-  secrets stored on these cards. Such attacks are conceivable, for
-  instance, during the manufacturing process of cards, or during the
-  transfer of cards and associated information to the operator. Since
-  the publication of reports about such attacks, manufacturing and
+  <t>Attacks revealing the AKA long-term key may occur for
+  instance, during the manufacturing process of Universal Subscriber Identity Module
+  (USIM) cards, during the transfer of the cards and associated information to
+  the operator, and when a system is running. Since
+  the publication of reports about such attacks
+  <xref target="Heist2015"/>, manufacturing and
   provisioning processes have gained much scrutiny and have
   improved.</t>
 
   <t>However, the danger of resourceful attackers attempting to gain
-  information about Subscriber Identity Module (SIM) cards is still a
-  concern. They are a
-  high-value target and concern a large number of people.  Note that
+  information about long-term keys is still a concern because many
+  people use the service and these keys are high-value targets.
+  Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
   protocols, but rather the possibility of someone gaining unlawful
-  access to key material. While the better protection of manufacturing
-  and other processes is essential in protecting against this, there
+  access to key material.
+  Furthermore, an explicit goal of the IETF is to ensure
+  that we understand the surveillance concerns related to IETF
+  protocols and take appropriate countermeasures <xref target="RFC7258"/>.</t>
+
+  <t>While strong protection of manufacturing
+  and other processes is essential in mitigating the risks, there
   is one question that we as protocol designers can ask.  Is there
   something that we can do to limit the consequences of attacks,
   should they occur?</t>
-  
-  <t>The authors want to provide a public specification of an
-  extension that helps defend against one aspect of pervasive
-  surveillance. This is important, given the large number of users such
-  practices may affect. It is also a stated goal of the IETF to ensure
-  that we understand the surveillance concerns related to IETF
-  protocols and take appropriate countermeasures <xref
-  target="RFC7258"/>. This document does that for the improved
-  Extensible Authentication Protocol Method for 3GPP Mobile Network
-  Authentication and Key Agreement (EAP-AKA').</t>
 
-  <t>This specification updates <xref target="RFC9048"/>, the EAP-AKA'
-  authentication method, with an optional extension
+  <t>This specification updates <xref target="RFC9048"/>, the 3GPP Mobile Network
+  Authentication and Key Agreement (EAP-AKA')
+  method, with an optional extension mitigating long-term key compromise
   and strengthens the identity privacy requirements. While optional,
   the use of this extension is strongly RECOMMENDED.</t>
 
@@ -135,43 +130,40 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy (FS) for the session key
   generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from being able to decrypt any past
-  communications. In addition, if the attacker stays merely a passive
-  eavesdropper, the extension prevents attacks against future
-  sessions. This forces attackers to use active attacks instead. This
-  is beneficial, because active attacks demand much more resources to
-  launch, and can generally be detected much easier. As
+  pre-shared key in a USIM card from getting access to past session keys.
+  In addition to FS, the included Diffie-Hellman exchange, forces attackers
+  to be active if they want access to future session keys even if they have access
+  to the long-term key.
+  This is beneficial, because active attacks demand much more resources to
+  launch, and are easier to detect. As
   with other protocols, an active attacker with access to the
   long-term key material will of course be able to attack all future
   communications, but risks detection, particularly if done at
-  scale. The attacker
-  is forced to attempt to exfiltrate key material, if it can, on a
-  continuous basis, as opposed to learning it once <xref
-  target="RFC7624"/>.</t>
+  scale.</t>
 
   <t>Attacks against Authentication and Key Agreement (AKA) authentication
   via compromising the long-term
-  secrets in the SIM cards have been an active discussion topic in
-  many contexts. Forward secrecy is on the list of features
+  key have been an active discussion topic in many contexts. Forward secrecy
+  <xref target="DOW1992"/> is
+  on the list of features
   for the next release of 3GPP (5G Phase 2), and this document provides
-  a basis for providing this feature in a particular fashion.</t>
-  
+  a basis for providing this feature.</t>
+
   <t>It should also be noted that 5G network architecture <xref target="TS.33.501"/>
   includes the
   use of the EAP framework for authentication. While any methods can
   be run, the default authentication method within that context will
   be EAP-AKA'. As a result, improvements in EAP-AKA' security have a
-  potential to improve security for large number of users.</t>
-
+  potential to improve security for many users.</t>
 </section>
 
 <section title="Protocol Design and Deployment Objectives">
-  
+
   <t>The extension specified here re-uses large portions of the
   current structure of 3GPP interfaces and functions, with the
   rationale that this will make the construction more easily adopted.
-  In particular, the construction maintains the interface between the
-  Universal Subscriber Identification Module (USIM) and the mobile
+  In particular, the construction keeps the interface between the
+  USIM and the mobile
   terminal intact. As a consequence, there is no need to roll out new
   credentials to existing subscribers. The work is based on an earlier
   paper <xref target="TrustCom2015"/>, and uses much of the same
@@ -202,7 +194,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <list style="symbols">
     
     <t>As noted above, no new credentials are needed; there is no
-    change to SIM cards.</t>
+    change to USIM cards.</t>
     
     <t>FS property can be incorporated into any current or future
     system that supports EAP, without changing
@@ -225,53 +217,68 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </section>
 
 <section title="Background">
-  <section title="AKA">
+    <t>This specification defines a new EAP method and the reader is assumed to
+    have basic understanding of the EAP framework <xref target="RFC3748"/>.</t>
 
-    <t>Authentication and Key Agreement (AKA) is based on challenge-response
-    mechanisms and symmetric cryptography. In contrast with its earlier GSM
+  <section title="AKA">
+    <t>We use the term Authentication and Key Agreement (AKA) for the main
+    authentication and key agreement protocol used by 3GPP mobile networks from
+    the third generation (3G) and onward. Later generations adds new features to
+    AKA, but the core remains the same.
+    It is based on challenge-response mechanisms and symmetric cryptography.
+    In contrast to its earlier GSM
     counterparts, AKA provides long key lengths and mutual authentication.
-    AKA typically runs in a Universal Subscriber Identity Module (USIM). USIM is
+    The phone typically execute AKA in a USIM. USIM is
     technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
-    this document we use the term "SIM card" to refer to any Subscriber
+    this document we use the term "USIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
 
+    <t>The goal of AKA is to mutually authenticate the USIM and the so-called
+    home environment, which is the authentication server in the subscribers
+        home operator's network.</t>
     <t>AKA works in the following manner:
     <list style="symbols">
 
-   <t>The identity module and the home environment have agreed on a
-      secret key beforehand.</t>
+   <t>The USIM and the home environment have agreed on a
+      long-term symmetric key beforehand.</t>
    <t>The actual authentication process starts by having the home
-      environment produce an authentication vector, based on the secret
+      environment produce an authentication vector, based on the long-term
       key and a sequence number.  The authentication vector contains a
       random part RAND, an authenticator part AUTN used for
-      authenticating the network to the identity module, an expected
+      authenticating the network to the USIM, an expected
       result part XRES, a 128-bit session key for integrity check IK,
       and a 128-bit session key for encryption CK.</t>
    <t>The authentication vector is passed to the serving network, which
       uses it to authenticate the device.</t>
-   <t>The RAND and the AUTN are delivered to the identity module.</t>
-   <t>The identity module verifies the AUTN, again based on the secret
+   <t>The RAND and the AUTN are delivered to the USIM.</t>
+   <t>The USIM verifies the AUTN, again based on the long-term
       key and the sequence number.  If this process is successful (the
       AUTN is valid and the sequence number used to generate AUTN is
-      within the correct range), the identity module produces an
+      within the correct range), the USIM produces an
       authentication result RES and sends it to the serving network.</t>
-      <t>The serving network verifies the correct result from the identity
-      module.  If the result is correct, IK and CK can be used to
-      protect further communications between the identity module and the
+   <t>The serving network verifies that the result from the identity
+      module matches the expected value in the authentication vector.
+      If it does, the USIM is considered authenticated,
+      and IK and CK can be used to
+      protect further communications between the USIM and the
       home environment.</t>
     </list></t>
   </section>
   <section title="EAP-AKA' Protocol">
 
-    <t>When AKA is embedded into EAP, the authentication on
-    the network side is moved to the home environment; the serving
-    network performs the role of a pass-through authenticator.
+    <t>When AKA is embedded into EAP, the authentication processing on
+    the network side is moved to the home environment. The 3GPP authentication
+    database (AD) still generates authentication vectors. The 3GPP authentication
+    server (AS) takes the role of EAP server.
+    The USIM combined with the mobile phone takes the role of the client.
     <xref target="figaka"/> describes the basic flow in the EAP-AKA'
     authentication process. The definition of the full protocol
     behavior, along with the definition of attributes AT_RAND,
     AT_AUTN, AT_MAC, and AT_RES can be found in <xref
-    target="RFC9048"/> and <xref target="RFC4187"/>.</t>
+    target="RFC9048"/> and <xref target="RFC4187"/>.
+    Note the use of EAP-terminology from hereon.  That is, the 3GPP
+    serving network takes on the role of an EAP access network.</t>
 
 <figure title="EAP-AKA' Authentication Process" anchor="figaka">
 <artset>
@@ -568,32 +575,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </figure>
 
   </section>
-
-  <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
-
-    <t>Current 3GPP systems use SIM pre-shared key-based protocols
-    and Authentication and Key Agreement (AKA) to authenticate
-    subscribers. The general security properties and potential
-    vulnerabilities of AKA and EAP-AKA' are discussed in <xref
-    target="RFC9048"/>.</t>
-    
-    <t>An important vulnerability in that discussion relates to the
-    recent reports of compromised long term pre-shared keys used in
-    AKA <xref target="Heist2015"/>. These attacks are not specific to
-    AKA or EAP-AKA', as all security systems fail at least to some
-    extent if key material is stolen. However, the reports indicate a
-    need to look into solutions that can operate at least to an extent
-    under these types of attacks. It is noted in <xref
-    target="Heist2015"/> that some security can be retained even in
-    the face of the attacks by providing Forward Secrecy
-    (FS) <xref target="DOW1992"/> for the session key. If AKA would
-    have provided FS, compromising the pre-shared key would not be
-    sufficient to perform passive attacks; the attacker is, in
-    addition, forced to be a Man-In-The-Middle (MITM) during the AKA
-    run and subsequent communication between the parties.</t>
-
-  </section>
-
 </section>
 
 <section title="Requirements Language">
@@ -611,18 +592,17 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>Forward Secrecy for EAP-AKA' is achieved by using an Elliptic
   Curve Diffie-Hellman (ECDH) exchange <xref target="RFC7748"/>. To provide
   FS, the exchange must be run in an ephemeral manner, i.e.,
-  both sides generate temporary keys according to the negotiated ciphersuite,
-  e.g., for X25519 this is done as specified in <xref target="RFC7748"/>.
+  both sides generate temporary keys according to the negotiated ciphersuite.
   This method is referred to as ECDHE, where the last 'E' stands
   for Ephemeral. The two initially registered elliptic curves and their
-  wire format is chosen to align with the elliptic curves and formats
+  wire format are chosen to align with the elliptic curves and formats
   specified for Subscription Concealed Identifier (SUCI) encryption in
   Appendix C.3.4 of 3GPP TS 33.501 <xref target="TS.33.501"/>.</t>
   
   <t>The enhancements in the EAP-AKA' FS protocol are compatible
   with the signaling flow and other basic structures of both AKA and
   EAP-AKA'. The intent is to implement the enhancement as optional
-  attributes that legacy implementations can ignore.</t>
+  attributes that legacy implementations ignore.</t>
   
   <t>The purpose of the protocol is to achieve mutual authentication
   between the EAP server and peer, and to establish keying material
@@ -634,15 +614,15 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t><xref target="figakafs"/> below describes the overall process. Since our goal
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
-  and the 3GPP authentication server (HSS). The details of those
-  interactions
+  and the home environment. Recall that the home environment represent
+  the 3GPP authentication database and server. The details of those interactions
   are outside the scope of this document, however, and the reader
   is referred to the 3GPP specifications.</t>
 
 <figure title="EAP-AKA' FS Authentication Process" anchor="figakafs">
 <artset>
 <artwork type="ascii-art"><![CDATA[
- USIM           Peer                        Server             HSS
+ USIM           Peer                        Server             AD
    |              |                            |                |
    |              |           EAP-Req/Identity |                |
    |              |<---------------------------+                |
@@ -652,9 +632,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |              +--------------------------->|                |
    |      +-------+----------------------------+----------------+--+
    |      | Server now has an identity for the peer. The server    |
-   |      | then asks the help of HSS to run AKA algorithms,       |
+   |      | then asks the help of AD to run AKA algorithms,        |
    |      | generating RAND, AUTN, XRES, CK, IK. Typically, the    |
-   |      | HSS performs the first part of key derivations so that |
+   |      | AD performs the first part of key derivations so that  |
    |      | the authentication server gets the CK' and IK' keys    |
    |      | already tied to a particular network name.             |
    |      +-------+----------------------------+----------------+--+
@@ -719,7 +699,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | correct. Note that when this specification is used,    |
    |      | the keys generated from EAP-AKA' are based on both     |
    |      | CK/IK as well as the ECDHE value. Even if there was an |
-   |      | attacker who held the long-term secret keys, only an   |
+   |      | attacker who held the long-term key, only an           |
    |      | active attacker could have determined the generated    |
    |      | session keys; in basic EAP-AKA' the generated keys are |
    |      | only based on CK and IK.                               |
@@ -792,7 +772,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="28" y="36">USIM</text>
                   <text x="148" y="36">Peer</text>
                   <text x="380" y="36">Server</text>
-                  <text x="520" y="36">HSS</text>
+                  <text x="520" y="36">AD</text>
                   <text x="308" y="68">EAP-Req/Identity</text>
                   <text x="232" y="116">EAP-Resp/Identity</text>
                   <text x="236" y="132">(Privacy-Friendly)</text>
@@ -811,7 +791,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="192" y="196">the</text>
                   <text x="228" y="196">help</text>
                   <text x="260" y="196">of</text>
-                  <text x="288" y="196">HSS</text>
+                  <text x="288" y="196">AD</text>
                   <text x="316" y="196">to</text>
                   <text x="344" y="196">run</text>
                   <text x="376" y="196">AKA</text>
@@ -824,7 +804,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="376" y="212">IK.</text>
                   <text x="436" y="212">Typically,</text>
                   <text x="496" y="212">the</text>
-                  <text x="112" y="228">HSS</text>
+                  <text x="112" y="228">AD</text>
                   <text x="164" y="228">performs</text>
                   <text x="216" y="228">the</text>
                   <text x="256" y="228">first</text>
@@ -1458,8 +1438,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
          <t>When the FS Key Derivation Function field in the AT_KDF_FS
          attribute is set to 1 or 2 and the Key Derivation Function field
-         in the AT_KDF attribute is set to 1, the Master Key (MK) is
-         derived as follows below.
+         in the AT_KDF attribute is set to 1, the Master Key (MK) and
+         accompanying keys are derived as follows.
 		 
          <figure>
            <artwork align="center">
@@ -1478,8 +1458,8 @@ EMSK     = MK_ECDHE[768..1279]
 
 	<t>For P-256 the SHARED_SECRET is the shared
 	secret computed as specified in Section 5.7.1.2 of <xref target="SP-800-56A"/>.
-	Public key validation requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
-	At least partial public-key validation MUST be done. The uncompressed y-coordinate can be
+	Ephemeral public-key validation requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
+	At least partial ephemeral public-key validation MUST be done. The uncompressed y-coordinate can be
         computed as described in Section 2.3.4 of <xref target="SEC1"/>.</t>
 
 	<t>For X25519 the SHARED_SECRET is the shared secret computed as specified in
@@ -1498,9 +1478,9 @@ EMSK     = MK_ECDHE[768..1279]
 
 	 </list></t>	    
 
-	<t>If validation of the public key or the shared secret fails, both
-        parties MUST behave as if the  current EAP-AKA' authentication
-	process starts again from the beginning.</t>
+     <t>If validation of the other party's ephemeral public key or the shared
+     secret fails, a party MUST behave as if the  current EAP-AKA' authentication
+	 process starts again from the beginning.</t>
 	       
 	 <t>The rest of computation proceeds as defined in Section 3.3 of <xref
 	 target="RFC9048"/>.</t>
@@ -1525,7 +1505,7 @@ EMSK     = MK_ECDHE[768..1279]
          used as is.</t>
          
          <t>Identity is the peer identity as specified in Section 7 of <xref target="RFC4187"/>.
-	 A privacy-friendly identifier SHALL be used.</t>
+         </t>
          
        </section>
        <section anchor="groups" title="ECDHE Groups">
@@ -1540,12 +1520,14 @@ EMSK     = MK_ECDHE[768..1279]
          
          <t>For "EAP-AKA' with ECDHE and P-256" the group is the NIST
          P-256 group (SEC group secp256r1), specified in Appendix D.1.2.3
-	 of <xref target="FIPS186-4"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
-	 The support for this group is REQUIRED.</t>
-         
+	     of <xref target="FIPS186-4"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
+	     The support for this group is REQUIRED.</t>
+
+         <t>The term "support" here means that the group MUST be implemented and
+         MUST be possible to use during a protocol run.</t>
      </section>
   
-  <section title="Message Processing">
+  <section title="Message Processing" anchor="secMessageProc">
 
     <t>This section specifies the changes related to message processing
     when this extension is used in EAP-AKA'. It specifies when a
@@ -1565,8 +1547,11 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="EAP-Response/AKA'-Identity">
       
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
-      MUST NOT be added to this message and that a privacy-friendly identifier
-      MUST be used.  The appearance of these attributes in a received message
+      MUST NOT be added to this message.
+      The peer identifier SHALL comply with the privacy-friendly requirements of
+      <xref target="RFC9190"/>.  An example of a compliant way of constructing
+      a privacy-friendly peer identifier is using a non-NULL SUCI <xref target="TS.33.501"/>.
+      The appearance of these attributes in a received message
       MUST be ignored.</t>
 
     </section>
@@ -1693,96 +1678,80 @@ EMSK     = MK_ECDHE[768..1279]
     as they differ from EAP-AKA', or as new information has been gathered
     since the publication of <xref target="RFC9048"/>.</t>
     
-    <t>The possibility of attacks against key storage offered in SIM or
-    other smart cards has been a known threat. But as the discussion in
-    <xref target="attacks"/> shows, the likelihood of practically
-    feasible attacks such as breaches in the smart card supply chain has
-    increased. Many of these attacks can be best
-    dealt with improved processes, e.g., limiting the access to the key
-    material within the factory or personnel, etc. But not all attacks can
-    be entirely ruled out for well-resourced adversaries, irrespective
-    of what the technical algorithms and protection measures are. Always
-    assuming breach such as key compromise and minimizing the impact of
-    breach are essential zero-trust principles.</t>
+    <t>As discussed in the introduction, forward secrecy is an important
+    countermeasure against well-resourced adversaries that who may get access
+    to the long-term keys, see <xref target="sec:intro"/>.</t>
 	  
     <t>If a mechanism without forward secrecy such as (5G-AKA,
     EAP-AKA') is used the effects of key compromise are devastating.
-    The serious consequences of breach somewhere in the supply chain
-    or after delivery that are possible when 5G-AKA or EAP-AKA' is
-    used but not when something with forward secrecy like EAP-AKA-FS
-    is used are:
-    <list style="numbers">
-    <t>A passive attacker can eavesdrop (decrypt) all
-    future 5G communication (control and user plane both directions),</t>
-    <t>A passive attacker can decrypt 5G communication that they
-    previously recorded in the past (control and user plane both
-    directions), and </t>
-    <t>An active attacker can impersonate UE and
-    Network and inject messages in an ongoing 5G connection between
-    the real UE and the real network (control and user plane both
-    directions).</t>
-    </list>
+    There are serious consequences of not properly providing forward secrecy
+    for the key establishment:
+    an attacker can decrypt 5G communication that they
+    previously recorded (control and user plane both
+    directions).
     </t>
 
    <t>Best practice security today is to mandate forward secrecy (as
-   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.). It is RECOMMENDED
-   to long term completely phase out AKA without forward secrecy.</t>
+   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.).
+   It is RECOMMENDED
+   to long term completely phase out EAP-AKA methods without forward secrecy.</t>
 	  
-    <t>This extension can provide assistance in situations where there
-    is a danger of attacks against the key material on SIM cards by
-    adversaries that cannot or who are unwilling to mount active
-    attacks against a large number of sessions. The extension also
+    <t>
+    In addition to forward secrecy, this extension
     provides protection against active attacks as they are forced to
     be a Man-In-The-Middle (MITM) during the AKA run and subsequent
-    communication between the parties. Without forward secrecy an
-    active attacker that has compromised the long-term key can
-    inject messages in an connection between the real Peer and the
-    real server without being a man-in-the-middle. This extension is most
+    communication between the parties. This is true even if the attacker
+    has access to the long-term key and is a result of the Diffie-Hellman
+    component.
+    This extension is most
     useful when used in a context where EAP keys are used without
-    further mixing that can provide Forward Secrecy.  For
+    further mixing that can provide forward secrecy.  For
     instance, when used with IKEv2 <xref target="RFC7296"/>, the
     session keys produced by IKEv2 have this property, so better
     characteristics of EAP keys is not that useful. However, typical
-    link layer usage of EAP does not involve running Diffie-Hellman,
-    so using EAP to authenticate access to a network is one situation
+    link layer usage of EAP does not involve running another, forward secure,
+    key exchange. Therefore,
+    using EAP to authenticate access to a network is one situation
     where the extension defined in this document can be helpful.</t>
 
-    <t>This extension generates keying material using the ECDHE
-    exchange in order to gain the FS property. This means that once
-    an EAP-AKA' authentication run ends, the session that it was used
-    to protect is closed, and the corresponding keys are forgotten,
-    even someone who has recorded all of the data from the
-    authentication run and session and gets access to all of the AKA
-    long-term keys cannot reconstruct the keys used to protect the
-    session or any previous session, without doing a brute force
-    search of the session key space.</t>
-
-    <t>Even if a compromise of the long-term keys has occurred, FS is
-    still provided for all future sessions, as long as the attacker
-    does not become an active attacker. Of course, as with other
-    protocols, if the attacker has learned the keys and does become an
-    active attacker, there is no protection that that can be provided
-    for future sessions. Among other things, such an active attacker
+    <t>The extension does not provide Post Compromise Security (PCS).
+    That is, attackers with access to the long-term key that mount
+    a MITM attack on future EAP-AKA' runs will be able to eavesdrop on the
+    traffic protected by the resulting session key(s).
+    Such an active attacker
     can impersonate any legitimate endpoint in EAP-AKA', become a
     MITM in EAP-AKA' or the extension defined in this
-    document, retrieve all keys, or turn off FS. Still, past sessions
-    where FS was in use remain protected.</t>
+    document, retrieve all keys, or turn off FS.</t>
 	
     <t>Achieving FS requires that when a connection is closed, each
     endpoint MUST forget not only the ephemeral keys used by the
     connection but also any information that could be used to
     recompute those keys.</t>
 	  
-    <t>Using EAP-AKA' FS once provides forward secrecy. Forward secrecy limits the
-       effect of key leakage in one direction (compromise of a key at time T2 does
-       not compromise some key at time T1 where T1 &lt; T2). Protection in the other
-       direction (compromise at time T1 does not compromise keys at time T2) can
-       be achieved by rerunning ECDHE frequently. If a long-term authentication key
-       has been compromised, rerunning EAP-AKA' FS gives protection against passive
-       attackers. Using the terms in <xref target="RFC7624"/>, forward secrecy without rerunning
-       ECDHE does not stop an attacker from doing static key exfiltration. Frequently
-       rerunning EC(DHE) forces an attacker to do dynamic key exfiltration
-       (or content exfiltration).</t>
+    <section title="Deployment Considerations">
+        <t>Forward secrecy for the established (E)MSK is provided with respect
+        to the long-term key.  However, when the MSK is transported to a
+        pass-through authenticator, the transport must also provide forward
+        secure encryption with respect to the long-term keys used to establish
+        its security.  Otherwise, an adversary may record the MSK during
+        transport, later compromise the session keys for the
+        transport encryption, and decrypt transported MSK.  This attack
+        applies to any EAP method, not only this one.</t>
+
+        <t>The MSK will only be forward secure once the transport encryption
+        has rekeyed.</t>
+
+        <t>In practice, providing forward secure encryption may be costly if
+        relying on TLS or IPsec for transport protection.  TLS and IPsec
+        can run a new handshake to establish new session keys and discard the
+        old ones.  TLS also has the option to run a key update, which is more
+        light-weight option.  To further lighten the load, one can consider
+        rekeying the transport encryption only at every n:th transaction or
+        after a certain time.  The deployer(s) of EAP and the AAA infrastructure
+        have to make a risk assessment deciding on an appropriate
+        rekeying policy.</t>
+    </section>
+
 
     <section title="Security Properties">
 
@@ -1820,8 +1789,8 @@ EMSK     = MK_ECDHE[768..1279]
         protected by AT_MAC, so attempts to change or omit them by an
         adversary will be detected.<vspace blankLines="1"/>
 
-	Except of course, if the adversary holds the long-term shared
-	secret and is willing to engage in an active attack. Such an
+	Except of course, if the adversary holds the long-term key
+	and is willing to engage in an active attack. Such an
 	attack can, for instance, forge the negotiation process so
 	that no FS will be provided. However, as noted above, an
 	attacker with these capabilities will in any case be able to
@@ -1856,26 +1825,11 @@ EMSK     = MK_ECDHE[768..1279]
       
       <t hangText="Key derivation"><vspace blankLines="1"/>
       
-      This extension provides key material that is based on
-      the Diffie-Hellman keys, yet bound to the authentication
-      through the SIM card. This means that subsequent payload communications between
-      the parties are protected with keys that are not solely based on
-      information in the clear (such as the RAND) and information
-      derivable from the long-term shared secrets on the SIM
-      card. As a result, if anyone successfully recovers
-      shared secret information, they are unable to decrypt
-      communications protected by the keys generated through this
-      extension. Note that the recovery of shared secret information
-      could occur either before or after the time that the protected
-      communications are used. When this extension is used,
-      communications at time t0 can be protected if at some later time
-      t1 an adversary learns of long-term shared secret and has access
-      to a recording of the encrypted communications.
-
-      <vspace blankLines="1"/>Obviously, this extension is still
-      vulnerable to attackers that are willing to perform an active
-      attack and who at the time of the attack have access to the
-      long-term shared secret.<vspace blankLines="1"/>
+      This extension provides forward secrecy.  As described in several
+      places in this specification, this can be roughly summarized as
+      that an attacker with access
+      to long-term keys is unable to obtain session keys of ended past
+      sessions, assuming these sessions deleted all relevant session key material.
 
       This extension does not change the properties related to
       re-authentication. No new Diffie-Hellman run is performed during
@@ -1883,7 +1837,7 @@ EMSK     = MK_ECDHE[768..1279]
       extension was in use when the original EAP-AKA' authentication
       was performed, the keys used for re-authentication (K_re) are
       based on the Diffie-Hellman keys, and hence continue to be
-      equally safe against expose of the long-term secrets as the
+      equally safe against expose of the long-term key as the
       original authentication.</t>
 
   </list></t>
@@ -1910,11 +1864,11 @@ EMSK     = MK_ECDHE[768..1279]
     place.</t>
 
     <t>This specification is constructed so that a separation
-    between the USIM and Peer on client side and the Server and HSS on
+    between the USIM and Peer on client side and the Server and AD on
     network side is possible. This ensures that the most sensitive (or
     legacy) system components cannot be the target of the attack. For
     instance, EAP-AKA' and public key cryptography takes place in the
-    phone and not the low-power SIM card.</t>
+    phone and not the low-power USIM card.</t>
 
     <t>EAP-AKA' has been designed so that the first actual message in
     the authentication process comes from the Server, and that this
@@ -1931,7 +1885,7 @@ EMSK     = MK_ECDHE[768..1279]
     target="procakachallresp"/>). The same is true of
     EAP-Response/AKA'-Challenge (see <xref
     target="procakachallresp"/>). This ensures that the parties need to
-    show possession of the long-term secret in some way, and only then
+    show possession of the long-term key in some way, and only then
     will the FS calculations become active. This limits the
     Denial-of-Service to specific, identified subscribers. While
     botnets and other forms of malicious parties could take advantage
@@ -1944,10 +1898,10 @@ EMSK     = MK_ECDHE[768..1279]
 
   </section>
   <section title="Identity Privacy">
-   <t>Best practice privacy today is to mandate client identity protection as
-      is done in EAP-TLS 1.3, EAP-TTLS 1.3, etc. A client supporting EAP-AKA' FS
-      MUST NOT send its username (or any other permanent identifiers) in cleartext
-      in the Identity Response (or any message used instead of the Identity Response).</t>
+      <t>As specified in <xref target="secMessageProc"/>, the peer identity sent
+      in the Identity Response message needs
+      to follow the privacy-friendly requirements in <xref target="RFC9190"/>.
+      </t>
   </section>
 
   <section anchor="unp" title="Unprotected Data and Privacy">
@@ -1985,7 +1939,7 @@ EMSK     = MK_ECDHE[768..1279]
    CK' and IK' which are entirely based on symmetric cryptography. As a result,
    an adversary with a quantum computer still cannot compute the other output keys either.</t>
 	   
-   <t>However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
+   <t>However, if the adversary has also obtained knowledge of the long-term key, they
    could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that
    the introduction of a powerful enough quantum computer would disable
    this protocol extension's ability to provide the forward security
@@ -2074,7 +2028,6 @@ EMSK     = MK_ECDHE[768..1279]
       <?rfc include="reference.RFC.3748.xml"?>
       <?rfc include="reference.RFC.4187.xml"?>
       <?rfc include="reference.RFC.5448.xml"?>
-      <?rfc include="reference.RFC.7624.xml"?>
       <?rfc include="reference.RFC.7748.xml"?>
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
@@ -2309,7 +2262,7 @@ EMSK     = MK_ECDHE[768..1279]
   wording of the recommendation with regards to the use of this
   extension, clarified the references to the definition of X25519 and
   Curve25519, clarified the distinction to ECDH methods that use
-  partially static keys, and simplified the use of AKA and SIM card
+  partially static keys, and simplified the use of AKA and USIM card
   terminology. Some editorial changes were also made.</t>
   
   <t>The -00 and -01 versions of the WG draft made no major 
