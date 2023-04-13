@@ -635,9 +635,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
   and the 3GPP authentication server (HSS). The details of those
-  interactions
-  are outside the scope of this document, however, and the reader
-  is referred to the 3GPP specifications.</t>
+  interactions are outside the scope of this document, however, and
+  the reader is referred to the 3GPP specifications. For 5G this is
+  specified in 3GPP TS 33.501 <xref target="TS.33.501"/></t>
 
 <figure title="EAP-AKA' FS Authentication Process" anchor="figakafs">
 <artset>
