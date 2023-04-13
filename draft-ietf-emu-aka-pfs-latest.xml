@@ -1539,8 +1539,8 @@ EMSK     = MK_ECDHE[768..1279]
          <xref target="RFC7748"/>. The support for this group is REQUIRED.</t>
          
          <t>For "EAP-AKA' with ECDHE and P-256" the group is the NIST
-         P-256 group (SEC group secp256r1), specified in Appendix D.1.2.3
-	 of <xref target="FIPS186-4"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
+         P-256 group (SEC group secp256r1), specified in Section 3.2.1.3 of
+	 of <xref target="SP-800-186"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
 	 The support for this group is REQUIRED.</t>
          
      </section>
@@ -2079,16 +2079,16 @@ EMSK     = MK_ECDHE[768..1279]
       <?rfc include="reference.RFC.8126.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
       <?rfc include="reference.RFC.9048.xml"?>
-      <reference anchor="FIPS186-5">
+      <reference anchor="SP-800-186">
         <front>
-        <title>Digital Signature Standard (DSS)</title>
+        <title>Recommendations for Discrete Logarithm-based Cryptography: Elliptic Curve Domain Parameters</title>
         <author>
           <organization>NIST</organization>
         </author>
         <date month="February" year='2023'/>
         </front>
-        <seriesInfo name="FIPS" value="186-5" />
-        <format type='HTML' target='https://doi.org/10.6028/NIST.FIPS.186-5'/>
+        <seriesInfo name="NIST" value="Special Publication 800-186"/>
+        <format type='HTML' target='https://doi.org/10.6028/NIST.SP.800-186'/>
       </reference>
       <reference anchor="SEC1">
         <front>
