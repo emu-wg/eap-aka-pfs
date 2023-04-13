@@ -65,7 +65,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   involved compromising the smart card supply chain, such as attacking SIM card
   manufacturers and operators in an effort to compromise shared
   secrets stored on these cards. Since the publication of those
-  reports, manufacturing and provisioning processes have gained much
+  reports, manufacturing and provisioning processes have received much
   scrutiny and have improved. However, the danger of resourceful
   attackers for these systems is still a concern. Always assuming breach
   such as key compromise and minimizing the impact of breach are essential
