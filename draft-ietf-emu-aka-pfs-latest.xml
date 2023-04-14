@@ -62,7 +62,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking SIM card
+  involved compromising the smart card supply chain, such as attacking
+  Subscriber Identity Module (SIM) card
   manufacturers and operators in an effort to compromise shared
   secrets stored on these cards. Since the publication of those
   reports, manufacturing and provisioning processes have gained much
@@ -79,7 +80,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy for the session key
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a Subscriber Identity Module (SIM) card from
+  pre-shared secret in a SIM card from
   being able to decrypt any past
   communications. In addition, if the attacker stays merely a passive
   eavesdropper, the extension prevents attacks against future
@@ -231,7 +232,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     mechanisms and symmetric cryptography. In contrast with its earlier GSM
     counterparts, AKA provides long key lengths and mutual authentication.
     AKA typically runs in a Universal Subscriber Identity Module (USIM). USIM is
-    technically just an application that can reside on a removable UICC, an
+    technically just an application that can reside on a removable
+    Universal Integrated Circuit Card (UICC), an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
     this document we use the term "SIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
@@ -634,8 +636,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t><xref target="figakafs"/> below describes the overall process. Since our goal
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
-  and the 3GPP authentication server (HSS). The details of those
-  interactions
+  and the 3GPP authentication server, the Home Subscriber Server (HSS).
+  The details of those interactions
   are outside the scope of this document, however, and the reader
   is referred to the 3GPP specifications.</t>
 
@@ -2377,3 +2379,4 @@ EMSK     = MK_ECDHE[768..1279]
   
 </back>
 </rfc>
+
