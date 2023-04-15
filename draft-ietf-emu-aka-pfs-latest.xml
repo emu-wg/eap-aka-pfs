@@ -647,7 +647,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 <figure title="EAP-AKA' FS Authentication Process" anchor="figakafs">
 <artset>
 <artwork type="ascii-art"><![CDATA[
- USIM           Peer                        Server             HSS
+ USIM           Peer                        Server              AD
    |              |                            |                |
    |              |           EAP-Req/Identity |                |
    |              |<---------------------------+                |
@@ -657,9 +657,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |              +--------------------------->|                |
    |      +-------+----------------------------+----------------+--+
    |      | Server now has an identity for the peer. The server    |
-   |      | then asks the help of HSS to run AKA algorithms,       |
+   |      | then asks the help of AD to run AKA algorithms,        |
    |      | generating RAND, AUTN, XRES, CK, IK. Typically, the    |
-   |      | HSS performs the first part of key derivations so that |
+   |      | AD performs the first part of key derivations so that  |
    |      | the authentication server gets the CK' and IK' keys    |
    |      | already tied to a particular network name.             |
    |      +-------+----------------------------+----------------+--+
@@ -724,16 +724,15 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | correct. Note that when this specification is used,    |
    |      | the keys generated from EAP-AKA' are based on both     |
    |      | CK/IK as well as the ECDHE value. Even if there was an |
-   |      | attacker who held the long-term secret keys, only an   |
-   |      | active attacker could have determined the generated    |
-   |      | session keys; in basic EAP-AKA' the generated keys are |
-   |      | only based on CK and IK.                               |
+   |      | attacker who held the long-term key, only an active    |
+   |      | attacker could have determined the generated session   |
+   |      | keys; in basic EAP-AKA' the generated keys are only    |
+   |      | based on CK and IK.                                    |
    |      +-------+----------------------------+----------------+--+
    |              |                            |                |
    |              |                EAP-Success |                |
    |              |<---------------------------+                |
    |              |                            |                |
-
 ]]></artwork>
             <artwork type="svg" align="center"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1408" width="552" viewBox="0 0 552 1408" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
                 <path d="M 8,688 L 8,816" fill="none" stroke="black"/>
