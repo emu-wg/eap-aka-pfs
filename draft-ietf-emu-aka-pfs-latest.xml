@@ -1745,8 +1745,8 @@ EMSK     = MK_ECDHE[768..1279]
     active attacker that has compromised the long-term key can
     inject messages in an connection between the real Peer and the
     real server without being a man-in-the-middle. This extension is most
-    useful when used in a context where the MSK/EMSK are used in a
-    protocol not providing Forward Secrecy. For
+    useful when used in a context where the MSK/EMSK are used in
+    protocols not providing Forward Secrecy. For
     instance, if used with IKEv2 <xref target="RFC7296"/>, the
     session keys produced by IKEv2 have this property, so better
     characteristics of the MSK and EMSK is not that useful. However, typical
