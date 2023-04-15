@@ -74,17 +74,15 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>This specification updates RFC 9048, the improved Extensible
   Authentication Protocol Method for 3GPP Mobile Network Authentication
-  and Key Agreement (EAP-AKA'), with an optional extension. 
+  and Key Agreement (EAP-AKA'), with an optional extension providing ephemeral key exchange. 
   Similarly, this specification also updates the earlier version 
   of the EAP-AKA' specification in RFC 5448. The extension, when
-  negotiated, provides Forward Secrecy for the session key
+  negotiated, provides Forward Secrecy for the session keys
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from
-  being able to decrypt any past
-  communications. In addition, if the attacker stays merely a passive
-  eavesdropper, the extension prevents attacks against future
-  sessions. This forces attackers to use active attacks instead.</t>
+  pre-shared secret in a SIM card from being able to decrypt any past
+  communications. In addition, it mitigates passive attacks (e.g., large scale pervasive monitoring)
+  against future sessions. This forces attackers to use active attacks instead.</t>
 
 </abstract>
 
@@ -1711,11 +1709,11 @@ EMSK     = MK_ECDHE[768..1279]
     assuming breach, such as key compromise, and minimizing the impact of
     breach are essential zero-trust principles.</t>
 	  
-    <t>If a mechanism without forward secrecy such as (5G-AKA,
+    <t>If a mechanism without ephemeral key exchange such as (5G-AKA,
     EAP-AKA') is used the effects of key compromise are devastating.
     The serious consequences of breach somewhere in the supply chain
     or after delivery that are possible when 5G-AKA or EAP-AKA' is
-    used but not when something with forward secrecy like EAP-AKA-FS
+    used but not when something with ephemeral key exchange like EAP-AKA-FS
     is used are:
     <list style="numbers">
     <t>A passive attacker can eavesdrop (decrypt) all
@@ -1734,22 +1732,22 @@ EMSK     = MK_ECDHE[768..1279]
    is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.). It is RECOMMENDED
    that EAP-AKA without forward secrecy be phased out in the long term.</t>
 
-	  
-    <t>This extension can provide assistance in situations where there
-    is a danger of attacks against the key material on SIM cards by
-    adversaries that cannot or who are unwilling to mount active
-    attacks against a large number of sessions. The extension also
+    <t>This extension provide assistance against passive attacks from
+    attackers that have comprimised the key material on SIM cards.
+    Passive attacks are attractive for attackers performing large
+    scale pervasive monitoring as they require much less resources
+    and are much harder to detect. The extension also
     provides protection against active attacks as they are forced to
     be a Man-In-The-Middle (MITM) during the AKA run and subsequent
     communication between the parties. Without forward secrecy an
     active attacker that has compromised the long-term key can
     inject messages in an connection between the real Peer and the
     real server without being a man-in-the-middle. This extension is most
-    useful when used in a context where EAP keys are used without
-    further mixing that can provide Forward Secrecy.  For
-    instance, when used with IKEv2 <xref target="RFC7296"/>, the
+    useful when used in a context where the MSK/EMSK are used in
+    protocols not providing Forward Secrecy. For
+    instance, if used with IKEv2 <xref target="RFC7296"/>, the
     session keys produced by IKEv2 have this property, so better
-    characteristics of EAP keys is not that useful. However, typical
+    characteristics of the MSK and EMSK is not that useful. However, typical
     link layer usage of EAP does not involve running Diffie-Hellman,
     so using EAP to authenticate access to a network is one situation
     where the extension defined in this document can be helpful.</t>
