@@ -734,7 +734,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |              |<---------------------------+                |
    |              |                            |                |
 ]]></artwork>
-            <artwork type="svg" align="center"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1408" width="552" viewBox="0 0 552 1408" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+            <artwork type="svg"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1408" width="552" viewBox="0 0 552 1408" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
                 <path d="M 8,688 L 8,816" fill="none" stroke="black"/>
                 <path d="M 8,928 L 8,1040" fill="none" stroke="black"/>
                 <path d="M 32,48 L 32,688" fill="none" stroke="black"/>
@@ -748,7 +748,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                 <path d="M 152,576 L 152,688" fill="none" stroke="black"/>
                 <path d="M 152,816 L 152,928" fill="none" stroke="black"/>
                 <path d="M 152,1040 L 152,1136" fill="none" stroke="black"/>
-                <path d="M 152,1328 L 152,1392" fill="none" stroke="black"/>
+                <path d="M 152,1312 L 152,1392" fill="none" stroke="black"/>
                 <path d="M 384,48 L 384,160" fill="none" stroke="black"/>
                 <path d="M 384,272 L 384,432" fill="none" stroke="black"/>
                 <path d="M 384,576 L 384,688" fill="none" stroke="black"/>
@@ -792,11 +792,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                 <polygon class="arrowhead" points="168,80 156,74.4 156,85.6" fill="black" transform="rotate(180,160,80)"/>
                 <polygon class="arrowhead" points="152,912 140,906.4 140,917.6" fill="black" transform="rotate(0,144,912)"/>
                 <polygon class="arrowhead" points="48,864 36,858.4 36,869.6" fill="black" transform="rotate(180,40,864)"/>
+                <circle cx="152" cy="1312" r="6" class="opendot" fill="white" stroke="black"/>
                 <g class="text">
                   <text x="28" y="36">USIM</text>
                   <text x="148" y="36">Peer</text>
                   <text x="380" y="36">Server</text>
-                  <text x="520" y="36">HSS</text>
+                  <text x="524" y="36">AD</text>
                   <text x="308" y="68">EAP-Req/Identity</text>
                   <text x="232" y="116">EAP-Resp/Identity</text>
                   <text x="236" y="132">(Privacy-Friendly)</text>
@@ -815,11 +816,11 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="192" y="196">the</text>
                   <text x="228" y="196">help</text>
                   <text x="260" y="196">of</text>
-                  <text x="288" y="196">HSS</text>
-                  <text x="316" y="196">to</text>
-                  <text x="344" y="196">run</text>
-                  <text x="376" y="196">AKA</text>
-                  <text x="440" y="196">algorithms,</text>
+                  <text x="284" y="196">AD</text>
+                  <text x="308" y="196">to</text>
+                  <text x="336" y="196">run</text>
+                  <text x="368" y="196">AKA</text>
+                  <text x="432" y="196">algorithms,</text>
                   <text x="140" y="212">generating</text>
                   <text x="208" y="212">RAND,</text>
                   <text x="256" y="212">AUTN,</text>
@@ -828,16 +829,16 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="376" y="212">IK.</text>
                   <text x="436" y="212">Typically,</text>
                   <text x="496" y="212">the</text>
-                  <text x="112" y="228">HSS</text>
-                  <text x="164" y="228">performs</text>
-                  <text x="216" y="228">the</text>
-                  <text x="256" y="228">first</text>
-                  <text x="300" y="228">part</text>
-                  <text x="332" y="228">of</text>
-                  <text x="360" y="228">key</text>
-                  <text x="424" y="228">derivations</text>
-                  <text x="484" y="228">so</text>
-                  <text x="516" y="228">that</text>
+                  <text x="108" y="228">AD</text>
+                  <text x="156" y="228">performs</text>
+                  <text x="208" y="228">the</text>
+                  <text x="248" y="228">first</text>
+                  <text x="292" y="228">part</text>
+                  <text x="324" y="228">of</text>
+                  <text x="352" y="228">key</text>
+                  <text x="416" y="228">derivations</text>
+                  <text x="476" y="228">so</text>
+                  <text x="508" y="228">that</text>
                   <text x="112" y="244">the</text>
                   <text x="188" y="244">authentication</text>
                   <text x="276" y="244">server</text>
@@ -1127,32 +1128,31 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                   <text x="220" y="1268">held</text>
                   <text x="256" y="1268">the</text>
                   <text x="312" y="1268">long-term</text>
-                  <text x="380" y="1268">secret</text>
-                  <text x="432" y="1268">keys,</text>
-                  <text x="476" y="1268">only</text>
-                  <text x="508" y="1268">an</text>
-                  <text x="124" y="1284">active</text>
-                  <text x="188" y="1284">attacker</text>
-                  <text x="248" y="1284">could</text>
-                  <text x="292" y="1284">have</text>
-                  <text x="356" y="1284">determined</text>
-                  <text x="416" y="1284">the</text>
-                  <text x="472" y="1284">generated</text>
-                  <text x="128" y="1300">session</text>
-                  <text x="184" y="1300">keys;</text>
-                  <text x="220" y="1300">in</text>
-                  <text x="256" y="1300">basic</text>
-                  <text x="316" y="1300">EAP-AKA'</text>
-                  <text x="368" y="1300">the</text>
-                  <text x="424" y="1300">generated</text>
-                  <text x="484" y="1300">keys</text>
-                  <text x="520" y="1300">are</text>
-                  <text x="116" y="1316">only</text>
-                  <text x="160" y="1316">based</text>
-                  <text x="196" y="1316">on</text>
-                  <text x="220" y="1316">CK</text>
-                  <text x="248" y="1316">and</text>
-                  <text x="280" y="1316">IK.</text>
+                  <text x="372" y="1268">key,</text>
+                  <text x="412" y="1268">only</text>
+                  <text x="444" y="1268">an</text>
+                  <text x="484" y="1268">active</text>
+                  <text x="132" y="1284">attacker</text>
+                  <text x="192" y="1284">could</text>
+                  <text x="236" y="1284">have</text>
+                  <text x="300" y="1284">determined</text>
+                  <text x="360" y="1284">the</text>
+                  <text x="416" y="1284">generated</text>
+                  <text x="488" y="1284">session</text>
+                  <text x="120" y="1300">keys;</text>
+                  <text x="156" y="1300">in</text>
+                  <text x="192" y="1300">basic</text>
+                  <text x="252" y="1300">EAP-AKA'</text>
+                  <text x="304" y="1300">the</text>
+                  <text x="360" y="1300">generated</text>
+                  <text x="420" y="1300">keys</text>
+                  <text x="456" y="1300">are</text>
+                  <text x="492" y="1300">only</text>
+                  <text x="120" y="1316">based</text>
+                  <text x="160" y="1316">n</text>
+                  <text x="180" y="1316">CK</text>
+                  <text x="208" y="1316">and</text>
+                  <text x="240" y="1316">IK.</text>
                   <text x="328" y="1364">EAP-Success</text>
                 </g>
               </svg>
