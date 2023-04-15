@@ -2196,6 +2196,29 @@ EMSK     = MK_ECDHE[768..1279]
 
   <t>RFC Editor: Please remove this appendix.</t>
 
+  <t>The -11 version of the WG draft has the following changes:
+  <list style="symbols">
+
+    <t>Addressed IETF Last Call comments from directorates, Security AD, Meiling Cheng, and a detailed review from the author Karl. In particular:</t>
+
+    <t>Replaced the reference to the deprecated FIPS 186-4 with SP 800-186.</t>
+
+    <t>Changed HSS to Authorization Database (AD) as HSS is a 4G term.</t>
+
+    <t>Explained difference between EAP-AKA and EAP-AKA'</t>
+
+    <t>Explained that the emphemeral key exhange provide more that forward secrecy and how this is important to mitigate pervasive monitoring.</t>
+
+    <t>Included links for the zero-trust principles.</t>
+
+    <t>Explained why K_encr and K_auth not being protected by the ECDHE addition.</t>
+
+    <t>Reference updates.</t>
+
+    <t>Various editorial improvements.</t>
+
+  </list></t>
+
   <t>The -10 version of the WG draft has the following changes:
   <list style="symbols">
 
