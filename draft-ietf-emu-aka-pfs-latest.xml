@@ -279,6 +279,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <t>When AKA is embedded into EAP, the authentication on
     the network side is moved to the home environment; the serving
     network performs the role of a pass-through authenticator.
+    The difference between EAP-AKA <xref target="RFC4187"/> and
+    EAP-AKA' <xref target="RFC9048"/> is that EAP-AKA' 
+    binds the derived keys to the name of access network.
     <xref target="figaka"/> describes the basic flow in the EAP-AKA'
     authentication process. The definition of the full protocol
     behavior, along with the definition of attributes AT_RAND,
