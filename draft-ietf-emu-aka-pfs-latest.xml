@@ -722,12 +722,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | and MAC values received in AT_RES and AT_MAC,          |
    |      | respectively. Success requires both to be found        |
    |      | correct. Note that when this specification is used,    |
-   |      | the keys generated from EAP-AKA' are based on both     |
-   |      | CK/IK as well as the ECDHE value. Even if there was an |
-   |      | attacker who held the long-term key, only an active    |
-   |      | attacker could have determined the generated session   |
-   |      | keys; in basic EAP-AKA' the generated keys are only    |
-   |      | based on CK and IK.                                    |
+   |      | the keys generated from EAP-AKA' are based on CK, IK,  |
+   |      | and the ECDHE value. Even if there was an attacker who |
+   |      | held the long-term key, only an active attacker could  |
+   |      | have determined the generated session keys; in basic   |
+   |      | EAP-AKA' the generated keys are only based on CK and   |
+   |      | IK.                                                    |
    |      +-------+----------------------------+----------------+--+
    |              |                            |                |
    |              |                EAP-Success |                |
