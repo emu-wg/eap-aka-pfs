@@ -1745,11 +1745,11 @@ EMSK     = MK_ECDHE[768..1279]
     active attacker that has compromised the long-term key can
     inject messages in an connection between the real Peer and the
     real server without being a man-in-the-middle. This extension is most
-    useful when used in a context where EAP keys are used without
-    further mixing that can provide Forward Secrecy.  For
-    instance, when used with IKEv2 <xref target="RFC7296"/>, the
+    useful when used in a context where the MSK/EMSK are used in a
+    protocol not providing Forward Secrecy. For
+    instance, if used with IKEv2 <xref target="RFC7296"/>, the
     session keys produced by IKEv2 have this property, so better
-    characteristics of EAP keys is not that useful. However, typical
+    characteristics of the MSK and EMSK is not that useful. However, typical
     link layer usage of EAP does not involve running Diffie-Hellman,
     so using EAP to authenticate access to a network is one situation
     where the extension defined in this document can be helpful.</t>
