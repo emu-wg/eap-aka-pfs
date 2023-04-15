@@ -66,8 +66,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   Subscriber Identity Module (SIM) card
   manufacturers and operators in an effort to compromise shared
   secrets stored on these cards. Since the publication of those
-  reports, manufacturing and provisioning processes have gained much
-  scrutiny and have improved. However, resourceful attackers are always a cause for concern. Always assuming a breach,
+  reports, manufacturing and provisioning processes have received much
+  scrutiny and have improved. However, resourceful attackers are always
+  a cause for concern. Always assuming a breach,
   such as key compromise, and minimizing the impact of breach are essential
   zero-trust principles.</t>
 
@@ -105,7 +106,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>However, the danger of resourceful attackers attempting to gain
   information about SIM cards is still a
-  concern. They are a
+  concern. These are a
   high-value target and affect a large number of people.  Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
@@ -129,7 +130,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>This document updates <xref target="RFC9048"/>, the EAP-AKA'
   authentication method, with an optional extension
   and strengthens the identity privacy requirements. While optional,
-  the use of this extension is strongly RECOMMENDED.</t>
+  the use of this extension is strongly recommended.</t>
 
   <t>The extension, when
   negotiated, provides Forward Secrecy (FS) for the session key
@@ -165,6 +166,16 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
 </section>
 
+<section title="Requirements Language">
+
+  <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+  "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+  "OPTIONAL" in this document are to be interpreted as described in BCP
+  14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only
+  when, they appear in all capitals, as shown here.</t>
+   
+</section>
+
 <section title="Protocol Design and Deployment Objectives">
   
   <t>The extension specified here re-uses large portions of the
@@ -191,7 +202,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>The use of this extension is at the discretion of the
   authenticating parties. It should be noted that FS and defenses
-  against passive attacks are by no means a panacea, but they can
+  against passive attacks do not solve all problems, but they can
   provide a partial defense that increases the cost and risk
   associated with pervasive surveillance.</t>
 
@@ -268,6 +279,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     <t>When AKA is embedded into EAP, the authentication on
     the network side is moved to the home environment; the serving
     network performs the role of a pass-through authenticator.
+    The difference between EAP-AKA <xref target="RFC4187"/> and
+    EAP-AKA' <xref target="RFC9048"/> is that EAP-AKA' 
+    binds the derived keys to the name of access network.
     <xref target="figaka"/> describes the basic flow in the EAP-AKA'
     authentication process. The definition of the full protocol
     behavior, along with the definition of attributes AT_RAND,
@@ -598,16 +612,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
 </section>
 
-<section title="Requirements Language">
-
-  <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-  "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-  "OPTIONAL" in this document are to be interpreted as described in BCP
-  14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only
-  when, they appear in all capitals, as shown here.</t>
-   
-</section>
-
 <section title="Protocol Overview">
   
   <t>Forward Secrecy for EAP-AKA' is achieved by using an Elliptic
@@ -639,7 +643,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   and the 3GPP authentication server, the Home Subscriber Server (HSS).
   The details of those interactions
   are outside the scope of this document, however, and the reader
-  is referred to the 3GPP specifications.</t>
+  is referred to the 3GPP specifications. For 5G this is
+  specified in 3GPP TS 33.501 <xref target="TS.33.501"/></t>
 
 <figure title="EAP-AKA' FS Authentication Process" anchor="figakafs">
 <artset>
@@ -1244,7 +1249,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            is calculated as follows:
 
            <list style="symbols">
-           <t>For X25519/Curve25519,
+           <t>For X25519,
            the length of this value is 32 bytes, encoded as specified in
            <xref target="RFC7748"/> Section 5.</t>
            <t>For P-256, the length of this value is 33 bytes, encoded
