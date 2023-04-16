@@ -70,7 +70,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   scrutiny and have improved. However, resourceful attackers are always
   a cause for concern. Always assuming a breach,
   such as key compromise, and minimizing the impact of breach are essential
-  zero-trust principles.</t>
+  zero trust principles.</t>
 
   <t>This specification updates RFC 9048, the improved Extensible
   Authentication Protocol Method for 3GPP Mobile Network Authentication
@@ -1701,9 +1701,11 @@ EMSK     = MK_ECDHE[768..1279]
     dealt with improved processes, e.g., limiting the access to the key
     material within the factory or personnel, etc. But not all attacks can
     be entirely ruled out for well-resourced adversaries, irrespective
-    of what the technical algorithms and protection measures are. Always
-    assuming breach, such as key compromise, and minimizing the impact of
-    breach are essential zero-trust principles.</t>
+    of what the technical algorithms and protection measures are.
+    To assume that breach is inevitable or has likely already occurred
+    <xref target="NSA-ZT"/>, and to minimize impact when breach occur
+    <xref target="NIST-ZT"/> are essential zero trust principles.
+    One type of breach is key compromise or key exfiltration.</t>
 	  
     <t>If a mechanism without ephemeral key exchange such as (5G-AKA,
     EAP-AKA') is used the effects of key compromise are devastating.
@@ -2190,6 +2192,26 @@ EMSK     = MK_ECDHE[768..1279]
     <seriesInfo name="3GPP TS" value="33.501 18.1.0" />
   </reference>
 	
+        <reference anchor="NIST-ZT" target="https://www.nccoe.nist.gov/sites/default/files/2022-12/zta-nist-sp-1800-35b-preliminary-draft-2.pdf">
+          <front>
+            <title>Implementing a Zero Trust Architecture</title>
+            <author initials="" surname="National Institute of Standards and Technology">
+              <organization/>
+            </author>
+            <date year="2022" month="December"/>
+          </front>
+        </reference>
+
+        <reference anchor="NSA-ZT" target="https://media.defense.gov/2021/Feb/25/2002588479/-1/-1/0/CSI_EMBRACING_ZT_SECURITY_MODEL_UOO115131-21.PDF">
+          <front>
+            <title>Embracing a Zero Trust Security Model</title>
+            <author initials="" surname="National Security Agency">
+              <organization/>
+            </author>
+            <date year="2021" month="February"/>
+          </front>
+        </reference>
+
 </references>
 
 <section title="Change Log">
@@ -2209,7 +2231,7 @@ EMSK     = MK_ECDHE[768..1279]
 
     <t>Explained that the emphemeral key exhange provide more that forward secrecy and how this is important to mitigate pervasive monitoring.</t>
 
-    <t>Included links for the zero-trust principles.</t>
+    <t>Included links for the zero trust principles.</t>
 
     <t>Explained why K_encr and K_auth not being protected by the ECDHE addition.</t>
 
