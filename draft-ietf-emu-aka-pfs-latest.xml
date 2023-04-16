@@ -2238,6 +2238,10 @@ EMSK     = MK_ECDHE[768..1279]
 
     <t>Explained why K_encr and K_auth not being protected by the ECDHE addition.</t>
 
+    <t>Added that a future introduction of KEM might require additional changes.</t>
+
+    <t>Explained how ephemeral key exchange is linked to pervasive monitoring.</t>
+
     <t>Reference updates.</t>
 
     <t>Various editorial improvements.</t>
