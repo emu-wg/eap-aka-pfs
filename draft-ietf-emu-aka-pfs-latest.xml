@@ -2007,7 +2007,10 @@ EMSK     = MK_ECDHE[768..1279]
    specified with terms of the Diffie-Hellman protocol, the key exchange
    adheres to a KEM interface. AT_PUB_ECDHE would then contain
    either the ephemeral public key of the server or the SHARED_SECRET
-   encapsulated with the server's public key.</t>
+   encapsulated with the server's public key. Note that the use of a
+   KEM might require other changes such as including the ephemeral
+   public key of the server in the key derivation to retain the property
+   that both parties contribute randomness to the session key.
   </section>
 
   </section>
