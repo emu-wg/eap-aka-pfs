@@ -638,7 +638,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t><xref target="figakafs"/> below describes the overall process. Since the goal
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
-  and the 3GPP authentication server, the Home Subscriber Server (HSS).
+  and the 3GPP Authentication Database (AD).
   The details of those interactions
   are outside the scope of this document, however, and the reader
   is referred to the 3GPP specifications. For 5G this is
@@ -1911,7 +1911,7 @@ EMSK     = MK_ECDHE[768..1279]
     place.</t>
 
     <t>This specification is constructed so that a separation
-    between the USIM and Peer on client side and the Server and HSS on
+    between the USIM and Peer on client side and the Server and AD on
     network side is possible. This ensures that the most sensitive (or
     legacy) system components cannot be the target of the attack. For
     instance, EAP-AKA' and public key cryptography takes place in the
@@ -2203,7 +2203,7 @@ EMSK     = MK_ECDHE[768..1279]
 
     <t>Replaced the reference to the deprecated FIPS 186-4 with SP 800-186.</t>
 
-    <t>Changed HSS to Authorization Database (AD) as HSS is a 4G term.</t>
+    <t>Changed HSS to Authentication Database (AD) as HSS is a 4G term.</t>
 
     <t>Explained difference between EAP-AKA and EAP-AKA'</t>
 
