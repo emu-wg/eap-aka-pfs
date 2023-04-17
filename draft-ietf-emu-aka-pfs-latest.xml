@@ -2245,6 +2245,8 @@ EMSK     = MK_ECDHE[768..1279]
 
     <t>Changed SIM to USIM everywhere. A USIM is required for AKA.</t>
 
+    <t>Changed to long-term key instead of long-term secret or long-term shared secret.</t>
+
     <t>Reference updates.</t>
 
     <t>Various editorial improvements.</t>
