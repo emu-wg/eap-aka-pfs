@@ -77,7 +77,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   and Key Agreement (EAP-AKA'), with an optional extension providing ephemeral key exchange. 
   Similarly, this specification also updates the earlier version 
   of the EAP-AKA' specification in RFC 5448. The extension EAP-AKA' Forward Secrecy (EAP-AKA' FS), when
-  negotiated, provides Forward Secrecy for the session keys
+  negotiated, provides forward secrecy for the session keys
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
   key from obtaining session keys established in the past, assuming
@@ -613,7 +613,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
 <section title="Protocol Overview">
   
-  <t>Forward Secrecy for EAP-AKA' is achieved by using an Elliptic
+  <t>Forward secrecy for EAP-AKA' is achieved by using an Elliptic
   Curve Diffie-Hellman (ECDH) exchange <xref target="RFC7748"/>. To provide
   FS, the exchange must be run in an ephemeral manner, i.e.,
   both sides generate temporary keys according to the negotiated ciphersuite,
@@ -1264,7 +1264,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
        <section anchor="at_kdf_dh" title="AT_KDF_FS">
          
          <t>The AT_KDF_FS indicates the used or desired forward secrecy key
-         generation function, if the Forward Secrecy extension
+         generation function, if the Forward Secrecy (FS) extension
          is used. It will also indicate the
          used or desired ECDHE group. A new attribute is needed to
          carry this information, as AT_KDF carries the basic KDF
@@ -1729,7 +1729,7 @@ EMSK     = MK_ECDHE[768..1279]
 
    <t>Best practice security today is to mandate forward secrecy (as
    is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.). It is RECOMMENDED
-   that EAP-AKA without forward secrecy be phased out in the long term.</t>
+   that EAP-AKA methods without forward secrecy be phased out in the long term.</t>
 
     <t>This extension provide assistance against passive attacks from
     attackers that have comprimised the key material on USIM cards.
@@ -1743,7 +1743,7 @@ EMSK     = MK_ECDHE[768..1279]
     inject messages in an connection between the real Peer and the
     real server without being a man-in-the-middle. This extension is most
     useful when used in a context where the MSK/EMSK are used in
-    protocols not providing Forward Secrecy. For
+    protocols not providing forward secrecy. For
     instance, if used with IKEv2 <xref target="RFC7296"/>, the
     session keys produced by IKEv2 have this property, so better
     characteristics of the MSK and EMSK is not that useful. However, typical
@@ -1824,8 +1824,8 @@ EMSK     = MK_ECDHE[768..1279]
         protected by AT_MAC, so attempts to change or omit them by an
         adversary will be detected.<vspace blankLines="1"/>
 
-	Except of course, if the adversary holds the long-term shared
-	secret and is willing to engage in an active attack. Such an
+	Except of course, if the adversary holds the long-term key
+	and is willing to engage in an active attack. Such an
 	attack can, for instance, forge the negotiation process so
 	that no FS will be provided. However, as noted above, an
 	attacker with these capabilities will in any case be able to
