@@ -2365,7 +2365,7 @@ EMSK     = MK_ECDHE[768..1279]
   wording of the recommendation with regards to the use of this
   extension, clarified the references to the definition of X25519 and
   Curve25519, clarified the distinction to ECDH methods that use
-  partially static keys, and simplified the use of AKA and SIM card
+  partially static keys, and simplified the use of AKA and USIM card
   terminology. Some editorial changes were also made.</t>
   
   <t>The -00 and -01 versions of the WG draft made no major 
