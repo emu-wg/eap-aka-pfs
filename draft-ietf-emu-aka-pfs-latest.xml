@@ -63,25 +63,26 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
   involved compromising the smart card supply chain, such as attacking
-  Subscriber Identity Module (SIM) card
-  manufacturers and operators in an effort to compromise shared
-  secrets stored on these cards. Since the publication of those
+  Universal Subscriber Identity Module (USIM) card
+  manufacturers and operators in an effort to compromise long-term
+  keys stored on these cards. Since the publication of those
   reports, manufacturing and provisioning processes have received much
   scrutiny and have improved. However, resourceful attackers are always
   a cause for concern. Always assuming a breach,
-  such as key compromise, and minimizing the impact of breach are essential
+  such as long-term key compromise, and minimizing the impact of breach are essential
   zero trust principles.</t>
 
   <t>This specification updates RFC 9048, the improved Extensible
   Authentication Protocol Method for 3GPP Mobile Network Authentication
   and Key Agreement (EAP-AKA'), with an optional extension providing ephemeral key exchange. 
   Similarly, this specification also updates the earlier version 
-  of the EAP-AKA' specification in RFC 5448. The extension, when
+  of the EAP-AKA' specification in RFC 5448. The extension EAP-AKA' Forward Secrecy (EAP-AKA' FS), when
   negotiated, provides Forward Secrecy for the session keys
   generated as a part of the authentication run in EAP-AKA'. This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from being able to decrypt any past
-  communications. In addition, it mitigates passive attacks (e.g., large scale pervasive monitoring)
+  key from obtaining session keys established in the past, assuming
+  these have been properly deleted. In addition, EAP-AKA' FS mitigates
+  passive attacks (e.g., large scale pervasive monitoring)
   against future sessions. This forces attackers to use active attacks instead.</t>
 
 </abstract>
@@ -89,13 +90,13 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </front>
 <middle>
 
-<section title="Introduction">
+<section anchor="sec:intro" title="Introduction">
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking Subscriber Identity Module (SIM) card
-  manufacturers and operators in an effort to compromise shared
-  secrets stored on these cards. Such attacks are conceivable, for
+  involved compromising the smart card supply chain, such as attacking Universal Subscriber Identity Module (USIM) card
+  manufacturers and operators in an effort to compromise long-term keys
+  stored on these cards. Such attacks are conceivable, for
   instance, during the manufacturing process of cards, or during the
   transfer of cards and associated information to the operator. Since
   the publication of reports about such attacks, manufacturing and
@@ -103,7 +104,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   improved.</t>
 
   <t>However, the danger of resourceful attackers attempting to gain
-  information about SIM cards is still a
+  information about USIM cards is still a
   concern. These are a
   high-value target and affect a large number of people.  Note that
   the attacks are largely independent of the used authentication
@@ -134,7 +135,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy (FS) for the session key
   generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a SIM card from being able to decrypt any past
+  pre-shared secret in a USIM card from being able to decrypt any past
   communications. In addition, if the attacker stays merely a passive
   eavesdropper, the extension prevents attacks against future
   sessions. This forces attackers to use active attacks instead. This
@@ -150,7 +151,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Attacks against Authentication and Key Agreement (AKA) authentication
   via compromising the long-term
-  secrets in the SIM cards have been an active discussion topic in
+  secrets in the USIM cards have been an active discussion topic in
   many contexts. Forward secrecy is on the list of features
   for the next release of 3GPP (5G Phase 2), and this document provides
   a basis for providing this feature in a particular fashion.</t>
@@ -211,7 +212,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <list style="symbols">
     
     <t>As noted above, no new credentials are needed; there is no
-    change to SIM cards.</t>
+    change to USIM cards.</t>
     
     <t>FS property can be incorporated into any current or future
     system that supports EAP, without changing
@@ -243,7 +244,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     technically just an application that can reside on a removable
     Universal Integrated Circuit Card (UICC), an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
-    this document we use the term "SIM card" to refer to any Subscriber
+    this document we use the term "USIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
 
     <t>AKA works in the following manner:
@@ -585,7 +586,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
 
-    <t>Current 3GPP systems use SIM pre-shared key-based protocols
+    <t>Current 3GPP systems use USIM pre-shared key-based protocols
     and Authentication and Key Agreement (AKA) to authenticate
     subscribers. The general security properties and potential
     vulnerabilities of AKA and EAP-AKA' are discussed in <xref
@@ -1693,7 +1694,7 @@ EMSK     = MK_ECDHE[768..1279]
     as they differ from EAP-AKA', or as new information has been gathered
     since the publication of <xref target="RFC9048"/>.</t>
     
-    <t>The possibility of attacks against key storage offered in SIM or
+    <t>The possibility of attacks against key storage offered in USIM or
     other smart cards has been a known threat. But as the discussion in
     <xref target="attacks"/> shows, the likelihood of practically
     feasible attacks such as breaches in the smart card supply chain has
@@ -1731,7 +1732,7 @@ EMSK     = MK_ECDHE[768..1279]
    that EAP-AKA without forward secrecy be phased out in the long term.</t>
 
     <t>This extension provide assistance against passive attacks from
-    attackers that have comprimised the key material on SIM cards.
+    attackers that have comprimised the key material on USIM cards.
     Passive attacks are attractive for attackers performing large
     scale pervasive monitoring as they require much less resources
     and are much harder to detect. The extension also
@@ -1861,10 +1862,10 @@ EMSK     = MK_ECDHE[768..1279]
       
       This extension provides key material that is based on
       the Diffie-Hellman keys, yet bound to the authentication
-      through the SIM card. This means that subsequent payload communications between
+      through the USIM card. This means that subsequent payload communications between
       the parties are protected with keys that are not solely based on
       information in the clear (such as the RAND) and information
-      derivable from the long-term shared secrets on the SIM
+      derivable from the long-term shared secrets on the USIM
       card. As a result, if anyone successfully recovers
       shared secret information, they are unable to decrypt
       communications protected by the keys generated through this
@@ -1917,7 +1918,7 @@ EMSK     = MK_ECDHE[768..1279]
     network side is possible. This ensures that the most sensitive (or
     legacy) system components cannot be the target of the attack. For
     instance, EAP-AKA' and public key cryptography takes place in the
-    phone and not the low-power SIM card.</t>
+    phone and not the low-power USIM card.</t>
 
     <t>EAP-AKA' has been designed so that the first actual message in
     the authentication process comes from the Server, and that this
@@ -1988,7 +1989,7 @@ EMSK     = MK_ECDHE[768..1279]
    CK' and IK' which are entirely based on symmetric cryptography. As a result,
    an adversary with a quantum computer still cannot compute the other output keys either.</t>
 	   
-   <t>However, if the adversary has also obtained knowledge of the secrets associated with the SIM card, they
+   <t>However, if the adversary has also obtained knowledge of the secrets associated with the USIM card, they
    could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that
    the introduction of a powerful enough quantum computer would disable
    this protocol extension's ability to provide the forward security
@@ -2241,6 +2242,8 @@ EMSK     = MK_ECDHE[768..1279]
     <t>Added that a future introduction of KEM might require additional changes.</t>
 
     <t>Explained how ephemeral key exchange is linked to pervasive monitoring.</t>
+
+    <t>Changed SIM to USIM everywhere. A USIM is required for AKA.</t>
 
     <t>Reference updates.</t>
 
