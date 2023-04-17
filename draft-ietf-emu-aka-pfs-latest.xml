@@ -1887,7 +1887,7 @@ EMSK     = MK_ECDHE[768..1279]
       extension was in use when the original EAP-AKA' authentication
       was performed, the keys used for re-authentication (K_re) are
       based on the Diffie-Hellman keys, and hence continue to be
-      equally safe against expose of the long-term secrets as the
+      equally safe against expose of the long-term key as the
       original authentication.</t>
 
   </list></t>
@@ -1935,7 +1935,7 @@ EMSK     = MK_ECDHE[768..1279]
     target="procakachallresp"/>). The same is true of
     EAP-Response/AKA'-Challenge (see <xref
     target="procakachallresp"/>). This ensures that the parties need to
-    show possession of the long-term secret in some way, and only then
+    show possession of the long-term key in some way, and only then
     will the FS calculations become active. This limits the
     Denial-of-Service to specific, identified subscribers. While
     botnets and other forms of malicious parties could take advantage
@@ -1989,7 +1989,7 @@ EMSK     = MK_ECDHE[768..1279]
    CK' and IK' which are entirely based on symmetric cryptography. As a result,
    an adversary with a quantum computer still cannot compute the other output keys either.</t>
 	   
-   <t>However, if the adversary has also obtained knowledge of the secrets associated with the USIM card, they
+   <t>However, if the adversary has also obtained knowledge of the long-term key, they
    could then compute CK', IK', and SHARED_SECRET, and any derived output keys. This means that
    the introduction of a powerful enough quantum computer would disable
    this protocol extension's ability to provide the forward security
