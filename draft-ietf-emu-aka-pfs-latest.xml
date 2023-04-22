@@ -104,9 +104,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   improved.</t>
 
   <t>However, the danger of resourceful attackers attempting to gain
-  information about USIM cards is still a
-  concern. These are a
-  high-value target and affect a large number of people.  Note that
+  information about long-term keys is still a concern because many
+  people use the service and these keys are high-value targets.
+  Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
   protocols, but rather the possibility of someone gaining unauthorized
@@ -135,26 +135,22 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy (FS) for the session key
   generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a USIM card from being able to decrypt any past
-  communications. In addition, if the attacker stays merely a passive
-  eavesdropper, the extension prevents attacks against future
-  sessions. This forces attackers to use active attacks instead. This
-  is beneficial, because active attacks demand much more resources to
-  launch, and can generally be detected much easier. As
+  pre-shared key in a USIM card from getting access to past session
+  keys.	In addition to FS, the included Diffie-Hellman exchange, forces
+  attackers to be active if they want access to future session keys even
+  if they have access to the long-term key. This is beneficial, because
+  active attacks demand much more resources to launch, and are easier to
+  detect. As
   with other protocols, an active attacker with access to the
   long-term key material will of course be able to attack all future
   communications, but risks detection, particularly if done at
-  scale. The attacker
-  is forced to attempt to exfiltrate key material, if it can, on a
-  continuous basis, as opposed to learning it once <xref
-  target="RFC7624"/>.</t>
+  scale.</t>
 
   <t>Attacks against Authentication and Key Agreement (AKA) authentication
-  via compromising the long-term
-  secrets in the USIM cards have been an active discussion topic in
-  many contexts. Forward secrecy is on the list of features
+  via compromising the long-term keys have been an active discussion topic in
+  many contexts. Forward secrecy <xref target="DOW1992"/> is on the list of features
   for the next release of 3GPP (5G Phase 2), and this document provides
-  a basis for providing this feature in a particular fashion.</t>
+  a basis for providing this feature.</t>
   
   <t>It should also be noted that 5G network architecture <xref target="TS.33.501"/>
   includes the
@@ -180,8 +176,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>The extension specified here re-uses large portions of the
   current structure of 3GPP interfaces and functions, with the
   rationale that this will make the construction more easily adopted.
-  In particular, the construction maintains the interface between the
-  Universal Subscriber Identification Module (USIM) and the mobile
+  In particular, the construction keeps the interface between the
+  USIM and the mobile
   terminal intact. As a consequence, there is no need to roll out new
   credentials to existing subscribers. The work is based on an earlier
   paper <xref target="TrustCom2015"/>, and uses much of the same
@@ -235,6 +231,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </section>
 
 <section title="Background">
+    <t>This specification defines a new EAP method and the reader is assumed to
+    have basic understanding of the EAP framework <xref target="RFC3748"/>.</t>
+
   <section title="AKA">
 
     <t>Authentication and Key Agreement (AKA) is based on challenge-response
@@ -620,14 +619,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   e.g., for X25519 this is done as specified in <xref target="RFC7748"/>.
   This method is referred to as ECDHE, where the last 'E' stands
   for Ephemeral. The two initially registered elliptic curves and their
-  wire format is chosen to align with the elliptic curves and formats
+  wire formats are chosen to align with the elliptic curves and formats
   specified for Subscription Concealed Identifier (SUCI) encryption in
   Appendix C.3.4 of 3GPP TS 33.501 <xref target="TS.33.501"/>.</t>
   
   <t>The enhancements in the EAP-AKA' FS protocol are compatible
   with the signaling flow and other basic structures of both AKA and
   EAP-AKA'. The intent is to implement the enhancement as optional
-  attributes that legacy implementations can ignore.</t>
+  attributes that legacy implementations ignore.</t>
   
   <t>The purpose of the protocol is to achieve mutual authentication
   between the EAP server and peer, and to establish keying material
@@ -1254,7 +1253,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
            <vspace blankLines="1"/>
 
-           To retain the security of the sessions, the sender SHALL generate
+           To retain the security of the keys, the sender SHALL generate
            a fresh value for each run of the protocol.</t>
            
          </list></t>
@@ -1460,8 +1459,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
          <t>When the FS Key Derivation Function field in the AT_KDF_FS
          attribute is set to 1 or 2 and the Key Derivation Function field
-         in the AT_KDF attribute is set to 1, the Master Key (MK) is
-         derived as follows below.
+         in the AT_KDF attribute is set to 1, the Master Key (MK) and
+         accompanying keys are derived as follows.
 		 
          <figure>
            <artwork align="center">
@@ -1481,7 +1480,7 @@ EMSK     = MK_ECDHE[768..1279]
 	<t>For P-256 the SHARED_SECRET is the shared
 	secret computed as specified in Section 5.7.1.2 of <xref target="SP-800-56A"/>.
 	Public key validation requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
-	At least partial public-key validation MUST be done. The uncompressed y-coordinate can be
+	At least partial public-key validation MUST be done for the ephemeral public keys. The uncompressed y-coordinate can be
         computed as described in Section 2.3.4 of <xref target="SEC1"/>.</t>
 
 	<t>For X25519 the SHARED_SECRET is the shared secret computed as specified in
@@ -1500,8 +1499,8 @@ EMSK     = MK_ECDHE[768..1279]
 
 	 </list></t>	    
 
-	<t>If validation of the public key or the shared secret fails, both
-        parties MUST behave as if the  current EAP-AKA' authentication
+	<t>If validation of the other party's ephemeral public key or the shared secret fails,
+	a party MUST behave as if the  current EAP-AKA' authentication
 	process starts again from the beginning.</t>
 	       
 	 <t>The rest of computation proceeds as defined in Section 3.3 of <xref
