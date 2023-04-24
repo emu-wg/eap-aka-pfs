@@ -236,7 +236,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </section>
 
 <section title="Background">
-    <t>This specification defines a new EAP method and the reader is assumed to
+    <t>The reader is assumed to
     have basic understanding of the EAP framework <xref target="RFC3748"/>.</t>
 
   <section title="AKA">
