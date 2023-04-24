@@ -241,47 +241,57 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <section title="AKA">
 
-    <t>Authentication and Key Agreement (AKA) is based on challenge-response
-    mechanisms and symmetric cryptography. In contrast with its earlier GSM
+    <t>We use the term Authentication and Key Agreement (AKA) for the main
+    authentication and key agreement protocol used by 3GPP mobile networks from
+    the third generation (3G) and onward. Later generations adds new features to
+    AKA, but the core remains the same.
+    It is based on challenge-response mechanisms and symmetric cryptography.
+    In contrast to its earlier GSM
     counterparts, AKA provides long key lengths and mutual authentication.
-    AKA typically runs in a Universal Subscriber Identity Module (USIM). USIM is
-    technically just an application that can reside on a removable
-    Universal Integrated Circuit Card (UICC), an
+    The phone typically execute AKA in a USIM. USIM is
+    technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
     this document we use the term "USIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
 
+    <t>The goal of AKA is to mutually authenticate the USIM and the so-called
+    home environment, which is the authentication server in the subscribers
+    home operator's network.</t>
+	  
     <t>AKA works in the following manner:
     <list style="symbols">
 
-   <t>The identity module and the home environment have agreed on a
-      secret key beforehand.</t>
+   <t>The USIM and the home environment have agreed on a
+      long-term symmetric key beforehand.</t>
    <t>The actual authentication process starts by having the home
-      environment produce an authentication vector, based on the secret
-      key and a sequence number.  The authentication vector contains a
+      environment produce an authentication vector, based on the long-term
+      key and a sequence number. The authentication vector contains a
       random part RAND, an authenticator part AUTN used for
-      authenticating the network to the identity module, an expected
+      authenticating the network to the USIM, an expected
       result part XRES, a 128-bit session key for integrity check IK,
       and a 128-bit session key for encryption CK.</t>
    <t>The authentication vector is passed to the serving network, which
       uses it to authenticate the device.</t>
-   <t>The RAND and the AUTN are delivered to the identity module.</t>
-   <t>The identity module verifies the AUTN, again based on the secret
+   <t>The RAND and the AUTN are delivered to the USIM.</t>
+   <t>The USIM verifies the AUTN, again based on the long-term
       key and the sequence number.  If this process is successful (the
       AUTN is valid and the sequence number used to generate AUTN is
-      within the correct range), the identity module produces an
+      within the correct range), the USIM produces an
       authentication result RES and sends it to the serving network.</t>
-      <t>The serving network verifies the correct result from the identity
-      module.  If the result is correct, IK and CK can be used to
-      protect further communications between the identity module and the
+   <t>The serving network verifies that the result from the USIM
+      matches the expected value in the authentication vector.
+      If it does, the USIM is considered authenticated,
+      and IK and CK can be used to
+      protect further communications between the USIM and the
       home environment.</t>
     </list></t>
   </section>
   <section title="EAP-AKA' Protocol">
 
-    <t>When AKA is embedded into EAP, the authentication on
-    the network side is moved to the home environment; the serving
-    network performs the role of a pass-through authenticator.
+ <t>When AKA is embedded into EAP, the authentication processing on
+    the network side is moved to the home environment. The 3GPP authentication
+    database (AD) generates authentication vectors. The USIM combined with
+    the mobile phone takes the role of the client.
     The difference between EAP-AKA <xref target="RFC4187"/> and
     EAP-AKA' <xref target="RFC9048"/> is that EAP-AKA' 
     binds the derived keys to the name of access network.
@@ -289,7 +299,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     authentication process. The definition of the full protocol
     behavior, along with the definition of attributes AT_RAND,
     AT_AUTN, AT_MAC, and AT_RES can be found in <xref
-    target="RFC9048"/> and <xref target="RFC4187"/>.</t>
+    target="RFC9048"/> and <xref target="RFC4187"/>.
+    Note the use of EAP-terminology from hereon.  That is, the 3GPP
+    serving network takes on the role of an EAP access network.
+</t>
 
 <figure title="EAP-AKA' Authentication Process" anchor="figaka">
 <artset>
