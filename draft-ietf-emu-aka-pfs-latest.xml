@@ -2148,6 +2148,37 @@ EMSK     = MK_ECDHE[768..1279]
 
   <t>RFC Editor: Please remove this appendix.</t>
 
+  <t>The -11 version of the WG draft has the following changes:
+  <list style="symbols">
+
+    <t>Addressed IETF Last Call comments from directorates, Security AD, Meiling Cheng, and a detailed review from the author Karl. In particular:</t>
+
+    <t>Replaced the reference to the deprecated FIPS 186-4 with SP 800-186.</t>
+
+    <t>Changed HSS to Authentication Database (AD) as HSS is a 4G term.</t>
+
+    <t>Explained difference between EAP-AKA and EAP-AKA'</t>
+
+    <t>Explained that the emphemeral key exhange provide more that forward secrecy and how this is important to mitigate pervasive monitoring.</t>
+
+    <t>Included links for the zero trust principles.</t>
+
+    <t>Explained why K_encr and K_auth not being protected by the ECDHE addition.</t>
+
+    <t>Added that a future introduction of KEM might require additional changes.</t>
+
+    <t>Explained how ephemeral key exchange is linked to pervasive monitoring.</t>
+
+    <t>Changed SIM to USIM everywhere. A USIM is required for AKA.</t>
+
+    <t>Changed to long-term key instead of long-term secret or long-term shared secret.</t>
+
+    <t>Reference updates.</t>
+
+    <t>Various editorial improvements.</t>
+
+  </list></t>
+  
   <t>The -10 version of the WG draft has the following changes:
   <list style="symbols">
 
@@ -2299,9 +2330,10 @@ EMSK     = MK_ECDHE[768..1279]
 	    as <xref target="RFC5448"/> by <contact fullname="J. Arkko"/>,
     <contact fullname="V. Lehtovirta"/>, and <contact fullname="P. Eronen"/>.</t>
     
-    <t>The authors would also like to thank
+   <t>The authors would also like to thank
     <contact fullname="Ben Campbell"/>,
     <contact fullname="Meiling Chen"/>,
+    <contact fullname="Linda Dunbar"/>,
     <contact fullname="Tim Evans"/>,
     <contact fullname="Zhang Fu"/>,
     <contact fullname="Russ Housley"/>,
@@ -2319,10 +2351,11 @@ EMSK     = MK_ECDHE[768..1279]
     <contact fullname="Rene Struik"/>,
     <contact fullname="Vesa Torvinen"/>,
     <contact fullname="Sean Turner"/>,
-    <contact fullname="Helena Vahidi Mazinani"/>,    
+    <contact fullname="Helena Vahidi Mazinani"/>,
+    <contact fullname="Paul Wouters"/>,
+    <contact fullname="Bo Wu"/>,
     and many other people at the IETF, GSMA and 3GPP groups
-    for interesting discussions in this problem space.</t>
-    
+    for interesting discussions in this problem space.</t>    
   </section>
   
 </back>
