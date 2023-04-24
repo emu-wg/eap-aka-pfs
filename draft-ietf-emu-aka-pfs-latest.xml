@@ -290,7 +290,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
  <t>When AKA is embedded into EAP, the authentication processing on
     the network side is moved to the home environment. The 3GPP authentication
-    database (AD) generates authentication vectors. The USIM combined with
+    database (AD) generates authentication vectors. The 3GPP authentication
+    server takes the role of EAP server. The USIM combined with
     the mobile phone takes the role of the client.
     The difference between EAP-AKA <xref target="RFC4187"/> and
     EAP-AKA' <xref target="RFC9048"/> is that EAP-AKA' 
@@ -656,7 +657,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t><xref target="figakafs"/> below describes the overall process. Since the goal
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
-  and the 3GPP Authentication Database (AD).
+  and the home environment. Recall that the home environment represent
+  the 3GPP Authentication Database (AD) and server.
   The details of those interactions
   are outside the scope of this document, however, and the reader
   is referred to the 3GPP specifications. For 5G this is
@@ -1564,7 +1566,7 @@ EMSK     = MK_ECDHE[768..1279]
          
      </section>
   
-  <section title="Message Processing">
+  <section title="Message Processing" anchor="secMessageProc">
 
     <t>This section specifies the changes related to message processing
     when this extension is used in EAP-AKA'. It specifies when a
@@ -1584,8 +1586,11 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="EAP-Response/AKA'-Identity">
       
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
-      MUST NOT be added to this message and that a privacy-friendly identifier
-      MUST be used.  The appearance of these attributes in a received message
+      MUST NOT be added to this message. The peer identifier SHALL comply
+      with the privacy-friendly requirements of
+      <xref target="RFC9190"/>.  An example of a compliant way of constructing
+      a privacy-friendly peer identifier is using a non-NULL SUCI <xref target="TS.33.501"/>.
+      The appearance of these attributes in a received message
       MUST be ignored.</t>
 
     </section>
