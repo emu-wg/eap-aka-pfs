@@ -5,7 +5,7 @@ SERVER = cloud2.arkko.eu
 USERNAMESERVER = jar
 
 #PORTS =
-#SCPPORTS = 
+#SCPPORTS =
 #SERVER	= arkko.eu
 #USERNAMESERVER = jar
 
