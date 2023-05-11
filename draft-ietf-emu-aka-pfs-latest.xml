@@ -94,25 +94,29 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <t>Many different attacks have been reported as part of revelations
   associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking Universal Subscriber Identity Module (USIM) card
-  manufacturers and operators in an effort to compromise long-term keys
-  stored on these cards. Such attacks are conceivable, for
-  instance, during the manufacturing process of cards, or during the
-  transfer of cards and associated information to the operator. Since
-  the publication of reports about such attacks, manufacturing and
-  provisioning processes have gained much scrutiny and have
-  improved.</t>
-
+  involved compromising the Universal Subscriber Identity Module
+  (USIM) card supply chain. Attacks revealing the AKA long-term key may occur for
+  instance, during the manufacturing process of USIM cards, during the
+  transfer of the cards and associated information to
+  the operator, and when a system is running. Since
+  the publication of reports about such attacks
+  <xref target="Heist2015"/>, manufacturing and provisioning
+  processes have gained much scrutiny and have improved.</t>
+	
   <t>However, the danger of resourceful attackers attempting to gain
-  information about USIM cards is still a
-  concern. These are a
-  high-value target and affect a large number of people.  Note that
+  information about long-term keys is still a concern because many
+  people use the service and these keys are high-value targets.
+  Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
   protocols, but rather the possibility of someone gaining unauthorized
-  access to key material. While better protections for manufacturing
-  and other processes are essential to mitigate these attacks, there
-  is one question that protocol designers can ask: is there
+  access to key material. Furthermore, an explicit goal of the IETF is to ensure
+  that we understand the surveillance concerns related to IETF
+  protocols and take appropriate countermeasures <xref target="RFC7258"/>.</t>	  
+
+  <t>While strong protection of manufacturing and other processes
+  is essential in mitigating the risks, there is one question
+  that we as protocol designers can ask. Is there
   something that we can do to limit the consequences of attacks,
   should they occur?</t>
   
@@ -126,8 +130,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   Extensible Authentication Protocol Method for 3GPP Mobile Network
   Authentication and Key Agreement (EAP-AKA').</t>
 
-  <t>This document updates <xref target="RFC9048"/>, the EAP-AKA'
-  authentication method, with an optional extension
+  <t>This document updates <xref target="RFC9048"/>, the 3GPP Mobile Network
+  Authentication and Key Agreement (EAP-AKA') method, with an optional extension
+  providing ephemeral key exchange minimizing the impact of long-term key compromise
   and strengthens the identity privacy requirements. While optional,
   the use of this extension is strongly recommended.</t>
 
@@ -135,26 +140,22 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy (FS) for the session key
   generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
-  pre-shared secret in a USIM card from being able to decrypt any past
-  communications. In addition, if the attacker stays merely a passive
-  eavesdropper, the extension prevents attacks against future
-  sessions. This forces attackers to use active attacks instead. This
-  is beneficial, because active attacks demand much more resources to
-  launch, and can generally be detected much easier. As
+  pre-shared key in a USIM card from getting access to past session
+  keys.	In addition to FS, the included Diffie-Hellman exchange, forces
+  attackers to be active if they want access to future session keys even
+  if they have access to the long-term key. This is beneficial, because
+  active attacks demand much more resources to launch, and are easier to
+  detect. As
   with other protocols, an active attacker with access to the
   long-term key material will of course be able to attack all future
   communications, but risks detection, particularly if done at
-  scale. The attacker
-  is forced to attempt to exfiltrate key material, if it can, on a
-  continuous basis, as opposed to learning it once <xref
-  target="RFC7624"/>.</t>
+  scale.</t>
 
   <t>Attacks against Authentication and Key Agreement (AKA) authentication
-  via compromising the long-term
-  secrets in the USIM cards have been an active discussion topic in
-  many contexts. Forward secrecy is on the list of features
+  via compromising the long-term keys have been an active discussion topic in
+  many contexts. Forward secrecy <xref target="DOW1992"/> is on the list of features
   for the next release of 3GPP (5G Phase 2), and this document provides
-  a basis for providing this feature in a particular fashion.</t>
+  a basis for providing this feature.</t>
   
   <t>It should also be noted that 5G network architecture <xref target="TS.33.501"/>
   includes the
@@ -180,8 +181,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t>The extension specified here re-uses large portions of the
   current structure of 3GPP interfaces and functions, with the
   rationale that this will make the construction more easily adopted.
-  In particular, the construction maintains the interface between the
-  Universal Subscriber Identification Module (USIM) and the mobile
+  In particular, the construction keeps the interface between the
+  USIM and the mobile
   terminal intact. As a consequence, there is no need to roll out new
   credentials to existing subscribers. The work is based on an earlier
   paper <xref target="TrustCom2015"/>, and uses much of the same
@@ -235,49 +236,63 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 </section>
 
 <section title="Background">
+    <t>The reader is assumed to
+    have basic understanding of the EAP framework <xref target="RFC3748"/>.</t>
+
   <section title="AKA">
 
-    <t>Authentication and Key Agreement (AKA) is based on challenge-response
-    mechanisms and symmetric cryptography. In contrast with its earlier GSM
+    <t>We use the term Authentication and Key Agreement (AKA) for the main
+    authentication and key agreement protocol used by 3GPP mobile networks from
+    the third generation (3G) and onward. Later generations adds new features to
+    AKA, but the core remains the same.
+    It is based on challenge-response mechanisms and symmetric cryptography.
+    In contrast to its earlier GSM
     counterparts, AKA provides long key lengths and mutual authentication.
-    AKA typically runs in a Universal Subscriber Identity Module (USIM). USIM is
-    technically just an application that can reside on a removable
-    Universal Integrated Circuit Card (UICC), an
+    The phone typically execute AKA in a USIM. USIM is
+    technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
     this document we use the term "USIM card" to refer to any Subscriber
     Identity Module capable of running AKA.</t>
 
+    <t>The goal of AKA is to mutually authenticate the USIM and the so-called
+    home environment, which is the authentication server in the subscribers
+    home operator's network.</t>
+	  
     <t>AKA works in the following manner:
     <list style="symbols">
 
-   <t>The identity module and the home environment have agreed on a
-      secret key beforehand.</t>
+   <t>The USIM and the home environment have agreed on a
+      long-term symmetric key beforehand.</t>
    <t>The actual authentication process starts by having the home
-      environment produce an authentication vector, based on the secret
-      key and a sequence number.  The authentication vector contains a
+      environment produce an authentication vector, based on the long-term
+      key and a sequence number. The authentication vector contains a
       random part RAND, an authenticator part AUTN used for
-      authenticating the network to the identity module, an expected
+      authenticating the network to the USIM, an expected
       result part XRES, a 128-bit session key for integrity check IK,
       and a 128-bit session key for encryption CK.</t>
    <t>The authentication vector is passed to the serving network, which
       uses it to authenticate the device.</t>
-   <t>The RAND and the AUTN are delivered to the identity module.</t>
-   <t>The identity module verifies the AUTN, again based on the secret
+   <t>The RAND and the AUTN are delivered to the USIM.</t>
+   <t>The USIM verifies the AUTN, again based on the long-term
       key and the sequence number.  If this process is successful (the
       AUTN is valid and the sequence number used to generate AUTN is
-      within the correct range), the identity module produces an
+      within the correct range), the USIM produces an
       authentication result RES and sends it to the serving network.</t>
-      <t>The serving network verifies the correct result from the identity
-      module.  If the result is correct, IK and CK can be used to
-      protect further communications between the identity module and the
+   <t>The serving network verifies that the result from the USIM
+      matches the expected value in the authentication vector.
+      If it does, the USIM is considered authenticated,
+      and IK and CK can be used to
+      protect further communications between the USIM and the
       home environment.</t>
     </list></t>
   </section>
   <section title="EAP-AKA' Protocol">
 
-    <t>When AKA is embedded into EAP, the authentication on
-    the network side is moved to the home environment; the serving
-    network performs the role of a pass-through authenticator.
+ <t>When AKA is embedded into EAP, the authentication processing on
+    the network side is moved to the home environment. The 3GPP authentication
+    database (AD) generates authentication vectors. The 3GPP authentication
+    server takes the role of EAP server. The USIM combined with
+    the mobile phone takes the role of the client.
     The difference between EAP-AKA <xref target="RFC4187"/> and
     EAP-AKA' <xref target="RFC9048"/> is that EAP-AKA' 
     binds the derived keys to the name of access network.
@@ -285,7 +300,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     authentication process. The definition of the full protocol
     behavior, along with the definition of attributes AT_RAND,
     AT_AUTN, AT_MAC, and AT_RES can be found in <xref
-    target="RFC9048"/> and <xref target="RFC4187"/>.</t>
+    target="RFC9048"/> and <xref target="RFC4187"/>.
+    Note the use of EAP-terminology from hereon.  That is, the 3GPP
+    serving network takes on the role of an EAP access network.
+</t>
 
 <figure title="EAP-AKA' Authentication Process" anchor="figaka">
 <artset>
@@ -620,14 +638,14 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   e.g., for X25519 this is done as specified in <xref target="RFC7748"/>.
   This method is referred to as ECDHE, where the last 'E' stands
   for Ephemeral. The two initially registered elliptic curves and their
-  wire format is chosen to align with the elliptic curves and formats
+  wire formats are chosen to align with the elliptic curves and formats
   specified for Subscription Concealed Identifier (SUCI) encryption in
   Appendix C.3.4 of 3GPP TS 33.501 <xref target="TS.33.501"/>.</t>
   
   <t>The enhancements in the EAP-AKA' FS protocol are compatible
   with the signaling flow and other basic structures of both AKA and
   EAP-AKA'. The intent is to implement the enhancement as optional
-  attributes that legacy implementations can ignore.</t>
+  attributes that legacy implementations ignore.</t>
   
   <t>The purpose of the protocol is to achieve mutual authentication
   between the EAP server and peer, and to establish keying material
@@ -639,7 +657,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   <t><xref target="figakafs"/> below describes the overall process. Since the goal
   has been to not require new infrastructure or credentials, the
   flow diagrams also show the conceptual interaction with the USIM card
-  and the 3GPP Authentication Database (AD).
+  and the home environment. Recall that the home environment represent
+  the 3GPP Authentication Database (AD) and server.
   The details of those interactions
   are outside the scope of this document, however, and the reader
   is referred to the 3GPP specifications. For 5G this is
@@ -1254,7 +1273,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
            <vspace blankLines="1"/>
 
-           To retain the security of the sessions, the sender SHALL generate
+           To retain the security of the keys, the sender SHALL generate
            a fresh value for each run of the protocol.</t>
            
          </list></t>
@@ -1460,8 +1479,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
          <t>When the FS Key Derivation Function field in the AT_KDF_FS
          attribute is set to 1 or 2 and the Key Derivation Function field
-         in the AT_KDF attribute is set to 1, the Master Key (MK) is
-         derived as follows below.
+         in the AT_KDF attribute is set to 1, the Master Key (MK) and
+         accompanying keys are derived as follows.
 		 
          <figure>
            <artwork align="center">
@@ -1481,7 +1500,7 @@ EMSK     = MK_ECDHE[768..1279]
 	<t>For P-256 the SHARED_SECRET is the shared
 	secret computed as specified in Section 5.7.1.2 of <xref target="SP-800-56A"/>.
 	Public key validation requirements are defined in Section 5 of <xref target="SP-800-56A"/>.
-	At least partial public-key validation MUST be done. The uncompressed y-coordinate can be
+	At least partial public-key validation MUST be done for the ephemeral public keys. The uncompressed y-coordinate can be
         computed as described in Section 2.3.4 of <xref target="SEC1"/>.</t>
 
 	<t>For X25519 the SHARED_SECRET is the shared secret computed as specified in
@@ -1500,8 +1519,8 @@ EMSK     = MK_ECDHE[768..1279]
 
 	 </list></t>	    
 
-	<t>If validation of the public key or the shared secret fails, both
-        parties MUST behave as if the  current EAP-AKA' authentication
+	<t>If validation of the other party's ephemeral public key or the shared secret fails,
+	a party MUST behave as if the  current EAP-AKA' authentication
 	process starts again from the beginning.</t>
 	       
 	 <t>The rest of computation proceeds as defined in Section 3.3 of <xref
@@ -1547,7 +1566,7 @@ EMSK     = MK_ECDHE[768..1279]
          
      </section>
   
-  <section title="Message Processing">
+  <section title="Message Processing" anchor="secMessageProc">
 
     <t>This section specifies the changes related to message processing
     when this extension is used in EAP-AKA'. It specifies when a
@@ -1567,8 +1586,11 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="EAP-Response/AKA'-Identity">
       
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
-      MUST NOT be added to this message and that a privacy-friendly identifier
-      MUST be used.  The appearance of these attributes in a received message
+      MUST NOT be added to this message. The peer identifier SHALL comply
+      with the privacy-friendly requirements of
+      <xref target="RFC9190"/>.  An example of a compliant way of constructing
+      a privacy-friendly peer identifier is using a non-NULL SUCI <xref target="TS.33.501"/>.
+      The appearance of these attributes in a received message
       MUST be ignored.</t>
 
     </section>
