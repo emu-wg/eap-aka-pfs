@@ -156,7 +156,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   many contexts. Forward secrecy <xref target="DOW1992"/> is on the list of features
   for the next release of 3GPP (5G Phase 2), and this document provides
   a basis for providing this feature.</t>
-  
+
   <t>It should also be noted that 5G network architecture <xref target="TS.33.501"/>
   includes the
   use of the EAP framework for authentication. While any methods can
