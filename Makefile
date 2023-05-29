@@ -21,6 +21,7 @@ diff:
 	ssh $(PORTS) $(USERNAMESERVER)@$(SERVER) 'cd /tmp; rm -f draft*'
 	scp $(SCPPORTS) \
 	    archive/draft-ietf-emu-aka-pfs-0?.txt \
+	    archive/draft-ietf-emu-aka-pfs-1?.txt \
 	    $(USERNAMESERVER)@$(SERVER):/tmp
 	sed 's@<contact fullname="\(.*\)"/>@\1@' draft-ietf-emu-aka-pfs-latest.xml > draft-ietf-emu-aka-pfs-temp.xml
 	scp $(SCPPORTS) draft-ietf-emu-aka-pfs-temp.xml $(USERNAMESERVER)@$(SERVER):/tmp/draft-ietf-emu-aka-pfs-latest.xml
