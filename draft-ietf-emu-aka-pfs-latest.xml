@@ -1586,12 +1586,12 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="EAP-Response/AKA'-Identity">
       
       <t>No changes, except that the AT_KDF_FS or AT_PUB_ECDHE attributes
-      MUST NOT be added to this message. The peer identifier SHALL comply
+      MUST NOT be added to this message. The appearance of these attributes in a received message
+      MUST be ignored. The peer identifier SHALL comply
       with the privacy-friendly requirements of
       <xref target="RFC9190"/>.  An example of a compliant way of constructing
       a privacy-friendly peer identifier is using a non-NULL SUCI <xref target="TS.33.501"/>.
-      The appearance of these attributes in a received message
-      MUST be ignored.</t>
+      </t>
 
     </section>
     
