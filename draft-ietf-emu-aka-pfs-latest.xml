@@ -140,7 +140,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   negotiated, provides Forward Secrecy (FS) for the session key
   generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
-  pre-shared key in a USIM card from getting access to past session
+  key in a USIM card from getting access to past session
   keys.	In addition to FS, the included Diffie-Hellman exchange, forces
   attackers to be active if they want access to future session keys even
   if they have access to the long-term key. This is beneficial, because
@@ -162,7 +162,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   use of the EAP framework for authentication. While any methods can
   be run, the default authentication method within that context will
   be EAP-AKA'. As a result, improvements in EAP-AKA' security have a
-  potential to improve security for large number of users.</t>
+  potential to improve security for many users.</t>
 
 </section>
 
