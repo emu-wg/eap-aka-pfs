@@ -248,7 +248,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     It is based on challenge-response mechanisms and symmetric cryptography.
     In contrast to its earlier GSM
     counterparts, AKA provides long key lengths and mutual authentication.
-    The phone typically execute AKA in a USIM. USIM is
+    The phone typically executes AKA in a USIM. USIM is
     technically just an application that can reside on a removable UICC, an
     embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
     this document we use the term "USIM card" to refer to any Subscriber
