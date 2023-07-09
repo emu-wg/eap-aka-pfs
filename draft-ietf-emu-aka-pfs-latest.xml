@@ -1988,6 +1988,27 @@ EMSK     = MK_ECDHE[768..1279]
    for traffic flow analysis or to track an endpoint.</t>
    </section>
 
+   <section title="Forward Secrecy within AT_ENCR">
+	   
+     <t>They keys K_encr and K_aut are calculated and used before the shared secret from the ephemeral 
+     key exchange is available.</t>
+	     
+     <t>K_encr and K_aut are used to encrypt and MAC data in the EAP-Req/AKA'-Challenge message,
+     especially the DH g^x ephemeral pub key. At that point the server does not yet have the 
+     corresponding g^y from the peer and cannot compute the shared secret. K_aut is
+     then used as the authentication key for the shared secret.</t>
+
+     <t>For K_encr though, none of the encrypted data sent in the 
+     EAP-Req/AKA'-Challenge message in the AT_ENCR attribute will be forward secret. That data may 
+     include re-authentication pseudonyms, so an adversary compromising 
+     the long-term key would be able to link re-authentication protocol-runs 
+     when pseudonyms are used, within a sequence of runs followed after a full EAP-AKA'
+     authentication. No such linking would be possible across different full authentaction
+     runs. If the pseudonum linkage risk is not acceptable, one way to avoid the linkage is
+     to always require full EAP-AKA' authentication.</t>
+	     
+   </section>
+
    <section title="Post-Quantum Considerations">
    <t>As of the publication of this specification, it is unclear when or
    even if a quantum computer of sufficient size and power to exploit
