@@ -604,26 +604,20 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <section anchor="attacks" title="Attacks Against Long-Term Keys in Smart Cards">
 
-    <t>Current 3GPP systems use USIM pre-shared key-based protocols
-    and Authentication and Key Agreement (AKA) to authenticate
-    subscribers. The general security properties and potential
+    <t>The general security properties and potential
     vulnerabilities of AKA and EAP-AKA' are discussed in <xref
     target="RFC9048"/>.</t>
     
-    <t>An important vulnerability in that discussion relates to the
-    recent reports of compromised long-term keys used in
-    AKA <xref target="Heist2015"/>. These attacks are not specific to
-    AKA or EAP-AKA', as all security systems fail at least to some
-    extent if key material is stolen. However, the reports indicate a
-    need to look into solutions that can operate at least to an extent
-    under these types of attacks. It is noted in <xref
-    target="Heist2015"/> that some security can be retained even in
-    the face of the attacks by providing Forward Secrecy
-    (FS) <xref target="DOW1992"/> for the session key. If AKA would
-    have provided FS, compromising the long-term keys would not be
-    sufficient to perform passive attacks; the attacker is, in
-    addition, forced to be a Man-In-The-Middle (MITM) during the AKA
-    run and subsequent communication between the parties.</t>
+    <t>An important question in that discussion relates to the
+    potential compromise of long-term keys, as discussed earlier.
+    Attacks on long-term keys are not specific to
+    AKA or EAP-AKA', and all security systems fail at least to some
+    extent if key material is stolen. However, it would be preferable
+    to retain some security even in
+    the face of such attacks. This document specifies a mechanism
+    that reduces risks to compromise of key material belonging to
+    previous sessions, before the long-term keys were compromised. It
+    also forces attackers to be active even after the compromise.</t>
 
   </section>
 
