@@ -1716,36 +1716,33 @@ EMSK     = MK_ECDHE[768..1279]
     as they differ from EAP-AKA', or as new information has been gathered
     since the publication of <xref target="RFC9048"/>.</t>
     
-    <t>The possibility of attacks against key storage offered in USIM or
-    other smart cards has been a known threat. But as the discussion in
-    <xref target="attacks"/> shows, the likelihood of practically
-    feasible attacks such as breaches in the smart card supply chain has
-    increased. Many of these attacks can be best
+    <t>As discussed earlier (see <ref target="sec:intro"/> and <ref target="attacks"/>,
+    forward secrecy is an important countermeasure against well-resourced adversaries
+    that who may get access to the long-term keys, see <xref target="sec:intro"/>.
+    Many of the attacks against these keys can be best
     dealt with improved processes, e.g., limiting the access to the key
     material within the factory or personnel, etc. But not all attacks can
     be entirely ruled out for well-resourced adversaries, irrespective
-    of what the technical algorithms and protection measures are.
-    To assume that breach is inevitable or has likely already occurred
-    <xref target="NSA-ZT"/>, and to minimize impact when breach occur
+    of what the technical algorithms and protection measures are. And the
+    likelihood of practically feasible attacks has
+    increased.
+    To assume that a breach is inevitable or has likely already occurred
+    <xref target="NSA-ZT"/>, and to minimize impact when breaches occur
     <xref target="NIST-ZT"/> are essential zero trust principles.
     One type of breach is key compromise or key exfiltration.</t>
 	  
     <t>If a mechanism without ephemeral key exchange such as (5G-AKA,
     EAP-AKA') is used the effects of key compromise are devastating.
-    The serious consequences of breach somewhere in the supply chain
-    or after delivery that are possible when 5G-AKA or EAP-AKA' is
-    used but not when something with ephemeral key exchange like EAP-AKA-FS
-    is used are:
-    <list style="numbers">
-    <t>A passive attacker can eavesdrop (decrypt) all
-    future 5G communication (control and user plane both directions),</t>
-    <t>A passive attacker can decrypt 5G communication that they
-    previously recorded in the past (control and user plane both
-    directions), and </t>
-    <t>An active attacker can impersonate UE and
+    There are serious consequences of not properly providing forward secrecy
+     for the key establishment. For both control and user plane, and both directions:
+     <list style="numbers">
+     <t>An attacker can decrypt 5G communication that they
+     previously recorded.</t>
+     <t>A passive attacker can eavesdrop (decrypt) all
+     future 5G communication.</t>
+     <t>An active attacker can impersonate the UE or the
     Network and inject messages in an ongoing 5G connection between
-    the real UE and the real network (control and user plane both
-    directions).</t>
+    the real UE and the real network.</t>
     </list>
     </t>
 
@@ -1768,9 +1765,10 @@ EMSK     = MK_ECDHE[768..1279]
     protocols not providing forward secrecy. For
     instance, if used with IKEv2 <xref target="RFC7296"/>, the
     session keys produced by IKEv2 have this property, so better
-    characteristics of the MSK and EMSK is not that useful. However, typical
-    link layer usage of EAP does not involve running Diffie-Hellman,
-    so using EAP to authenticate access to a network is one situation
+    characteristics of the MSK and EMSK is not that useful. However, 
+    typical
+    link layer usage of EAP does not involve running another, forward secure,
+    key exchange. Therefore, using EAP to authenticate access to a network is one situation
     where the extension defined in this document can be helpful.</t>
 
     <t>This extension generates keying material using the ECDHE
@@ -1785,13 +1783,11 @@ EMSK     = MK_ECDHE[768..1279]
 
     <t>Even if a compromise of the long-term keys has occurred, FS is
     still provided for all future sessions, as long as the attacker
-    does not become an active attacker. Of course, as with other
-    protocols, if the attacker has learned the keys and does become an
-    active attacker, there is no protection that that can be provided
-    for future sessions. Among other things, such an active attacker
-    can impersonate any legitimate endpoint in EAP-AKA', become a
-    MITM in EAP-AKA' or the extension defined in this
-    document, retrieve all keys, or turn off FS. Still, past sessions
+    does not become an active attacker.</t>
+
+    <t>The extension does not provide protection against active attackers with access to the long-term key that mount
+    a MITM attack on future EAP-AKA' runs will be able to eavesdrop on the
+    traffic protected by the resulting session key(s). Still, past sessions
     where FS was in use remain protected.</t>
 
     <t>Using EAP-AKA' FS once provides forward secrecy. Forward secrecy limits the
@@ -1897,28 +1893,13 @@ EMSK     = MK_ECDHE[768..1279]
       </list></t>
       
       <t hangText="Key derivation"><vspace blankLines="1"/>
-      
-      This extension provides key material that is based on
-      the Diffie-Hellman keys, yet bound to the authentication
-      through the USIM card. This means that subsequent payload communications between
-      the parties are protected with keys that are not solely based on
-      information in the clear (such as the RAND) and information
-      derivable from the long-term shared secrets on the USIM
-      card. As a result, if anyone successfully recovers
-      shared secret information, they are unable to decrypt
-      communications protected by the keys generated through this
-      extension. Note that the recovery of shared secret information
-      could occur either before or after the time that the protected
-      communications are used. When this extension is used,
-      communications at time t0 can be protected if at some later time
-      t1 an adversary learns of long-term shared secret and has access
-      to a recording of the encrypted communications.
 
-      <vspace blankLines="1"/>Obviously, this extension is still
-      vulnerable to attackers that are willing to perform an active
-      attack and who at the time of the attack have access to the
-      long-term shared secret.<vspace blankLines="1"/>
-
+      This extension provides forward secrecy.  As described in several
+      places in this specification, this can be roughly summarized as
+      that an attacker with access
+      to long-term keys is unable to obtain session keys of ended past
+      sessions, assuming these sessions deleted all relevant session key material.
+	      
       This extension does not change the properties related to
       re-authentication. No new Diffie-Hellman run is performed during
       the re-authentication allowed by EAP-AKA'. However, if this
@@ -1986,10 +1967,9 @@ EMSK     = MK_ECDHE[768..1279]
 
   </section>
   <section title="Identity Privacy">
-   <t>Best practice privacy today is to mandate client identity protection as
-      is done in EAP-TLS 1.3, EAP-TTLS 1.3, etc. A client supporting EAP-AKA' FS
-      MUST NOT send its username (or any other permanent identifiers) in cleartext
-      in the Identity Response (or any message used instead of the Identity Response).</t>
+   <t>As specified in <xref target="secMessageProc"/>, the peer identity sent
+       in the Identity Response message needs
+       to follow the privacy-friendly requirements in <xref target="RFC9190"/>.</t>
   </section>
 
   <section anchor="unp" title="Unprotected Data and Privacy">
