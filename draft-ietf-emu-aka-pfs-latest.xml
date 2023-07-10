@@ -602,7 +602,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   </section>
 
-  <section anchor="attacks" title="Attacks Against Long-Term Shared Secrets in Smart Cards">
+  <section anchor="attacks" title="Attacks Against Long-Term Keys in Smart Cards">
 
     <t>Current 3GPP systems use USIM pre-shared key-based protocols
     and Authentication and Key Agreement (AKA) to authenticate
@@ -611,7 +611,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     target="RFC9048"/>.</t>
     
     <t>An important vulnerability in that discussion relates to the
-    recent reports of compromised long term pre-shared keys used in
+    recent reports of compromised long-term keys used in
     AKA <xref target="Heist2015"/>. These attacks are not specific to
     AKA or EAP-AKA', as all security systems fail at least to some
     extent if key material is stolen. However, the reports indicate a
@@ -620,7 +620,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
     target="Heist2015"/> that some security can be retained even in
     the face of the attacks by providing Forward Secrecy
     (FS) <xref target="DOW1992"/> for the session key. If AKA would
-    have provided FS, compromising the pre-shared key would not be
+    have provided FS, compromising the long-term keys would not be
     sufficient to perform passive attacks; the attacker is, in
     addition, forced to be a Man-In-The-Middle (MITM) during the AKA
     run and subsequent communication between the parties.</t>
