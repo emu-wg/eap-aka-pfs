@@ -1719,7 +1719,7 @@ EMSK     = MK_ECDHE[768..1279]
     as they differ from EAP-AKA', or as new information has been gathered
     since the publication of <xref target="RFC9048"/>.</t>
     
-    <t>As discussed earlier (see <ref target="sec:intro"/> and <ref target="attacks"/>,
+    <t>As discussed earlier (see <xref target="sec:intro"/> and <xref target="attacks"/>,
     forward secrecy is an important countermeasure against well-resourced adversaries
     that who may get access to the long-term keys, see <xref target="sec:intro"/>.
     Many of the attacks against these keys can be best
