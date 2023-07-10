@@ -1561,8 +1561,11 @@ EMSK     = MK_ECDHE[768..1279]
          
          <t>For "EAP-AKA' with ECDHE and P-256" the group is the NIST
          P-256 group (SEC group secp256r1), specified in Section 3.2.1.3 of
-	 of <xref target="SP-800-186"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
+	 <xref target="SP-800-186"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
 	 The support for this group is REQUIRED.</t>
+
+	 <t>The term "support" here means that the group MUST be implemented and
+        MUST be possible to use during a protocol run.</t>
          
      </section>
   
