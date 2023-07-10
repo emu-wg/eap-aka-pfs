@@ -72,10 +72,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   such as long-term key compromise, and minimizing the impact of breach are essential
   zero trust principles.</t>
 
-  <t>This specification updates RFC 9048, the improved Extensible
+  <t>This document updates RFC 9048, the improved Extensible
   Authentication Protocol Method for 3GPP Mobile Network Authentication
   and Key Agreement (EAP-AKA'), with an optional extension providing ephemeral key exchange. 
-  Similarly, this specification also updates the earlier version 
+  Similarly, this document also updates the earlier version 
   of the EAP-AKA' specification in RFC 5448. The extension EAP-AKA' Forward Secrecy (EAP-AKA' FS), when
   negotiated, provides forward secrecy for the session keys
   generated as a part of the authentication run in EAP-AKA'. This
@@ -741,7 +741,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |      | generates the ECDHE shared secret and checks the RES   |
    |      | and MAC values received in AT_RES and AT_MAC,          |
    |      | respectively. Success requires both to be found        |
-   |      | correct. Note that when this specification is used,    |
+   |      | correct. Note that when this document is used,         |
    |      | the keys generated from EAP-AKA' are based on CK, IK,  |
    |      | and the ECDHE value. Even if there was an attacker who |
    |      | held the long-term key, only an active attacker could  |
@@ -1400,7 +1400,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 	   
 	   <t>If the peer supports and is willing to use the FS Key Derivation Function
 	   indicated by the first AT_KDF_FS attribute, and is willing and able to use the
-	   extension defined in this specification, the function is taken into use without
+	   extension defined in this document, the function is taken into use without
 	   any further negotiation.</t>
 
 	   <t>If the peer does not support this function or is unwilling to use it, it
@@ -1417,7 +1417,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 	   duplication is due to a request to change the key derivation function; see
 	   below for further information).</t>
 	   
-           <t>If the peer does not recognize the extension defined in this specification
+           <t>If the peer does not recognize the extension defined in this document
            or is unwilling to use it, it ignores the AT_KDF_FS attribute.</t>
 
 	 </list></t>
@@ -1613,7 +1613,7 @@ EMSK     = MK_ECDHE[768..1279]
       attribute carries the server's public Diffie-Hellman key. If
       either AT_KDF_FS or AT_PUB_ECDHE is missing on reception, the peer
       MUST treat it as if neither one was sent, and the assume that
-      the extension defined in this specification is not in use.</t>
+      the extension defined in this document is not in use.</t>
       
       <t>The AT_RESULT_IND, AT_CHECKCODE, AT_IV, AT_ENCR_DATA, AT_PADDING,
       AT_NEXT_PSEUDONYM, AT_NEXT_REAUTH_ID and other attributes may be
@@ -2009,7 +2009,7 @@ EMSK     = MK_ECDHE[768..1279]
    </section>
 
    <section title="Post-Quantum Considerations">
-   <t>As of the publication of this specification, it is unclear when or
+   <t>As of the publication of this document, it is unclear when or
    even if a quantum computer of sufficient size and power to exploit
    elliptic curve cryptography will exist.  Deployments that need to
    consider risks decades into the future should transition to Post-
@@ -2036,8 +2036,8 @@ EMSK     = MK_ECDHE[768..1279]
    the introduction of a powerful enough quantum computer would disable
    this protocol extension's ability to provide the forward security
    capability. This would 
-   make it necessary to update the current ECC algorithms in this specification to PQC algorithms. This
-   specification does not add such algorithms, but a future update can do that.
+   make it necessary to update the current ECC algorithms in this document to PQC algorithms. This
+   document does not add such algorithms, but a future update can do that.
    </t>
 
    <t>Symmetric algorithms used in EAP-AKA' FS such as HMAC-SHA-256
@@ -2399,7 +2399,7 @@ EMSK     = MK_ECDHE[768..1279]
   
   <t>The -03 version of the WG draft is first of all a refresh; there
   are no issues that we think need addressing, beyond the one for
-  which there is a suggestion in -03: The specification now suggests
+  which there is a suggestion in -03: The document now suggests
   an alternate group/curve as an optional one besides X25519. The
   specific choice of particular groups and algorithms is still up to the
   working group.</t>
