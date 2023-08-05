@@ -2058,7 +2058,7 @@ EMSK     = MK_ECDHE[768..1279]
   <t>This extension of EAP-AKA' shares its attribute space and subtypes with
   Extensible Authentication Protocol Method for Global System for Mobile Communications (GSM)
   Subscriber Identity Modules (EAP-SIM)
-  <xref target="RFC4186"/>, EAP-AKA <xref target="RFC4186"/>, and
+  <xref target="RFC4186"/>, EAP-AKA <xref target="RFC4187"/>, and
   EAP-AKA' <xref target="RFC9048"/>.</t>
 
   <t>Two new values (TBA1, TBA2) in the skippable
@@ -2258,6 +2258,11 @@ EMSK     = MK_ECDHE[768..1279]
 <section title="Change Log">
 
   <t>RFC Editor: Please remove this appendix.</t>
+
+  <t>The -12 version of the WG draft has the following changes:
+  <list style="symbols">
+    <t>Corrected a reference typo in the IANA considerations section.</t>
+  </list></t>
 
   <t>The -11 version of the WG draft has the following changes:
   <list style="symbols">
