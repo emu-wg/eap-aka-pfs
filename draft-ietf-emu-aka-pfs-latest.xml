@@ -2,7 +2,7 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <rfc ipr="trust200902" docName="draft-ietf-emu-aka-pfs-latest"
-     category="info" updates="5448,9048">
+     category="std" updates="5448,9048" consensus="true">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc autobreaks="yes"?>
@@ -59,18 +59,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 <keyword>3GPP</keyword>
 
 <abstract>
-
-  <t>Many different attacks have been reported as part of revelations
-  associated with pervasive surveillance. Some of the reported attacks
-  involved compromising the smart card supply chain, such as attacking
-  Universal Subscriber Identity Module (USIM) card
-  manufacturers and operators in an effort to compromise long-term
-  keys stored on these cards. Since the publication of those
-  reports, manufacturing and provisioning processes have received much
-  scrutiny and have improved. However, resourceful attackers are always
-  a cause for concern. Always assuming a breach,
-  such as long-term key compromise, and minimizing the impact of breach are essential
-  zero trust principles.</t>
 
   <t>This document updates RFC 9048, the improved Extensible
   Authentication Protocol Method for 3GPP Mobile Network Authentication
@@ -1713,19 +1701,20 @@ EMSK     = MK_ECDHE[768..1279]
     as they differ from EAP-AKA', or as new information has been gathered
     since the publication of <xref target="RFC9048"/>.</t>
     
-    <t>As discussed earlier (see <xref target="sec:intro"/> and <xref target="attacks"/>,
-    forward secrecy is an important countermeasure against well-resourced adversaries
-    that who may get access to the long-term keys, see <xref target="sec:intro"/>.
-    Many of the attacks against these keys can be best
-    dealt with improved processes, e.g., limiting the access to the key
-    material within the factory or personnel, etc. But not all attacks can
-    be entirely ruled out for well-resourced adversaries, irrespective
-    of what the technical algorithms and protection measures are. And the
-    likelihood of practically feasible attacks has
-    increased.
-    To assume that a breach is inevitable or has likely already occurred
-    <xref target="NSA-ZT"/>, and to minimize impact when breaches occur
-    <xref target="NIST-ZT"/> are essential zero trust principles.
+    <t>As discussed earlier,
+    forward secrecy is an important countermeasure against adversaries
+    who gain access to the long-term keys, see <xref target="sec:intro"/>.
+    The long-term keys can be best protected with good processes, e.g.,
+    e.g., restricting access to the key material within a factory or
+    personnel, etc.
+    Even so, not all attacks can
+    be entirely ruled out. For instance, well-resourced adversaries
+    may be able to coerce insiders to collaborate, despite any
+    technical protection measures. 
+    The zero trust principles suggest that we assume that breaches are
+    inevitable or have potentially already occurred, and that we need to
+    minimize the impact of these breaches
+    <xref target="NSA-ZT"/> <xref target="NIST-ZT"/>.
     One type of breach is key compromise or key exfiltration.</t>
 	  
     <t>If a mechanism without ephemeral key exchange such as (5G-AKA,
@@ -1744,8 +1733,9 @@ EMSK     = MK_ECDHE[768..1279]
     </t>
 
    <t>Best practice security today is to mandate forward secrecy (as
-   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC, WireGuard, Signal, etc.). It is RECOMMENDED
-   that EAP-AKA methods without forward secrecy be phased out in the long term.</t>
+   is done in WPA3, EAP-TLS 1.3, EAP-TTLS 1.3, IKEv2, SSH, QUIC,
+   WireGuard, Signal, etc.). It is recommended that EAP-AKA methods
+   without forward secrecy be phased out in the long term.</t>
 
     <t>This extension provide assistance against passive attacks from
     attackers that have comprimised the key material on USIM cards.
@@ -1771,7 +1761,7 @@ EMSK     = MK_ECDHE[768..1279]
     <t>This extension generates keying material using the ECDHE
     exchange in order to gain the FS property. This means that once
     an EAP-AKA' authentication run ends, the session that it was used
-    to protect is closed, and the corresponding keys are forgotten,
+    to protect is closed, and the corresponding keys are destroyed,
     even someone who has recorded all of the data from the
     authentication run and session and gets access to all of the AKA
     long-term keys cannot reconstruct the keys used to protect the
@@ -1801,7 +1791,7 @@ EMSK     = MK_ECDHE[768..1279]
     <section title="Deployment Considerations">
 
     <t>Achieving FS requires that when a connection is closed, each
-    endpoint MUST forget not only the ephemeral keys used by the
+    endpoint MUST destroy not only the ephemeral keys used by the
     connection but also any information that could be used to
     recompute those keys.</t>
 
@@ -2073,7 +2063,11 @@ EMSK     = MK_ECDHE[768..1279]
   types (1 and 2, see <xref target="kdf2"/>) need to be assigned,
   along with one reserved value. The initial contents of this
   registry is illustrated in <xref target="iana-fs-values"/>; new values can be created through
-  the Specification Required policy <xref target="RFC8126"/>.</t>
+  the Specification Required policy <xref target="RFC8126"/>.
+  Expert reviewers should ensure that the referenced specification is
+  clearly identified and stable, and that the proposed addition is
+  reasonable for the given category of allocation.
+  </t>
 			
         <table anchor="iana-fs-values">
           <name>Initial Content of the EAP-AKA' AT_KDF_FS Key Derivation Function Values Registry</name>
@@ -2259,9 +2253,15 @@ EMSK     = MK_ECDHE[768..1279]
 
   <t>RFC Editor: Please remove this appendix.</t>
 
-  <t>The -12 version of the WG draft has the following changes:
+  <t>The -12 version of the WG draft has the following changes, most
+  due to IESG review comments in January 2023:
   <list style="symbols">
-    <t>Corrected a reference typo in the IANA considerations section.</t>
+    <t>Update the draft track to Standards Track.</t>
+    <t>Avoided the use of keywords in operational recommendations,
+    e.g., about deployment.</t>
+    <t>Corrected a reference typo in the IANA considerations
+    section.</t>
+    <t>Several editorial changes.</t>
   </list></t>
 
   <t>The -11 version of the WG draft has the following changes:

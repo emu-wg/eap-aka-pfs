@@ -13,7 +13,7 @@ WEB = cloud3.arkko.eu
 USERNAMEWEB = root
 
 LASTVERARKKO=06
-LASTVEREMU=07
+LASTVEREMU=11
 
 jaricompile:	diff
 
@@ -27,6 +27,17 @@ diff:
 	scp $(SCPPORTS) draft-ietf-emu-aka-pfs-temp.xml $(USERNAMESERVER)@$(SERVER):/tmp/draft-ietf-emu-aka-pfs-latest.xml
 	ssh $(PORTS) $(USERNAMESERVER)@$(SERVER) 'cd /tmp; xml2rfc draft-ietf-emu-aka-pfs-latest.xml'
 	scp $(SCPPORTS) $(USERNAMESERVER)@$(SERVER):/tmp/draft-ietf-emu-aka-pfs-latest.txt .
+	ssh $(PORTS) $(USERNAMESERVER)@$(SERVER) 'cd /tmp; rfcdiff draft-ietf-emu-aka-pfs-$(LASTVEREMU).txt draft-ietf-emu-aka-pfs-latest.txt'
+	scp $(SCPPORTS) $(USERNAMESERVER)@$(SERVER):/tmp/draft-ietf-emu-aka-pfs-latest-from-$(LASTVEREMU).diff.html .
+	scp draft-ietf-emu-aka-pfs-latest.txt \
+	    draft-ietf-emu-aka-pfs-latest-from-$(LASTVEREMU).diff.html \
+	    $(USERNAMEWEB)@$(WEB):/var/www/www.arkko.com/html/ietf/eap
+
+justdiff:
+	scp $(SCPPORTS) draft-ietf-emu-aka-pfs-latest.txt \
+			archive/draft-ietf-emu-aka-pfs-0?.txt \
+			archive/draft-ietf-emu-aka-pfs-1?.txt \
+			$(USERNAMESERVER)@$(SERVER):/tmp/
 	ssh $(PORTS) $(USERNAMESERVER)@$(SERVER) 'cd /tmp; rfcdiff draft-ietf-emu-aka-pfs-$(LASTVEREMU).txt draft-ietf-emu-aka-pfs-latest.txt'
 	scp $(SCPPORTS) $(USERNAMESERVER)@$(SERVER):/tmp/draft-ietf-emu-aka-pfs-latest-from-$(LASTVEREMU).diff.html .
 	scp draft-ietf-emu-aka-pfs-latest.txt \
