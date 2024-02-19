@@ -92,8 +92,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   processes have gained much scrutiny and have improved.</t>
 	
   <t>However, the danger of resourceful attackers attempting to gain
-  information about long-term keys is still a concern because of the very large of
-  people using mobile networks authentication mechanisms and these keys are high-value targets.
+  information about long-term keys is still a concern because these keys are high-value targets.
   Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
@@ -1212,7 +1211,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
                 <text x="68" y="84">AT_PUB_ECDHE</text>
                 <text x="172" y="84">Length</text>
                 <text x="296" y="84">Value</text>
-              </g>
+              </g>
             </svg>
           </artwork>
         </artset>
@@ -1229,7 +1228,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            the attribute, set as other attributes in EAP-AKA <xref
            target="RFC4187"/>. The length is expressed in multiples of
            4 bytes. The length includes the attribute type field, the
-           length field itself, and the value, along with any padding.
+           Length field itself, and the Value field (along with any padding).
            </t>
            
            <t hangText="Value"><vspace blankLines="1"/>This value is
@@ -1248,7 +1247,7 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            <vspace blankLines="1"/>
 
 	   Because the length of the attribute must be a multiple of 4
-	   bytes, the sender pads the keyidentity with zero bytes when
+	   bytes, the sender pads the Value field with zero bytes when
 	   necessary.
 	   
            To retain the security of the keys, the sender SHALL generate
@@ -1696,12 +1695,12 @@ EMSK     = MK_ECDHE[768..1279]
     as they differ from EAP-AKA', or as new information has been gathered
     since the publication of <xref target="RFC9048"/>.</t>
     
-    <t>As discussed earlier,
+    <t>As discussed in <xref target="sec:intro"/>,
     forward secrecy is an important countermeasure against adversaries
-    who gain access to the long-term keys, see <xref target="sec:intro"/>.
-    The long-term keys can be best protected with good processes, e.g.,
+    who gain access to the long-term keys.
+    The long-term keys can be best protected with good processes,
     e.g., restricting access to the key material within a factory or
-    personnel, etc.
+    among personnel, etc.
     Even so, not all attacks can
     be entirely ruled out. For instance, well-resourced adversaries
     may be able to coerce insiders to collaborate, despite any
