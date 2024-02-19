@@ -92,8 +92,8 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   processes have gained much scrutiny and have improved.</t>
 	
   <t>However, the danger of resourceful attackers attempting to gain
-  information about long-term keys is still a concern because many
-  people use the service and these keys are high-value targets.
+  information about long-term keys is still a concern because of the very large of
+  people using mobile networks authentication mechanisms and these keys are high-value targets.
   Note that
   the attacks are largely independent of the used authentication
   technology; the issue is not vulnerabilities in algorithms or
@@ -102,11 +102,9 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   that we understand the surveillance concerns related to IETF
   protocols and take appropriate countermeasures <xref target="RFC7258"/>.</t>	  
 
-  <t>While strong protection of manufacturing and other processes
-  is essential in mitigating the risks, there is one question
-  that we as protocol designers can ask. Is there
-  something that we can do to limit the consequences of attacks,
-  should they occur?</t>
+  <t>While strong protection of manufacturing and other processes is
+  essential in mitigating the risks, there are also protocol
+  mechanisms that can help.</t>
   
   <t>This document specifies an
   extension that helps defend against one aspect of pervasive
@@ -229,18 +227,19 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
   <section title="AKA">
 
-    <t>We use the term Authentication and Key Agreement (AKA) for the main
-    authentication and key agreement protocol used by 3GPP mobile networks from
-    the third generation (3G) and onward. Later generations adds new features to
-    AKA, but the core remains the same.
-    It is based on challenge-response mechanisms and symmetric cryptography.
-    In contrast to its earlier GSM
-    counterparts, AKA provides long key lengths and mutual authentication.
-    The phone typically executes AKA in a USIM. USIM is
-    technically just an application that can reside on a removable UICC, an
-    embedded UICC, or integrated in a Trusted Execution Environment (TEE). In
-    this document we use the term "USIM card" to refer to any Subscriber
-    Identity Module capable of running AKA.</t>
+    <t>We use the term Authentication and Key Agreement (AKA) for the
+    main authentication and key agreement protocol used by 3GPP mobile
+    networks from the third generation (3G) and onward. Later
+    generations adds new features to AKA, but the core remains the
+    same.  It is based on challenge-response mechanisms and symmetric
+    cryptography.  In contrast to its earlier GSM counterparts, AKA
+    provides long key lengths and mutual authentication.  The phone
+    typically executes AKA in a USIM. USIM is technically just an
+    application that can reside on a removable UICC (Universal
+    Integrated Circuit Card), an embedded UICC, or integrated in a
+    Trusted Execution Environment (TEE). In this document we use the
+    term "USIM card" to refer to any Subscriber Identity Module
+    capable of running AKA.</t>
 
     <t>The goal of AKA is to mutually authenticate the USIM and the so-called
     home environment, which is the authentication server in the subscribers
@@ -1237,8 +1236,12 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
            <t hangText="AT_PUB_ECDHE"><vspace blankLines="1"/>This is set to TBA1 BY
            IANA.</t>
            
-           <t hangText="Length"><vspace blankLines="1"/>The length of the
-           attribute, set as other attributes in EAP-AKA <xref target="RFC4187"/>.</t>
+           <t hangText="Length"><vspace blankLines="1"/>The length of
+           the attribute, set as other attributes in EAP-AKA <xref
+           target="RFC4187"/>. The length is expressed in multiples of
+           4 bytes. The length includes the attribute type field, the
+           length field itself, and the value, along with any padding.
+           </t>
            
            <t hangText="Value"><vspace blankLines="1"/>This value is
            the sender's ECDHE public key. The value depends on AT_KDF_FS and
@@ -1255,6 +1258,10 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
 
            <vspace blankLines="1"/>
 
+	   Because the length of the attribute must be a multiple of 4
+	   bytes, the sender pads the keyidentity with zero bytes when
+	   necessary.
+	   
            To retain the security of the keys, the sender SHALL generate
            a fresh value for each run of the protocol.</t>
            
@@ -2255,13 +2262,22 @@ EMSK     = MK_ECDHE[768..1279]
 
   <t>The -12 version of the WG draft has the following changes, most
   due to IESG review comments in January 2023:
+  
   <list style="symbols">
+
     <t>Update the draft track to Standards Track.</t>
+
+    <t>Clarified the calculation of the Length field in the AT_ECDHE
+    attribute, along with padding requirements.</t>
+
     <t>Avoided the use of keywords in operational recommendations,
     e.g., about deployment.</t>
+
     <t>Corrected a reference typo in the IANA considerations
     section.</t>
+
     <t>Several editorial changes.</t>
+
   </list></t>
 
   <t>The -11 version of the WG draft has the following changes:
@@ -2271,7 +2287,7 @@ EMSK     = MK_ECDHE[768..1279]
 
     <t>Replaced the reference to the deprecated FIPS 186-4 with SP 800-186.</t>
 
-    <t>Changed HSS to Authentication Database (AD) as HSS is a 4G term.</t>
+    <t>Changed HSS (Home Subscriber Server) to Authentication Database (AD) as HSS is a 4G term.</t>
 
     <t>Explained difference between EAP-AKA and EAP-AKA'</t>
 
@@ -2453,27 +2469,34 @@ EMSK     = MK_ECDHE[768..1279]
     <t>The authors would also like to thank
     <contact fullname="Ben Campbell"/>,
     <contact fullname="Meiling Chen"/>,
+    <contact fullname="Roman Danyliw"/>,
     <contact fullname="Linda Dunbar"/>,
     <contact fullname="Tim Evans"/>,
     <contact fullname="Zhang Fu"/>,
     <contact fullname="Russ Housley"/>,
     <contact fullname="Tero Kivinen"/>,
+    <contact fullname="Murray Kucherawy"/>,
+    <contact fullname="Warren Kumari"/>,
     <contact fullname="Eliot Lear"/>,
     <contact fullname="Vesa Lehtovirta"/>,
     <contact fullname="Kathleen Moriarty"/>,
     <contact fullname="Prajwol Kumar Nakarmi"/>,
+    <contact fullname="Francesca Palombini"/>,
     <contact fullname="Anand R. Prasad"/>,
     <contact fullname="Michael Richardson"/>,
     <contact fullname="Göran Rune"/>,
     <contact fullname="Bengt Sahlin"/>,    
     <contact fullname="Joseph Salowey"/>,
     <contact fullname="Mohit Sethi"/>,
+    <contact fullname="Orie Steele"/>,
     <contact fullname="Rene Struik"/>,
     <contact fullname="Vesa Torvinen"/>,
     <contact fullname="Sean Turner"/>,
     <contact fullname="Helena Vahidi Mazinani"/>,
+    <contact fullname="Robert Wilton"/>,
     <contact fullname="Paul Wouters"/>,
     <contact fullname="Bo Wu"/>,
+    <contact fullname="Peter Yee"/>,
     and many other people at the IETF, GSMA and 3GPP groups
     for interesting discussions in this problem space.</t>
     
