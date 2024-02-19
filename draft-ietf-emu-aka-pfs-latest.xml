@@ -103,27 +103,20 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   protocols and take appropriate countermeasures <xref target="RFC7258"/>.</t>	  
 
   <t>While strong protection of manufacturing and other processes is
-  essential in mitigating the risks, there are also protocol
-  mechanisms that can help.</t>
+  essential in mitigating surveillance and other risks associated with
+  AKA long-term keys, there are also protocol mechanisms that can
+  help.</t>
   
-  <t>This document specifies an
-  extension that helps defend against one aspect of pervasive
-  surveillance. This is important, given the large number of users such
-  practices may affect. It is also a stated goal of the IETF to ensure
-  that we understand the surveillance concerns related to IETF
-  protocols and take appropriate countermeasures <xref
-  target="RFC7258"/>. This document does that for the improved
-  Extensible Authentication Protocol Method for 3GPP Mobile Network
-  Authentication and Key Agreement (EAP-AKA').</t>
-
-  <t>This document updates <xref target="RFC9048"/>, the 3GPP Mobile Network
-  Authentication and Key Agreement (EAP-AKA') method, with an optional extension
-  providing ephemeral key exchange minimizing the impact of long-term key compromise
-  and strengthens the identity privacy requirements. While optional,
-  the use of this extension is strongly recommended.</t>
+  <t>This document updates <xref target="RFC9048"/>, the Improved 3GPP
+  Mobile Network Authentication and Key Agreement (EAP-AKA') method,
+  with an optional extension providing ephemeral key exchange
+  minimizing the impact of long-term key compromise and strengthens
+  the identity privacy requirements.  This is important, given the
+  large number of users of AKA in mobile networks.  While optional,
+  the use of this extension is recommended.</t>
 
   <t>The extension, when
-  negotiated, provides Forward Secrecy (FS) for the session key
+  negotiated, provides Forward Secrecy (FS) <xref target="DOW1992"/> for the session key
   generated as a part of the authentication run in EAP-AKA'.  This
   prevents an attacker who has gained access to the long-term
   key in a USIM card from getting access to past session
@@ -136,12 +129,6 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
   long-term key material will of course be able to attack all future
   communications, but risks detection, particularly if done at
   scale.</t>
-
-  <t>Attacks against Authentication and Key Agreement (AKA) authentication
-  via compromising the long-term keys have been an active discussion topic in
-  many contexts. Forward secrecy <xref target="DOW1992"/> is on the list of features
-  for the next release of 3GPP (5G Phase 2), and this document provides
-  a basis for providing this feature.</t>
 
   <t>It should also be noted that 5G network architecture <xref target="TS.33.501"/>
   includes the
