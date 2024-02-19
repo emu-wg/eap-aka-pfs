@@ -2263,7 +2263,7 @@ EMSK     = MK_ECDHE[768..1279]
     <t>Corrected a reference typo in the IANA considerations
     section.</t>
 
-    <t>Shortened the introduction to the key aspects.</t>
+    <t>Shortened the abstract and introduction to the key aspects and removed duplication.</t>
 
     <t>Several editorial changes.</t>
 
