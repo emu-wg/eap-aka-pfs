@@ -1539,8 +1539,7 @@ EMSK     = MK_ECDHE[768..1279]
 	 <xref target="SP-800-186"/> or alternatively Section 2.4.2 of <xref target="SEC2"/>.
 	 The support for this group is REQUIRED.</t>
 
-	 <t>The term "support" here means that the group MUST be implemented and
-        MUST be possible to use during a protocol run.</t>
+	 <t>The term "support" here means that the group MUST be implemented.</t>
          
      </section>
   
@@ -1732,16 +1731,16 @@ EMSK     = MK_ECDHE[768..1279]
    term.</t>
 
     <t>This extension provide assistance against passive attacks from
-    attackers that have comprimised the key material on USIM cards.
+    attackers that have compromised the key material on USIM cards.
     Passive attacks are attractive for attackers performing large
     scale pervasive monitoring as they require much less resources
     and are much harder to detect. The extension also
-    provides protection against active attacks as they are forced to
-    be a Man-In-The-Middle (MITM) during the AKA run and subsequent
+    provides protection against active attacks as the attacker is forced to
+    be on path during the AKA run and subsequent
     communication between the parties. Without forward secrecy an
     active attacker that has compromised the long-term key can
     inject messages in an connection between the real Peer and the
-    real server without being a man-in-the-middle. This extension is most
+    real server without being on path. This extension is most
     useful when used in a context where the MSK/EMSK are used in
     protocols not providing forward secrecy. For
     instance, if used with IKEv2 <xref target="RFC7296"/>, the
@@ -1767,7 +1766,7 @@ EMSK     = MK_ECDHE[768..1279]
     does not become an active attacker.</t>
 
     <t>The extension does not provide protection against active attackers with access to the long-term key that mount
-    a MITM attack on future EAP-AKA' runs will be able to eavesdrop on the
+    an on-path attack on future EAP-AKA' runs will be able to eavesdrop on the
     traffic protected by the resulting session key(s). Still, past sessions
     where FS was in use remain protected.</t>
 
@@ -1844,11 +1843,11 @@ EMSK     = MK_ECDHE[768..1279]
 	attack can, for instance, forge the negotiation process so
 	that no FS will be provided. However, as noted above, an
 	attacker with these capabilities will in any case be able to
-	impersonate any party in the protocol and perform MITM
+	impersonate any party in the protocol and perform on-path
 	attacks. That is not a situation that can be improved by a
 	technical solution. However, as discussed in the introduction,
 	even an attacker with access to the long-term keys is required
-	to be a MITM on each AKA run and subsequent communication,
+	to be on path on each AKA run and subsequent communication,
 	which makes mass surveillance more laborious.
 	<vspace blankLines="1"/>
 	
@@ -2256,10 +2255,14 @@ EMSK     = MK_ECDHE[768..1279]
 
     <t>Clarified the calculation of the Length field in the AT_ECDHE
     attribute, along with padding requirements.</t>
-
+ 
     <t>Avoided the use of keywords in operational recommendations,
     e.g., about deployment.</t>
 
+    <t>Changed the definition of what "supported" means to focus on feature being implemented, but not require that it is usable during a protocol run, because configuration, new security information, etc. might imply that a particular feature is implemented but disabled for policy reasons.</t>
+
+    <t>Changed the MITM terminology to be on-path attacks.</t>
+    
     <t>Corrected a reference typo in the IANA considerations
     section.</t>
 
