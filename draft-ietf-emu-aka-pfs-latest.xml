@@ -332,244 +332,247 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |<-----------------------------------------------------------+
    |                                                            |
 ]]></artwork>
-            <artwork type="svg" align="center"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="816" width="552" viewBox="0 0 552 816" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
-                <path d="M 8,400 L 8,592" fill="none" stroke="black"/>
-                <path d="M 32,48 L 32,400" fill="none" stroke="black"/>
-                <path d="M 32,592 L 32,800" fill="none" stroke="black"/>
-                <path d="M 88,160 L 88,320" fill="none" stroke="black"/>
-                <path d="M 88,672 L 88,736" fill="none" stroke="black"/>
-                <path d="M 464,400 L 464,592" fill="none" stroke="black"/>
-                <path d="M 520,48 L 520,160" fill="none" stroke="black"/>
-                <path d="M 520,320 L 520,672" fill="none" stroke="black"/>
-                <path d="M 520,736 L 520,800" fill="none" stroke="black"/>
-                <path d="M 544,160 L 544,320" fill="none" stroke="black"/>
-                <path d="M 544,672 L 544,736" fill="none" stroke="black"/>
-                <path d="M 40,80 L 520,80" fill="none" stroke="black"/>
-                <path d="M 32,144 L 512,144" fill="none" stroke="black"/>
-                <path d="M 88,160 L 544,160" fill="none" stroke="black"/>
-                <path d="M 88,320 L 544,320" fill="none" stroke="black"/>
-                <path d="M 40,384 L 520,384" fill="none" stroke="black"/>
-                <path d="M 8,400 L 464,400" fill="none" stroke="black"/>
-                <path d="M 8,592 L 464,592" fill="none" stroke="black"/>
-                <path d="M 32,656 L 512,656" fill="none" stroke="black"/>
-                <path d="M 88,672 L 544,672" fill="none" stroke="black"/>
-                <path d="M 88,736 L 544,736" fill="none" stroke="black"/>
-                <path d="M 40,784 L 520,784" fill="none" stroke="black"/>
-                <path d="M 144,624 L 144,624" fill="none" stroke="black"/>
-                <polygon class="arrowhead" points="520,656 508,650.4 508,661.6" fill="black" transform="rotate(0,512,656)"/>
-                <polygon class="arrowhead" points="520,144 508,138.4 508,149.6" fill="black" transform="rotate(0,512,144)"/>
-                <polygon class="arrowhead" points="48,784 36,778.4 36,789.6" fill="black" transform="rotate(180,40,784)"/>
-                <polygon class="arrowhead" points="48,384 36,378.4 36,389.6" fill="black" transform="rotate(180,40,384)"/>
-                <polygon class="arrowhead" points="48,80 36,74.4 36,85.6" fill="black" transform="rotate(180,40,80)"/>
-                <g class="text">
-                  <text x="28" y="36">Peer</text>
-                  <text x="516" y="36">Server</text>
-                  <text x="428" y="68">EAP-Request/Identity</text>
-                  <text x="128" y="116">EAP-Response/Identity</text>
-                  <text x="80" y="132">(Includes</text>
-                  <text x="148" y="132">user's</text>
-                  <text x="208" y="132">Network</text>
-                  <text x="268" y="132">Access</text>
-                  <text x="344" y="132">Identifier,</text>
-                  <text x="412" y="132">NAI)</text>
-                  <text x="124" y="180">Server</text>
-                  <text x="196" y="180">determines</text>
-                  <text x="256" y="180">the</text>
-                  <text x="304" y="180">network</text>
-                  <text x="356" y="180">name</text>
-                  <text x="392" y="180">and</text>
-                  <text x="440" y="180">ensures</text>
-                  <text x="492" y="180">that</text>
-                  <text x="112" y="196">the</text>
-                  <text x="152" y="196">given</text>
-                  <text x="204" y="196">access</text>
-                  <text x="264" y="196">network</text>
-                  <text x="308" y="196">is</text>
-                  <text x="364" y="196">authorized</text>
-                  <text x="420" y="196">to</text>
-                  <text x="448" y="196">use</text>
-                  <text x="480" y="196">the</text>
-                  <text x="128" y="212">claimed</text>
-                  <text x="184" y="212">name.</text>
-                  <text x="224" y="212">The</text>
-                  <text x="268" y="212">server</text>
-                  <text x="316" y="212">then</text>
-                  <text x="356" y="212">runs</text>
-                  <text x="392" y="212">the</text>
-                  <text x="428" y="212">AKA'</text>
-                  <text x="492" y="212">algorithms</text>
-                  <text x="140" y="228">generating</text>
-                  <text x="204" y="228">RAND</text>
-                  <text x="240" y="228">and</text>
-                  <text x="280" y="228">AUTN,</text>
-                  <text x="336" y="228">derives</text>
-                  <text x="400" y="228">session</text>
-                  <text x="452" y="228">keys</text>
-                  <text x="492" y="228">from</text>
-                  <text x="112" y="244">CK'</text>
-                  <text x="144" y="244">and</text>
-                  <text x="180" y="244">IK'.</text>
-                  <text x="220" y="244">RAND</text>
-                  <text x="256" y="244">and</text>
-                  <text x="292" y="244">AUTN</text>
-                  <text x="328" y="244">are</text>
-                  <text x="364" y="244">sent</text>
-                  <text x="396" y="244">as</text>
-                  <text x="440" y="244">AT_RAND</text>
-                  <text x="488" y="244">and</text>
-                  <text x="128" y="260">AT_AUTN</text>
-                  <text x="208" y="260">attributes,</text>
-                  <text x="288" y="260">whereas</text>
-                  <text x="336" y="260">the</text>
-                  <text x="384" y="260">network</text>
-                  <text x="436" y="260">name</text>
-                  <text x="468" y="260">is</text>
-                  <text x="144" y="276">transported</text>
-                  <text x="204" y="276">in</text>
-                  <text x="232" y="276">the</text>
-                  <text x="300" y="276">AT_KDF_INPUT</text>
-                  <text x="396" y="276">attribute.</text>
-                  <text x="468" y="276">AT_KDF</text>
-                  <text x="128" y="292">signals</text>
-                  <text x="176" y="292">the</text>
-                  <text x="212" y="292">used</text>
-                  <text x="248" y="292">key</text>
-                  <text x="308" y="292">derivation</text>
-                  <text x="392" y="292">function.</text>
-                  <text x="448" y="292">The</text>
-                  <text x="496" y="292">session</text>
-                  <text x="116" y="308">keys</text>
-                  <text x="152" y="308">are</text>
-                  <text x="188" y="308">used</text>
-                  <text x="220" y="308">in</text>
-                  <text x="268" y="308">creating</text>
-                  <text x="320" y="308">the</text>
-                  <text x="364" y="308">AT_MAC</text>
-                  <text x="436" y="308">attribute.</text>
-                  <text x="404" y="356">EAP-Request/AKA'-Challenge</text>
-                  <text x="160" y="372">(AT_RAND,</text>
-                  <text x="236" y="372">AT_AUTN,</text>
-                  <text x="304" y="372">AT_KDF,</text>
-                  <text x="392" y="372">AT_KDF_INPUT,</text>
-                  <text x="480" y="372">AT_MAC)</text>
-                  <text x="32" y="420">The</text>
-                  <text x="68" y="420">peer</text>
-                  <text x="132" y="420">determines</text>
-                  <text x="196" y="420">what</text>
-                  <text x="232" y="420">the</text>
-                  <text x="280" y="420">network</text>
-                  <text x="332" y="420">name</text>
-                  <text x="380" y="420">should</text>
-                  <text x="424" y="420">be,</text>
-                  <text x="40" y="436">based</text>
-                  <text x="80" y="436">on,</text>
-                  <text x="120" y="436">e.g.,</text>
-                  <text x="164" y="436">what</text>
-                  <text x="212" y="436">access</text>
-                  <text x="284" y="436">technology</text>
-                  <text x="340" y="436">it</text>
-                  <text x="364" y="436">is</text>
-                  <text x="404" y="436">using.</text>
-                  <text x="32" y="452">The</text>
-                  <text x="68" y="452">peer</text>
-                  <text x="108" y="452">also</text>
-                  <text x="168" y="452">retrieves</text>
-                  <text x="224" y="452">the</text>
-                  <text x="272" y="452">network</text>
-                  <text x="324" y="452">name</text>
-                  <text x="364" y="452">sent</text>
-                  <text x="396" y="452">by</text>
-                  <text x="424" y="452">the</text>
-                  <text x="48" y="468">network</text>
-                  <text x="100" y="468">from</text>
-                  <text x="136" y="468">the</text>
-                  <text x="204" y="468">AT_KDF_INPUT</text>
-                  <text x="300" y="468">attribute.</text>
-                  <text x="360" y="468">The</text>
-                  <text x="392" y="468">two</text>
-                  <text x="432" y="468">names</text>
-                  <text x="32" y="484">are</text>
-                  <text x="84" y="484">compared</text>
-                  <text x="136" y="484">for</text>
-                  <text x="212" y="484">discrepancies,</text>
-                  <text x="288" y="484">and</text>
-                  <text x="316" y="484">if</text>
-                  <text x="372" y="484">necessary,</text>
-                  <text x="432" y="484">the</text>
-                  <text x="76" y="500">authentication</text>
-                  <text x="148" y="500">is</text>
-                  <text x="196" y="500">aborted.</text>
-                  <text x="276" y="500">Otherwise,</text>
-                  <text x="336" y="500">the</text>
-                  <text x="384" y="500">network</text>
-                  <text x="436" y="500">name</text>
-                  <text x="36" y="516">from</text>
-                  <text x="108" y="516">AT_KDF_INPUT</text>
-                  <text x="200" y="516">attribute</text>
-                  <text x="252" y="516">is</text>
-                  <text x="284" y="516">used</text>
-                  <text x="316" y="516">in</text>
-                  <text x="360" y="516">running</text>
-                  <text x="408" y="516">the</text>
-                  <text x="36" y="532">AKA'</text>
-                  <text x="104" y="532">algorithms,</text>
-                  <text x="192" y="532">verifying</text>
-                  <text x="252" y="532">AUTN</text>
-                  <text x="292" y="532">from</text>
-                  <text x="344" y="532">AT_AUTN</text>
-                  <text x="392" y="532">and</text>
-                  <text x="424" y="532">MAC</text>
-                  <text x="36" y="548">from</text>
-                  <text x="84" y="548">AT_MAC</text>
-                  <text x="160" y="548">attributes.</text>
-                  <text x="224" y="548">The</text>
-                  <text x="260" y="548">peer</text>
-                  <text x="300" y="548">then</text>
-                  <text x="360" y="548">generates</text>
-                  <text x="420" y="548">RES.</text>
-                  <text x="32" y="564">The</text>
-                  <text x="68" y="564">peer</text>
-                  <text x="108" y="564">also</text>
-                  <text x="160" y="564">derives</text>
-                  <text x="224" y="564">session</text>
-                  <text x="276" y="564">keys</text>
-                  <text x="316" y="564">from</text>
-                  <text x="372" y="564">CK'/IK'.</text>
-                  <text x="424" y="564">The</text>
-                  <text x="44" y="580">AT_RES</text>
-                  <text x="88" y="580">and</text>
-                  <text x="132" y="580">AT_MAC</text>
-                  <text x="204" y="580">attributes</text>
-                  <text x="264" y="580">are</text>
-                  <text x="332" y="580">constructed.</text>
-                  <text x="92" y="628">EAP-Response</text>
-                  <text x="204" y="628">AKA'-Challenge</text>
-                  <text x="76" y="644">(AT_RES,</text>
-                  <text x="144" y="644">AT_MAC)</text>
-                  <text x="124" y="692">Server</text>
-                  <text x="180" y="692">checks</text>
-                  <text x="224" y="692">the</text>
-                  <text x="256" y="692">RES</text>
-                  <text x="288" y="692">and</text>
-                  <text x="320" y="692">MAC</text>
-                  <text x="364" y="692">values</text>
-                  <text x="428" y="692">received</text>
-                  <text x="476" y="692">in</text>
-                  <text x="124" y="708">AT_RES</text>
-                  <text x="168" y="708">and</text>
-                  <text x="216" y="708">AT_MAC,</text>
-                  <text x="304" y="708">respectively.</text>
-                  <text x="392" y="708">Success</text>
-                  <text x="460" y="708">requires</text>
-                  <text x="516" y="708">both</text>
-                  <text x="108" y="724">to</text>
-                  <text x="132" y="724">be</text>
-                  <text x="168" y="724">found</text>
-                  <text x="228" y="724">correct.</text>
-                  <text x="464" y="772">EAP-Success</text>
-                </g>
-              </svg>
-            </artwork>
+          <artwork type="svg"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="832" width="552" viewBox="0 0 552 832" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 8,400 L 8,608" fill="none" stroke="black"/>
+              <path d="M 32,48 L 32,400" fill="none" stroke="black"/>
+              <path d="M 32,608 L 32,816" fill="none" stroke="black"/>
+              <path d="M 88,160 L 88,320" fill="none" stroke="black"/>
+              <path d="M 88,688 L 88,752" fill="none" stroke="black"/>
+              <path d="M 464,400 L 464,608" fill="none" stroke="black"/>
+              <path d="M 520,48 L 520,160" fill="none" stroke="black"/>
+              <path d="M 520,320 L 520,688" fill="none" stroke="black"/>
+              <path d="M 520,752 L 520,816" fill="none" stroke="black"/>
+              <path d="M 544,160 L 544,320" fill="none" stroke="black"/>
+              <path d="M 544,688 L 544,752" fill="none" stroke="black"/>
+              <path d="M 40,80 L 520,80" fill="none" stroke="black"/>
+              <path d="M 32,144 L 512,144" fill="none" stroke="black"/>
+              <path d="M 88,160 L 544,160" fill="none" stroke="black"/>
+              <path d="M 88,320 L 544,320" fill="none" stroke="black"/>
+              <path d="M 40,384 L 520,384" fill="none" stroke="black"/>
+              <path d="M 8,400 L 464,400" fill="none" stroke="black"/>
+              <path d="M 8,608 L 464,608" fill="none" stroke="black"/>
+              <path d="M 32,672 L 512,672" fill="none" stroke="black"/>
+              <path d="M 88,688 L 544,688" fill="none" stroke="black"/>
+              <path d="M 88,752 L 544,752" fill="none" stroke="black"/>
+              <path d="M 40,800 L 520,800" fill="none" stroke="black"/>
+              <path d="M 144,640 L 144,640" fill="none" stroke="black"/>
+              <polygon class="arrowhead" points="520,672 508,666.4 508,677.6" fill="black" transform="rotate(0,512,672)"/>
+              <polygon class="arrowhead" points="520,144 508,138.4 508,149.6" fill="black" transform="rotate(0,512,144)"/>
+              <polygon class="arrowhead" points="48,800 36,794.4 36,805.6" fill="black" transform="rotate(180,40,800)"/>
+              <polygon class="arrowhead" points="48,384 36,378.4 36,389.6" fill="black" transform="rotate(180,40,384)"/>
+              <polygon class="arrowhead" points="48,80 36,74.4 36,85.6" fill="black" transform="rotate(180,40,80)"/>
+              <g class="text">
+                <text x="28" y="36">Peer</text>
+                <text x="516" y="36">Server</text>
+                <text x="428" y="68">EAP-Request/Identity</text>
+                <text x="128" y="116">EAP-Response/Identity</text>
+                <text x="80" y="132">(Includes</text>
+                <text x="148" y="132">user's</text>
+                <text x="208" y="132">Network</text>
+                <text x="268" y="132">Access</text>
+                <text x="344" y="132">Identifier,</text>
+                <text x="412" y="132">NAI)</text>
+                <text x="124" y="180">Server</text>
+                <text x="196" y="180">determines</text>
+                <text x="256" y="180">the</text>
+                <text x="304" y="180">network</text>
+                <text x="356" y="180">name</text>
+                <text x="392" y="180">and</text>
+                <text x="440" y="180">ensures</text>
+                <text x="492" y="180">that</text>
+                <text x="112" y="196">the</text>
+                <text x="152" y="196">given</text>
+                <text x="204" y="196">access</text>
+                <text x="264" y="196">network</text>
+                <text x="308" y="196">is</text>
+                <text x="364" y="196">authorized</text>
+                <text x="420" y="196">to</text>
+                <text x="448" y="196">use</text>
+                <text x="480" y="196">the</text>
+                <text x="128" y="212">claimed</text>
+                <text x="184" y="212">name.</text>
+                <text x="224" y="212">The</text>
+                <text x="268" y="212">server</text>
+                <text x="316" y="212">then</text>
+                <text x="356" y="212">runs</text>
+                <text x="392" y="212">the</text>
+                <text x="428" y="212">AKA'</text>
+                <text x="492" y="212">algorithms</text>
+                <text x="140" y="228">generating</text>
+                <text x="204" y="228">RAND</text>
+                <text x="240" y="228">and</text>
+                <text x="280" y="228">AUTN,</text>
+                <text x="336" y="228">derives</text>
+                <text x="400" y="228">session</text>
+                <text x="452" y="228">keys</text>
+                <text x="492" y="228">from</text>
+                <text x="112" y="244">CK'</text>
+                <text x="144" y="244">and</text>
+                <text x="180" y="244">IK'.</text>
+                <text x="220" y="244">RAND</text>
+                <text x="256" y="244">and</text>
+                <text x="292" y="244">AUTN</text>
+                <text x="328" y="244">are</text>
+                <text x="364" y="244">sent</text>
+                <text x="396" y="244">as</text>
+                <text x="440" y="244">AT_RAND</text>
+                <text x="488" y="244">and</text>
+                <text x="128" y="260">AT_AUTN</text>
+                <text x="208" y="260">attributes,</text>
+                <text x="288" y="260">whereas</text>
+                <text x="336" y="260">the</text>
+                <text x="384" y="260">network</text>
+                <text x="436" y="260">name</text>
+                <text x="468" y="260">is</text>
+                <text x="144" y="276">transported</text>
+                <text x="204" y="276">in</text>
+                <text x="232" y="276">the</text>
+                <text x="300" y="276">AT_KDF_INPUT</text>
+                <text x="396" y="276">attribute.</text>
+                <text x="468" y="276">AT_KDF</text>
+                <text x="128" y="292">signals</text>
+                <text x="176" y="292">the</text>
+                <text x="212" y="292">used</text>
+                <text x="248" y="292">key</text>
+                <text x="308" y="292">derivation</text>
+                <text x="392" y="292">function.</text>
+                <text x="448" y="292">The</text>
+                <text x="496" y="292">session</text>
+                <text x="116" y="308">keys</text>
+                <text x="152" y="308">are</text>
+                <text x="188" y="308">used</text>
+                <text x="220" y="308">to</text>
+                <text x="260" y="308">create</text>
+                <text x="304" y="308">the</text>
+                <text x="348" y="308">AT_MAC</text>
+                <text x="420" y="308">attribute.</text>
+                <text x="404" y="356">EAP-Request/AKA'-Challenge</text>
+                <text x="160" y="372">(AT_RAND,</text>
+                <text x="236" y="372">AT_AUTN,</text>
+                <text x="304" y="372">AT_KDF,</text>
+                <text x="392" y="372">AT_KDF_INPUT,</text>
+                <text x="480" y="372">AT_MAC)</text>
+                <text x="32" y="420">The</text>
+                <text x="68" y="420">peer</text>
+                <text x="132" y="420">determines</text>
+                <text x="196" y="420">what</text>
+                <text x="232" y="420">the</text>
+                <text x="280" y="420">network</text>
+                <text x="332" y="420">name</text>
+                <text x="380" y="420">should</text>
+                <text x="424" y="420">be,</text>
+                <text x="40" y="436">based</text>
+                <text x="80" y="436">on,</text>
+                <text x="120" y="436">e.g.,</text>
+                <text x="164" y="436">what</text>
+                <text x="212" y="436">access</text>
+                <text x="284" y="436">technology</text>
+                <text x="340" y="436">it</text>
+                <text x="364" y="436">is</text>
+                <text x="404" y="436">using.</text>
+                <text x="32" y="452">The</text>
+                <text x="68" y="452">peer</text>
+                <text x="108" y="452">also</text>
+                <text x="168" y="452">retrieves</text>
+                <text x="224" y="452">the</text>
+                <text x="272" y="452">network</text>
+                <text x="324" y="452">name</text>
+                <text x="364" y="452">sent</text>
+                <text x="396" y="452">by</text>
+                <text x="424" y="452">the</text>
+                <text x="48" y="468">network</text>
+                <text x="100" y="468">from</text>
+                <text x="136" y="468">the</text>
+                <text x="204" y="468">AT_KDF_INPUT</text>
+                <text x="300" y="468">attribute.</text>
+                <text x="360" y="468">The</text>
+                <text x="392" y="468">two</text>
+                <text x="432" y="468">names</text>
+                <text x="32" y="484">are</text>
+                <text x="84" y="484">compared</text>
+                <text x="136" y="484">for</text>
+                <text x="212" y="484">discrepancies,</text>
+                <text x="288" y="484">and</text>
+                <text x="316" y="484">if</text>
+                <text x="348" y="484">they</text>
+                <text x="380" y="484">do</text>
+                <text x="408" y="484">not</text>
+                <text x="44" y="500">match,</text>
+                <text x="88" y="500">the</text>
+                <text x="164" y="500">authentication</text>
+                <text x="236" y="500">is</text>
+                <text x="284" y="500">aborted.</text>
+                <text x="364" y="500">Otherwise,</text>
+                <text x="424" y="500">the</text>
+                <text x="48" y="516">network</text>
+                <text x="100" y="516">name</text>
+                <text x="140" y="516">from</text>
+                <text x="212" y="516">AT_KDF_INPUT</text>
+                <text x="304" y="516">attribute</text>
+                <text x="356" y="516">is</text>
+                <text x="388" y="516">used</text>
+                <text x="420" y="516">in</text>
+                <text x="48" y="532">running</text>
+                <text x="96" y="532">the</text>
+                <text x="132" y="532">AKA'</text>
+                <text x="200" y="532">algorithms,</text>
+                <text x="288" y="532">verifying</text>
+                <text x="348" y="532">AUTN</text>
+                <text x="388" y="532">from</text>
+                <text x="48" y="548">AT_AUTN</text>
+                <text x="96" y="548">and</text>
+                <text x="128" y="548">MAC</text>
+                <text x="164" y="548">from</text>
+                <text x="212" y="548">AT_MAC</text>
+                <text x="288" y="548">attributes.</text>
+                <text x="352" y="548">The</text>
+                <text x="388" y="548">peer</text>
+                <text x="428" y="548">then</text>
+                <text x="56" y="564">generates</text>
+                <text x="116" y="564">RES.</text>
+                <text x="152" y="564">The</text>
+                <text x="188" y="564">peer</text>
+                <text x="228" y="564">also</text>
+                <text x="280" y="564">derives</text>
+                <text x="344" y="564">session</text>
+                <text x="396" y="564">keys</text>
+                <text x="436" y="564">from</text>
+                <text x="52" y="580">CK'/IK'.</text>
+                <text x="104" y="580">The</text>
+                <text x="148" y="580">AT_RES</text>
+                <text x="192" y="580">and</text>
+                <text x="236" y="580">AT_MAC</text>
+                <text x="308" y="580">attributes</text>
+                <text x="368" y="580">are</text>
+                <text x="68" y="596">constructed.</text>
+                <text x="92" y="644">EAP-Response</text>
+                <text x="204" y="644">AKA'-Challenge</text>
+                <text x="76" y="660">(AT_RES,</text>
+                <text x="144" y="660">AT_MAC)</text>
+                <text x="124" y="708">Server</text>
+                <text x="180" y="708">checks</text>
+                <text x="224" y="708">the</text>
+                <text x="256" y="708">RES</text>
+                <text x="288" y="708">and</text>
+                <text x="320" y="708">MAC</text>
+                <text x="364" y="708">values</text>
+                <text x="428" y="708">received</text>
+                <text x="476" y="708">in</text>
+                <text x="124" y="724">AT_RES</text>
+                <text x="168" y="724">and</text>
+                <text x="216" y="724">AT_MAC,</text>
+                <text x="304" y="724">respectively.</text>
+                <text x="392" y="724">Success</text>
+                <text x="460" y="724">requires</text>
+                <text x="516" y="724">both</text>
+                <text x="132" y="740">compared</text>
+                <text x="196" y="740">values</text>
+                <text x="252" y="740">match,</text>
+                <text x="336" y="740">respectively.</text>
+                <text x="464" y="788">EAP-Success</text>
+              </g>
+            </svg>
+          </artwork>
 </artset>
 </figure>
 
@@ -721,426 +724,426 @@ Extensible Authentication Protocol Method for Authentication and Key Agreement (
    |              |<---------------------------+                |
    |              |                            |                |
 ]]></artwork>
-           <artwork type="svg"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1408" width="552" viewBox="0 0 552 1408" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
-                <path d="M 8,688 L 8,816" fill="none" stroke="black"/>
-                <path d="M 8,928 L 8,1040" fill="none" stroke="black"/>
-                <path d="M 32,48 L 32,688" fill="none" stroke="black"/>
-                <path d="M 32,816 L 32,928" fill="none" stroke="black"/>
-                <path d="M 32,1040 L 32,1392" fill="none" stroke="black"/>
-                <path d="M 88,160 L 88,272" fill="none" stroke="black"/>
-                <path d="M 88,432 L 88,576" fill="none" stroke="black"/>
-                <path d="M 88,1136 L 88,1328" fill="none" stroke="black"/>
-                <path d="M 152,48 L 152,160" fill="none" stroke="black"/>
-                <path d="M 152,272 L 152,432" fill="none" stroke="black"/>
-                <path d="M 152,576 L 152,688" fill="none" stroke="black"/>
-                <path d="M 152,816 L 152,928" fill="none" stroke="black"/>
-                <path d="M 152,1040 L 152,1136" fill="none" stroke="black"/>
-                <path d="M 152,1328 L 152,1392" fill="none" stroke="black"/>
-                <path d="M 384,48 L 384,160" fill="none" stroke="black"/>
-                <path d="M 384,272 L 384,432" fill="none" stroke="black"/>
-                <path d="M 384,576 L 384,688" fill="none" stroke="black"/>
-                <path d="M 384,816 L 384,928" fill="none" stroke="black"/>
-                <path d="M 384,1040 L 384,1136" fill="none" stroke="black"/>
-                <path d="M 384,1328 L 384,1392" fill="none" stroke="black"/>
-                <path d="M 464,688 L 464,816" fill="none" stroke="black"/>
-                <path d="M 464,928 L 464,1040" fill="none" stroke="black"/>
-                <path d="M 520,48 L 520,160" fill="none" stroke="black"/>
-                <path d="M 520,272 L 520,432" fill="none" stroke="black"/>
-                <path d="M 520,576 L 520,1136" fill="none" stroke="black"/>
-                <path d="M 520,1328 L 520,1392" fill="none" stroke="black"/>
-                <path d="M 544,160 L 544,272" fill="none" stroke="black"/>
-                <path d="M 544,432 L 544,576" fill="none" stroke="black"/>
-                <path d="M 544,1136 L 544,1328" fill="none" stroke="black"/>
-                <path d="M 160,80 L 384,80" fill="none" stroke="black"/>
-                <path d="M 152,144 L 376,144" fill="none" stroke="black"/>
-                <path d="M 88,160 L 544,160" fill="none" stroke="black"/>
-                <path d="M 88,272 L 544,272" fill="none" stroke="black"/>
-                <path d="M 384,352 L 512,352" fill="none" stroke="black"/>
-                <path d="M 392,416 L 520,416" fill="none" stroke="black"/>
-                <path d="M 88,432 L 544,432" fill="none" stroke="black"/>
-                <path d="M 88,576 L 544,576" fill="none" stroke="black"/>
-                <path d="M 160,672 L 384,672" fill="none" stroke="black"/>
-                <path d="M 8,688 L 464,688" fill="none" stroke="black"/>
-                <path d="M 8,816 L 464,816" fill="none" stroke="black"/>
-                <path d="M 40,864 L 152,864" fill="none" stroke="black"/>
-                <path d="M 32,912 L 144,912" fill="none" stroke="black"/>
-                <path d="M 8,928 L 464,928" fill="none" stroke="black"/>
-                <path d="M 8,1040 L 464,1040" fill="none" stroke="black"/>
-                <path d="M 152,1120 L 376,1120" fill="none" stroke="black"/>
-                <path d="M 88,1136 L 544,1136" fill="none" stroke="black"/>
-                <path d="M 88,1328 L 544,1328" fill="none" stroke="black"/>
-                <path d="M 160,1376 L 384,1376" fill="none" stroke="black"/>
-                <polygon class="arrowhead" points="520,352 508,346.4 508,357.6" fill="black" transform="rotate(0,512,352)"/>
-                <polygon class="arrowhead" points="400,416 388,410.4 388,421.6" fill="black" transform="rotate(180,392,416)"/>
-                <polygon class="arrowhead" points="384,1120 372,1114.4 372,1125.6" fill="black" transform="rotate(0,376,1120)"/>
-                <polygon class="arrowhead" points="384,144 372,138.4 372,149.6" fill="black" transform="rotate(0,376,144)"/>
-                <polygon class="arrowhead" points="168,1376 156,1370.4 156,1381.6" fill="black" transform="rotate(180,160,1376)"/>
-                <polygon class="arrowhead" points="168,672 156,666.4 156,677.6" fill="black" transform="rotate(180,160,672)"/>
-                <polygon class="arrowhead" points="168,80 156,74.4 156,85.6" fill="black" transform="rotate(180,160,80)"/>
-                <polygon class="arrowhead" points="152,912 140,906.4 140,917.6" fill="black" transform="rotate(0,144,912)"/>
-                <polygon class="arrowhead" points="48,864 36,858.4 36,869.6" fill="black" transform="rotate(180,40,864)"/>
-                <g class="text">
-                  <text x="28" y="36">USIM</text>
-                  <text x="148" y="36">Peer</text>
-                  <text x="380" y="36">Server</text>
-                  <text x="524" y="36">AD</text>
-                  <text x="308" y="68">EAP-Req/Identity</text>
-                  <text x="232" y="116">EAP-Resp/Identity</text>
-                  <text x="236" y="132">(Privacy-Friendly)</text>
-                  <text x="124" y="180">Server</text>
-                  <text x="168" y="180">now</text>
-                  <text x="200" y="180">has</text>
-                  <text x="228" y="180">an</text>
-                  <text x="276" y="180">identity</text>
-                  <text x="328" y="180">for</text>
-                  <text x="360" y="180">the</text>
-                  <text x="400" y="180">peer.</text>
-                  <text x="440" y="180">The</text>
-                  <text x="484" y="180">server</text>
-                  <text x="116" y="196">then</text>
-                  <text x="156" y="196">asks</text>
-                  <text x="192" y="196">the</text>
-                  <text x="228" y="196">help</text>
-                  <text x="260" y="196">of</text>
-                  <text x="284" y="196">AD</text>
-                  <text x="308" y="196">to</text>
-                  <text x="336" y="196">run</text>
-                  <text x="368" y="196">AKA</text>
-                  <text x="432" y="196">algorithms,</text>
-                  <text x="140" y="212">generating</text>
-                  <text x="208" y="212">RAND,</text>
-                  <text x="256" y="212">AUTN,</text>
-                  <text x="304" y="212">XRES,</text>
-                  <text x="344" y="212">CK,</text>
-                  <text x="376" y="212">IK.</text>
-                  <text x="436" y="212">Typically,</text>
-                  <text x="496" y="212">the</text>
-                  <text x="108" y="228">AD</text>
-                  <text x="156" y="228">performs</text>
-                  <text x="208" y="228">the</text>
-                  <text x="248" y="228">first</text>
-                  <text x="292" y="228">part</text>
-                  <text x="324" y="228">of</text>
-                  <text x="352" y="228">key</text>
-                  <text x="416" y="228">derivations</text>
-                  <text x="476" y="228">so</text>
-                  <text x="508" y="228">that</text>
-                  <text x="112" y="244">the</text>
-                  <text x="188" y="244">authentication</text>
-                  <text x="276" y="244">server</text>
-                  <text x="324" y="244">gets</text>
-                  <text x="360" y="244">the</text>
-                  <text x="392" y="244">CK'</text>
-                  <text x="424" y="244">and</text>
-                  <text x="456" y="244">IK'</text>
-                  <text x="492" y="244">keys</text>
-                  <text x="128" y="260">already</text>
-                  <text x="180" y="260">tied</text>
-                  <text x="212" y="260">to</text>
-                  <text x="232" y="260">a</text>
-                  <text x="284" y="260">particular</text>
-                  <text x="360" y="260">network</text>
-                  <text x="416" y="260">name.</text>
-                  <text x="408" y="308">ID,</text>
-                  <text x="440" y="308">key</text>
-                  <text x="484" y="308">deriv.</text>
-                  <text x="432" y="324">function,</text>
-                  <text x="424" y="340">network</text>
-                  <text x="476" y="340">name</text>
-                  <text x="440" y="388">RAND,</text>
-                  <text x="488" y="388">AUTN,</text>
-                  <text x="416" y="404">XRES,</text>
-                  <text x="460" y="404">CK',</text>
-                  <text x="496" y="404">IK'</text>
-                  <text x="124" y="452">Server</text>
-                  <text x="168" y="452">now</text>
-                  <text x="200" y="452">has</text>
-                  <text x="232" y="452">the</text>
-                  <text x="276" y="452">needed</text>
-                  <text x="364" y="452">authentication</text>
-                  <text x="456" y="452">vector.</text>
-                  <text x="500" y="452">It</text>
-                  <text x="136" y="468">generates</text>
-                  <text x="188" y="468">an</text>
-                  <text x="240" y="468">ephemeral</text>
-                  <text x="296" y="468">key</text>
-                  <text x="336" y="468">pair,</text>
-                  <text x="384" y="468">sends</text>
-                  <text x="424" y="468">the</text>
-                  <text x="468" y="468">public</text>
-                  <text x="512" y="468">key</text>
-                  <text x="108" y="484">of</text>
-                  <text x="140" y="484">that</text>
-                  <text x="176" y="484">key</text>
-                  <text x="212" y="484">pair</text>
-                  <text x="248" y="484">and</text>
-                  <text x="280" y="484">the</text>
-                  <text x="320" y="484">first</text>
-                  <text x="360" y="484">EAP</text>
-                  <text x="404" y="484">method</text>
-                  <text x="464" y="484">message</text>
-                  <text x="508" y="484">to</text>
-                  <text x="112" y="500">the</text>
-                  <text x="152" y="500">peer.</text>
-                  <text x="188" y="500">In</text>
-                  <text x="216" y="500">the</text>
-                  <text x="264" y="500">message</text>
-                  <text x="312" y="500">the</text>
-                  <text x="380" y="500">AT_PUB_ECDHE</text>
-                  <text x="472" y="500">attribute</text>
-                  <text x="128" y="516">carries</text>
-                  <text x="176" y="516">the</text>
-                  <text x="220" y="516">public</text>
-                  <text x="264" y="516">key</text>
-                  <text x="296" y="516">and</text>
-                  <text x="328" y="516">the</text>
-                  <text x="384" y="516">AT_KDF_FS</text>
-                  <text x="464" y="516">attribute</text>
-                  <text x="128" y="532">carries</text>
-                  <text x="184" y="532">other</text>
-                  <text x="252" y="532">FS-related</text>
-                  <text x="344" y="532">parameters.</text>
-                  <text x="412" y="532">Both</text>
-                  <text x="444" y="532">of</text>
-                  <text x="480" y="532">these</text>
-                  <text x="520" y="532">are</text>
-                  <text x="136" y="548">skippable</text>
-                  <text x="220" y="548">attributes</text>
-                  <text x="284" y="548">that</text>
-                  <text x="320" y="548">can</text>
-                  <text x="348" y="548">be</text>
-                  <text x="392" y="548">ignored</text>
-                  <text x="436" y="548">if</text>
-                  <text x="464" y="548">the</text>
-                  <text x="500" y="548">peer</text>
-                  <text x="116" y="564">does</text>
-                  <text x="152" y="564">not</text>
-                  <text x="200" y="564">support</text>
-                  <text x="252" y="564">this</text>
-                  <text x="316" y="564">extension.</text>
-                  <text x="284" y="612">EAP-Req/AKA'-Challenge</text>
-                  <text x="204" y="628">AT_RAND,</text>
-                  <text x="276" y="628">AT_AUTN,</text>
-                  <text x="344" y="628">AT_KDF,</text>
-                  <text x="220" y="644">AT_KDF_FS,</text>
-                  <text x="320" y="644">AT_KDF_INPUT,</text>
-                  <text x="264" y="660">AT_PUB_ECDHE,</text>
-                  <text x="348" y="660">AT_MAC</text>
-                  <text x="32" y="708">The</text>
-                  <text x="68" y="708">peer</text>
-                  <text x="116" y="708">checks</text>
-                  <text x="156" y="708">if</text>
-                  <text x="180" y="708">it</text>
-                  <text x="216" y="708">wants</text>
-                  <text x="252" y="708">to</text>
-                  <text x="276" y="708">do</text>
-                  <text x="304" y="708">the</text>
-                  <text x="332" y="708">FS</text>
-                  <text x="388" y="708">extension.</text>
-                  <text x="444" y="708">If</text>
-                  <text x="36" y="724">yes,</text>
-                  <text x="68" y="724">it</text>
-                  <text x="100" y="724">will</text>
-                  <text x="164" y="724">eventually</text>
-                  <text x="240" y="724">respond</text>
-                  <text x="292" y="724">with</text>
-                  <text x="364" y="724">AT_PUB_ECDHE</text>
-                  <text x="432" y="724">and</text>
-                  <text x="48" y="740">AT_MAC.</text>
-                  <text x="92" y="740">If</text>
-                  <text x="124" y="740">not,</text>
-                  <text x="156" y="740">it</text>
-                  <text x="188" y="740">will</text>
-                  <text x="236" y="740">ignore</text>
-                  <text x="316" y="740">AT_PUB_ECDHE</text>
-                  <text x="384" y="740">and</text>
-                  <text x="56" y="756">AT_KDF_FS</text>
-                  <text x="112" y="756">and</text>
-                  <text x="148" y="756">base</text>
-                  <text x="184" y="756">all</text>
-                  <text x="252" y="756">calculations</text>
-                  <text x="316" y="756">on</text>
-                  <text x="352" y="756">basic</text>
-                  <text x="412" y="756">EAP-AKA'</text>
-                  <text x="64" y="772">attributes,</text>
-                  <text x="156" y="772">continuing</text>
-                  <text x="220" y="772">just</text>
-                  <text x="252" y="772">as</text>
-                  <text x="276" y="772">in</text>
-                  <text x="324" y="772">EAP-AKA'</text>
-                  <text x="376" y="772">per</text>
-                  <text x="408" y="772">RFC</text>
-                  <text x="36" y="788">9048</text>
-                  <text x="84" y="788">rules.</text>
-                  <text x="124" y="788">In</text>
-                  <text x="152" y="788">any</text>
-                  <text x="192" y="788">case,</text>
-                  <text x="232" y="788">the</text>
-                  <text x="268" y="788">peer</text>
-                  <text x="312" y="788">needs</text>
-                  <text x="348" y="788">to</text>
-                  <text x="384" y="788">query</text>
-                  <text x="424" y="788">the</text>
-                  <text x="36" y="804">auth</text>
-                  <text x="100" y="804">parameters</text>
-                  <text x="164" y="804">from</text>
-                  <text x="200" y="804">the</text>
-                  <text x="236" y="804">USIM</text>
-                  <text x="280" y="804">card.</text>
-                  <text x="80" y="852">RAND,</text>
-                  <text x="124" y="852">AUTN</text>
-                  <text x="56" y="900">CK,</text>
-                  <text x="88" y="900">IK,</text>
-                  <text x="120" y="900">RES</text>
-                  <text x="32" y="948">The</text>
-                  <text x="68" y="948">peer</text>
-                  <text x="104" y="948">now</text>
-                  <text x="136" y="948">has</text>
-                  <text x="196" y="948">everything</text>
-                  <text x="252" y="948">to</text>
-                  <text x="300" y="948">respond.</text>
-                  <text x="348" y="948">If</text>
-                  <text x="372" y="948">it</text>
-                  <text x="408" y="948">wants</text>
-                  <text x="444" y="948">to</text>
-                  <text x="64" y="964">participate</text>
-                  <text x="124" y="964">in</text>
-                  <text x="152" y="964">the</text>
-                  <text x="180" y="964">FS</text>
-                  <text x="236" y="964">extension,</text>
-                  <text x="292" y="964">it</text>
-                  <text x="324" y="964">will</text>
-                  <text x="364" y="964">then</text>
-                  <text x="420" y="964">generate</text>
-                  <text x="32" y="980">its</text>
-                  <text x="64" y="980">key</text>
-                  <text x="104" y="980">pair,</text>
-                  <text x="168" y="980">calculate</text>
-                  <text x="216" y="980">a</text>
-                  <text x="252" y="980">shared</text>
-                  <text x="296" y="980">key</text>
-                  <text x="336" y="980">based</text>
-                  <text x="372" y="980">on</text>
-                  <text x="400" y="980">its</text>
-                  <text x="432" y="980">key</text>
-                  <text x="36" y="996">pair</text>
-                  <text x="72" y="996">and</text>
-                  <text x="104" y="996">the</text>
-                  <text x="156" y="996">server's</text>
-                  <text x="220" y="996">public</text>
-                  <text x="268" y="996">key.</text>
-                  <text x="324" y="996">Finally,</text>
-                  <text x="372" y="996">it</text>
-                  <text x="420" y="996">proceeds</text>
-                  <text x="28" y="1012">to</text>
-                  <text x="68" y="1012">derive</text>
-                  <text x="112" y="1012">all</text>
-                  <text x="164" y="1012">EAP-AKA'</text>
-                  <text x="216" y="1012">key</text>
-                  <text x="260" y="1012">values</text>
-                  <text x="304" y="1012">and</text>
-                  <text x="364" y="1012">constructs</text>
-                  <text x="416" y="1012">a</text>
-                  <text x="36" y="1028">full</text>
-                  <text x="96" y="1028">response.</text>
-                  <text x="256" y="1076">EAP-Resp/AKA'-Challenge</text>
-                  <text x="192" y="1092">AT_RES,</text>
-                  <text x="280" y="1092">AT_PUB_ECDHE,</text>
-                  <text x="188" y="1108">AT_MAC</text>
-                  <text x="112" y="1156">The</text>
-                  <text x="156" y="1156">server</text>
-                  <text x="200" y="1156">now</text>
-                  <text x="232" y="1156">has</text>
-                  <text x="264" y="1156">all</text>
-                  <text x="296" y="1156">the</text>
-                  <text x="352" y="1156">necessary</text>
-                  <text x="424" y="1156">values.</text>
-                  <text x="468" y="1156">It</text>
-                  <text x="136" y="1172">generates</text>
-                  <text x="192" y="1172">the</text>
-                  <text x="232" y="1172">ECDHE</text>
-                  <text x="284" y="1172">shared</text>
-                  <text x="340" y="1172">secret</text>
-                  <text x="384" y="1172">and</text>
-                  <text x="428" y="1172">checks</text>
-                  <text x="472" y="1172">the</text>
-                  <text x="504" y="1172">RES</text>
-                  <text x="112" y="1188">and</text>
-                  <text x="144" y="1188">MAC</text>
-                  <text x="188" y="1188">values</text>
-                  <text x="252" y="1188">received</text>
-                  <text x="300" y="1188">in</text>
-                  <text x="340" y="1188">AT_RES</text>
-                  <text x="384" y="1188">and</text>
-                  <text x="432" y="1188">AT_MAC,</text>
-                  <text x="152" y="1204">respectively.</text>
-                  <text x="240" y="1204">Success</text>
-                  <text x="308" y="1204">requires</text>
-                  <text x="364" y="1204">both</text>
-                  <text x="396" y="1204">to</text>
-                  <text x="420" y="1204">be</text>
-                  <text x="456" y="1204">found</text>
-                  <text x="132" y="1220">correct.</text>
-                  <text x="188" y="1220">Note</text>
-                  <text x="228" y="1220">that</text>
-                  <text x="268" y="1220">when</text>
-                  <text x="308" y="1220">this</text>
-                  <text x="384" y="1220">specification</text>
-                  <text x="452" y="1220">is</text>
-                  <text x="488" y="1220">used,</text>
-                  <text x="112" y="1236">the</text>
-                  <text x="148" y="1236">keys</text>
-                  <text x="208" y="1236">generated</text>
-                  <text x="268" y="1236">from</text>
-                  <text x="324" y="1236">EAP-AKA'</text>
-                  <text x="376" y="1236">are</text>
-                  <text x="416" y="1236">based</text>
-                  <text x="452" y="1236">on</text>
-                  <text x="480" y="1236">CK,</text>
-                  <text x="512" y="1236">IK,</text>
-                  <text x="112" y="1252">and</text>
-                  <text x="144" y="1252">the</text>
-                  <text x="184" y="1252">ECDHE</text>
-                  <text x="236" y="1252">value.</text>
-                  <text x="284" y="1252">Even</text>
-                  <text x="316" y="1252">if</text>
-                  <text x="352" y="1252">there</text>
-                  <text x="392" y="1252">was</text>
-                  <text x="420" y="1252">an</text>
-                  <text x="468" y="1252">attacker</text>
-                  <text x="520" y="1252">who</text>
-                  <text x="116" y="1268">held</text>
-                  <text x="152" y="1268">the</text>
-                  <text x="208" y="1268">long-term</text>
-                  <text x="268" y="1268">key,</text>
-                  <text x="308" y="1268">only</text>
-                  <text x="340" y="1268">an</text>
-                  <text x="380" y="1268">active</text>
-                  <text x="444" y="1268">attacker</text>
-                  <text x="504" y="1268">could</text>
-                  <text x="116" y="1284">have</text>
-                  <text x="180" y="1284">determined</text>
-                  <text x="240" y="1284">the</text>
-                  <text x="296" y="1284">generated</text>
-                  <text x="368" y="1284">session</text>
-                  <text x="424" y="1284">keys;</text>
-                  <text x="460" y="1284">in</text>
-                  <text x="496" y="1284">basic</text>
-                  <text x="132" y="1300">EAP-AKA'</text>
-                  <text x="184" y="1300">the</text>
-                  <text x="240" y="1300">generated</text>
-                  <text x="300" y="1300">keys</text>
-                  <text x="336" y="1300">are</text>
-                  <text x="372" y="1300">only</text>
-                  <text x="416" y="1300">based</text>
-                  <text x="452" y="1300">on</text>
-                  <text x="476" y="1300">CK</text>
-                  <text x="504" y="1300">and</text>
-                  <text x="112" y="1316">IK.</text>
-                  <text x="328" y="1364">EAP-Success</text>
-                </g>
-              </svg>
-            </artwork>
+          <artwork type="svg"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1408" width="552" viewBox="0 0 552 1408" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 8,688 L 8,816" fill="none" stroke="black"/>
+              <path d="M 8,928 L 8,1040" fill="none" stroke="black"/>
+              <path d="M 32,48 L 32,688" fill="none" stroke="black"/>
+              <path d="M 32,816 L 32,928" fill="none" stroke="black"/>
+              <path d="M 32,1040 L 32,1392" fill="none" stroke="black"/>
+              <path d="M 88,160 L 88,272" fill="none" stroke="black"/>
+              <path d="M 88,432 L 88,576" fill="none" stroke="black"/>
+              <path d="M 88,1136 L 88,1328" fill="none" stroke="black"/>
+              <path d="M 152,48 L 152,160" fill="none" stroke="black"/>
+              <path d="M 152,272 L 152,432" fill="none" stroke="black"/>
+              <path d="M 152,576 L 152,688" fill="none" stroke="black"/>
+              <path d="M 152,816 L 152,928" fill="none" stroke="black"/>
+              <path d="M 152,1040 L 152,1136" fill="none" stroke="black"/>
+              <path d="M 152,1328 L 152,1392" fill="none" stroke="black"/>
+              <path d="M 384,48 L 384,160" fill="none" stroke="black"/>
+              <path d="M 384,272 L 384,432" fill="none" stroke="black"/>
+              <path d="M 384,576 L 384,688" fill="none" stroke="black"/>
+              <path d="M 384,816 L 384,928" fill="none" stroke="black"/>
+              <path d="M 384,1040 L 384,1136" fill="none" stroke="black"/>
+              <path d="M 384,1328 L 384,1392" fill="none" stroke="black"/>
+              <path d="M 464,688 L 464,816" fill="none" stroke="black"/>
+              <path d="M 464,928 L 464,1040" fill="none" stroke="black"/>
+              <path d="M 520,48 L 520,160" fill="none" stroke="black"/>
+              <path d="M 520,272 L 520,432" fill="none" stroke="black"/>
+              <path d="M 520,576 L 520,1136" fill="none" stroke="black"/>
+              <path d="M 520,1328 L 520,1392" fill="none" stroke="black"/>
+              <path d="M 544,160 L 544,272" fill="none" stroke="black"/>
+              <path d="M 544,432 L 544,576" fill="none" stroke="black"/>
+              <path d="M 544,1136 L 544,1328" fill="none" stroke="black"/>
+              <path d="M 160,80 L 384,80" fill="none" stroke="black"/>
+              <path d="M 152,144 L 376,144" fill="none" stroke="black"/>
+              <path d="M 88,160 L 544,160" fill="none" stroke="black"/>
+              <path d="M 88,272 L 544,272" fill="none" stroke="black"/>
+              <path d="M 384,352 L 512,352" fill="none" stroke="black"/>
+              <path d="M 392,416 L 520,416" fill="none" stroke="black"/>
+              <path d="M 88,432 L 544,432" fill="none" stroke="black"/>
+              <path d="M 88,576 L 544,576" fill="none" stroke="black"/>
+              <path d="M 160,672 L 384,672" fill="none" stroke="black"/>
+              <path d="M 8,688 L 464,688" fill="none" stroke="black"/>
+              <path d="M 8,816 L 464,816" fill="none" stroke="black"/>
+              <path d="M 40,864 L 152,864" fill="none" stroke="black"/>
+              <path d="M 32,912 L 144,912" fill="none" stroke="black"/>
+              <path d="M 8,928 L 464,928" fill="none" stroke="black"/>
+              <path d="M 8,1040 L 464,1040" fill="none" stroke="black"/>
+              <path d="M 152,1120 L 376,1120" fill="none" stroke="black"/>
+              <path d="M 88,1136 L 544,1136" fill="none" stroke="black"/>
+              <path d="M 88,1328 L 544,1328" fill="none" stroke="black"/>
+              <path d="M 160,1376 L 384,1376" fill="none" stroke="black"/>
+              <polygon class="arrowhead" points="520,352 508,346.4 508,357.6" fill="black" transform="rotate(0,512,352)"/>
+              <polygon class="arrowhead" points="400,416 388,410.4 388,421.6" fill="black" transform="rotate(180,392,416)"/>
+              <polygon class="arrowhead" points="384,1120 372,1114.4 372,1125.6" fill="black" transform="rotate(0,376,1120)"/>
+              <polygon class="arrowhead" points="384,144 372,138.4 372,149.6" fill="black" transform="rotate(0,376,144)"/>
+              <polygon class="arrowhead" points="168,1376 156,1370.4 156,1381.6" fill="black" transform="rotate(180,160,1376)"/>
+              <polygon class="arrowhead" points="168,672 156,666.4 156,677.6" fill="black" transform="rotate(180,160,672)"/>
+              <polygon class="arrowhead" points="168,80 156,74.4 156,85.6" fill="black" transform="rotate(180,160,80)"/>
+              <polygon class="arrowhead" points="152,912 140,906.4 140,917.6" fill="black" transform="rotate(0,144,912)"/>
+              <polygon class="arrowhead" points="48,864 36,858.4 36,869.6" fill="black" transform="rotate(180,40,864)"/>
+              <g class="text">
+                <text x="28" y="36">USIM</text>
+                <text x="148" y="36">Peer</text>
+                <text x="380" y="36">Server</text>
+                <text x="524" y="36">AD</text>
+                <text x="308" y="68">EAP-Req/Identity</text>
+                <text x="232" y="116">EAP-Resp/Identity</text>
+                <text x="236" y="132">(Privacy-Friendly)</text>
+                <text x="124" y="180">Server</text>
+                <text x="168" y="180">now</text>
+                <text x="200" y="180">has</text>
+                <text x="228" y="180">an</text>
+                <text x="276" y="180">identity</text>
+                <text x="328" y="180">for</text>
+                <text x="360" y="180">the</text>
+                <text x="400" y="180">peer.</text>
+                <text x="440" y="180">The</text>
+                <text x="484" y="180">server</text>
+                <text x="116" y="196">then</text>
+                <text x="156" y="196">asks</text>
+                <text x="192" y="196">the</text>
+                <text x="228" y="196">help</text>
+                <text x="260" y="196">of</text>
+                <text x="284" y="196">AD</text>
+                <text x="308" y="196">to</text>
+                <text x="336" y="196">run</text>
+                <text x="368" y="196">AKA</text>
+                <text x="432" y="196">algorithms,</text>
+                <text x="140" y="212">generating</text>
+                <text x="208" y="212">RAND,</text>
+                <text x="256" y="212">AUTN,</text>
+                <text x="304" y="212">XRES,</text>
+                <text x="344" y="212">CK,</text>
+                <text x="376" y="212">IK.</text>
+                <text x="436" y="212">Typically,</text>
+                <text x="496" y="212">the</text>
+                <text x="108" y="228">AD</text>
+                <text x="156" y="228">performs</text>
+                <text x="208" y="228">the</text>
+                <text x="248" y="228">first</text>
+                <text x="292" y="228">part</text>
+                <text x="324" y="228">of</text>
+                <text x="352" y="228">key</text>
+                <text x="416" y="228">derivations</text>
+                <text x="476" y="228">so</text>
+                <text x="508" y="228">that</text>
+                <text x="112" y="244">the</text>
+                <text x="188" y="244">authentication</text>
+                <text x="276" y="244">server</text>
+                <text x="324" y="244">gets</text>
+                <text x="360" y="244">the</text>
+                <text x="392" y="244">CK'</text>
+                <text x="424" y="244">and</text>
+                <text x="456" y="244">IK'</text>
+                <text x="492" y="244">keys</text>
+                <text x="128" y="260">already</text>
+                <text x="180" y="260">tied</text>
+                <text x="212" y="260">to</text>
+                <text x="232" y="260">a</text>
+                <text x="284" y="260">particular</text>
+                <text x="360" y="260">network</text>
+                <text x="416" y="260">name.</text>
+                <text x="408" y="308">ID,</text>
+                <text x="440" y="308">key</text>
+                <text x="484" y="308">deriv.</text>
+                <text x="432" y="324">function,</text>
+                <text x="424" y="340">network</text>
+                <text x="476" y="340">name</text>
+                <text x="440" y="388">RAND,</text>
+                <text x="488" y="388">AUTN,</text>
+                <text x="416" y="404">XRES,</text>
+                <text x="460" y="404">CK',</text>
+                <text x="496" y="404">IK'</text>
+                <text x="124" y="452">Server</text>
+                <text x="168" y="452">now</text>
+                <text x="200" y="452">has</text>
+                <text x="232" y="452">the</text>
+                <text x="276" y="452">needed</text>
+                <text x="364" y="452">authentication</text>
+                <text x="456" y="452">vector.</text>
+                <text x="500" y="452">It</text>
+                <text x="136" y="468">generates</text>
+                <text x="188" y="468">an</text>
+                <text x="240" y="468">ephemeral</text>
+                <text x="296" y="468">key</text>
+                <text x="336" y="468">pair,</text>
+                <text x="384" y="468">sends</text>
+                <text x="424" y="468">the</text>
+                <text x="468" y="468">public</text>
+                <text x="512" y="468">key</text>
+                <text x="108" y="484">of</text>
+                <text x="140" y="484">that</text>
+                <text x="176" y="484">key</text>
+                <text x="212" y="484">pair</text>
+                <text x="248" y="484">and</text>
+                <text x="280" y="484">the</text>
+                <text x="320" y="484">first</text>
+                <text x="360" y="484">EAP</text>
+                <text x="404" y="484">method</text>
+                <text x="464" y="484">message</text>
+                <text x="508" y="484">to</text>
+                <text x="112" y="500">the</text>
+                <text x="152" y="500">peer.</text>
+                <text x="188" y="500">In</text>
+                <text x="216" y="500">the</text>
+                <text x="264" y="500">message</text>
+                <text x="312" y="500">the</text>
+                <text x="380" y="500">AT_PUB_ECDHE</text>
+                <text x="472" y="500">attribute</text>
+                <text x="128" y="516">carries</text>
+                <text x="176" y="516">the</text>
+                <text x="220" y="516">public</text>
+                <text x="264" y="516">key</text>
+                <text x="296" y="516">and</text>
+                <text x="328" y="516">the</text>
+                <text x="384" y="516">AT_KDF_FS</text>
+                <text x="464" y="516">attribute</text>
+                <text x="128" y="532">carries</text>
+                <text x="184" y="532">other</text>
+                <text x="252" y="532">FS-related</text>
+                <text x="344" y="532">parameters.</text>
+                <text x="412" y="532">Both</text>
+                <text x="444" y="532">of</text>
+                <text x="480" y="532">these</text>
+                <text x="520" y="532">are</text>
+                <text x="136" y="548">skippable</text>
+                <text x="220" y="548">attributes</text>
+                <text x="284" y="548">that</text>
+                <text x="320" y="548">can</text>
+                <text x="348" y="548">be</text>
+                <text x="392" y="548">ignored</text>
+                <text x="436" y="548">if</text>
+                <text x="464" y="548">the</text>
+                <text x="500" y="548">peer</text>
+                <text x="116" y="564">does</text>
+                <text x="152" y="564">not</text>
+                <text x="200" y="564">support</text>
+                <text x="252" y="564">this</text>
+                <text x="316" y="564">extension.</text>
+                <text x="284" y="612">EAP-Req/AKA'-Challenge</text>
+                <text x="204" y="628">AT_RAND,</text>
+                <text x="276" y="628">AT_AUTN,</text>
+                <text x="344" y="628">AT_KDF,</text>
+                <text x="220" y="644">AT_KDF_FS,</text>
+                <text x="320" y="644">AT_KDF_INPUT,</text>
+                <text x="264" y="660">AT_PUB_ECDHE,</text>
+                <text x="348" y="660">AT_MAC</text>
+                <text x="32" y="708">The</text>
+                <text x="68" y="708">peer</text>
+                <text x="116" y="708">checks</text>
+                <text x="156" y="708">if</text>
+                <text x="180" y="708">it</text>
+                <text x="216" y="708">wants</text>
+                <text x="252" y="708">to</text>
+                <text x="276" y="708">do</text>
+                <text x="304" y="708">the</text>
+                <text x="332" y="708">FS</text>
+                <text x="388" y="708">extension.</text>
+                <text x="444" y="708">If</text>
+                <text x="36" y="724">yes,</text>
+                <text x="68" y="724">it</text>
+                <text x="100" y="724">will</text>
+                <text x="164" y="724">eventually</text>
+                <text x="240" y="724">respond</text>
+                <text x="292" y="724">with</text>
+                <text x="364" y="724">AT_PUB_ECDHE</text>
+                <text x="432" y="724">and</text>
+                <text x="48" y="740">AT_MAC.</text>
+                <text x="92" y="740">If</text>
+                <text x="124" y="740">not,</text>
+                <text x="156" y="740">it</text>
+                <text x="188" y="740">will</text>
+                <text x="236" y="740">ignore</text>
+                <text x="316" y="740">AT_PUB_ECDHE</text>
+                <text x="384" y="740">and</text>
+                <text x="56" y="756">AT_KDF_FS</text>
+                <text x="112" y="756">and</text>
+                <text x="148" y="756">base</text>
+                <text x="184" y="756">all</text>
+                <text x="252" y="756">calculations</text>
+                <text x="316" y="756">on</text>
+                <text x="352" y="756">basic</text>
+                <text x="412" y="756">EAP-AKA'</text>
+                <text x="64" y="772">attributes,</text>
+                <text x="156" y="772">continuing</text>
+                <text x="220" y="772">just</text>
+                <text x="252" y="772">as</text>
+                <text x="276" y="772">in</text>
+                <text x="324" y="772">EAP-AKA'</text>
+                <text x="376" y="772">per</text>
+                <text x="408" y="772">RFC</text>
+                <text x="36" y="788">9048</text>
+                <text x="84" y="788">rules.</text>
+                <text x="124" y="788">In</text>
+                <text x="152" y="788">any</text>
+                <text x="192" y="788">case,</text>
+                <text x="232" y="788">the</text>
+                <text x="268" y="788">peer</text>
+                <text x="312" y="788">needs</text>
+                <text x="348" y="788">to</text>
+                <text x="384" y="788">query</text>
+                <text x="424" y="788">the</text>
+                <text x="36" y="804">auth</text>
+                <text x="100" y="804">parameters</text>
+                <text x="164" y="804">from</text>
+                <text x="200" y="804">the</text>
+                <text x="236" y="804">USIM</text>
+                <text x="280" y="804">card.</text>
+                <text x="80" y="852">RAND,</text>
+                <text x="124" y="852">AUTN</text>
+                <text x="56" y="900">CK,</text>
+                <text x="88" y="900">IK,</text>
+                <text x="120" y="900">RES</text>
+                <text x="32" y="948">The</text>
+                <text x="68" y="948">peer</text>
+                <text x="104" y="948">now</text>
+                <text x="136" y="948">has</text>
+                <text x="196" y="948">everything</text>
+                <text x="252" y="948">to</text>
+                <text x="300" y="948">respond.</text>
+                <text x="348" y="948">If</text>
+                <text x="372" y="948">it</text>
+                <text x="408" y="948">wants</text>
+                <text x="444" y="948">to</text>
+                <text x="64" y="964">participate</text>
+                <text x="124" y="964">in</text>
+                <text x="152" y="964">the</text>
+                <text x="180" y="964">FS</text>
+                <text x="236" y="964">extension,</text>
+                <text x="292" y="964">it</text>
+                <text x="324" y="964">will</text>
+                <text x="364" y="964">then</text>
+                <text x="420" y="964">generate</text>
+                <text x="32" y="980">its</text>
+                <text x="64" y="980">key</text>
+                <text x="104" y="980">pair,</text>
+                <text x="168" y="980">calculate</text>
+                <text x="216" y="980">a</text>
+                <text x="252" y="980">shared</text>
+                <text x="296" y="980">key</text>
+                <text x="336" y="980">based</text>
+                <text x="372" y="980">on</text>
+                <text x="400" y="980">its</text>
+                <text x="432" y="980">key</text>
+                <text x="36" y="996">pair</text>
+                <text x="72" y="996">and</text>
+                <text x="104" y="996">the</text>
+                <text x="156" y="996">server's</text>
+                <text x="220" y="996">public</text>
+                <text x="268" y="996">key.</text>
+                <text x="324" y="996">Finally,</text>
+                <text x="372" y="996">it</text>
+                <text x="420" y="996">proceeds</text>
+                <text x="28" y="1012">to</text>
+                <text x="68" y="1012">derive</text>
+                <text x="112" y="1012">all</text>
+                <text x="164" y="1012">EAP-AKA'</text>
+                <text x="216" y="1012">key</text>
+                <text x="260" y="1012">values</text>
+                <text x="304" y="1012">and</text>
+                <text x="364" y="1012">constructs</text>
+                <text x="416" y="1012">a</text>
+                <text x="36" y="1028">full</text>
+                <text x="96" y="1028">response.</text>
+                <text x="256" y="1076">EAP-Resp/AKA'-Challenge</text>
+                <text x="192" y="1092">AT_RES,</text>
+                <text x="280" y="1092">AT_PUB_ECDHE,</text>
+                <text x="188" y="1108">AT_MAC</text>
+                <text x="112" y="1156">The</text>
+                <text x="156" y="1156">server</text>
+                <text x="200" y="1156">now</text>
+                <text x="232" y="1156">has</text>
+                <text x="264" y="1156">all</text>
+                <text x="296" y="1156">the</text>
+                <text x="352" y="1156">necessary</text>
+                <text x="424" y="1156">values.</text>
+                <text x="468" y="1156">It</text>
+                <text x="136" y="1172">generates</text>
+                <text x="192" y="1172">the</text>
+                <text x="232" y="1172">ECDHE</text>
+                <text x="284" y="1172">shared</text>
+                <text x="340" y="1172">secret</text>
+                <text x="384" y="1172">and</text>
+                <text x="428" y="1172">checks</text>
+                <text x="472" y="1172">the</text>
+                <text x="504" y="1172">RES</text>
+                <text x="112" y="1188">and</text>
+                <text x="144" y="1188">MAC</text>
+                <text x="188" y="1188">values</text>
+                <text x="252" y="1188">received</text>
+                <text x="300" y="1188">in</text>
+                <text x="340" y="1188">AT_RES</text>
+                <text x="384" y="1188">and</text>
+                <text x="432" y="1188">AT_MAC,</text>
+                <text x="152" y="1204">respectively.</text>
+                <text x="240" y="1204">Success</text>
+                <text x="308" y="1204">requires</text>
+                <text x="364" y="1204">both</text>
+                <text x="396" y="1204">to</text>
+                <text x="420" y="1204">be</text>
+                <text x="456" y="1204">found</text>
+                <text x="132" y="1220">correct.</text>
+                <text x="188" y="1220">Note</text>
+                <text x="228" y="1220">that</text>
+                <text x="268" y="1220">when</text>
+                <text x="308" y="1220">this</text>
+                <text x="364" y="1220">document</text>
+                <text x="412" y="1220">is</text>
+                <text x="448" y="1220">used,</text>
+                <text x="112" y="1236">the</text>
+                <text x="148" y="1236">keys</text>
+                <text x="208" y="1236">generated</text>
+                <text x="268" y="1236">from</text>
+                <text x="324" y="1236">EAP-AKA'</text>
+                <text x="376" y="1236">are</text>
+                <text x="416" y="1236">based</text>
+                <text x="452" y="1236">on</text>
+                <text x="480" y="1236">CK,</text>
+                <text x="512" y="1236">IK,</text>
+                <text x="112" y="1252">and</text>
+                <text x="144" y="1252">the</text>
+                <text x="184" y="1252">ECDHE</text>
+                <text x="236" y="1252">value.</text>
+                <text x="284" y="1252">Even</text>
+                <text x="316" y="1252">if</text>
+                <text x="352" y="1252">there</text>
+                <text x="392" y="1252">was</text>
+                <text x="420" y="1252">an</text>
+                <text x="468" y="1252">attacker</text>
+                <text x="520" y="1252">who</text>
+                <text x="116" y="1268">held</text>
+                <text x="152" y="1268">the</text>
+                <text x="208" y="1268">long-term</text>
+                <text x="268" y="1268">key,</text>
+                <text x="308" y="1268">only</text>
+                <text x="340" y="1268">an</text>
+                <text x="380" y="1268">active</text>
+                <text x="444" y="1268">attacker</text>
+                <text x="504" y="1268">could</text>
+                <text x="116" y="1284">have</text>
+                <text x="180" y="1284">determined</text>
+                <text x="240" y="1284">the</text>
+                <text x="296" y="1284">generated</text>
+                <text x="368" y="1284">session</text>
+                <text x="424" y="1284">keys;</text>
+                <text x="460" y="1284">in</text>
+                <text x="496" y="1284">basic</text>
+                <text x="132" y="1300">EAP-AKA'</text>
+                <text x="184" y="1300">the</text>
+                <text x="240" y="1300">generated</text>
+                <text x="300" y="1300">keys</text>
+                <text x="336" y="1300">are</text>
+                <text x="372" y="1300">only</text>
+                <text x="416" y="1300">based</text>
+                <text x="452" y="1300">on</text>
+                <text x="476" y="1300">CK</text>
+                <text x="504" y="1300">and</text>
+                <text x="112" y="1316">IK.</text>
+                <text x="328" y="1364">EAP-Success</text>
+              </g>
+            </svg>
+          </artwork>
 </artset>
 </figure>
 	
