@@ -2059,7 +2059,7 @@ EMSK     = MK_ECDHE[768..1279]
   along with one reserved value. The initial contents of this
   registry is illustrated in <xref target="iana-fs-values"/>; new values can be created through
   the Specification Required policy <xref target="RFC8126"/>.
-  Expert reviewers should ensure that the referenced specification is
+  Expert reviewers are expected to ensure that the referenced specification is
   clearly identified and stable, and that the proposed addition is
   reasonable for the given category of allocation.
   </t>
@@ -2248,8 +2248,16 @@ EMSK     = MK_ECDHE[768..1279]
 
   <t>RFC Editor: Please remove this appendix.</t>
 
+  <t>The -13 version of the WG draft has the following changes from
+  2nd IETF LC and IESG review:
+  
+  <list style="symbols">
+    <t>Rewording in the IANA Considerations section, suggested by Russ Housley.</t>
+
+  </list></t>
+
   <t>The -12 version of the WG draft has the following changes, most
-  due to IESG review comments in January 2023:
+  due to IESG review comments in January 2024:
   
   <list style="symbols">
 
